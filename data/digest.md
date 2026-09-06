@@ -1,4 +1,4 @@
-# New UK visa sponsors, 05 September 2026
+# New UK visa sponsors, 06 September 2026
 
 **242 employers** were added to the register since the last update.
 
