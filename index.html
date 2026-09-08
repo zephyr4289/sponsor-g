@@ -88,16 +88,46 @@
 </script>
 <style>
   :root{
-    --ink:#17233B;        /* deep navy ink */
-    --ink-soft:#4A5670;
-    --paper:#FFFFFF;
-    --paper-dim:#F5F7FB;
-    --cobalt:#2145C9;     /* primary action */
-    --cobalt-dark:#17348F;
-    --signal:#FFC933;     /* "new sponsor" highlight */
-    --line:#D9DFEA;
-    --good:#0E7B4F;
-    --bad:#B3261E;
+    --ink:#17233B; --ink-soft:#4A5670;
+    --paper:#FFFFFF; --paper-dim:#F5F7FB;
+    --cobalt:#2145C9; --cobalt-dark:#17348F;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#D9DFEA; --good:#0E7B4F; --bad:#B3261E;
+    --warn-bg:#FDF1F0; --warn-bg-2:#FBE3E1; --warn-border:#E7B4AE;
+    --warn-ink:#8A1E18; --warn-solid:#B3261E;
+    --mark-bg:#17233B; --mark-fg:#FFFFFF;
+    --note-bg:#FFF6DC; --note-border:#EAD48A;
+    --shadow:rgba(23,35,59,.10);
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ink:#E8ECF3; --ink-soft:#A3AEC2;
+      --paper:#10151F; --paper-dim:#1A2230;
+      --cobalt:#6B93F5; --cobalt-dark:#8FADF8;
+      --signal:#FFC933; --on-signal:#17233B;
+      --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+      --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+      --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+      --mark-bg:#E8ECF3; --mark-fg:#10151F;
+    --note-bg:#2A2412; --note-border:#5A4A1E;
+      --note-bg:#2A2412; --note-border:#5A4A1E;
+      --shadow:rgba(0,0,0,.45);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#E8ECF3; --ink-soft:#A3AEC2;
+    --paper:#10151F; --paper-dim:#1A2230;
+    --cobalt:#6B93F5; --cobalt-dark:#8FADF8;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+    --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+    --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+    --mark-bg:#E8ECF3; --mark-fg:#10151F;
+    --note-bg:#2A2412; --note-border:#5A4A1E;
+    --shadow:rgba(0,0,0,.45);
+    color-scheme:dark;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -125,11 +155,17 @@
   .topnav a{text-decoration:none}
   .topnav a:hover{text-decoration:underline}
   .badge{
-    display:inline-block;background:var(--signal);color:var(--ink);
+    display:inline-block;background:var(--signal);color:var(--on-signal);
     border-radius:99px;padding:1px 8px;font-size:.78rem;
     font-variant-numeric:tabular-nums;
   }
   .badge[hidden]{display:none}
+  .themebtn{
+    font:inherit;font-size:1rem;line-height:1;cursor:pointer;
+    background:transparent;border:1.5px solid var(--line);border-radius:99px;
+    color:var(--ink-soft);padding:5px 10px;
+  }
+  .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
   @media (max-width:520px){
     .topnav{gap:14px;font-size:.85rem;width:100%}
   }
@@ -145,8 +181,8 @@
   .sourceline{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
   .sourceline strong{color:var(--ink)}
   .sample-note{
-    display:none;margin-top:10px;padding:8px 12px;background:#FFF6DC;
-    border:1px solid #EAD48A;border-radius:6px;font-size:.85rem;max-width:560px;
+    display:none;margin-top:10px;padding:8px 12px;background:var(--note-bg);
+    border:1px solid var(--note-border);border-radius:6px;font-size:.85rem;max-width:560px;
   }
 
   .searchbox{
@@ -185,10 +221,10 @@
   /* the differentiator, so it is the one that looks clickable */
   a.stat.flag{
     text-decoration:none;color:inherit;
-    border-color:#E7B4AE;background:#FDF1F0;
+    border-color:var(--warn-border);background:var(--warn-bg);
   }
-  a.stat.flag .v{color:#8A1E18}
-  a.stat.flag:hover{border-color:var(--bad);background:#FBE3E1}
+  a.stat.flag .v{color:var(--warn-ink)}
+  a.stat.flag:hover{border-color:var(--bad);background:var(--warn-bg-2)}
   a.stat.flag[hidden]{display:none}
 
   /* Sticky filter bar. This is why there is no sidebar: the controls follow
@@ -199,7 +235,7 @@
     background:var(--paper);border-bottom:1.5px solid var(--line);
     padding:10px 0;margin-top:22px;
   }
-  .filterbar.stuck{box-shadow:0 2px 10px rgba(23,35,59,.10)}
+  .filterbar.stuck{box-shadow:0 2px 10px var(--shadow)}
   .filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
   .filters select{
     font:inherit;font-size:.9rem;padding:8px 10px;border:1.5px solid var(--line);
@@ -214,19 +250,19 @@
   .view:last-child{border-right:0}
   .view:hover{background:var(--paper-dim)}
   .view[aria-pressed="true"]{font-weight:600;background:var(--paper-dim)}
-  #viewAdded[aria-pressed="true"]{background:var(--signal)}
-  #viewRemoved[aria-pressed="true"]{background:#FBE3E1}
+  #viewAdded[aria-pressed="true"]{background:var(--signal);color:var(--on-signal)}
+  #viewRemoved[aria-pressed="true"]{background:var(--warn-bg-2)}
   .view .n{opacity:.65;font-weight:400;margin-left:2px}
 
   /* A modifier, not a mode: it composes with whichever view is active, so
      "just added" and "company warning" can be asked together. */
   .pill{
     font:inherit;font-size:.9rem;padding:8px 12px;cursor:pointer;
-    border:1.5px solid #E7B4AE;border-radius:99px;
-    background:#FDF1F0;color:#8A1E18;white-space:nowrap;font-weight:600;
+    border:1.5px solid var(--warn-border);border-radius:99px;
+    background:var(--warn-bg);color:var(--warn-ink);white-space:nowrap;font-weight:600;
   }
-  .pill:hover{background:#FBE3E1}
-  .pill[aria-pressed="true"]{background:#B3261E;border-color:#B3261E;color:#fff}
+  .pill:hover{background:var(--warn-bg-2)}
+  .pill[aria-pressed="true"]{background:var(--warn-solid);border-color:var(--warn-solid);color:#fff}
   .pill[hidden]{display:none}
   .pill .n{font-weight:400;opacity:.8}
 
@@ -238,7 +274,7 @@
   }
   .notice[hidden]{display:none}
   .notice strong{color:var(--ink)}
-  .notice.warn{background:#FBE3E1;border-color:#E7B4AE}
+  .notice.warn{background:var(--warn-bg-2);border-color:var(--warn-border)}
   :is(input,select,button,a):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 
   /* results */
@@ -276,14 +312,14 @@
     display:inline-block;font-size:.75rem;padding:2px 8px;border-radius:99px;
     border:1px solid var(--line);color:var(--ink-soft);margin:1px 4px 1px 0;white-space:nowrap;
   }
-  .tag.new{background:var(--signal);border-color:var(--ink);color:var(--ink);font-weight:600}
+  .tag.new{background:var(--signal);border-color:var(--ink);color:var(--on-signal);font-weight:600}
   /* A company-status warning. Red because it is a warning, and always a link
      to Companies House so the reader can check us rather than trust us. */
   .tag.warn{
-    background:#FBE3E1;border-color:#B3261E;color:#8A1E18;
+    background:var(--warn-bg-2);border-color:var(--warn-solid);color:var(--warn-ink);
     font-weight:600;text-decoration:none;
   }
-  .tag.warn:hover{background:#F6D2CF}
+  .tag.warn:hover{background:var(--warn-bg)}
   .rating-a{color:var(--good);font-weight:600}
   .loadmore{
     display:block;margin:18px auto 0;font:inherit;font-weight:600;
@@ -364,6 +400,7 @@
     .view .n{display:block;margin:0}
   }
 </style>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
 
@@ -371,9 +408,9 @@
   <div class="wrap header-inner">
     <a class="brand" href="./" aria-label="SponsorSignal home">
       <svg class="mark" width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-        <rect width="64" height="64" rx="14" fill="var(--ink)"/>
+        <rect width="64" height="64" rx="14" fill="var(--mark-bg)"/>
         <text x="30" y="47" text-anchor="middle" font-family="'Public Sans',system-ui,sans-serif"
-              font-size="42" font-weight="800" fill="#fff">S</text>
+              font-size="42" font-weight="800" fill="var(--mark-fg)">S</text>
         <circle cx="48" cy="44" r="5" fill="var(--signal)"/>
       </svg>
       <span class="wordmark">SponsorSignal<span class="dot">.</span></span>
@@ -382,6 +419,7 @@
       <a href="changes/">This week's changes <span class="badge" id="navChanges" hidden></span></a>
       <a href="insights/">The numbers</a>
       <a href="data-api/">Data</a>
+      <button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button>
     </nav>
   </div>
 </header>
@@ -1096,5 +1134,6 @@
      by pipeline/pages.py — keep the two in step. -->
 <script data-goatcounter="https://sponsorsignal.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<script>(function(){var b=document.querySelector('[data-theme-toggle]');if(!b)return;var r=document.documentElement;function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}function sync(){b.setAttribute('aria-pressed',String(dark()));}b.addEventListener('click',function(){var next=dark()?'light':'dark';r.setAttribute('data-theme',next);try{localStorage.setItem('theme',next);}catch(e){}sync();});sync();})();</script>
 </body>
 </html>

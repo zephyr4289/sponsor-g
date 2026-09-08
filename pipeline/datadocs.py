@@ -108,8 +108,7 @@ def render(meta=None):
 <link rel="alternate" type="application/rss+xml" title="Sponsor changes" href="../feed.xml">
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{{--ink:#17233B;--ink-soft:#4A5670;--paper:#fff;--paper-dim:#F5F7FB;
-        --cobalt:#2145C9;--line:#D9DFEA}}
+{pages.THEME_CSS}
   *{{box-sizing:border-box;margin:0;padding:0}}
   body{{font-family:'Public Sans',system-ui,sans-serif;color:var(--ink);
        line-height:1.55;background:var(--paper)}}
@@ -119,7 +118,7 @@ def render(meta=None):
   .brand{{font-weight:800;font-size:1.1rem}}
   .brand a{{color:inherit;text-decoration:none}}
   .brand .dot{{color:var(--cobalt)}}
-  {pages.HEADER_CSS}
+  {pages.HEADER_CSS}{pages.THEME_TOGGLE_CSS}
   h1{{font-size:clamp(1.6rem,4.5vw,2.3rem);font-weight:800;
      letter-spacing:-0.02em;margin:36px 0 10px;text-wrap:balance;max-width:20ch}}
   .lead{{color:var(--ink-soft);max-width:64ch;text-wrap:pretty}}
@@ -145,6 +144,7 @@ def render(meta=None):
          font-size:.85rem;color:var(--ink-soft)}}
   footer p+p{{margin-top:6px}}
 </style>
+{pages.THEME_BOOT}
 </head>
 <body>
 {pages.site_header()}
@@ -204,6 +204,7 @@ def render(meta=None):
   <p><a href="../">Search the register</a></p>
 </div></footer>
 <script data-goatcounter="{GOATCOUNTER}" async src="//gc.zgo.at/count.js"></script>
+{pages.THEME_SCRIPT}
 </body>
 </html>
 """

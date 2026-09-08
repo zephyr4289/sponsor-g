@@ -14,7 +14,50 @@
 <meta name="twitter:card" content="summary_large_image">
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{--ink:#17233B;--ink-soft:#4A5670;--cobalt:#2145C9;--line:#D9DFEA;--paper-dim:#F5F7FB}
+
+  :root{
+    --ink:#17233B; --ink-soft:#4A5670;
+    --paper:#FFFFFF; --paper-dim:#F5F7FB;
+    --cobalt:#2145C9; --cobalt-dark:#17348F;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#D9DFEA; --good:#0E7B4F; --bad:#B3261E;
+    --warn-bg:#FDF1F0; --warn-bg-2:#FBE3E1; --warn-border:#E7B4AE;
+    --warn-ink:#8A1E18; --warn-solid:#B3261E;
+    --mark-bg:#17233B; --mark-fg:#FFFFFF;
+    --note-bg:#FFF6DC; --note-border:#EAD48A;
+    --shadow:rgba(23,35,59,.10);
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ink:#E8ECF3; --ink-soft:#A3AEC2;
+      --paper:#10151F; --paper-dim:#1A2230;
+      --cobalt:#6B93F5; --cobalt-dark:#8FADF8;
+      --signal:#FFC933; --on-signal:#17233B;
+      --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+      --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+      --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+      --mark-bg:#E8ECF3; --mark-fg:#10151F;
+    --note-bg:#2A2412; --note-border:#5A4A1E;
+      --note-bg:#2A2412; --note-border:#5A4A1E;
+      --shadow:rgba(0,0,0,.45);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#E8ECF3; --ink-soft:#A3AEC2;
+    --paper:#10151F; --paper-dim:#1A2230;
+    --cobalt:#6B93F5; --cobalt-dark:#8FADF8;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+    --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+    --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+    --mark-bg:#E8ECF3; --mark-fg:#10151F;
+    --note-bg:#2A2412; --note-border:#5A4A1E;
+    --shadow:rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Public Sans',system-ui,sans-serif;color:var(--ink);line-height:1.55;background:#fff}
   .wrap{max-width:960px;margin:0 auto;padding:0 20px}
@@ -43,10 +86,18 @@
   .topnav [aria-current]{color:var(--ink-soft)}
   @media (max-width:520px){.topnav{gap:14px;font-size:.85rem;width:100%}}
 
+  .themebtn{
+    font:inherit;font-size:1rem;line-height:1;cursor:pointer;
+    background:transparent;border:1.5px solid var(--line);border-radius:99px;
+    color:var(--ink-soft);padding:5px 10px;
+  }
+  .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
+
 </style>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in Ilford</h1>
   <p class="lead">927 employers in Ilford hold a licence to sponsor work visas. If you need sponsorship, these are the ones who can offer it. Any other employer in Ilford cannot, no matter how good your application.</p>
@@ -93,5 +144,6 @@
   <p><a href="../">Back to search</a></p>
 </div></footer>
 <script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>(function(){var b=document.querySelector('[data-theme-toggle]');if(!b)return;var r=document.documentElement;function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}function sync(){b.setAttribute('aria-pressed',String(dark()));}b.addEventListener('click',function(){var next=dark()?'light':'dark';r.setAttribute('data-theme',next);try{localStorage.setItem('theme',next);}catch(e){}sync();});sync();})();</script>
 </body>
 </html>
