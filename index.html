@@ -350,6 +350,7 @@
   .sheet{
     position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);z-index:41;
     background:var(--paper);border-left:2px solid var(--ink);
+    box-shadow:-14px 0 34px var(--shadow);
     display:flex;flex-direction:column;overflow-y:auto;
     animation:slide .16s ease-out;
   }
@@ -373,7 +374,9 @@
     color:var(--ink-soft);cursor:pointer;padding:0 4px;
   }
   .sheet-close:hover{color:var(--ink)}
-  .sheet-body{padding:16px 18px 28px}
+  .sheet-body{padding:16px 18px 8px}
+  .sheet-foot{padding:0 18px 24px;margin-top:auto}
+  .sheet-foot .download{width:100%}
   .sheet dl{display:grid;grid-template-columns:auto 1fr;gap:8px 14px}
   .sheet dt{font-size:.8rem;color:var(--ink-soft);white-space:nowrap}
   .sheet dd{font-size:.93rem}
@@ -486,6 +489,8 @@
     .filters select{width:100%;font-size:.85rem;padding:7px 8px}
     .views,.pill{grid-column:1 / -1}
     .views{width:100%}
+    .view{padding:7px 4px;font-size:.78rem;line-height:1.2}
+    .view .n{display:inline;margin-left:3px}
     .topnav{gap:12px;font-size:.82rem}
     .hero h1{font-size:1.45rem}
     .hero p.lead{font-size:.92rem}
@@ -630,6 +635,9 @@
               aria-label="Close employer details">&times;</button>
     </div>
     <div class="sheet-body" id="sheetBody"></div>
+    <div class="sheet-foot">
+      <button class="download" id="sheetCopy" type="button">Copy link to this employer</button>
+    </div>
   </aside>
 
   <div class="wrap">
@@ -872,6 +880,41 @@
            '<br>Try fewer words, or clear the industry and route filters.';
   }
 
+  // Filtering without ranking buried what people asked for: a search for
+  // "tesco" listed ATESCO CONSULTANCY and Notesco UK above Tesco Stores.
+  // Lower rank sorts first. Ranked only when the query has narrowed things
+  // enough for it to matter; above the cap, alphabetical is fine and sorting
+  // a six-figure list on every keystroke is not.
+  const RANK_LIMIT = 20000;
+
+  function relevance(row, needle){
+    const name = String(row[0]).toLowerCase();
+    if(name === needle) return 0;
+    if(name.startsWith(needle)) return 1;
+    // A word inside the name starting with the query, so "line" finds
+    // "K Line" without also promoting "Airline". Done by scanning rather
+    // than by building a RegExp, so the query never has to be escaped.
+    let at = name.indexOf(needle);
+    while(at !== -1){
+      const before = at === 0 ? ' ' : name.charAt(at - 1);
+      if(before < '0' || (before > '9' && before < 'a') || before > 'z'){
+        return 2;
+      }
+      at = name.indexOf(needle, at + 1);
+    }
+    if(name.includes(needle)) return 3;
+    return 4;   // matched on town, county or industry only
+  }
+
+  function rankByRelevance(list, query){
+    const needle = query.trim().toLowerCase();
+    if(!needle || list.length > RANK_LIMIT) return list;
+    return list
+      .map((row, i) => [relevance(row, needle), i, row])
+      .sort((a, b) => a[0] - b[0] || a[1] - b[1])   // stable within a rank
+      .map(entry => entry[2]);
+  }
+
   // Removed employers are not in the main register any more, so the views
   // swap the underlying list rather than filtering it.
   function sourceRows(){
@@ -900,6 +943,7 @@
       }
       return true;
     });
+    filtered = rankByRelevance(filtered, $('q').value);
     render(true);
   }
 
@@ -969,6 +1013,17 @@
       'register-of-licensed-sponsors-workers" target="_blank" rel="noopener">' +
       'The official GOV.UK register</a>');
     parts.push('<div class="links">' + links.join('') + '</div>');
+
+    // The same employer often holds a licence at several sites. Knowing
+    // there is one nearer you is more useful than knowing this one exists.
+    const elsewhere = all
+      .filter(s => s[0] === name && s[1] && s[1] !== town)
+      .map(s => s[1]);
+    const towns = [...new Set(elsewhere)].sort();
+    if(towns.length){
+      parts.push('<div class="block"><h3>Also listed in</h3>' +
+        towns.map(t=>`<span class="tag">${esc(t)}</span>`).join('') + '</div>');
+    }
 
     parts.push('<p class="caveat">Holding a licence means this employer can ' +
       'sponsor a visa on the routes listed. It does not mean they are hiring, ' +
@@ -1220,6 +1275,17 @@
     if(btn) openSheet(btn.dataset.name, btn);
   });
   $('sheetClose').addEventListener('click',closeSheet);
+  $('sheetCopy').addEventListener('click',async ()=>{
+    const btn = $('sheetCopy');
+    const label = btn.textContent;
+    try{
+      await navigator.clipboard.writeText(location.href);
+      btn.textContent = 'Link copied';
+    }catch(err){
+      btn.textContent = 'Press Ctrl+C to copy';
+    }
+    setTimeout(()=>{ btn.textContent = label; }, 1800);
+  });
   $('sheetBackdrop').addEventListener('click',closeSheet);
 
   $('statWarnBox').addEventListener('click',e=>{
