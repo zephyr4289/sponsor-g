@@ -74,47 +74,62 @@ for a month?* If the answer is no, it needs a guard rail or it does not ship.
 
 ## Current state
 
-- Live, 127,574 employers, refreshed daily at 05:30 UTC by
-  `.github/workflows/refresh.yml`.
-- 20 generated landing pages (8 industries, 12 cities), sitemap, OG image,
-  installable PWA, 38 passing unit tests.
-- `index.html` is the entire site. `pipeline/refresh.py` builds the data,
-  `pipeline/pages.py` builds the landing pages.
+*Last checked against the repo: 6 September 2026. Verify before trusting it;
+this section goes stale faster than anything else in the brief.*
 
-**Known gaps, in priority order.** Re-check these against the repo before
-trusting them; this list is a starting point, not a source of truth.
+- Live, ~127,661 employers. `.github/workflows/refresh.yml` is scheduled at
+  05:30 UTC but GitHub delays free-tier cron, so it lands nearer 09:00-10:00.
+  That is normal, not a fault.
+- **24 pages:** the homepage, `/changes/`, `/insights/`, `/data-api/`, and 20
+  generated landing pages (8 industries, 12 cities). Plus `feed.xml`, sitemap,
+  OG image, installable PWA. **191 passing tests.**
+- `index.html` is the whole site. The pipeline is `pipeline/`: `refresh.py`
+  (data), `changes.py` (history), `pages.py` (landing pages), `changelog.py`
+  (`/changes/` and the regional feed), `insights.py`, `feed.py`, `datadocs.py`.
+- **The change history is real and growing:** 242 added and 155 removed over
+  the first six days. Zero-change days line up with bank holidays and
+  weekends, when GOV.UK does not publish, so a zero is not a failure.
 
-1. **Removals are tracked but not shown on the site.** The pipeline records
-   them in `data/removed_sponsors.json`, and the newsletter lists them, but
-   there is no way to see them on the site yet. "This employer lost its
-   licence" saves someone a wasted application and is worth surfacing.
-2. **Nobody is sending the newsletter.** `data/digest.md` is generated every
-   day and MailerLite holds the list, but the send is still manual. Prove the
-   content manually first, then automate it.
-3. **Change history is one day old.** It only starts accumulating from the
-   first run of the tracking code, so its value grows with calendar time.
-   Nothing to fix, just do not delete it.
+**Known gaps, in priority order.**
 
-Done, so do not redo: email capture (MailerLite), analytics (GoatCounter, on
-the homepage and every landing page), Search Console verification and sitemap,
-the publish guard, and additions/removals tracking.
+1. **Nobody has been told this exists.** Traffic is effectively zero and the
+   list has one subscriber. Everything below is downstream of fixing that.
+   The outreach playbook is in `outreach/` (gitignored, local only), and
+   sending is the user's job, not ours.
+2. **Nobody is sending the newsletter.** `data/digest.md` and
+   `data/regional_changes.json` are generated daily and MailerLite holds the
+   list, but no send happens. Prove the content by hand once, then automate.
+3. **The automated weekly send is blocked** on whether MailerLite API access
+   is on the user's plan. RSS-to-email is the paid-plan alternative;
+   `feed.xml` already exists to feed it either way.
+4. **Alert scope is unverified.** The form sends `fields[city]` and
+   `fields[industry]`, and MailerLite's tags look right, but nobody has
+   confirmed a real signup stores them. MailerLite accepts unknown fields
+   silently, so a mismatch would lose data without any error.
+5. **The classifier still leaves 56% as "Other".** Mostly names with no
+   signal, so this is near the ceiling for guessing from a name. Improving it
+   further has poor returns.
+
+Done, so do not rebuild: email capture, analytics on every page, Search
+Console and sitemap, the publish guard, additions **and** removals tracking
+plus the `/changes/` page that shows them, CSV export, scoped alert signup,
+the city filter, the header nav, `/insights/`, `feed.xml` and `/data-api/`.
 
 ## What to do next
 
-Work in this order unless the user says otherwise. Each step unlocks the next.
+Each step unlocks the next. Do not skip ahead.
 
-1. **Show removals on the site.** The data is already there. It is the most
-   differentiated thing we have and it protects people from wasted effort.
-2. **Get found.** More landing pages driven by real Search Console queries,
-   then the launch posts in `launch/posts.md`.
-3. **Send the newsletter weekly, by hand at first.** Prove people open it
-   before automating the send.
+1. **Get the first ten emails sent** (user's job, see `outreach/`). Ten
+   replies teach more about pricing and features than any amount of building.
+2. **Automate the weekly send** once the MailerLite plan question is answered.
+   That closes the loop and is the last piece of the passive-income machine.
+3. **Weekly archive pages** (`/changes/2026-W36/`), so each week becomes a
+   permanent URL. The only feature that grows more valuable purely with time.
 4. **Only then, charge.** A paid tier before there is a list, a history and
    traffic is premature.
 
-Before a launch push, verify email capture works and that "Added recently"
-shows real results. A launch that lands on a dead form spends attention we
-cannot get back.
+Resist adding features while traffic is zero. A feature nobody sees is not
+progress, and the honest bottleneck is distribution, not the product.
 
 ## Decision rights
 
