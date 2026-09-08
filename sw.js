@@ -39,12 +39,22 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
+  // Old caches go, but open pages are deliberately NOT claimed.
+  //
+  // clients.claim() used to be here, and it broke the live site on the one
+  // load where the worker changed. Taking over a page that is mid-flight
+  // aborts the requests the old worker was already serving: the small JSON
+  // files finished, the 2MB register did not, and the visitor got "the list
+  // could not be loaded".
+  //
+  // Nothing is lost by waiting. Pages and data/*.json are network-first, so
+  // a returning visitor gets fresh content on the next load whether or not
+  // this worker is controlling them yet. The cache is an offline fallback,
+  // not a speed-up, so there is no reason to seize control early.
   event.waitUntil(
-    caches.keys()
-      .then(keys => Promise.all(
-        keys.filter(k => k !== CACHE).map(k => caches.delete(k))
-      ))
-      .then(() => self.clients.claim())
+    caches.keys().then(keys => Promise.all(
+      keys.filter(k => k !== CACHE).map(k => caches.delete(k))
+    ))
   );
 });
 

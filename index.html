@@ -1428,18 +1428,44 @@
     }
   });
 
+  // One retry, because the register is 2MB gzipped and a single failed
+  // request should not be a dead end. Two real causes, both seen:
+  //
+  //   A phone on a weak connection drops a long download. That is our actual
+  //   audience, so treating one failure as fatal fails the people the site
+  //   is for.
+  //
+  //   A service worker upgrade can abort a request that is already in
+  //   flight. Renaming the cache did exactly that on the live site: the
+  //   small files finished, the 2MB one was aborted, and the whole load
+  //   failed with "the list could not be loaded".
+  //
+  // 'reload' on the second attempt so a poisoned cache entry cannot be
+  // handed back twice.
+  async function fetchJSON(url, attempts=2){
+    let last;
+    for(let i=0; i<attempts; i++){
+      try{
+        const res = await fetch(url, i ? {cache:'reload'} : undefined);
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        return await res.json();
+      }catch(err){ last = err; }
+    }
+    throw last;
+  }
+
   // load data
   Promise.all([
-    fetch('data/sponsors.json').then(r=>r.json()),
-    fetch('data/new_sponsors.json').then(r=>r.json()).catch(()=>({new:[]})),
-    fetch('data/meta.json').then(r=>r.json()).catch(()=>({})),
-    fetch('data/removed_sponsors.json').then(r=>r.json()).catch(()=>({removed:[]})),
+    fetchJSON('data/sponsors.json'),
+    fetchJSON('data/new_sponsors.json').catch(()=>({new:[]})),
+    fetchJSON('data/meta.json').catch(()=>({})),
+    fetchJSON('data/removed_sponsors.json').catch(()=>({removed:[]})),
     // Optional: if the monthly enrichment has not run, the site works
     // exactly as before, just without warnings.
-    fetch('data/company_flags.json').then(r=>r.json()).catch(()=>({companies:{}})),
+    fetchJSON('data/company_flags.json').catch(()=>({companies:{}})),
     // Optional in the same way: the file only appears once the pipeline has
     // seen two consecutive runs, so its absence is normal, not an error.
-    fetch('data/rating_changes.json').then(r=>r.json()).catch(()=>({changes:[]}))
+    fetchJSON('data/rating_changes.json').catch(()=>({changes:[]}))
   ]).then(([main,recent,meta,gone,flags,ratings])=>{
     companyFlags = flags.companies || {};
     all = main.sponsors||[];
