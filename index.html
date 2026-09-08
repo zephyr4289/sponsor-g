@@ -115,7 +115,11 @@
   header{border-bottom:3px solid var(--ink);padding:14px 0}
   .header-inner{display:flex;align-items:center;justify-content:space-between;
                 gap:16px;flex-wrap:wrap}
-  .brand{font-weight:800;font-size:1.1rem;letter-spacing:-0.01em}
+  .brand{
+    display:flex;align-items:center;gap:9px;font-weight:800;font-size:1.1rem;
+    letter-spacing:-0.01em;color:inherit;text-decoration:none;
+  }
+  .brand .mark{display:block;flex:0 0 auto;border-radius:7px}
   .brand .dot{color:var(--cobalt)}
   .topnav{display:flex;gap:18px;font-size:.9rem;font-weight:600}
   .topnav a{text-decoration:none}
@@ -161,7 +165,42 @@
   }
   .searchbox button:hover{background:var(--cobalt-dark)}
 
-  .filters{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  /* proof strip: the three numbers that justify the page existing */
+  .proof{
+    display:grid;gap:12px;margin-top:22px;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  }
+  .stat{
+    border:1.5px solid var(--line);border-radius:10px;padding:13px 15px;
+    background:var(--paper);
+  }
+  .stat .v{
+    display:block;font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;
+    line-height:1.1;
+  }
+  .stat .l{
+    display:block;margin-top:3px;font-size:.83rem;color:var(--ink-soft);
+    text-wrap:pretty;
+  }
+  /* the differentiator, so it is the one that looks clickable */
+  a.stat.flag{
+    text-decoration:none;color:inherit;
+    border-color:#E7B4AE;background:#FDF1F0;
+  }
+  a.stat.flag .v{color:#8A1E18}
+  a.stat.flag:hover{border-color:var(--bad);background:#FBE3E1}
+  a.stat.flag[hidden]{display:none}
+
+  /* Sticky filter bar. This is why there is no sidebar: the controls follow
+     you down the list instead of taking a column from a table that needs
+     the width. */
+  .filterbar{
+    position:sticky;top:0;z-index:20;
+    background:var(--paper);border-bottom:1.5px solid var(--line);
+    padding:10px 0;margin-top:22px;
+  }
+  .filterbar.stuck{box-shadow:0 2px 10px rgba(23,35,59,.10)}
+  .filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
   .filters select{
     font:inherit;font-size:.9rem;padding:8px 10px;border:1.5px solid var(--line);
     border-radius:6px;background:var(--paper);color:var(--ink);max-width:100%;
@@ -178,6 +217,18 @@
   #viewAdded[aria-pressed="true"]{background:var(--signal)}
   #viewRemoved[aria-pressed="true"]{background:#FBE3E1}
   .view .n{opacity:.65;font-weight:400;margin-left:2px}
+
+  /* A modifier, not a mode: it composes with whichever view is active, so
+     "just added" and "company warning" can be asked together. */
+  .pill{
+    font:inherit;font-size:.9rem;padding:8px 12px;cursor:pointer;
+    border:1.5px solid #E7B4AE;border-radius:99px;
+    background:#FDF1F0;color:#8A1E18;white-space:nowrap;font-weight:600;
+  }
+  .pill:hover{background:#FBE3E1}
+  .pill[aria-pressed="true"]{background:#B3261E;border-color:#B3261E;color:#fff}
+  .pill[hidden]{display:none}
+  .pill .n{font-weight:400;opacity:.8}
 
   /* explains a view whose meaning is not obvious from the rows alone */
   .notice{
@@ -318,39 +369,72 @@
 
 <header>
   <div class="wrap header-inner">
-    <div class="brand">SponsorSignal<span class="dot">.</span></div>
+    <a class="brand" href="./" aria-label="SponsorSignal home">
+      <svg class="mark" width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <rect width="64" height="64" rx="14" fill="var(--ink)"/>
+        <text x="30" y="47" text-anchor="middle" font-family="'Public Sans',system-ui,sans-serif"
+              font-size="42" font-weight="800" fill="#fff">S</text>
+        <circle cx="48" cy="44" r="5" fill="var(--signal)"/>
+      </svg>
+      <span class="wordmark">SponsorSignal<span class="dot">.</span></span>
+    </a>
     <nav class="topnav" aria-label="Sections">
       <a href="changes/">This week's changes <span class="badge" id="navChanges" hidden></span></a>
       <a href="insights/">The numbers</a>
+      <a href="data-api/">Data</a>
     </nav>
   </div>
 </header>
 
-<main class="wrap">
-  <section class="hero">
+<main>
+  <section class="hero"><div class="wrap">
     <h1>Find UK employers licensed to sponsor your visa.</h1>
-    <p class="lead">Search the official Home Office list of employers who can sponsor a work visa. Filter by industry, city and visa route, and see who was added this week.</p>
-    <p class="sourceline">From the GOV.UK Register of Licensed Sponsors · <strong id="total">…</strong> employers · updated <strong id="updated">…</strong></p>
-    <div class="sample-note" id="sampleNote">This is sample data. The full list appears after the next daily update.</div>
+    <p class="lead">Search the official Home Office list of employers who can sponsor a work visa, and see which ones you should be careful about.</p>
 
     <div class="searchbox" role="search">
       <input id="q" type="search" placeholder="Company, city or industry. Try: software London" aria-label="Search sponsors">
       <button id="go">Search</button>
     </div>
 
-    <div class="filters">
-      <select id="city" aria-label="Filter by town or city"><option value="">All towns and cities</option></select>
-      <select id="industry" aria-label="Filter by industry"><option value="">All industries</option></select>
-      <select id="route" aria-label="Filter by visa route"><option value="">All visa routes</option></select>
-      <div class="views" role="group" aria-label="Choose which employers to show">
-        <button class="view" id="viewAll" aria-pressed="true">All</button>
-        <button class="view" id="viewAdded" aria-pressed="false">Just added <span class="n" id="nAdded"></span></button>
-        <button class="view" id="viewRemoved" aria-pressed="false">Lost licence <span class="n" id="nRemoved"></span></button>
+    <!-- Three numbers, in the order they matter. The third is the only one
+         no other site can show, so it leads the value, not the volume. -->
+    <div class="proof" id="proof">
+      <div class="stat">
+        <span class="v" id="total">&mdash;</span>
+        <span class="l">employers can sponsor a work visa</span>
       </div>
+      <div class="stat">
+        <span class="v" id="statAdded">&mdash;</span>
+        <span class="l">licensed in the last 7 days</span>
+      </div>
+      <a class="stat flag" id="statWarnBox" href="?warn=1" hidden>
+        <span class="v" id="statWarn">&mdash;</span>
+        <span class="l">whose company is in trouble at Companies House</span>
+      </a>
     </div>
+    <p class="sourceline">From the GOV.UK Register of Licensed Sponsors, updated <strong id="updated">&mdash;</strong>.</p>
+    <div class="sample-note" id="sampleNote">This is sample data. The full list appears after the next daily update.</div>
+  </div></section>
 
+  <!-- Sticky, so the controls stay reachable however far down the list you
+       are. That is why there is no sidebar: the filters follow you instead
+       of taking a column away from a table that needs the width. -->
+  <div class="filterbar" id="filterbar"><div class="wrap filters">
+    <select id="city" aria-label="Filter by town or city"><option value="">All towns and cities</option></select>
+    <select id="industry" aria-label="Filter by industry"><option value="">All industries</option></select>
+    <select id="route" aria-label="Filter by visa route"><option value="">All visa routes</option></select>
+    <div class="views" role="group" aria-label="Choose which employers to show">
+      <button class="view" id="viewAll" aria-pressed="true">All</button>
+      <button class="view" id="viewAdded" aria-pressed="false">Just added <span class="n" id="nAdded"></span></button>
+      <button class="view" id="viewRemoved" aria-pressed="false">Lost licence <span class="n" id="nRemoved"></span></button>
+    </div>
+    <button class="pill" id="warnOnly" aria-pressed="false" hidden>
+      Company warning <span class="n" id="nWarn"></span>
+    </button>
+  </div></div>
+
+  <div class="wrap">
     <p class="notice" id="viewNotice" hidden></p>
-  </section>
 
   <section aria-live="polite">
     <div class="results-bar" id="resultsMeta" hidden>
@@ -422,6 +506,7 @@
       <p>The official list does not include industries, so we work them out from each employer's name. They are there to help you search, not official data. Always check the details with the employer.</p>
     </details>
   </section>
+  </div>
 </main>
 
 <footer>
@@ -461,6 +546,7 @@
   // register spells it. Loaded separately because it refreshes monthly while
   // the register refreshes daily, and because most employers have no warning.
   let companyFlags = {};
+  let warnOnly = false;
 
   const CH_COMPANY = 'https://find-and-update.company-information.service.gov.uk/company/';
 
@@ -554,6 +640,11 @@
   // An empty view must explain itself. "No sponsors match" next to an empty
   // "lost licence" list reads as broken, when in fact it is good news.
   function emptyMessage(){
+    if(warnOnly){
+      return '<strong>No employers here have a company warning.</strong>' +
+             '<br>That is the good outcome. Clear the warning filter to see ' +
+             'everything again.';
+    }
     if(!sourceRows().length){
       if(view === 'added'){
         return `<strong>No employers were added in the last ${windowDays} days.</strong>` +
@@ -586,6 +677,7 @@
     const ind = $('industry').value;
     const route = $('route').value;
     filtered = sourceRows().filter(s=>{
+      if(warnOnly && !warningFor(s[0])) return false;
       if(city && s[1]!==city) return false;
       if(ind && s[3]!==ind) return false;
       if(route && !s[4].includes(route)) return false;
@@ -619,7 +711,12 @@
   // --------------------------------------------------------- actions --
   function filtersActive(){
     return Boolean($('q').value.trim() || $('city').value ||
-                   $('industry').value || $('route').value || view);
+                   $('industry').value || $('route').value || view || warnOnly);
+  }
+
+  function setWarnOnly(on){
+    warnOnly = Boolean(on);
+    $('warnOnly').setAttribute('aria-pressed', String(warnOnly));
   }
 
   function clearFilters(){
@@ -627,6 +724,7 @@
     $('city').value = '';
     $('industry').value = '';
     $('route').value = '';
+    setWarnOnly(false);
     setView('');
     apply();
     syncURL(true);
@@ -740,6 +838,7 @@
     if($('industry').value) p.set('industry', $('industry').value);
     if($('route').value) p.set('route', $('route').value);
     if(view) p.set('view', view);
+    if(warnOnly) p.set('warn', '1');
     return p.toString();
   }
 
@@ -761,6 +860,7 @@
     $('q').value = p.get('q') || '';
     // ?new=1 was the old spelling; links using it are still out there.
     setView(p.get('view') || (p.get('new')==='1' ? 'added' : ''));
+    setWarnOnly(p.get('warn') === '1');
   }
   function restoreSelects(){
     const p = new URLSearchParams(location.search);
@@ -805,6 +905,30 @@
   }
   for(const [name,id] of Object.entries(VIEW_BUTTONS)){
     $(id).addEventListener('click',()=>{ setView(name); apply(); syncURL(true); });
+  }
+  $('warnOnly').addEventListener('click',()=>{
+    setWarnOnly(!warnOnly); apply(); syncURL(true);
+  });
+
+  // A real href, so it still works without JavaScript and can be opened in a
+  // new tab. Intercepted here because a reload would re-fetch the register.
+  $('statWarnBox').addEventListener('click',e=>{
+    e.preventDefault();
+    setWarnOnly(true);
+    apply();
+    syncURL(true);
+    $('filterbar').scrollIntoView({block:'start'});
+  });
+
+  // Lift the sticky bar only once it is actually stuck, so the shadow is a
+  // signal rather than decoration. rootMargin watches the line it sticks to.
+  if('IntersectionObserver' in window){
+    const sentinel = document.createElement('div');
+    $('filterbar').before(sentinel);
+    new IntersectionObserver(
+      ([entry])=>$('filterbar').classList.toggle('stuck', !entry.isIntersecting),
+      {threshold:0}
+    ).observe(sentinel);
   }
   window.addEventListener('popstate',()=>{ restoreInputs(); restoreSelects(); apply(); });
 
@@ -902,6 +1026,17 @@
     if(moved){
       $('navChanges').textContent = moved.toLocaleString();
       $('navChanges').hidden = false;
+    }
+
+    // Proof strip. The warning count is only shown once it is known: an
+    // empty box promising "company warnings" would be worse than no box.
+    $('statAdded').textContent = addedRows.length.toLocaleString();
+    const warnCount = all.reduce((n,s)=> n + (warningFor(s[0]) ? 1 : 0), 0);
+    if(warnCount){
+      $('statWarn').textContent = warnCount.toLocaleString();
+      $('statWarnBox').hidden = false;
+      $('nWarn').textContent = `(${warnCount.toLocaleString()})`;
+      $('warnOnly').hidden = false;
     }
     setView(view);   // re-render the notice now that windowDays is known
 
