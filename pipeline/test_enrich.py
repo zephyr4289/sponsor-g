@@ -93,22 +93,31 @@ class BuildTests(unittest.TestCase):
         rows = [ch_row("ACME CARE LIMITED", CompanyStatus="Liquidation"),
                 ch_row("HEALTHY CO LTD")]
         published, stats = enrich.build(sponsors, rows, TODAY)
-        self.assertEqual(list(published), [ch.normalise_name("Acme Care Ltd")])
+        self.assertEqual(list(published), ["Acme Care Ltd"])
         self.assertEqual(stats["matched"], 2)
         self.assertEqual(stats["flagged"], 1)
 
-    def test_keys_on_the_normalised_name_not_the_row_position(self):
-        # Positions shift daily as the register changes; this file is monthly.
+    def test_keys_on_the_register_spelling_so_the_site_needs_no_normaliser(self):
+        # An exact string lookup cannot drift from the Python normaliser the
+        # way a reimplementation in JavaScript would.
         sponsors = [sponsor("Acme Care Ltd")]
         rows = [ch_row("ACME CARE LIMITED", CompanyStatus="Dissolved")]
         published, _ = enrich.build(sponsors, rows, TODAY)
-        self.assertIn("ACME CARE LTD", published)
+        self.assertIn("Acme Care Ltd", published)
+        self.assertNotIn("ACME CARE LTD", published)
+
+    def test_two_sponsors_sharing_a_name_share_one_entry(self):
+        sponsors = [sponsor("Acme Care Ltd", "Leeds"),
+                    sponsor("Acme Care Ltd", "Hull")]
+        rows = [ch_row("ACME CARE LIMITED", CompanyStatus="Liquidation")]
+        published, _ = enrich.build(sponsors, rows, TODAY)
+        self.assertEqual(len(published), 1)
 
     def test_publishes_the_fields_the_site_needs(self):
         sponsors = [sponsor("Acme Care Ltd")]
         rows = [ch_row("ACME CARE LIMITED", CompanyStatus="Liquidation")]
         published, _ = enrich.build(sponsors, rows, TODAY)
-        record = published["ACME CARE LTD"]
+        record = published["Acme Care Ltd"]
         self.assertEqual(record["status"], "Liquidation")
         self.assertEqual(record["number"], "01234567")
         self.assertIn("not_active", record["flags"])
@@ -142,7 +151,7 @@ class BuildTests(unittest.TestCase):
         rows = [ch_row("New Name Ltd", CompanyStatus="Liquidation",
                        **{"PreviousName_1.CompanyName": "OLD NAME LIMITED"})]
         published, _ = enrich.build(sponsors, rows, TODAY)
-        self.assertIn(ch.normalise_name("Old Name Ltd"), published)
+        self.assertIn("Old Name Ltd", published)
 
 
 class GuardTests(unittest.TestCase):

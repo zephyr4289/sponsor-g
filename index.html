@@ -226,6 +226,13 @@
     border:1px solid var(--line);color:var(--ink-soft);margin:1px 4px 1px 0;white-space:nowrap;
   }
   .tag.new{background:var(--signal);border-color:var(--ink);color:var(--ink);font-weight:600}
+  /* A company-status warning. Red because it is a warning, and always a link
+     to Companies House so the reader can check us rather than trust us. */
+  .tag.warn{
+    background:#FBE3E1;border-color:#B3261E;color:#8A1E18;
+    font-weight:600;text-decoration:none;
+  }
+  .tag.warn:hover{background:#F6D2CF}
   .rating-a{color:var(--good);font-weight:600}
   .loadmore{
     display:block;margin:18px auto 0;font:inherit;font-weight:600;
@@ -406,6 +413,11 @@
       <p>An A rating means the employer is in good standing with the Home Office. A B rating means they have been downgraded and are working through an action plan. Employers on a B rating usually cannot issue new certificates until they get back to an A.</p>
     </details>
     <details>
+      <summary>What does the red warning next to an employer mean?</summary>
+      <p>It means Companies House records something about that company worth knowing before you apply. Most often the company is in liquidation, being struck off, or filing accounts as dormant. A sponsor licence is a permission, not a health check, so a company being wound up can stay on the register for months.</p>
+      <p>We match employers to Companies House by name, so a warning is not proof and an employer without one is not vetted. Every warning links straight to the official Companies House record. Check it there before you decide anything.</p>
+    </details>
+    <details>
       <summary>How do the industry tags work?</summary>
       <p>The official list does not include industries, so we work them out from each employer's name. They are there to help you search, not official data. Always check the details with the employer.</p>
     </details>
@@ -445,6 +457,52 @@
   // it themselves. Asking again for something they just typed is friction.
   let alertTouched = false, knownTowns = new Set();
 
+  // Companies House warnings, keyed by the employer's name exactly as the
+  // register spells it. Loaded separately because it refreshes monthly while
+  // the register refreshes daily, and because most employers have no warning.
+  let companyFlags = {};
+
+  const CH_COMPANY = 'https://find-and-update.company-information.service.gov.uk/company/';
+
+  // Most serious first. Only the worst one is shown on a row; the rest are
+  // in the title, so a row never turns into a wall of red.
+  const WARNINGS = [
+    ['not_active', null,
+     'Companies House records this company as no longer active.'],
+    ['dormant', 'Dormant',
+     'This company files accounts as dormant, meaning it reports no significant trading.'],
+    ['accounts_overdue', 'Accounts overdue',
+     'This company has not filed its accounts by the due date.'],
+    ['confirmation_statement_overdue', 'Filing overdue',
+     'This company has not filed its confirmation statement by the due date.'],
+    ['incorporated_recently', 'New company',
+     'This company was incorporated within the last year.'],
+  ];
+
+  // "Active - Proposal to Strike off" is accurate but too long for a table.
+  function shortStatus(status){
+    const s = String(status || '').replace(/^Active\s*-\s*/i, '');
+    return s.length > 22 ? s.slice(0, 21) + '…' : (s || 'Not active');
+  }
+
+  function warningFor(name){
+    const record = companyFlags[name];
+    if(!record || !record.flags || !record.flags.length) return null;
+    for(const [flag, label, explanation] of WARNINGS){
+      if(!record.flags.includes(flag)) continue;
+      const others = WARNINGS
+        .filter(w => w[0] !== flag && record.flags.includes(w[0]))
+        .map(w => w[2]);
+      return {
+        label: label || shortStatus(record.status),
+        title: [explanation, ...others,
+                'Source: Companies House. Click to check the record.'].join(' '),
+        href: record.number ? CH_COMPANY + encodeURIComponent(record.number) : '',
+      };
+    }
+    return null;
+  }
+
   const $ = id => document.getElementById(id);
   const rows = $('rows');
 
@@ -463,8 +521,15 @@
       const ratingCell = view === 'removed'
         ? '—'
         : (rating==='A' ? '<span class="rating-a">A</span>' : esc(rating||'—'));
+      const warn = warningFor(name);
+      const warnTag = warn
+        ? (warn.href
+            ? ` <a class="tag warn" href="${esc(warn.href)}" target="_blank"` +
+              ` rel="noopener" title="${esc(warn.title)}">${esc(warn.label)}</a>`
+            : ` <span class="tag warn" title="${esc(warn.title)}">${esc(warn.label)}</span>`)
+        : '';
       return `<tr>
-        <td class="name">${esc(name)}${isNew?' <span class="tag new">New</span>':''}</td>
+        <td class="name">${esc(name)}${isNew?' <span class="tag new">New</span>':''}${warnTag}</td>
         <td>${esc(loc)}</td>
         <td>${esc(industry)}</td>
         <td>${routes.map(r=>`<span class="tag">${esc(r)}</span>`).join('')}</td>
@@ -595,12 +660,16 @@
   }
 
   function buildCSV(records){
-    const head = ['Employer','Town','County','Industry','Visa routes','Rating'];
+    const head = ['Employer','Town','County','Industry','Visa routes','Rating',
+                  'Company status','Company number','Companies House warnings'];
     const lines = [head.join(',')];
     for(const [name,town,county,industry,routes,rating] of records){
+      const record = companyFlags[name] || {};
       lines.push([name, town, county, industry,
                   (routes||[]).join('; '),
-                  view === 'removed' ? '' : rating].map(csvCell).join(','));
+                  view === 'removed' ? '' : rating,
+                  record.status || '', record.number || '',
+                  (record.flags || []).join('; ')].map(csvCell).join(','));
     }
     // CRLF is what the CSV spec says and what Excel is happiest with.
     return lines.join('\r\n');
@@ -808,8 +877,12 @@
     fetch('data/sponsors.json').then(r=>r.json()),
     fetch('data/new_sponsors.json').then(r=>r.json()).catch(()=>({new:[]})),
     fetch('data/meta.json').then(r=>r.json()).catch(()=>({})),
-    fetch('data/removed_sponsors.json').then(r=>r.json()).catch(()=>({removed:[]}))
-  ]).then(([main,recent,meta,gone])=>{
+    fetch('data/removed_sponsors.json').then(r=>r.json()).catch(()=>({removed:[]})),
+    // Optional: if the monthly enrichment has not run, the site works
+    // exactly as before, just without warnings.
+    fetch('data/company_flags.json').then(r=>r.json()).catch(()=>({companies:{}}))
+  ]).then(([main,recent,meta,gone,flags])=>{
+    companyFlags = flags.companies || {};
     all = main.sponsors||[];
     addedRows = recent.new||[];
     removedRows = gone.removed||[];

@@ -118,13 +118,20 @@ def build(sponsors, rows, today=None):
     matched = ch.join(rows, index, today)
     stats = summarise(matched, sponsors)
 
-    # Keyed by normalised sponsor name, not by row position: positions shift
-    # every day as the register changes, and this file is refreshed monthly.
+    # Keyed by the sponsor's name exactly as the register spells it.
+    #
+    # Not by row position, because positions shift every day as the register
+    # changes and this file is monthly. And not by the normalised name,
+    # because the site would then have to reimplement normalise_name() in
+    # JavaScript, and two copies of that logic would drift apart. An exact
+    # string lookup cannot drift. If the register renames a sponsor between
+    # monthly runs the key simply misses, which shows no warning rather than
+    # the wrong one.
     published = {}
     for position, record in matched.items():
         if not record["flags"]:
             continue
-        key = ch.normalise_name(sponsors[position][0])
+        key = str(sponsors[position][0])
         if key and key not in published:
             published[key] = {
                 "number": record["number"],
