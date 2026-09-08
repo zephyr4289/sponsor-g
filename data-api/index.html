@@ -105,6 +105,10 @@
   .cta{margin:48px 0;border:2px solid var(--ink);border-radius:10px;
        background:var(--paper-dim);padding:22px}
   .cta p{color:var(--ink-soft);margin-top:6px}
+  .cta a.btn{display:inline-block;margin-top:14px;
+             background:var(--cobalt);color:#fff;
+             text-decoration:none;font-weight:600;
+             padding:11px 22px;border-radius:8px}
   :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
@@ -138,10 +142,10 @@
       <p class="note">About 10MB uncompressed, served gzipped. Rows are arrays, not objects, to keep it small.</p>
     </div>
     <div class="endpoint">
-      <p class="path"><a href="../data/changes.json">data/changes.json</a></p>
-      <p class="what">Dated additions and removals, 90 days of history.</p>
-      <pre><code>{&quot;updated&quot;: &quot;...&quot;, &quot;days&quot;: [{&quot;date&quot;: &quot;YYYY-MM-DD&quot;, &quot;added&quot;: [row, ...], &quot;removed&quot;: [row, ...]}, ...]}</code></pre>
-      <p class="note">The part you cannot rebuild from GOV.UK. The official register publishes only the current state.</p>
+      <p class="path"><a href="../data/company_flags.json">data/company_flags.json</a></p>
+      <p class="what">Employers whose company record raises a question at Companies House.</p>
+      <pre><code>{&quot;updated&quot;: &quot;...&quot;, &quot;snapshot&quot;: &quot;YYYY-MM-01&quot;, &quot;stats&quot;: {...}, &quot;companies&quot;: {&quot;Employer Name&quot;: {&quot;number&quot;: &quot;...&quot;, &quot;status&quot;: &quot;...&quot;, &quot;flags&quot;: [&quot;not_active&quot;, ...]}}}</code></pre>
+      <p class="note">Keyed by the employer&#x27;s name exactly as the register spells it. Matched by name, so treat it as a pointer to the Companies House record rather than proof.</p>
     </div>
     <div class="endpoint">
       <p class="path"><a href="../data/regional_changes.json">data/regional_changes.json</a></p>
@@ -196,11 +200,23 @@
      appreciated but not required.</p>
   <p>The register covers 127,713 employers.</p>
 
+  <h2>What is not here</h2>
+  <p>These files cover the current register and the last seven days. We keep a
+     dated snapshot of the register every single day, which means we can
+     answer questions the files above cannot: when an employer first appeared,
+     how long it held a licence, which sectors are growing, what changed in
+     any given month.</p>
+  <p>That history only exists because it has been collected day by day. GOV.UK
+     publishes today's register and never what left it, so it cannot be
+     reconstructed after the fact by anyone, including us.</p>
+
   <div class="cta">
-    <h2 style="margin-top:0">Need something that is not here?</h2>
-    <p>If you need a different cut, a longer history, or a filtered feed for
-       one region or sector, say so. It is easier to build the thing someone
-       actually asked for than to guess.</p>
+    <h2 style="margin-top:0">Need the history, or a cut of your own?</h2>
+    <p>If you need a longer history, a filtered feed for one region or sector,
+       or a regular export for your team, get in touch and tell me what you
+       are trying to do. It is easier to build the thing somebody actually
+       asked for than to guess at it.</p>
+    <a class="btn" href="../#alerts">Start with the weekly email</a>
   </div>
 </main>
 

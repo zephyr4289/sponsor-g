@@ -6,3 +6,7 @@ __pycache__/
 # the repo is public, and a public list of who you are contacting is both
 # a competitive giveaway and, once it holds names, personal data.
 outreach/
+
+# Local only. Operational runbooks and notes. These move to the
+# private repo at the split; until then they must not be public.
+internal/

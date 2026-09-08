@@ -29,11 +29,13 @@ ENDPOINTS = [
                 "not objects, to keep it small.",
     },
     {
-        "path": "data/changes.json",
-        "what": "Dated additions and removals, 90 days of history.",
-        "shape": '{"updated": "...", "days": [{"date": "YYYY-MM-DD", "added": [row, ...], "removed": [row, ...]}, ...]}',
-        "note": "The part you cannot rebuild from GOV.UK. The official "
-                "register publishes only the current state.",
+        "path": "data/company_flags.json",
+        "what": "Employers whose company record raises a question at "
+                "Companies House.",
+        "shape": '{"updated": "...", "snapshot": "YYYY-MM-01", "stats": {...}, "companies": {"Employer Name": {"number": "...", "status": "...", "flags": ["not_active", ...]}}}',
+        "note": "Keyed by the employer's name exactly as the register spells "
+                "it. Matched by name, so treat it as a pointer to the "
+                "Companies House record rather than proof.",
     },
     {
         "path": "data/regional_changes.json",
@@ -139,6 +141,10 @@ def render(meta=None):
   .cta{{margin:48px 0;border:2px solid var(--ink);border-radius:10px;
        background:var(--paper-dim);padding:22px}}
   .cta p{{color:var(--ink-soft);margin-top:6px}}
+  .cta a.btn{{display:inline-block;margin-top:14px;
+             background:var(--cobalt);color:#fff;
+             text-decoration:none;font-weight:600;
+             padding:11px 22px;border-radius:8px}}
   :is(a,button):focus-visible{{outline:3px solid var(--cobalt);outline-offset:2px}}
   footer{{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}}
@@ -189,11 +195,23 @@ def render(meta=None):
      appreciated but not required.</p>
   <p>The register covers {total} employers.</p>
 
+  <h2>What is not here</h2>
+  <p>These files cover the current register and the last seven days. We keep a
+     dated snapshot of the register every single day, which means we can
+     answer questions the files above cannot: when an employer first appeared,
+     how long it held a licence, which sectors are growing, what changed in
+     any given month.</p>
+  <p>That history only exists because it has been collected day by day. GOV.UK
+     publishes today's register and never what left it, so it cannot be
+     reconstructed after the fact by anyone, including us.</p>
+
   <div class="cta">
-    <h2 style="margin-top:0">Need something that is not here?</h2>
-    <p>If you need a different cut, a longer history, or a filtered feed for
-       one region or sector, say so. It is easier to build the thing someone
-       actually asked for than to guess.</p>
+    <h2 style="margin-top:0">Need the history, or a cut of your own?</h2>
+    <p>If you need a longer history, a filtered feed for one region or sector,
+       or a regular export for your team, get in touch and tell me what you
+       are trying to do. It is easier to build the thing somebody actually
+       asked for than to guess at it.</p>
+    <a class="btn" href="../#alerts">Start with the weekly email</a>
   </div>
 </main>
 
