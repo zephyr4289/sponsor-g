@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SponsorSignal — Find UK employers licensed to sponsor your visa</title>
-<meta name="description" content="Search every organisation on the official UK Home Office register of licensed sponsors. Filter by industry, city and visa route. Updated daily from GOV.UK.">
+<title>KnowYourSponsor — Check a UK visa sponsor before you apply</title>
+<meta name="description" content="Every UK employer licensed to sponsor a work visa, plus what Companies House says about them. A licence means they can sponsor you. It does not mean they are still trading. Updated daily.">
 <link rel="canonical" href="https://roshan1208.github.io/sponsorsignal/">
 
 <!-- Proves ownership to Google Search Console. Must stay on the homepage:
@@ -18,17 +18,17 @@
 
 <!-- Open Graph / Twitter -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="SponsorSignal">
+<meta property="og:site_name" content="KnowYourSponsor">
 <meta property="og:url" content="https://roshan1208.github.io/sponsorsignal/">
-<meta property="og:title" content="SponsorSignal — Find UK employers licensed to sponsor your visa">
-<meta property="og:description" content="Search every organisation on the official UK Home Office register of licensed sponsors. Filter by industry, city and visa route. Updated daily from GOV.UK.">
+<meta property="og:title" content="KnowYourSponsor — Check a UK visa sponsor before you apply">
+<meta property="og:description" content="Every UK employer licensed to sponsor a work visa, plus what Companies House says about them. A licence means they can sponsor you. It does not mean they are still trading. Updated daily.">
 <meta property="og:image" content="https://roshan1208.github.io/sponsorsignal/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="SponsorSignal — find UK employers licensed to sponsor your visa.">
+<meta property="og:image:alt" content="KnowYourSponsor — check a UK visa sponsor before you apply.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SponsorSignal — Find UK employers licensed to sponsor your visa">
-<meta name="twitter:description" content="The official UK sponsor register, refreshed daily and searchable by industry, city and visa route.">
+<meta name="twitter:title" content="KnowYourSponsor — Check a UK visa sponsor before you apply">
+<meta name="twitter:description" content="The UK sponsor register, cross-checked against Companies House. See who can sponsor you, and who is in trouble.">
 <meta name="twitter:image" content="https://roshan1208.github.io/sponsorsignal/og-image.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,7 +43,7 @@
       "@type": "WebSite",
       "@id": "https://roshan1208.github.io/sponsorsignal/#website",
       "url": "https://roshan1208.github.io/sponsorsignal/",
-      "name": "SponsorSignal",
+      "name": "KnowYourSponsor",
       "description": "Searchable copy of the official UK Home Office register of licensed sponsors, refreshed daily.",
       "inLanguage": "en-GB",
       "potentialAction": {
@@ -334,6 +334,9 @@
   }
   .tag.warn:hover{background:var(--warn-bg)}
   .rating-a{color:var(--good);font-weight:600}
+  /* B is the whole point of the downgraded view, so it is not left as
+     unstyled text next to a green A. */
+  .rating-b{color:var(--bad);font-weight:700}
   .loadmore{
     display:block;margin:18px auto 0;font:inherit;font-weight:600;
     padding:10px 26px;border:2px solid var(--ink);border-radius:8px;
@@ -538,14 +541,14 @@
 
 <header>
   <div class="wrap header-inner">
-    <a class="brand" href="./" aria-label="SponsorSignal home">
+    <a class="brand" href="./" aria-label="KnowYourSponsor home">
       <svg class="mark" width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
         <rect width="64" height="64" rx="14" fill="var(--mark-bg)"/>
         <text x="30" y="47" text-anchor="middle" font-family="'Public Sans',system-ui,sans-serif"
-              font-size="42" font-weight="800" fill="var(--mark-fg)">S</text>
+              font-size="42" font-weight="800" fill="var(--mark-fg)">K</text>
         <circle cx="48" cy="44" r="5" fill="var(--signal)"/>
       </svg>
-      <span class="wordmark">SponsorSignal<span class="dot">.</span></span>
+      <span class="wordmark">KnowYourSponsor<span class="dot">.</span></span>
     </a>
     <nav class="topnav" aria-label="Sections">
       <a href="changes/">Changes <span class="badge" id="navChanges" hidden></span></a>
@@ -558,8 +561,8 @@
 
 <main>
   <section class="hero"><div class="wrap">
-    <h1>Find UK employers licensed to sponsor your visa.</h1>
-    <p class="lead">Search the official Home Office list of employers who can sponsor a work visa, and see which ones you should be careful about.</p>
+    <h1>Know your sponsor before you apply.</h1>
+    <p class="lead">Every UK employer licensed to sponsor a work visa, checked against Companies House. A licence means they <em>can</em> sponsor you. It does not mean they are still trading.</p>
 
     <div class="searchbox" role="search">
       <input id="q" type="search" placeholder="Company, city or industry. Try: software London" aria-label="Search sponsors">
@@ -597,6 +600,10 @@
       <button class="view" id="viewAll" aria-pressed="true">All</button>
       <button class="view" id="viewAdded" aria-pressed="false">Just added <span class="n" id="nAdded"></span></button>
       <button class="view" id="viewRemoved" aria-pressed="false">Lost licence <span class="n" id="nRemoved"></span></button>
+      <!-- Hidden until a downgrade actually happens. A permanent
+           "Downgraded (0)" would read as a broken feature rather than as
+           good news, and the register can go weeks without one. -->
+      <button class="view" id="viewDowngraded" aria-pressed="false" hidden>Downgraded <span class="n" id="nDowngraded"></span></button>
     </div>
     <button class="pill" id="warnOnly" aria-pressed="false" hidden>
       Company warning <span class="n" id="nWarn"></span>
@@ -711,10 +718,10 @@
     <p><a href="insights/">UK visa sponsorship in numbers</a>. Where the sponsors are and which routes they hold.</p>
     <p><a href="data-api/">Use the data yourself</a>. Everything here as JSON, plus an <a href="feed.xml">RSS feed</a> of the weekly changes.</p>
     <p><a href="methodology/">How this data is built</a>. Where it comes from, and which parts are guesses that can be wrong.</p>
-    <p><a href="about/">About SponsorSignal</a>. Who built it, and what it will never do.</p>
+    <p><a href="about/">About KnowYourSponsor</a>. Who built it, and what it will never do.</p>
     <p>Something wrong, or need a cut of the data for your team? Email <a href="mailto:rosona1829@gmail.com">rosona1829@gmail.com</a>.</p>
     </nav>
-    <p>SponsorSignal is an independent search tool built on open public data from GOV.UK. It is not affiliated with the Home Office and is not immigration advice.</p>
+    <p>KnowYourSponsor is an independent search tool built on open public data from GOV.UK. It is not affiliated with the Home Office and is not immigration advice.</p>
     <p>Always confirm a sponsor's current status on the official register before making decisions.</p>
     <p class="links"><a href="about/">About</a> <a href="methodology/">Methodology</a> <a href="privacy/">Privacy</a> <a href="data-api/">Data</a></p>
   </div>
@@ -723,7 +730,9 @@
 <script>
 (function(){
   // ---------------------------------------------------------------------
-  // MailerLite subscribe endpoint for the "SponsorSignal alerts" group.
+  // MailerLite subscribe endpoint for the alerts group. The group is still
+  // named "SponsorSignal alerts" in MailerLite: renaming it there would
+  // not change this URL, and the URL is the only thing that matters.
   // Leave it as '' and the form degrades gracefully instead of breaking.
   // ---------------------------------------------------------------------
   const ALERT_ENDPOINT =
@@ -733,6 +742,10 @@
   let all = [], newNames = new Set(), filtered = [], shown = 0, loaded = false;
   // '' = the whole register, 'added' = newly licensed, 'removed' = licence lost
   let addedRows = [], removedRows = [], view = '', windowDays = 7;
+  // Employers whose rating dropped A -> B inside the window. Held as full
+  // register rows, not as the change records, so filtering, CSV export and
+  // the detail sheet all work on them without a special case.
+  let downgradedRows = [];
   // Alert scope mirrors what someone is already looking at, until they set
   // it themselves. Asking again for something they just typed is friction.
   let alertTouched = false, knownTowns = new Set();
@@ -841,7 +854,8 @@
       // showing "A" next to "no longer licensed" would contradict itself.
       const ratingCell = view === 'removed'
         ? '—'
-        : (rating==='A' ? '<span class="rating-a">A</span>' : esc(rating||'—'));
+        : (rating==='A' ? '<span class="rating-a">A</span>'
+           : rating==='B' ? '<span class="rating-b">B</span>' : esc(rating||'—'));
       const warn = warningFor(name);
       const warnTag = warn
         ? (warn.href
@@ -867,6 +881,10 @@
       : 'Download as CSV';
     $('empty').hidden = filtered.length>0;
     if(!filtered.length) $('empty').innerHTML = emptyMessage();
+    // Hide the table itself when there is nothing in it. A stranded header
+    // row above the explanation reads as a failed load rather than as an
+    // empty result, which is the opposite of what the message is saying.
+    $('resultsTable').hidden = !filtered.length;
     $('more').hidden = shown >= filtered.length;
     $('clear').hidden = !filtersActive();
     mirrorScope();
@@ -888,6 +906,11 @@
       if(view === 'removed'){
         return `<strong>No employer lost their licence in the last ${windowDays} days.</strong>` +
                `<br>That is good news for anyone job hunting right now.`;
+      }
+      if(view === 'downgraded'){
+        return `<strong>No employer was downgraded to a B rating in the last ${windowDays} days.</strong>` +
+               `<br>We check every day. Downgrades are uncommon, so an empty ` +
+               `list here is the normal and the good outcome.`;
       }
     }
     return '<strong>Nothing matched that search.</strong>' +
@@ -934,6 +957,7 @@
   function sourceRows(){
     if(view === 'added') return addedRows;
     if(view === 'removed') return removedRows;
+    if(view === 'downgraded') return downgradedRows;
     return all;
   }
 
@@ -1140,7 +1164,7 @@
   }
 
   function csvFilename(){
-    const bits = ['sponsorsignal'];
+    const bits = ['knowyoursponsor'];
     if(view) bits.push(view);
     const ct = $('city').value, ind = $('industry').value, rt = $('route').value;
     const q = $('q').value.trim();
@@ -1168,7 +1192,8 @@
   }
 
   // ----------------------------------------------------------- views --
-  const VIEW_BUTTONS = {'':'viewAll', 'added':'viewAdded', 'removed':'viewRemoved'};
+  const VIEW_BUTTONS = {'':'viewAll', 'added':'viewAdded', 'removed':'viewRemoved',
+                        'downgraded':'viewDowngraded'};
 
   function setView(next){
     view = VIEW_BUTTONS[next] ? next : '';
@@ -1188,6 +1213,14 @@
       el.innerHTML = '<strong>Newly licensed employers.</strong> ' +
         `Added to the register in the last ${windowDays} days. Fewer applicants ` +
         'know these exist yet, so there is often less competition.';
+      el.hidden = false;
+    }else if(view === 'downgraded'){
+      el.className = 'notice warn';
+      el.innerHTML = '<strong>These employers have just dropped to a B rating.</strong> ' +
+        `Their rating moved from A to B in the last ${windowDays} days. A B-rated ` +
+        'sponsor is working through a Home Office action plan and usually ' +
+        'cannot issue new certificates of sponsorship until it is back to an A, ' +
+        'so a job there may not come with a visa for now.';
       el.hidden = false;
     }else{
       el.hidden = true;
@@ -1403,8 +1436,11 @@
     fetch('data/removed_sponsors.json').then(r=>r.json()).catch(()=>({removed:[]})),
     // Optional: if the monthly enrichment has not run, the site works
     // exactly as before, just without warnings.
-    fetch('data/company_flags.json').then(r=>r.json()).catch(()=>({companies:{}}))
-  ]).then(([main,recent,meta,gone,flags])=>{
+    fetch('data/company_flags.json').then(r=>r.json()).catch(()=>({companies:{}})),
+    // Optional in the same way: the file only appears once the pipeline has
+    // seen two consecutive runs, so its absence is normal, not an error.
+    fetch('data/rating_changes.json').then(r=>r.json()).catch(()=>({changes:[]}))
+  ]).then(([main,recent,meta,gone,flags,ratings])=>{
     companyFlags = flags.companies || {};
     all = main.sponsors||[];
     addedRows = recent.new||[];
@@ -1419,9 +1455,27 @@
     $('nAdded').textContent = addedRows.length ? `(${addedRows.length})` : '';
     $('nRemoved').textContent = removedRows.length ? `(${removedRows.length})` : '';
 
+    // Match each downgrade back to its register row by name and town, the
+    // same identity the pipeline uses. An employer that was downgraded and
+    // then left the register entirely finds no row and is dropped: it belongs
+    // in "lost licence", which is the worse news and already covers it.
+    const byKey = new Map(all.map(s=>[(s[0]+'|'+s[1]).toLowerCase(), s]));
+    downgradedRows = (ratings.changes||[])
+      .filter(c=>c.action === 'downgraded')
+      .map(c=>byKey.get(((c.name||'')+'|'+(c.town||'')).toLowerCase()))
+      .filter(Boolean)
+      // The row must still say B. Otherwise this view could announce "just
+      // dropped to a B rating" above a column reading A, which destroys
+      // trust in the one screen that exists to warn somebody off.
+      .filter(s=>String(s[5]||'').trim().toUpperCase() === 'B');
+    if(downgradedRows.length){
+      $('nDowngraded').textContent = `(${downgradedRows.length})`;
+      $('viewDowngraded').hidden = false;
+    }
+
     // A number on the nav link is the difference between "another page" and
     // "something happened this week". Hidden when there is nothing to report.
-    const moved = addedRows.length + removedRows.length;
+    const moved = addedRows.length + removedRows.length + downgradedRows.length;
     if(moved){
       $('navChanges').textContent = moved.toLocaleString();
       $('navChanges').hidden = false;

@@ -1,5 +1,5 @@
 /*
- * SponsorSignal service worker — deliberately minimal.
+ * KnowYourSponsor service worker — deliberately minimal.
  *
  * Strategy:
  *   HTML pages   network-first, and with cache:'no-cache' so the browser
@@ -15,7 +15,7 @@
  *
  * Bump CACHE when the shell changes to evict the old one.
  */
-const CACHE = 'sponsorsignal-v2';
+const CACHE = 'knowyoursponsor-v1';
 
 const SHELL = [
   './',

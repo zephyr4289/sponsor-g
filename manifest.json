@@ -1,6 +1,6 @@
 {
-  "name": "SponsorSignal — UK visa sponsor search",
-  "short_name": "SponsorSignal",
+  "name": "KnowYourSponsor — UK visa sponsor check",
+  "short_name": "KnowYourSponsor",
   "description": "Search every organisation on the official UK Home Office register of licensed sponsors. Updated daily from GOV.UK.",
   "lang": "en-GB",
   "start_url": "./",
