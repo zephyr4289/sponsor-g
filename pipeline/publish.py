@@ -27,6 +27,7 @@ Anything not named in either list is reported rather than guessed at, so a
 new file added next year cannot silently end up on either side.
 """
 
+import shutil
 from pathlib import Path
 
 # Fetched by the site at runtime, or deliberately given away.
@@ -98,6 +99,47 @@ def public_files(root):
     publish, _, _ = plan(root / "data")
     out += [f"data/{name}" for name in publish]
     return out
+
+
+def stage(root, dest):
+    """Copy exactly the public paths into `dest`, and nothing else.
+
+    Building a staging directory rather than deleting from a checkout means
+    the boundary is expressed as "what goes in" instead of "what to strip
+    out". Forgetting to add something breaks the site loudly; forgetting to
+    strip something leaks it silently.
+    """
+    root, dest = Path(root), Path(dest)
+    dest.mkdir(parents=True, exist_ok=True)
+    copied = []
+    for name in public_files(root):
+        source = root / name
+        target = dest / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if source.is_dir():
+            shutil.copytree(source, target, dirs_exist_ok=True)
+            copied += [str(Path(name) / f.relative_to(source)).replace("\\", "/")
+                       for f in sorted(source.rglob("*")) if f.is_file()]
+        else:
+            shutil.copy2(source, target)
+            copied.append(name)
+    return sorted(copied)
+
+
+def audit(staged):
+    """Anything in a staging list that must never have got there.
+
+    A second, independent check. stage() decides what to copy; this asks
+    whether the result is safe, so a bug in the first does not go unnoticed.
+    """
+    forbidden = []
+    for path in staged:
+        first = path.split("/")[0]
+        if first in ("pipeline", "outreach", "internal", ".github", ".claude"):
+            forbidden.append(path)
+        elif path.startswith("data/") and Path(path).name in INTERNAL_DATA:
+            forbidden.append(path)
+    return forbidden
 
 
 def describe():

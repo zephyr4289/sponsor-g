@@ -128,3 +128,48 @@ class LiveRepoTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class StageTests(unittest.TestCase):
+    """stage() is what actually crosses the boundary, so it gets checked
+    twice: once for what it copies, once by audit() on the result."""
+
+    def setUp(self):
+        self.dest = Path(tempfile.mkdtemp()) / "staged"
+
+    def test_copies_the_site(self):
+        staged = publish.stage(ROOT, self.dest)
+        for needed in ("index.html", "sitemap.xml", "feed.xml",
+                       "data/sponsors.json", "changes/index.html"):
+            self.assertIn(needed, staged)
+        self.assertTrue((self.dest / "index.html").exists())
+
+    def test_never_stages_the_history(self):
+        staged = publish.stage(ROOT, self.dest)
+        self.assertNotIn("data/changes.json", staged)
+        self.assertFalse((self.dest / "data" / "changes.json").exists())
+
+    def test_never_stages_the_pipeline_or_private_notes(self):
+        publish.stage(ROOT, self.dest)
+        for secret in ("pipeline", "outreach", "internal", ".github", ".claude"):
+            self.assertFalse((self.dest / secret).exists(),
+                             f"{secret} was staged")
+
+    def test_audit_passes_on_a_real_staging_run(self):
+        self.assertEqual(publish.audit(publish.stage(ROOT, self.dest)), [])
+
+    def test_audit_catches_the_history(self):
+        self.assertEqual(publish.audit(["data/changes.json"]),
+                         ["data/changes.json"])
+
+    def test_audit_catches_the_pipeline(self):
+        self.assertEqual(publish.audit(["pipeline/refresh.py"]),
+                         ["pipeline/refresh.py"])
+
+    def test_audit_catches_private_notes(self):
+        self.assertEqual(publish.audit(["internal/SPLIT.md", "outreach/README.md"]),
+                         ["internal/SPLIT.md", "outreach/README.md"])
+
+    def test_audit_allows_ordinary_public_paths(self):
+        self.assertEqual(publish.audit(["index.html", "data/sponsors.json",
+                                        "london/index.html"]), [])
