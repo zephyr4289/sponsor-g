@@ -90,7 +90,7 @@
   :root{
     --ink:#17233B; --ink-soft:#4A5670;
     --paper:#FFFFFF; --paper-dim:#F5F7FB;
-    --cobalt:#2145C9; --cobalt-dark:#17348F;
+    --cobalt:#2145C9; --cobalt-dark:#17348F; --on-cobalt:#FFFFFF;
     --signal:#FFC933; --on-signal:#17233B;
     --line:#D9DFEA; --good:#0E7B4F; --bad:#B3261E;
     --warn-bg:#FDF1F0; --warn-bg-2:#FBE3E1; --warn-border:#E7B4AE;
@@ -104,7 +104,7 @@
     :root:not([data-theme="light"]){
       --ink:#E8ECF3; --ink-soft:#A3AEC2;
       --paper:#10151F; --paper-dim:#1A2230;
-      --cobalt:#6B93F5; --cobalt-dark:#8FADF8;
+      --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F;
       --signal:#FFC933; --on-signal:#17233B;
       --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
       --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
@@ -118,7 +118,7 @@
   :root[data-theme="dark"]{
     --ink:#E8ECF3; --ink-soft:#A3AEC2;
     --paper:#10151F; --paper-dim:#1A2230;
-    --cobalt:#6B93F5; --cobalt-dark:#8FADF8;
+    --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F;
     --signal:#FFC933; --on-signal:#17233B;
     --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
     --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
@@ -192,10 +192,11 @@
   .searchbox input{
     flex:1;border:0;outline:none;font:inherit;font-size:1.05rem;
     padding:14px 16px;min-width:0;
+    background:var(--paper);color:var(--ink);
   }
   .searchbox input:focus{background:var(--paper-dim)}
   .searchbox button{
-    border:0;background:var(--cobalt);color:#fff;font:inherit;font-weight:600;
+    border:0;background:var(--cobalt);color:var(--on-cobalt);font:inherit;font-weight:600;
     padding:0 22px;cursor:pointer;
   }
   .searchbox button:hover{background:var(--cobalt-dark)}
@@ -306,7 +307,9 @@
   }
   tbody td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}
   thead th:nth-child(4),tbody td:nth-child(4){max-width:280px}
-  thead th:last-child,tbody td:last-child{width:1%;white-space:nowrap;text-align:right}
+  thead th:last-child,tbody td:last-child{
+    width:1%;white-space:nowrap;text-align:right;padding-left:18px;
+  }
   tbody tr:hover{background:var(--paper-dim)}
   td.name{font-weight:600}
   .tag{
@@ -437,9 +440,10 @@
   .alerts input[type=email]{
     flex:1;min-width:220px;font:inherit;padding:11px 14px;
     border:2px solid var(--ink);border-radius:8px;
+    background:var(--paper);color:var(--ink);
   }
   .alerts button{
-    font:inherit;font-weight:600;color:#fff;background:var(--cobalt);
+    font:inherit;font-weight:600;color:var(--on-cobalt);background:var(--cobalt);
     border:0;border-radius:8px;padding:11px 22px;cursor:pointer;
   }
   .alerts button:hover{background:var(--cobalt-dark)}
@@ -470,6 +474,21 @@
      screen readers and for the desktop layout; only the presentation
      changes, with each cell labelled by the header it lost. */
   @media (max-width:640px){
+    /* Three stat cards stacked was ~500px of chrome before a single result,
+       and three stacked selects another ~285px. On a phone the results have
+       to be reachable, so the proof strip becomes a compact row and the
+       filters pair up. */
+    .proof{grid-template-columns:repeat(3,1fr);gap:6px}
+    .stat{padding:8px 9px;border-radius:8px}
+    .stat .v{font-size:1.05rem}
+    .stat .l{font-size:.68rem;line-height:1.25}
+    .filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .filters select{width:100%;font-size:.85rem;padding:7px 8px}
+    .views,.pill{grid-column:1 / -1}
+    .views{width:100%}
+    .topnav{gap:12px;font-size:.82rem}
+    .hero h1{font-size:1.45rem}
+    .hero p.lead{font-size:.92rem}
     #resultsTable thead{
       position:absolute;width:1px;height:1px;overflow:hidden;
       clip:rect(0 0 0 0);white-space:nowrap;
@@ -773,6 +792,17 @@
       .replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
+  // "Global Business Mobility: Senior or Specialist Worker" is 52 characters
+  // and forced the routes column wide enough to squash everything else. The
+  // table shows the short form with the full name on hover; the detail panel
+  // and the CSV keep the official wording.
+  const ROUTE_SHORT = [["Global Business Mobility:", "GBM:"]];
+  function shortRoute(name){
+    let out = String(name || '');
+    for(const [long, short] of ROUTE_SHORT) out = out.replace(long, short);
+    return out;
+  }
+
   function render(reset){
     if(reset){ rows.innerHTML=''; shown=0; }
     const slice = filtered.slice(shown, shown+PAGE);
@@ -801,7 +831,7 @@
         <td class="name"><button class="rowbtn" type="button" data-name="${attr(name)}">${esc(name)}</button>${isNew?' <span class="tag new">New</span>':''}${warnTag}</td>
         <td data-label="Location">${esc(loc)}</td>
         <td data-label="Industry">${esc(industry)}</td>
-        <td data-label="Visa routes">${routes.map(r=>`<span class="tag">${esc(r)}</span>`).join('')}</td>
+        <td data-label="Visa routes">${routes.map(r=>`<span class="tag" title="${attr(r)}">${esc(shortRoute(r))}</span>`).join('')}</td>
         <td data-label="Rating">${ratingCell}</td>
       </tr>`;
     }).join('');
