@@ -1,0 +1,53 @@
+name: Enrich from Companies House
+
+# Separate from the daily refresh on purpose. The Companies House snapshot is
+# published monthly and is about 470MB across seven files, so pulling it every
+# day would be rude to them and would tell us nothing new.
+#
+# Runs on the 8th: Companies House says the snapshot lands "within 5 working
+# days of the previous month end", so the 8th is comfortably after it.
+
+on:
+  schedule:
+    - cron: "40 6 8 * *"
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - "pipeline/companies.py"
+      - "pipeline/enrich.py"
+
+permissions:
+  contents: write
+
+# Never let two runs commit at once.
+concurrency:
+  group: enrich
+  cancel-in-progress: false
+
+jobs:
+  enrich:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Unit tests
+        run: python -m unittest discover -s pipeline
+
+      - name: Join the register to Companies House
+        run: python pipeline/enrich.py
+
+      - name: Commit the result
+        run: |
+          git config user.name "sponsorsignal-bot"
+          git config user.email "actions@github.com"
+          # Only the join result is committed. The 470MB download is never
+          # written into the repo.
+          git add data/company_flags.json
+          git diff --cached --quiet || git commit -m "Companies House enrichment: $(date -u +%F)"
+          git push
