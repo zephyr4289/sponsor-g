@@ -75,6 +75,8 @@
   td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
   tr:hover td{background:var(--paper-dim)}
   .more{margin-top:14px;color:var(--ink-soft);font-size:.9rem}
+  .links{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  .links a{margin-right:10px;white-space:nowrap}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   a{color:var(--cobalt)}
@@ -93,11 +95,12 @@
   }
   .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in London</h1>
   <p class="lead">36,493 employers in London hold a licence to sponsor work visas. If you need sponsorship, these are the ones who can offer it. Any other employer in London cannot, no matter how good your application.</p>
@@ -107,35 +110,39 @@
   <table>
     <thead><tr><th>Employer</th><th>Location</th><th>Visa routes</th></tr></thead>
     <tbody>
-      <tr><td>&quot;K&quot; Line Energy Shipping (UK) Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
-      <tr><td>&amp;SISTERS LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>&#x27;Enterprise Singapore Board&#x27;</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, International Agreement</td></tr>
-      <tr><td>&#x27;O Ver St. James Ltd</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>0086 Ltd</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>00Nation Limited</td><td>London, London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
-      <tr><td>01 Accounting Services Ltd</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>012 Global Ltd</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>0xA Technologies Ltd</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1 ACE TRAINING LIMITED</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1 ALS LIMITED</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1 Bishops Avenue Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1 CHA LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1 Kings Dental Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1 MODEL MANAGEMENT LONDON LIMITED</td><td>London</td><td>Creative Worker</td></tr>
-      <tr><td>1 Stop Wash Ltd</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1 WAY TECH SOLUTIONS LIMITED</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>10 DAYS STUDIO LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1000heads Ltd</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1001 AI Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>100Starlings Ltd</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>101 Harley Street LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>101 Studios UK Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>101 Ways Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>107 Cannon Street Limited</td><td>London</td><td>Skilled Worker</td></tr>
+      <tr><td>Tabacalera SLU</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: UK Expansion Worker, Skilled Worker</td></tr>
+      <tr><td>AB InBev UK Ltd</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>ABN AMRO Bank N.V., UK Branch</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Acrisure International Holdings</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Addleshaw Goddard LLP</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Adonis Smart Foods Ltd</td><td>London, Lambeth</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Akelius Residential Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Alcatel Submarine Networks UK Ltd</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Allen Overy Shearman Sterling Service Company Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Allianz Global Investors UK Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Amazon UK Services Ltd</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>American Express Services Europe Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Amorepacific UK Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: UK Expansion Worker, Skilled Worker</td></tr>
+      <tr><td>Ampersand Management UK Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: UK Expansion Worker, Skilled Worker</td></tr>
+      <tr><td>AMWINS GLOBAL RISKS GROUP LIMITED</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Anglo American Services (UK) Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Apple Europe Limited</td><td>London</td><td>Creative Worker, Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>APS Polymer Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: UK Expansion Worker</td></tr>
+      <tr><td>Arcadis LLP</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Aros Kapital Ltd</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Artelia Projects UK Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>AS London Shoreditch Operations B.V.</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Ashurst LLP</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Associated Newspapers Ltd</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Atariya Restaurant London Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
     </tbody>
   </table>
   <p class="more">Showing 25 of 36,493.
      <a href="../?city=London">Search the full list</a> to see the other 36,468.</p>
+  <nav aria-label="Industries in London">
+    <h2>By industry in London</h2>
+    <p class="links"><a href="construction-engineering/">Construction &amp; Engineering (553)</a> <a href="education-research/">Education &amp; Research (973)</a> <a href="finance-professional/">Finance &amp; Professional (3,391)</a> <a href="healthcare-care/">Healthcare &amp; Care (1,292)</a> <a href="hospitality-food/">Hospitality &amp; Food (1,605)</a> <a href="media-creative/">Media &amp; Creative (1,243)</a> <a href="retail-commerce/">Retail &amp; Commerce (715)</a> <a href="tech-software/">Tech &amp; Software (1,428)</a></p>
+  </nav>
 </main>
 <footer><div class="wrap">
   <p>Source: GOV.UK Register of Licensed Sponsors (Workers), updated 2026-09-08 12:53 UTC.

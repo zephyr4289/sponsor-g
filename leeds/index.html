@@ -75,6 +75,8 @@
   td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
   tr:hover td{background:var(--paper-dim)}
   .more{margin-top:14px;color:var(--ink-soft);font-size:.9rem}
+  .links{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  .links a{margin-right:10px;white-space:nowrap}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   a{color:var(--cobalt)}
@@ -93,11 +95,12 @@
   }
   .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in Leeds</h1>
   <p class="lead">1,081 employers in Leeds hold a licence to sponsor work visas. If you need sponsorship, these are the ones who can offer it. Any other employer in Leeds cannot, no matter how good your application.</p>
@@ -107,35 +110,39 @@
   <table>
     <thead><tr><th>Employer</th><th>Location</th><th>Visa routes</th></tr></thead>
     <tbody>
-      <tr><td>123 Investments Ltd</td><td>Leeds, West Yorkshire</td><td>Skilled Worker</td></tr>
-      <tr><td>14 DAY UK LTD</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>1st Locate UK LTD</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>75 Media Limited</td><td>Leeds, West Yorkshire</td><td>Skilled Worker</td></tr>
-      <tr><td>79281 Childcare Ltd</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>A &amp; V Transitional Homes Ltd</td><td>Leeds, West Yorshire</td><td>Skilled Worker</td></tr>
-      <tr><td>A BITE LTD</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>A to Z Accessories</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>AADYA &amp; ADHVIK LTD TA SR FONES</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>AAGRAH (LEEDS) LIMITED</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>ABACUS TAX ADVISORS LTD</td><td>Leeds, West Yorkshire</td><td>Skilled Worker</td></tr>
-      <tr><td>ABAS SOLUTIONS LTD</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>Abaseen Chapeltown Ltd T/A Abaseen Chapeltown</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>Abaseen Superstore (UK) LTD</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>Abbey Multi Academy Trust</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>Abes Crossgates Day &amp; Night Ltd</td><td>Leeds, West Yorkshire</td><td>Skilled Worker</td></tr>
-      <tr><td>Abstract Tech Limited</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>Abu Bakar Limited</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>Ace Global Services Limited</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>ACS Building Products Limited</td><td>Leeds, Yorkshire And The Humber</td><td>Skilled Worker</td></tr>
-      <tr><td>Adam Grocers Ltd T/A Abu Bakr Supermarket</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>Adept Consulting Engineers</td><td>Leeds, West Yorkshire</td><td>Skilled Worker</td></tr>
-      <tr><td>ADL CARE</td><td>Leeds, Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>Adsilico Limited</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>ADVANCED MEDCARE LTD</td><td>Leeds, West Yorkshire</td><td>Skilled Worker</td></tr>
+      <tr><td>Arla Foods Limited</td><td>Leeds</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Doncasters Limited</td><td>Leeds</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>GE Vernova International LLC</td><td>Leeds, West Yorkshire</td><td>Creative Worker, Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>THOMAS CLIFFORD LTD</td><td>Leeds</td><td>Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: UK Expansion Worker</td></tr>
+      <tr><td>Airedale International Air Conditioning Ltd</td><td>Leeds</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Alnojoom Trading Ltd 15228351</td><td>Leeds</td><td>Global Business Mobility: UK Expansion Worker</td></tr>
+      <tr><td>Aptar UK Limited</td><td>Leeds, West Yorkshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Asda Stores Ltd</td><td>Leeds, West Yorkshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Bupa Care Services</td><td>Leeds</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Caesars Trading and Technology Services Limited</td><td>Leeds</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Caldero Holdings Ltd</td><td>Leeds</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Cardinal Health U.K. 432 Limited</td><td>Leeds, West Yorkshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Catapult Sports Limited</td><td>Leeds</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>CCL Stressing International Limited</td><td>Leeds, West Yorkshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Daniels Chilled Foods Ltd</td><td>Leeds</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Digital Completion UK Limited</td><td>Leeds, West Yorkshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Dr. Oetker UK Ltd</td><td>Leeds</td><td>Global Business Mobility: Graduate Trainee, Skilled Worker</td></tr>
+      <tr><td>ECOPORTAL UK LIMITED</td><td>Leeds, West Yorkshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Egton Medical Information Systems Limited</td><td>Leeds</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Emovis Operations Leeds Limited</td><td>Leeds</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Equifax Limited</td><td>Leeds</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Erbe Medical UK Limited</td><td>Leeds, West Yorkshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>ESTE MEDICAL GROUP (LEEDS) LTD</td><td>Leeds</td><td>Scale-up</td></tr>
+      <tr><td>Evri Limited</td><td>Leeds</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Flender Limited</td><td>Leeds</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
     </tbody>
   </table>
   <p class="more">Showing 25 of 1,081.
      <a href="../?city=Leeds">Search the full list</a> to see the other 1,056.</p>
+  <nav aria-label="Industries in Leeds">
+    <h2>By industry in Leeds</h2>
+    <p class="links"><a href="finance-professional/">Finance &amp; Professional (50)</a> <a href="healthcare-care/">Healthcare &amp; Care (133)</a> <a href="hospitality-food/">Hospitality &amp; Food (82)</a> <a href="retail-commerce/">Retail &amp; Commerce (38)</a> <a href="tech-software/">Tech &amp; Software (44)</a></p>
+  </nav>
 </main>
 <footer><div class="wrap">
   <p>Source: GOV.UK Register of Licensed Sponsors (Workers), updated 2026-09-08 12:53 UTC.

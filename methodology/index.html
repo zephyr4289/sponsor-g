@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How the data is built | SponsorSignal</title>
+<meta name="description" content="Where SponsorSignal&#x27;s data comes from, how employers are matched to Companies House, and which parts are guesses that can be wrong.">
+<link rel="canonical" href="https://roshan1208.github.io/sponsorsignal/methodology/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://roshan1208.github.io/sponsorsignal/methodology/">
+<meta property="og:title" content="How the data is built">
+<meta property="og:description" content="Where SponsorSignal&#x27;s data comes from, how employers are matched to Companies House, and which parts are guesses that can be wrong.">
+<meta property="og:image" content="https://roshan1208.github.io/sponsorsignal/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --ink:#17233B; --ink-soft:#4A5670;
+    --paper:#FFFFFF; --paper-dim:#F5F7FB;
+    --cobalt:#2145C9; --cobalt-dark:#17348F; --on-cobalt:#FFFFFF;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#D9DFEA; --good:#0E7B4F; --bad:#B3261E;
+    --warn-bg:#FDF1F0; --warn-bg-2:#FBE3E1; --warn-border:#E7B4AE;
+    --warn-ink:#8A1E18; --warn-solid:#B3261E;
+    --mark-bg:#17233B; --mark-fg:#FFFFFF;
+    --note-bg:#FFF6DC; --note-border:#EAD48A;
+    --shadow:rgba(23,35,59,.10);
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ink:#E8ECF3; --ink-soft:#A3AEC2;
+      --paper:#10151F; --paper-dim:#1A2230;
+      --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F; --on-cobalt:#10151F;
+      --signal:#FFC933; --on-signal:#17233B;
+      --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+      --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+      --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+      --mark-bg:#E8ECF3; --mark-fg:#10151F;
+    --note-bg:#2A2412; --note-border:#5A4A1E;
+      --note-bg:#2A2412; --note-border:#5A4A1E;
+      --shadow:rgba(0,0,0,.45);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#E8ECF3; --ink-soft:#A3AEC2;
+    --paper:#10151F; --paper-dim:#1A2230;
+    --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+    --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+    --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+    --mark-bg:#E8ECF3; --mark-fg:#10151F;
+    --note-bg:#2A2412; --note-border:#5A4A1E;
+    --shadow:rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Public Sans',system-ui,sans-serif;color:var(--ink);
+       line-height:1.6;background:var(--paper)}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+  a{color:var(--cobalt)}
+  header{border-bottom:3px solid var(--ink);padding:14px 0}
+  .brand{font-weight:800;font-size:1.1rem}
+  .brand a{color:inherit;text-decoration:none}
+  .brand .dot{color:var(--cobalt)}
+  h1{font-size:clamp(1.6rem,4.5vw,2.3rem);font-weight:800;
+     letter-spacing:-0.02em;margin:36px 0 10px;text-wrap:balance;max-width:24ch}
+  .lead{color:var(--ink-soft);max-width:64ch;text-wrap:pretty;font-size:1.05rem}
+  h2{font-size:1.2rem;font-weight:800;margin:40px 0 8px;text-wrap:balance}
+  h3{font-size:1rem;font-weight:700;margin:22px 0 4px}
+  p{max-width:64ch;text-wrap:pretty}
+  p+p{margin-top:10px}
+  ul{margin:10px 0 0 20px;max-width:64ch}
+  li+li{margin-top:8px}
+  .updated{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .box{border:1.5px solid var(--line);border-radius:10px;
+       background:var(--paper-dim);padding:16px 18px;margin-top:16px}
+  .box p{max-width:none}
+  table{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:14px}
+  th{text-align:left;font-size:.8rem;color:var(--ink-soft);
+     border-bottom:2px solid var(--ink);padding:8px 10px 6px}
+  td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
+  footer{margin-top:52px;border-top:3px solid var(--ink);padding:22px 0 40px;
+         font-size:.85rem;color:var(--ink-soft)}
+  footer p+p{margin-top:6px}
+
+  .header-inner{display:flex;align-items:center;justify-content:space-between;
+                gap:16px;flex-wrap:wrap}
+  .topnav{display:flex;gap:18px;font-size:.9rem;font-weight:600}
+  .topnav a{text-decoration:none}
+  .topnav a:hover{text-decoration:underline}
+  .topnav [aria-current]{color:var(--ink-soft)}
+  @media (max-width:520px){.topnav{gap:14px;font-size:.85rem;width:100%}}
+
+  .themebtn{
+    font:inherit;font-size:1rem;line-height:1;cursor:pointer;
+    background:transparent;border:1.5px solid var(--line);border-radius:99px;
+    color:var(--ink-soft);padding:5px 10px;
+  }
+  .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
+
+</style>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+
+<main class="wrap">
+  <h1>How the data is built</h1>
+  <p class="lead">How the numbers on this site are produced, in enough
+     detail to check them, including the parts that are guesses and the parts
+     that can be wrong.</p>
+
+  <h2>Where the data comes from</h2>
+  <p>One source: the Home Office
+     <a href="https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers">Register
+     of licensed sponsors (workers)</a>, published on GOV.UK under the
+     <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open
+     Government Licence</a>. Company details come from the
+     <a href="https://download.companieshouse.gov.uk/en_output.html">Companies
+     House monthly data snapshot</a>, also open data.</p>
+  <p>Nothing is scraped from job boards, bought from a broker, or entered by
+     hand. There are currently 127,713 employers on the register.</p>
+
+  <h2>How often it updates</h2>
+  <p>The register is re-downloaded once a day. GOV.UK does not publish at
+     weekends or on bank holidays, so a day with no changes is normal and not
+     a failure. The Companies House snapshot is monthly, so company details
+     can be up to five weeks behind.</p>
+  <p>Every page shows the timestamp of the data it is built from. If that date
+     looks stale, it is: something has broken and you should check GOV.UK
+     directly.</p>
+
+  <h2>How employers are identified</h2>
+  <p>An employer is identified by <strong>name plus town</strong>, not name
+     alone. Chains and franchises repeat one name across many towns, and
+     treating those as a single employer would hide real additions and
+     removals.</p>
+  <p>The consequence is worth knowing: if an employer moves town, or the
+     register changes how its town is spelled, it can look like one employer
+     left and a different one arrived. That is a limitation of the source,
+     not something we can fix from outside it.</p>
+
+  <h2>Industry tags are our guess, not official data</h2>
+  <p>The official register contains no industry field. The tags on this site
+     are produced by keyword rules over the employer's name, so "Riverside
+     Nursing Home" becomes Healthcare &amp; Care.</p>
+  <p>About 56% of employers end up in "Other", because their name carries no clue about what they do. They are there to make searching possible, and they are
+     wrong often enough that you should not rely on them for anything that
+     matters. Always confirm with the employer.</p>
+
+  <h2>Companies House warnings, and how they can be wrong</h2>
+  <p>Employers are matched to Companies House by <strong>normalised
+     name</strong>: case, punctuation and legal suffixes are standardised, so
+     "The Foo Company Limited" and "FOO CO LTD" match. Different legal forms
+     are kept apart, because "Foo Ltd" and "Foo LLP" are different companies.
+     Previous company names are matched too, since the register is slow to
+     follow a rename.</p>
+  <p>This is a name match. It is not an official link, and it is the weakest
+     step in the pipeline. Two things follow from that:</p>
+  <ul>
+    <li><strong>A warning is not proof.</strong> Every warning links to the
+        Companies House record so you can check it yourself rather than take
+        our word for it.</li>
+    <li><strong>No warning does not mean vetted.</strong> Roughly a third of
+        employers on the register are not limited companies at all. Councils,
+        NHS trusts, schools, universities and charities have no Companies
+        House record to check.</li>
+  </ul>
+  <p>Where one normalised name is held by more than one company and we cannot
+     tell which is the employer, <strong>we show no warning at all</strong>.
+     Dissolving a company frees its name, so a live employer often shares a
+     name with a dead company, and picking the wrong one would tell somebody
+     their prospective employer was being wound up when it is trading
+     normally. If exactly one of the two is active we use that one, because a
+     dissolved company cannot hold a sponsor licence. Otherwise we say
+     nothing.</p>
+  <p>The warnings are not equally serious, which is why each one says what it
+     found rather than just turning red. A company in liquidation is grave.
+     Accounts filed late is often paperwork at a company trading perfectly
+     well. A company incorporated within the last
+     365 days is not a problem at all, only unusual
+     enough to mention.</p>
+
+  <h2>Damaged characters in the source</h2>
+  <p>The official CSV contains employer names that were already broken before
+     publication: an apostrophe arrives as a byte that cannot be decoded, so
+     a real employer appears with question marks in the middle of its name.
+     The bytes needed to recover them were destroyed upstream, so nobody can
+     restore them, including us.</p>
+  <p>We repair only the specific damaged shapes we have actually observed,
+     and nothing else. Guessing at the rest would mean renaming an employer to
+     something it is not called, which is worse than showing the damage.</p>
+
+  <h2>What stops bad data being published</h2>
+  <p>The pipeline runs unattended and publishes straight to this site, so it
+     refuses to publish figures that look implausible. It stops if fewer than
+     10,000 employers are parsed, or if the register moves by
+     more than 10% in a single run. Real daily
+     movement is a fraction of a percent, so anything near that limit is far
+     more likely to be a broken download than news.</p>
+  <p>On a refusal nothing is written, the old data stays up, and the job fails
+     loudly so a human looks at it. The site going a day stale is a much
+     smaller problem than the site going confidently wrong.</p>
+
+  <h2>The change history</h2>
+  <p>GOV.UK publishes who holds a licence today. It never publishes who
+     stopped. So every day's register is compared with the previous day's, and
+     the differences are recorded permanently.</p>
+  <p>The site shows the last 7 days. The full record goes
+     back to when the pipeline started and is never deleted, which is what
+     makes it possible to answer when an employer first appeared, how long it
+     held a licence, and which sectors are growing.</p>
+  <p>One honest limit: an employer already on the register the first time we
+     looked has no recorded start date. All we can say is "on or before" the
+     day we started watching, and anywhere that date is used it says which of
+     the two it is.</p>
+
+  <h2>What this cannot tell you</h2>
+  <ul>
+    <li>Whether an employer is hiring. A licence is a permission, not a
+        vacancy.</li>
+    <li>Whether they will sponsor <em>you</em>. That is their decision, and it
+        depends on the role and the salary rules.</li>
+    <li>Why an employer left the register. Licences lapse, get surrendered,
+        get revoked, and companies close. The register does not say which, so
+        neither do we.</li>
+    <li>Anything about your own eligibility. That is regulated advice and this
+        is a search box.</li>
+  </ul>
+
+  <h2>Check our work</h2>
+  <p>Everything the site displays is published as plain JSON on the
+     <a href="../data-api/">data page</a>, free and with no account. If you
+     think a number here is wrong, you can download the same files and
+     recompute it. If you find a mistake, tell me at <a href="mailto:rosona1829@gmail.com">rosona1829@gmail.com</a>.</p>
+
+<p class="updated">Last updated 8 September 2026.</p>
+</main>
+
+<footer><div class="wrap">
+  <p>SponsorSignal is an independent search tool built on open public data
+     from GOV.UK. It is not affiliated with the Home Office and is not
+     immigration advice.</p>
+  <p><a href="../">Search the register</a></p>
+</div></footer>
+<script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>(function(){var b=document.querySelector('[data-theme-toggle]');if(!b)return;var r=document.documentElement;function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}function sync(){b.setAttribute('aria-pressed',String(dark()));}b.addEventListener('click',function(){var next=dark()?'light':'dark';r.setAttribute('data-theme',next);try{localStorage.setItem('theme',next);}catch(e){}sync();});sync();})();</script>
+</body>
+</html>

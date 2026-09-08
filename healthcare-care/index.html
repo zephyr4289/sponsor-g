@@ -75,6 +75,8 @@
   td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
   tr:hover td{background:var(--paper-dim)}
   .more{margin-top:14px;color:var(--ink-soft);font-size:.9rem}
+  .links{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  .links a{margin-right:10px;white-space:nowrap}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   a{color:var(--cobalt)}
@@ -93,11 +95,12 @@
   }
   .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in healthcare &amp; care</h1>
   <p class="lead">11,912 employers in healthcare &amp; care hold a Home Office licence to sponsor workers in the UK. A licence does not mean they are hiring today. It means they can sponsor your visa if they do hire you.</p>
@@ -107,35 +110,36 @@
   <table>
     <thead><tr><th>Employer</th><th>Location</th><th>Visa routes</th></tr></thead>
     <tbody>
-      <tr><td>(IECC Care) Independent Excel Care Consortium Limited</td><td>Colchester</td><td>Skilled Worker</td></tr>
-      <tr><td>09 Care Limited</td><td>Bradford</td><td>Skilled Worker</td></tr>
-      <tr><td>1 Homecare Ltd</td><td>Preston, Lancashire</td><td>Skilled Worker</td></tr>
-      <tr><td>1 Kings Dental Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>10/10 MEDICAL LIMITED</td><td>Southport</td><td>Skilled Worker</td></tr>
-      <tr><td>101 Healthcare ltd</td><td>Gloucester</td><td>Skilled Worker</td></tr>
-      <tr><td>16 Plus Care Support Solutions Ltd</td><td>Gloucester</td><td>Skilled Worker</td></tr>
-      <tr><td>17th Century Health Food Limited</td><td>Birmingham</td><td>Skilled Worker</td></tr>
-      <tr><td>18A Charing Cross Dental Surgery</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>199 Clinic Limited t/a London Longevity Clinic</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1st Care Limited t/as The Hawthorne Nursing Home</td><td>Nottinghamshire</td><td>Skilled Worker</td></tr>
-      <tr><td>1st Central Care Limited</td><td>Stanford-Le-Hope</td><td>Skilled Worker</td></tr>
-      <tr><td>1ST Class Care Agency Ltd</td><td>Prescot, Merseyside</td><td>Skilled Worker</td></tr>
-      <tr><td>1st Class care services 2LTD</td><td>Ledbury, Herefordshire</td><td>Skilled Worker</td></tr>
-      <tr><td>1st Focus Homecare Ltd</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>1st Grade Care Ltd</td><td>St Mellons, Cardiff</td><td>Skilled Worker</td></tr>
-      <tr><td>1st Homecare Solutions Limited</td><td>Leighton Buzzard, Bedfordshire</td><td>Skilled Worker</td></tr>
-      <tr><td>2 CARERS LTD</td><td>Stafford, Staffordshire</td><td>Skilled Worker</td></tr>
-      <tr><td>2030 AUTO CARE LIMITED</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>21D Clinical Limited</td><td>Warrington</td><td>Skilled Worker</td></tr>
-      <tr><td>21ST CENTURY CARE (PLYMOUTH) LIMITED</td><td>Ivybridge, Devon</td><td>Skilled Worker</td></tr>
-      <tr><td>23MD Medical Services Ltd</td><td>Canterbury, Kent</td><td>Skilled Worker</td></tr>
-      <tr><td>24/7 Medicine Limited T/ A 24-7 Pharmacy</td><td>Liverpool, Merseyside</td><td>Skilled Worker</td></tr>
-      <tr><td>247 Bluebell Care Ltd</td><td>Luton, Bedfordshire</td><td>Skilled Worker</td></tr>
-      <tr><td>247 Homecare Limited</td><td>Swindon, Wiltshire</td><td>Skilled Worker</td></tr>
+      <tr><td>Abbott Diabetes Care UK Limited</td><td>Witney, Oxon</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Bristol-Myers Squibb Pharmaceuticals Limited</td><td>Denham, Buckinghamshire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Capri Healthcare Ltd</td><td>Birmingham, Warwickshire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Johnson &amp; Johnson Medical Ltd</td><td>West Lothian</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Accord Healthcare Limited</td><td>North Harrow, Middlesex</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Acutus Medical UK Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Ada Digital Health Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Advanced Healthcare Ltd</td><td>Tonbridge, Kent</td><td>Global Business Mobility: Senior or Specialist Worker</td></tr>
+      <tr><td>Advanced Medical Solutions Limited</td><td>Winsford, Cheshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>AH UK Animal Health (PVT) Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Alcon Eye Care (UK) Ltd</td><td>Camberley, Surrey</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Alliance Healthcare Management Services Limited</td><td>Chessington, Surrey</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Alliance Medical Limited</td><td>Warwick, Warwickshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Altera Healthcare (IT) UK LTD</td><td>Birmingham</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Arrow Medical Limited</td><td>Kington, Herefordshire</td><td>Global Business Mobility: Senior or Specialist Worker</td></tr>
+      <tr><td>ASKA Pharmaceutical Co., Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker</td></tr>
+      <tr><td>Aurora Healthcare Communications Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>AVALERE HEALTH GLOBAL LIMITED</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>AXA Global Healthcare (UK) Limited</td><td>Tunbridge Wells, Kent</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>B. Braun Medical UK Ltd</td><td>Sheffield, Yorkshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Baxter Healthcare Limited</td><td>Reading</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Baywater Healthcare Limited</td><td>Crewe</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Besins Healthcare (UK) Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Big Picture Medical Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Biomet UK Healthcare Ltd</td><td>Mid Glamorgan</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
     </tbody>
   </table>
   <p class="more">Showing 25 of 11,912.
      <a href="../?industry=Healthcare+%26+Care">Search the full list</a> to see the other 11,887.</p>
+
 </main>
 <footer><div class="wrap">
   <p>Source: GOV.UK Register of Licensed Sponsors (Workers), updated 2026-09-08 12:53 UTC.

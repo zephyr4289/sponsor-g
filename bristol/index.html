@@ -75,6 +75,8 @@
   td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
   tr:hover td{background:var(--paper-dim)}
   .more{margin-top:14px;color:var(--ink-soft);font-size:.9rem}
+  .links{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  .links a{margin-right:10px;white-space:nowrap}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   a{color:var(--cobalt)}
@@ -93,11 +95,12 @@
   }
   .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in Bristol</h1>
   <p class="lead">1,297 employers in Bristol hold a licence to sponsor work visas. If you need sponsorship, these are the ones who can offer it. Any other employer in Bristol cannot, no matter how good your application.</p>
@@ -107,35 +110,39 @@
   <table>
     <thead><tr><th>Employer</th><th>Location</th><th>Visa routes</th></tr></thead>
     <tbody>
-      <tr><td>101 A+D Ltd.</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>105 West Architects Ltd</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>11Eleven UK Enterprises Ltd</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>3 Trees Care &amp; Support Ltd</td><td>Bristol, Avon</td><td>Skilled Worker</td></tr>
-      <tr><td>7 STAR TRADING LTD</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>72 Point Limited</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>A D CONVENIENCE STORE LTD</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>A Productions Limited</td><td>Bristol</td><td>Creative Worker, Skilled Worker</td></tr>
-      <tr><td>A R JUNOON LIMITED, T/A, THALI RESTAURANT</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>A-Gas (UK) Ltd</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>A2Z Fruit &amp; Veg Limited</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>A2Z Technologies Ltd</td><td>Bristol, South Gloucestershire</td><td>Skilled Worker</td></tr>
-      <tr><td>AA ACCOUNTANTS (UK) LTD</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>Aardman Animations</td><td>Bristol</td><td>Creative Worker, Skilled Worker</td></tr>
-      <tr><td>Aarna Hair &amp; Beauty</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>Aarusha Limited T/A Birchwood Stores</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>ABEXON LTD</td><td>Bristol, Nailsea</td><td>Skilled Worker</td></tr>
-      <tr><td>Acacia Traders LTD</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>Access NRI Consultancy Pvt. Ltd.</td><td>Bristol</td><td>Skilled Worker</td></tr>
+      <tr><td>Airbus Operations Limited</td><td>Bristol</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: Service Supplier, International Agreement, Skilled Worker</td></tr>
+      <tr><td>Amcor Europe Group Management</td><td>Bristol</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Baker Hughes Energy Technology UK Limited</td><td>Bristol</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Bilfinger Piping Technologies UK Ltd</td><td>Bristol</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Cinegy Ltd</td><td>Bristol</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Clemessy UK Ltd</td><td>Bristol</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Cookpad Limited</td><td>Bristol</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>GKN Aerospace Services - Filton</td><td>Bristol</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Kerry Ingredients UK Ltd</td><td>Bristol</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Knorr-Bremse Systems for Commercial Vehicles Ltd</td><td>Bristol</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Perceptual Robotics Limited</td><td>Bristol, Avon</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Vertical Aerospace Group Ltd</td><td>Bristol</td><td>Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: Service Supplier, Skilled Worker</td></tr>
       <tr><td>Accolade Wines Limited</td><td>Bristol</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
-      <tr><td>ACK Manufacturing Ltd</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>ACS COURIERS AND LOGISTICS LTD</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>Activus Limited</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>Actuation Lab</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>Acute Scaffold Design Ltd</td><td>Bristol</td><td>Skilled Worker</td></tr>
+      <tr><td>Airbus Protect Limited</td><td>Bristol</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Alcoa Services UK Limited</td><td>Bristol</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Ambipar Response Limited</td><td>Bristol</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Amiad Water Systems UK Limited</td><td>Bristol</td><td>Global Business Mobility: Senior or Specialist Worker</td></tr>
+      <tr><td>Archer Aviation UK Limited</td><td>Bristol</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Archer Technologies UK Limited</td><td>Bristol</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Ardatem UK Ltd</td><td>Bristol</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Asset One Services LLP</td><td>Bristol</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Atlas Services Group Energy Ltd</td><td>Bristol</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Atricure UK Limited</td><td>Bristol</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>AXA Group Operations UK Limited</td><td>Bristol</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Babcock Integrated Technology Limited</td><td>Bristol</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
     </tbody>
   </table>
   <p class="more">Showing 25 of 1,297.
      <a href="../?city=Bristol">Search the full list</a> to see the other 1,272.</p>
+  <nav aria-label="Industries in Bristol">
+    <h2>By industry in Bristol</h2>
+    <p class="links"><a href="education-research/">Education &amp; Research (33)</a> <a href="finance-professional/">Finance &amp; Professional (49)</a> <a href="healthcare-care/">Healthcare &amp; Care (101)</a> <a href="hospitality-food/">Hospitality &amp; Food (84)</a> <a href="media-creative/">Media &amp; Creative (48)</a> <a href="retail-commerce/">Retail &amp; Commerce (43)</a> <a href="tech-software/">Tech &amp; Software (84)</a></p>
+  </nav>
 </main>
 <footer><div class="wrap">
   <p>Source: GOV.UK Register of Licensed Sponsors (Workers), updated 2026-09-08 12:53 UTC.

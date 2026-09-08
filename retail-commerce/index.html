@@ -75,6 +75,8 @@
   td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
   tr:hover td{background:var(--paper-dim)}
   .more{margin-top:14px;color:var(--ink-soft);font-size:.9rem}
+  .links{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  .links a{margin-right:10px;white-space:nowrap}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   a{color:var(--cobalt)}
@@ -93,11 +95,12 @@
   }
   .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in retail &amp; commerce</h1>
   <p class="lead">4,567 employers in retail &amp; commerce hold a Home Office licence to sponsor workers in the UK. A licence does not mean they are hiring today. It means they can sponsor your visa if they do hire you.</p>
@@ -107,35 +110,36 @@
   <table>
     <thead><tr><th>Employer</th><th>Location</th><th>Visa routes</th></tr></thead>
     <tbody>
-      <tr><td>1066 Foodservice Limited trading as Roosters Piri Piri</td><td>Harrow, Middlesex</td><td>Skilled Worker</td></tr>
-      <tr><td>108 RETAIL LIMITED T/A SPAR</td><td>Glasgow</td><td>Skilled Worker</td></tr>
-      <tr><td>1177 Retail Limited</td><td>Portsmouth</td><td>Skilled Worker</td></tr>
-      <tr><td>1708 Retail Ltd</td><td>Waterlooville, Hampshire</td><td>Skilled Worker</td></tr>
-      <tr><td>1717 Retail Ltd</td><td>Waterlooville, Hampshire</td><td>Skilled Worker</td></tr>
-      <tr><td>1STOP GLAZING LIMITED Trading as Imperial Glazing Solutions</td><td>Ilford, Essex</td><td>Skilled Worker</td></tr>
-      <tr><td>2 Love Coffee Shop LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>24/7 MY MART LIMITED</td><td>Wolverhampton</td><td>Skilled Worker</td></tr>
-      <tr><td>24/7 RETAIL LTD</td><td>Manchester, United Kingdom</td><td>Skilled Worker</td></tr>
-      <tr><td>247 Commerce Ltd</td><td>Brentford, Middlesex</td><td>Skilled Worker</td></tr>
-      <tr><td>247 Wholesale Limited</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>28 Trading Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>360 Trading Networks UK Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
-      <tr><td>3A Retail UK Ltd</td><td>Dagenham</td><td>Skilled Worker</td></tr>
-      <tr><td>3AR Trading Ltd</td><td>Rochford</td><td>Skilled Worker</td></tr>
-      <tr><td>3s retail ltd</td><td>Ely, Cardiff</td><td>Skilled Worker</td></tr>
-      <tr><td>4 CONTINENTS STORES LTD</td><td>Kent</td><td>Skilled Worker</td></tr>
-      <tr><td>4 Seasons Grocery Ltd</td><td>Cardiff</td><td>Skilled Worker</td></tr>
-      <tr><td>4FEET RETAIL LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>5S STORE LTD</td><td>Hinckley</td><td>Skilled Worker</td></tr>
-      <tr><td>7 STAR TRADING LTD</td><td>Bristol</td><td>Skilled Worker</td></tr>
-      <tr><td>7711 Retail Ltd</td><td>Portsmouth</td><td>Skilled Worker</td></tr>
-      <tr><td>777 MARKET LTD</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>7am Stores Limited T/A Aiden&#x27;s Budgens</td><td>Farnborough</td><td>Skilled Worker</td></tr>
-      <tr><td>7TO11 GROCERS LIMITED</td><td>London</td><td>Skilled Worker</td></tr>
+      <tr><td>Aumovio Trading UK Ltd</td><td>Birmingham</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Cerelia UK Ltd (Trading as BakeAway)</td><td>Corby, Northamptonshire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Nissan Trading Europe Ltd.</td><td>Sunderland, Tyne &amp; Wear</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>RWE Supply &amp; Trading GmbH</td><td>Swindon, Wiltshire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Southampton Container Terminals Limited trading as DP World Southampton</td><td>Southampton, Hampshire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>The Felixstowe Dock &amp; Railway Company trading as Port of Felixstowe</td><td>Felixstowe</td><td>Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: Service Supplier, Skilled Worker</td></tr>
+      <tr><td>Willis Limited, trading as Willis Towers Watson plc</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>AFH Stores UK Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>AGT Retail Limited</td><td>London</td><td>Scale-up, Skilled Worker</td></tr>
+      <tr><td>Aldi Stores Limited</td><td>Atherstone, Warwickshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>All Saints Retail Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Alnojoom Trading Ltd 15228351</td><td>Leeds</td><td>Global Business Mobility: UK Expansion Worker</td></tr>
+      <tr><td>AM VINTAGE RETAIL UK LIMITED</td><td>London</td><td>Global Business Mobility: Graduate Trainee</td></tr>
+      <tr><td>Aramco Trading Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Asda Stores Ltd</td><td>Leeds, West Yorkshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Astound Commerce Limited (UK)</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>AVERY DENNISON RETAIL INFORMATION SERVICES UK LIMITED</td><td>Nottingham</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Back Market UK Limited</td><td>Bristol</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Barrows Connected Store UK Limited</td><td>Orpington</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>BDRC Continental Limited trading as BVA BDRC</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Bestseller Wholesale UK Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Boerboel Trading LLP</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Bosideng Retail Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>C-MART SOLUTIONS LIMITED</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Canadian Imperial Bank of Commerce</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
     </tbody>
   </table>
   <p class="more">Showing 25 of 4,567.
      <a href="../?industry=Retail+%26+Commerce">Search the full list</a> to see the other 4,542.</p>
+
 </main>
 <footer><div class="wrap">
   <p>Source: GOV.UK Register of Licensed Sponsors (Workers), updated 2026-09-08 12:53 UTC.

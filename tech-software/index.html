@@ -75,6 +75,8 @@
   td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
   tr:hover td{background:var(--paper-dim)}
   .more{margin-top:14px;color:var(--ink-soft);font-size:.9rem}
+  .links{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  .links a{margin-right:10px;white-space:nowrap}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   a{color:var(--cobalt)}
@@ -93,11 +95,12 @@
   }
   .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in tech &amp; software</h1>
   <p class="lead">4,425 employers in tech &amp; software hold a Home Office licence to sponsor workers in the UK. A licence does not mean they are hiring today. It means they can sponsor your visa if they do hire you.</p>
@@ -107,35 +110,36 @@
   <table>
     <thead><tr><th>Employer</th><th>Location</th><th>Visa routes</th></tr></thead>
     <tbody>
-      <tr><td>0xA Technologies Ltd</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1 And 5 Tech Ltd</td><td>Slough</td><td>Skilled Worker</td></tr>
-      <tr><td>1 WAY TECH SOLUTIONS LIMITED</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>10X Banking Technology Services Ltd</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1416 DIGITAL LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1771 Technologies Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1st Cloud Accountants</td><td>Sunderland, Tyne And Wear</td><td>Skilled Worker</td></tr>
-      <tr><td>1st Technologies Ltd</td><td>Preston, Lancashire</td><td>Skilled Worker</td></tr>
-      <tr><td>22one Technologies Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>247 IT SERVICES LIMITED</td><td>Hamshire, Farnborough</td><td>Skilled Worker</td></tr>
-      <tr><td>2BIT TECH LIMITED</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>2e Systems Ltd</td><td>Frimley, Surrey</td><td>Skilled Worker</td></tr>
-      <tr><td>2SD Technologies Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>345 TECHNOLOGY LIMITED</td><td>Portsmouth</td><td>Skilled Worker</td></tr>
-      <tr><td>3A Tech Limited T/A Tech Fix</td><td>Middlesbrough, North Yorkshire</td><td>Skilled Worker</td></tr>
-      <tr><td>3A TELECOM CONSULTANCY LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>3B DIGITAL LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>3D Systems Europe Ltd</td><td>Hemel Hempstead, Hertfordshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
-      <tr><td>3D Technical Design Limited</td><td>Milton Keynes</td><td>Skilled Worker</td></tr>
-      <tr><td>3dMD Technologies Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
-      <tr><td>3EN Cloud Ltd</td><td>Holywood</td><td>Skilled Worker</td></tr>
-      <tr><td>3Gi Technology Limited</td><td>Shenfield</td><td>Skilled Worker</td></tr>
-      <tr><td>3R Technology UK Ltd</td><td>Preston, Lancashire</td><td>Skilled Worker</td></tr>
-      <tr><td>3X Tech Ltd</td><td>Potters Bar, Hertfordshire</td><td>Skilled Worker</td></tr>
-      <tr><td>4 Net Technologies LTD (t/a FourNet)</td><td>Manchester, Greater Manchester</td><td>Skilled Worker</td></tr>
+      <tr><td>AASEYA SOFTWARE SERVICES (UK)  LTD</td><td>Steyning, West Sussex</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Ansimicro Software UK Limited</td><td>Gloucester, Gloucestershire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Atos IT Services UK Ltd</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>AVASO Technology Solutions Ltd</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>BAE Systems Plc</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Government Authorised Exchange, Skilled Worker</td></tr>
+      <tr><td>Baker Hughes Energy Technology UK Limited</td><td>Bristol</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Bilfinger Piping Technologies UK Ltd</td><td>Bristol</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Centre for Finance, Technology and Entrepreneurship Ltd</td><td>London,</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Cerillion Technologies Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>EATRON TECHNOLOGIES LIMITED</td><td>Warwick</td><td>Global Business Mobility: Senior or Specialist Worker, Scale-up, Skilled Worker</td></tr>
+      <tr><td>FMC Technologies Ltd</td><td>Dunfermline</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Folio3 Software UK</td><td>Woking, Surrey</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>GE Aviation Systems Limited</td><td>Cheltenham</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Hay Technology Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>IMD Technologies Ltd</td><td>London, Choose County</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>JDR Cable Systems Ltd</td><td>Littleport, Cambs</td><td>Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: Service Supplier, Skilled Worker</td></tr>
+      <tr><td>KBC Process Technology Ltd</td><td>Walton On Thames, Surrey</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Knorr-Bremse Systems for Commercial Vehicles Ltd</td><td>Bristol</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Mews Systems Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>MOL TECHNO-TRADE, LTD. EUROPEAN BRANCH</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: UK Expansion Worker, Skilled Worker</td></tr>
+      <tr><td>Moody&#x27;s Analytics UK Ltd</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Morgan Technical Ceramics Limited</td><td>Stourport-On-Severn, Worcestershire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Nihon Cyber Defence Ltd</td><td>Belfast</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Nova Systems (International )Ltd</td><td>Bournemouth, Dorset</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Oneio Cloud UK Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: UK Expansion Worker, Skilled Worker</td></tr>
     </tbody>
   </table>
   <p class="more">Showing 25 of 4,425.
      <a href="../?industry=Tech+%26+Software">Search the full list</a> to see the other 4,400.</p>
+
 </main>
 <footer><div class="wrap">
   <p>Source: GOV.UK Register of Licensed Sponsors (Workers), updated 2026-09-08 12:53 UTC.

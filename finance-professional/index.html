@@ -75,6 +75,8 @@
   td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
   tr:hover td{background:var(--paper-dim)}
   .more{margin-top:14px;color:var(--ink-soft);font-size:.9rem}
+  .links{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  .links a{margin-right:10px;white-space:nowrap}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   a{color:var(--cobalt)}
@@ -93,11 +95,12 @@
   }
   .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in finance &amp; professional</h1>
   <p class="lead">6,549 employers in finance &amp; professional hold a Home Office licence to sponsor workers in the UK. A licence does not mean they are hiring today. It means they can sponsor your visa if they do hire you.</p>
@@ -107,35 +110,36 @@
   <table>
     <thead><tr><th>Employer</th><th>Location</th><th>Visa routes</th></tr></thead>
     <tbody>
-      <tr><td>01 Accounting Services Ltd</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1 Answer Insurance Services LTD.</td><td>Polegate, East Sussex</td><td>Skilled Worker</td></tr>
-      <tr><td>11K Consulting Ltd</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>123 Investments Ltd</td><td>Leeds, West Yorkshire</td><td>Skilled Worker</td></tr>
-      <tr><td>12B Solicitors Limited</td><td>London, England</td><td>Skilled Worker</td></tr>
-      <tr><td>13BOOKS CAPITAL LLP</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>160B Consulting Ltd</td><td>Dungannon, Tyrone</td><td>Skilled Worker</td></tr>
-      <tr><td>17 Capital Services Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
-      <tr><td>1875 Accounting Limited</td><td>Cambridge</td><td>Skilled Worker</td></tr>
-      <tr><td>1OAK CAPITAL LIMITED</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1ST CHOICE ACCOUNTANTS LTD</td><td>Birmingham, West Midlands</td><td>Skilled Worker</td></tr>
-      <tr><td>1ST CHOICE CONSULTANCY LTD</td><td>Birmingham</td><td>Skilled Worker</td></tr>
-      <tr><td>2.0 Consulting Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>23 Consult Ltd</td><td>Liverpool, Merseyside</td><td>Skilled Worker</td></tr>
-      <tr><td>2399098 Ontario Inc o/a MAK Consulting Group</td><td>High Wycombe, Bucks</td><td>Skilled Worker</td></tr>
-      <tr><td>2E Accountants Ltd</td><td>London, London</td><td>Skilled Worker</td></tr>
-      <tr><td>2R Capital Investment Management Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>3 Associates Capital Management Limited</td><td>Amersham</td><td>Skilled Worker</td></tr>
-      <tr><td>36 South Capital Advisors LLP</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>360 Law Group Limited</td><td>Lightwater, Surrey</td><td>Skilled Worker</td></tr>
-      <tr><td>365 Business Finance</td><td>London, London</td><td>Skilled Worker</td></tr>
-      <tr><td>38 Investments Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>39 Essex Chambers (Services) Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>3A&#x27;S Consultants Ltd.</td><td>Coventry</td><td>Skilled Worker</td></tr>
-      <tr><td>3ES Accountants Limited</td><td>Harrow</td><td>Skilled Worker</td></tr>
+      <tr><td>ABN AMRO Bank N.V., UK Branch</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>AKA, Chartered Accountants</td><td>Birmingham, West Midlands</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>BANK OF CEYLON(UK) LTD</td><td>London, Inner London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker</td></tr>
+      <tr><td>Bank of China (UK) Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Bank of India</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker</td></tr>
+      <tr><td>Banking Circle</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>BDT &amp; MSD Partners International, LLP</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Bibby Financial Services Limited</td><td>Adderbury, Oxfordshire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>British International Investment plc</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Capital International Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Chatham Financial Europe Ltd</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>China Investment Corporation London Representative Office</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: UK Expansion Worker</td></tr>
+      <tr><td>COCA-COLA EUROPACIFIC PARTNERS HOLDINGS GREAT BRITIAN LIMITED</td><td>Middlesex</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>CoinShares Capital Markets (UK) Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Copenhagen Offshore Partners A/S, UK Branch</td><td>Edinburgh</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Dar Al-Handasah Consultants (Shair &amp; Partners) (UK) Ltd.</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Dentons UK and Middle East Legal Services</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>FAIR CONSULTING GROUP UK LIMITED</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: UK Expansion Worker, Skilled Worker</td></tr>
+      <tr><td>FirstRand Bank Ltd (London Branch)</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>FitzWalter Capital Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Helio Consulting Ltd</td><td>Oxford</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker</td></tr>
+      <tr><td>Hitachi Capital (UK) PLC</td><td>Staines-Upon-Thames, Surrey</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker</td></tr>
+      <tr><td>InspireXT Consulting Ltd</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Institutional Venture Partners UK LLP</td><td>Fitzorvia London</td><td>Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: UK Expansion Worker, Skilled Worker</td></tr>
+      <tr><td>Investec Bank PLC</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
     </tbody>
   </table>
   <p class="more">Showing 25 of 6,549.
      <a href="../?industry=Finance+%26+Professional">Search the full list</a> to see the other 6,524.</p>
+
 </main>
 <footer><div class="wrap">
   <p>Source: GOV.UK Register of Licensed Sponsors (Workers), updated 2026-09-08 12:53 UTC.

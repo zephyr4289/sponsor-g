@@ -75,6 +75,8 @@
   td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
   tr:hover td{background:var(--paper-dim)}
   .more{margin-top:14px;color:var(--ink-soft);font-size:.9rem}
+  .links{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  .links a{margin-right:10px;white-space:nowrap}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   a{color:var(--cobalt)}
@@ -93,11 +95,12 @@
   }
   .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in education &amp; research</h1>
   <p class="lead">3,319 employers in education &amp; research hold a Home Office licence to sponsor workers in the UK. A licence does not mean they are hiring today. It means they can sponsor your visa if they do hire you.</p>
@@ -107,35 +110,36 @@
   <table>
     <thead><tr><th>Employer</th><th>Location</th><th>Visa routes</th></tr></thead>
     <tbody>
-      <tr><td>1 ACE TRAINING LIMITED</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>2020 Innovation Training Limited</td><td>Birmingham, West Midlands</td><td>Skilled Worker</td></tr>
-      <tr><td>3T TRAINING SERVICES LIMITED</td><td>Dorset</td><td>Skilled Worker</td></tr>
-      <tr><td>4 Dots Training &amp; Advisory Limited</td><td>Beaconsfield, Buckinghamshire</td><td>Skilled Worker</td></tr>
-      <tr><td>4DS NURSERIES AND PRE SCHOOL LTD</td><td>Canterbury</td><td>Skilled Worker</td></tr>
-      <tr><td>4J&#x27;S Educational Academy Ltd</td><td>Peterborough, Cambridgeshire</td><td>Skilled Worker</td></tr>
-      <tr><td>5 Lights Training</td><td>Bradford</td><td>Skilled Worker</td></tr>
-      <tr><td>6 Bit Education Ltd</td><td>Birmingham</td><td>Skilled Worker</td></tr>
-      <tr><td>7 Acorns Day Nursery</td><td>Sevenoaks</td><td>Skilled Worker</td></tr>
-      <tr><td>786 Childcare limited T/A Monkey puzzle day nursery in Welling</td><td>Welling</td><td>Skilled Worker</td></tr>
-      <tr><td>A CLASS  NURSERY  LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>A Class Nursery Ltd</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>A P TRAINING LTD</td><td>Wolverhampton</td><td>Skilled Worker</td></tr>
-      <tr><td>A PLUS ACADEMY LTD</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>A&amp;J School Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>A-TO-E TRAINING AND SOLUTIONS LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>A-Z LEARNING ACADEMY LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>A.S.I. (Research) Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>A1M TRAINING LTD</td><td>Erith</td><td>Skilled Worker</td></tr>
-      <tr><td>ABA Autism Education Ltd</td><td>Norfolk</td><td>Skilled Worker</td></tr>
-      <tr><td>Abacus Nursery School</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>Abbey College</td><td>Huntingdon, Cambs</td><td>Skilled Worker</td></tr>
-      <tr><td>Abbey Multi Academy Trust</td><td>Leeds</td><td>Skilled Worker</td></tr>
-      <tr><td>Abbey School Limited</td><td>Chester</td><td>Skilled Worker</td></tr>
-      <tr><td>Abbeyfield Primary Academy</td><td>Sheffield, South Yorkshire</td><td>Skilled Worker</td></tr>
+      <tr><td>Credit Data Research Ltd</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Lincoln College</td><td>Lincoln</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Academy of Motion Picture Arts and Sciences</td><td>London</td><td>Creative Worker, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Acron Aviation Training Solutions Limited</td><td>Altrincham, Cheshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>AL MESBAR STUDIES &amp; RESEARCH CENTER UK LTD</td><td>London</td><td>Global Business Mobility: UK Expansion Worker</td></tr>
+      <tr><td>Alison Education UK Ltd.</td><td>Houslow</td><td>Global Business Mobility: UK Expansion Worker, Skilled Worker</td></tr>
+      <tr><td>Apollo Research AI Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Arcadia University</td><td>Holborn, London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Arisaig Partners Research Services (UK) Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Babcock Training Limited</td><td>Cosham, Portsmouth</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Berkeley Research Group (UK) Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Beta Research Ltd.</td><td>Burton-On-Trent</td><td>Global Business Mobility: Senior or Specialist Worker</td></tr>
+      <tr><td>Blanchard Training and Development Inc</td><td>Guildford, Surrey</td><td>Global Business Mobility: Senior or Specialist Worker</td></tr>
+      <tr><td>Blue Heron Research Partners (UK) Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Brigham Young University Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Cambridge University Press &amp; Assessment</td><td>Cambridge</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Cancer Research UK</td><td>London</td><td>Charity Worker, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Canon Medical Research Europe Ltd</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Capstone  Research  Limited</td><td>London, United  Kingdom</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Carfax Educational Consultants Limited</td><td>Wantage</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>CATALYSE RESEARCH LTD</td><td>London</td><td>Global Business Mobility: UK Expansion Worker</td></tr>
+      <tr><td>CECOS College London</td><td>London</td><td>Scale-up, Skilled Worker</td></tr>
+      <tr><td>CFA Institute</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Coleman Research Limited</td><td>Reading, Berkshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>CoreData Research Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
     </tbody>
   </table>
   <p class="more">Showing 25 of 3,319.
      <a href="../?industry=Education+%26+Research">Search the full list</a> to see the other 3,294.</p>
+
 </main>
 <footer><div class="wrap">
   <p>Source: GOV.UK Register of Licensed Sponsors (Workers), updated 2026-09-08 12:53 UTC.

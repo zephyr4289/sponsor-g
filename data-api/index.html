@@ -105,10 +105,15 @@
   .cta{margin:48px 0;border:2px solid var(--ink);border-radius:10px;
        background:var(--paper-dim);padding:22px}
   .cta p{color:var(--ink-soft);margin-top:6px}
-  .cta a.btn{display:inline-block;margin-top:14px;
+  .cta a.btn{display:inline-block;margin-top:14px;margin-right:10px;
              background:var(--cobalt);color:var(--on-cobalt);
              text-decoration:none;font-weight:600;
              padding:11px 22px;border-radius:8px}
+  /* The email is the ask on this page, so the newsletter link stops
+     competing with it for the same visual weight. */
+  .cta a.btn.ghost{background:transparent;color:var(--cobalt);
+                   border:1.5px solid var(--line)}
+  .cta a.btn.ghost:hover{border-color:var(--cobalt)}
   :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
@@ -117,7 +122,7 @@
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><span aria-current="page">Data</span><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 
 <main class="wrap">
   <h1>The data behind SponsorSignal</h1>
@@ -213,10 +218,14 @@
   <div class="cta">
     <h2 style="margin-top:0">Need the history, or a cut of your own?</h2>
     <p>If you need a longer history, a filtered feed for one region or sector,
-       or a regular export for your team, get in touch and tell me what you
-       are trying to do. It is easier to build the thing somebody actually
-       asked for than to guess at it.</p>
-    <a class="btn" href="../#alerts">Start with the weekly email</a>
+       or a regular export for your team, email me and tell me what you are
+       trying to do. It is easier to build the thing somebody actually asked
+       for than to guess at it.</p>
+    <p>Useful things to say: which sectors or regions you care about, how far
+       back you need, and how you would rather receive it. I reply to
+       everything.</p>
+    <a class="btn" href="mailto:rosona1829@gmail.com?subject=SponsorSignal%20data%20request">Email rosona1829@gmail.com</a>
+    <a class="btn ghost" href="../#alerts">Or start with the weekly email</a>
   </div>
 </main>
 

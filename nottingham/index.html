@@ -75,6 +75,8 @@
   td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
   tr:hover td{background:var(--paper-dim)}
   .more{margin-top:14px;color:var(--ink-soft);font-size:.9rem}
+  .links{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  .links a{margin-right:10px;white-space:nowrap}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   a{color:var(--cobalt)}
@@ -93,11 +95,12 @@
   }
   .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in Nottingham</h1>
   <p class="lead">1,047 employers in Nottingham hold a licence to sponsor work visas. If you need sponsorship, these are the ones who can offer it. Any other employer in Nottingham cannot, no matter how good your application.</p>
@@ -107,35 +110,39 @@
   <table>
     <thead><tr><th>Employer</th><th>Location</th><th>Visa routes</th></tr></thead>
     <tbody>
-      <tr><td>1212 AFRO CARIBBEAN FOOD</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>17Cicada Limited</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>200 Degrees Coffee Roasters</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>29 Stoney Street LLP</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>3 Spices Restaurant Limited</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>365 SHIPPING UK LTD</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>68 Mobile Solution Ltd t/a Mobile Solution</td><td>Nottingham, England</td><td>Skilled Worker</td></tr>
-      <tr><td>8Ball Contractors Limited</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>9 Property Group Ltd</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>A &amp; M Motors</td><td>Nottingham, Nottinghamshire</td><td>Skilled Worker</td></tr>
-      <tr><td>A H ACCOUNTANTS LTD</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>A L Dalton Ltd</td><td>Nottingham, Great Britain</td><td>Skilled Worker</td></tr>
-      <tr><td>A Star Supermarket Ltd</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>A TO Z CAR PARTS LTD</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>A&amp;Z CONSULTANTS MANGEMENT SERVICES LTD</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>A1 HALAL MEATS LIMITED</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>A1 PRIVATE HIRE LTD</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>A12 PJ Limited T/A Papa Johns</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>AAI TECH LIMITED</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>AASHESHMA LTD</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>AB Brothers Limited T/A Mamas Food Xpress</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>ABI SUPERMARKET LIMITED T/A Flints Stores</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>ABIKE&#x27;S KITCHEN LIMITED</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>ABS Auto Centre Limited</td><td>Nottingham, Nottinghamshire</td><td>Skilled Worker</td></tr>
-      <tr><td>ABS MOTS LIMITED</td><td>Nottingham, Nottinghamshire</td><td>Skilled Worker</td></tr>
+      <tr><td>E.ON UK plc</td><td>Nottingham</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>EXPERIAN LIMITED</td><td>Nottingham</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>GMV NSL Limited</td><td>Nottingham, Nottinghamshire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Aegis Trust</td><td>Nottingham, Nottinghamshire</td><td>Charity Worker, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>AVERY DENNISON RETAIL INFORMATION SERVICES UK LIMITED</td><td>Nottingham</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Barracuda Networks Limited</td><td>Nottingham</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>BCM Limited</td><td>Nottingham, Nottinghamshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Boots Management Services</td><td>Nottingham</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Brand Evangelists For Beauty Ltd</td><td>Nottingham</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>BWB Consulting Ltd</td><td>Nottingham</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>CAPITAL ONE (EUROPE) PLC</td><td>Nottingham</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Catalent Nottingham Limited</td><td>Nottingham</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Columbus Global UK Ltd</td><td>Nottingham, Nottinghamshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Compass Plus (GB) LTD</td><td>Nottingham, Nottinghamshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>DATAPAO LIMITED</td><td>Nottingham</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Eredu S.Coop</td><td>Nottingham</td><td>Global Business Mobility: UK Expansion Worker</td></tr>
+      <tr><td>Firemate Ltd</td><td>Nottingham</td><td>Global Business Mobility: Senior or Specialist Worker</td></tr>
+      <tr><td>First Advantage Europe Ltd</td><td>Nottingham, Nottinghamshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Games Workshop Ltd</td><td>Nottingham</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Go Daddy Europe Limited</td><td>Nottingham</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Helly Hansen UK Limited</td><td>Nottingham, Nottinghamshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Imtech Engineering Services London &amp; South Ltd</td><td>Nottingham</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Insight Analytics Solutions Limited</td><td>Nottingham, Nottinghamshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Luther College Study Centre</td><td>Nottingham, Nottinghamshire</td><td>Global Business Mobility: Senior or Specialist Worker</td></tr>
+      <tr><td>MELLORS GROUP LTD</td><td>Nottingham</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
     </tbody>
   </table>
   <p class="more">Showing 25 of 1,047.
      <a href="../?city=Nottingham">Search the full list</a> to see the other 1,022.</p>
+  <nav aria-label="Industries in Nottingham">
+    <h2>By industry in Nottingham</h2>
+    <p class="links"><a href="construction-engineering/">Construction &amp; Engineering (34)</a> <a href="finance-professional/">Finance &amp; Professional (39)</a> <a href="healthcare-care/">Healthcare &amp; Care (147)</a> <a href="hospitality-food/">Hospitality &amp; Food (74)</a> <a href="retail-commerce/">Retail &amp; Commerce (35)</a></p>
+  </nav>
 </main>
 <footer><div class="wrap">
   <p>Source: GOV.UK Register of Licensed Sponsors (Workers), updated 2026-09-08 12:53 UTC.

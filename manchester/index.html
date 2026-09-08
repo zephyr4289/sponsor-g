@@ -75,6 +75,8 @@
   td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
   tr:hover td{background:var(--paper-dim)}
   .more{margin-top:14px;color:var(--ink-soft);font-size:.9rem}
+  .links{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  .links a{margin-right:10px;white-space:nowrap}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   a{color:var(--cobalt)}
@@ -93,11 +95,12 @@
   }
   .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in Manchester</h1>
   <p class="lead">2,870 employers in Manchester hold a licence to sponsor work visas. If you need sponsorship, these are the ones who can offer it. Any other employer in Manchester cannot, no matter how good your application.</p>
@@ -107,35 +110,39 @@
   <table>
     <thead><tr><th>Employer</th><th>Location</th><th>Visa routes</th></tr></thead>
     <tbody>
-      <tr><td>10architect Ltd</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>1D Agency Ltd T/A One Day Agency</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>202 AHST GAS SERVICES LTD</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>2030 AUTO CARE LIMITED</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>24-4 7 FM Limited</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>24/7 RETAIL LTD</td><td>Manchester, United Kingdom</td><td>Skilled Worker</td></tr>
-      <tr><td>247 Wholesale Limited</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>2CRSi UK LTD</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>30Seconds Group Ltd</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>360 Alert Security Ltd.</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>360 Forensic Limited</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>3AK (Cheetham Hill) Limited</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>3AK (MANCHESTER) LIMITED</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>3VRM Limited</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>4 Net Technologies LTD (t/a FourNet)</td><td>Manchester, Greater Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>4 Seasons Inn Limited</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>42Gears Mobility Systems (UK) Ltd</td><td>Manchester, Greater Manchester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
-      <tr><td>42nd Street</td><td>Manchester, Greater Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>4Fashions Ltd</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>4way Consulting Ltd</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>5 Health Northwest Ltd T/ A iPharmacy Princess Road</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>5K Records Limited</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>7 STAR BLINDS LIMITED</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>7 STAR MERCHANT LTD</td><td>Manchester</td><td>Skilled Worker</td></tr>
-      <tr><td>777 MARKET LTD</td><td>Manchester</td><td>Skilled Worker</td></tr>
+      <tr><td>acime UK Ltd</td><td>Manchester, Lancashire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker</td></tr>
+      <tr><td>ALS Customs Services Limited</td><td>Manchester, Lancashire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Ardmac Performance Contracting Limited</td><td>Manchester</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>BCEGI Construction (UK) Ltd</td><td>Manchester</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>F-M Motorparts Limited</td><td>Manchester, Cheshire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Federal-Mogul Ltd</td><td>Manchester, Cheshire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Hilti (Gt. Britain) Limited</td><td>Manchester</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Rhenus Home Delivery Limited</td><td>Manchester</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Rhenus Logistics Limited</td><td>Manchester</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Advania UK Limited</td><td>Manchester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Aldermore Group PLC</td><td>Manchester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Amplifon Limited</td><td>Manchester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Armstrong Integrated Limited</td><td>Manchester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Arrk Limited</td><td>Manchester</td><td>Global Business Mobility: Senior or Specialist Worker</td></tr>
+      <tr><td>Arrow Global Limited</td><td>Manchester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Arteche UK Limited</td><td>Manchester, Lancashire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>ASE PLC</td><td>Manchester, Greater Manchester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>atVenu UK LTD</td><td>Manchester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Avecto Limited</td><td>Manchester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Azenta UK Ltd</td><td>Manchester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Belden UK Limited</td><td>Manchester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Blue Water Logistics UK Limited</td><td>Manchester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Blue Water Shipping UK LTD</td><td>Manchester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>BOOKING.COM TRANSPORT LIMITED</td><td>Manchester, Greater Manchester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Brother International Europe LTD</td><td>Manchester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
     </tbody>
   </table>
   <p class="more">Showing 25 of 2,870.
      <a href="../?city=Manchester">Search the full list</a> to see the other 2,845.</p>
+  <nav aria-label="Industries in Manchester">
+    <h2>By industry in Manchester</h2>
+    <p class="links"><a href="construction-engineering/">Construction &amp; Engineering (67)</a> <a href="education-research/">Education &amp; Research (66)</a> <a href="finance-professional/">Finance &amp; Professional (151)</a> <a href="healthcare-care/">Healthcare &amp; Care (166)</a> <a href="hospitality-food/">Hospitality &amp; Food (163)</a> <a href="media-creative/">Media &amp; Creative (51)</a> <a href="retail-commerce/">Retail &amp; Commerce (153)</a> <a href="tech-software/">Tech &amp; Software (109)</a></p>
+  </nav>
 </main>
 <footer><div class="wrap">
   <p>Source: GOV.UK Register of Licensed Sponsors (Workers), updated 2026-09-08 12:53 UTC.

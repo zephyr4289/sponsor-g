@@ -75,6 +75,8 @@
   td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
   tr:hover td{background:var(--paper-dim)}
   .more{margin-top:14px;color:var(--ink-soft);font-size:.9rem}
+  .links{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  .links a{margin-right:10px;white-space:nowrap}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   a{color:var(--cobalt)}
@@ -93,11 +95,12 @@
   }
   .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in Ilford</h1>
   <p class="lead">927 employers in Ilford hold a licence to sponsor work visas. If you need sponsorship, these are the ones who can offer it. Any other employer in Ilford cannot, no matter how good your application.</p>
@@ -107,14 +110,12 @@
   <table>
     <thead><tr><th>Employer</th><th>Location</th><th>Visa routes</th></tr></thead>
     <tbody>
-      <tr><td>1 Stop Print Ltd</td><td>Ilford</td><td>Skilled Worker</td></tr>
-      <tr><td>1st Choice Cabs Ltd</td><td>Ilford</td><td>Skilled Worker</td></tr>
-      <tr><td>1st Mr Clutch Ltd</td><td>Ilford, Essex</td><td>Skilled Worker</td></tr>
-      <tr><td>1STOP GLAZING LIMITED Trading as Imperial Glazing Solutions</td><td>Ilford, Essex</td><td>Skilled Worker</td></tr>
-      <tr><td>247 PEST CONTROL LTD</td><td>Ilford</td><td>Skilled Worker</td></tr>
-      <tr><td>28 ESTATE AGENT LIMITED</td><td>Ilford</td><td>Skilled Worker</td></tr>
-      <tr><td>365 SERVICES (UK) LTD</td><td>Ilford</td><td>Skilled Worker</td></tr>
-      <tr><td>5 Star Fruit and Veg London Ltd</td><td>Ilford, Essex</td><td>Skilled Worker</td></tr>
+      <tr><td>Center for Creative Leadership Ltd</td><td>Ilford</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Fiat Vouge Limited</td><td>Ilford, Essex</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Fujichem Sonneborn Ltd</td><td>Ilford, Essex</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>GOODMAYSYS SOFTWARE TECHNOLOGIES LIMITED</td><td>Ilford</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>HEURISTIX DIGITAL TECHNOLOGIES (UK) LIMITED</td><td>Ilford, Essex</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>WINLIFE LTD</td><td>Ilford</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
       <tr><td>A &amp; S ACCOUNTING SERVICES LTD</td><td>Ilford</td><td>Skilled Worker</td></tr>
       <tr><td>A &amp; Z Consultancy Services Ltd</td><td>Ilford</td><td>Skilled Worker</td></tr>
       <tr><td>A &amp; Z Enterprise Ltd</td><td>Ilford</td><td>Skilled Worker</td></tr>
@@ -132,10 +133,16 @@
       <tr><td>A2Z STAFFING SOLUTIONS LIMITED</td><td>Ilford, England</td><td>Skilled Worker</td></tr>
       <tr><td>AA SECURITY FORCE LTD</td><td>Ilford, England</td><td>Skilled Worker</td></tr>
       <tr><td>AAGOSH LTD</td><td>Ilford</td><td>Skilled Worker</td></tr>
+      <tr><td>AAJ CONSTRUCTION (PROPERTY) LTD</td><td>Ilford</td><td>Skilled Worker</td></tr>
+      <tr><td>AANAM CONSTRUCTION SERVICES LTD</td><td>Ilford, Essex</td><td>Skilled Worker</td></tr>
     </tbody>
   </table>
   <p class="more">Showing 25 of 927.
      <a href="../?city=Ilford">Search the full list</a> to see the other 902.</p>
+  <nav aria-label="Industries in Ilford">
+    <h2>By industry in Ilford</h2>
+    <p class="links"><a href="construction-engineering/">Construction &amp; Engineering (51)</a> <a href="finance-professional/">Finance &amp; Professional (80)</a> <a href="healthcare-care/">Healthcare &amp; Care (53)</a> <a href="hospitality-food/">Hospitality &amp; Food (73)</a> <a href="tech-software/">Tech &amp; Software (34)</a></p>
+  </nav>
 </main>
 <footer><div class="wrap">
   <p>Source: GOV.UK Register of Licensed Sponsors (Workers), updated 2026-09-08 12:53 UTC.

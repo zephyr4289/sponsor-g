@@ -75,6 +75,8 @@
   td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
   tr:hover td{background:var(--paper-dim)}
   .more{margin-top:14px;color:var(--ink-soft);font-size:.9rem}
+  .links{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  .links a{margin-right:10px;white-space:nowrap}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   a{color:var(--cobalt)}
@@ -93,11 +95,12 @@
   }
   .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in construction &amp; engineering</h1>
   <p class="lead">2,853 employers in construction &amp; engineering hold a Home Office licence to sponsor workers in the UK. A licence does not mean they are hiring today. It means they can sponsor your visa if they do hire you.</p>
@@ -107,35 +110,36 @@
   <table>
     <thead><tr><th>Employer</th><th>Location</th><th>Visa routes</th></tr></thead>
     <tbody>
-      <tr><td>1066 PLUMBING AND HEATING LTD</td><td>St. Leonards-On-Sea,</td><td>Skilled Worker</td></tr>
-      <tr><td>1214 Construction</td><td>Bradford</td><td>Skilled Worker</td></tr>
-      <tr><td>1ST CHOICE PLUMBING,HEATING &amp;COOLING LTD</td><td>Leicester</td><td>Skilled Worker</td></tr>
-      <tr><td>2 EXCEL ENGINEERING LIMITED</td><td>Lasham, Hampshire</td><td>Skilled Worker</td></tr>
-      <tr><td>24 Seven Civil Engineering Ltd</td><td>Harrow</td><td>Skilled Worker</td></tr>
-      <tr><td>2H Offshore Engineering Ltd</td><td>Woking, Surrey</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
-      <tr><td>2K CONSTRUCTION LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>2MS CONSTRUCTION LTD</td><td>Newmarket, Suffolk</td><td>Skilled Worker</td></tr>
-      <tr><td>369 Builders Merchants Ltd</td><td>Walsall, West Midlands</td><td>Skilled Worker</td></tr>
-      <tr><td>3b construction ltd</td><td>Newton Stewart, Dumfries And Galloway</td><td>Skilled Worker</td></tr>
-      <tr><td>3D BUILDING HOME LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>3K&#x27;s Engineering Company Limited</td><td>Llanelli, Carmarthenshire</td><td>Skilled Worker</td></tr>
-      <tr><td>4BASE CONSTRUCTION LTD</td><td>Southall</td><td>Skilled Worker</td></tr>
-      <tr><td>4PS Construction Solutions Limited</td><td>Birmingham</td><td>Skilled Worker</td></tr>
-      <tr><td>5 STAR AR BUILDERS LTD</td><td>Bradford</td><td>Skilled Worker</td></tr>
-      <tr><td>5S Construction Services Ltd</td><td>Slough, Berkshire</td><td>Skilled Worker</td></tr>
-      <tr><td>60MINS AUTOS &amp; MECHANICAL SERVICES LTD</td><td>Birmingham</td><td>Skilled Worker</td></tr>
-      <tr><td>8Ball Contractors Limited</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>A &amp; D BUILDING (SURREY) LIMITED</td><td>Croydon</td><td>Skilled Worker</td></tr>
-      <tr><td>A &amp; F (Bolton Builders)</td><td>Bolton</td><td>Skilled Worker</td></tr>
-      <tr><td>A and U Electrical Services</td><td>Rochdale</td><td>Skilled Worker</td></tr>
-      <tr><td>A and Z Gas and Plumbing Specialist</td><td>Luton</td><td>Skilled Worker</td></tr>
-      <tr><td>A K HARDWARE &amp; PLUMBING LIMITED</td><td>Walsall</td><td>Skilled Worker</td></tr>
-      <tr><td>A Keys Construction Ltd</td><td>Twickenham</td><td>Skilled Worker</td></tr>
-      <tr><td>A Kola Construction Ltd</td><td>London, Essex</td><td>Skilled Worker</td></tr>
+      <tr><td>BCEGI Construction (UK) Ltd</td><td>Manchester</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Buro Happold Engineers Limited</td><td>Bath, Somerset</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Eiffage Genie Civil UK</td><td>Milton Keynes, Chiswick</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Ferrovial Construction UK Ltd</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Goldbeck Construction Ltd</td><td>Birmingham</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>H&amp;E Engineering Limited</td><td>Bridgwater, Somerset</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>H&amp;MV Engineering Services Ltd</td><td>Altrincham</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Herbert Engineering Europe (UK) Ltd.</td><td>Glasgow</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Hitachi Construction Machinery (UK) Limited</td><td>Hebburn, Tyne And Wear</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>ITW Construction Products - Division of ITW Limited</td><td>Glenrothes, Fife</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>KLM UK Engineering Limited</td><td>Norwich, Norfolk</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Mustang Engineering Limited</td><td>Woking, Surrey</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Aarsleff Ground Engineering Ltd</td><td>Newark On Trent</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Abeko Dredging and Marine Contractors Ltd.</td><td>Conwy, Gwynned</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>ABMI Engineering UK Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>ACRON ENGINEERING SERVICES (UK) LTD</td><td>London</td><td>Global Business Mobility: UK Expansion Worker, Skilled Worker</td></tr>
+      <tr><td>ADP Consulting &amp; Engineering Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Advansys Engineering Services and Consultancy Limited</td><td>Camberley, Surrey</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>ALB UK Construction &amp; Development Ltd</td><td>South Cave</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Alstom Engineering and Services Limited</td><td>Derby</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Altair Engineering Ltd</td><td>Leamington Spa, Warwickshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Anel Engineering &amp; Contracting Limited</td><td>Chester</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>ANSELL ELECTRICAL PRODUCTS LIMITED</td><td>Warrington</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Ascendion Engineering Solutions Europe Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Aspecto Power Engineering Ltd.</td><td>Warwick</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
     </tbody>
   </table>
   <p class="more">Showing 25 of 2,853.
      <a href="../?industry=Construction+%26+Engineering">Search the full list</a> to see the other 2,828.</p>
+
 </main>
 <footer><div class="wrap">
   <p>Source: GOV.UK Register of Licensed Sponsors (Workers), updated 2026-09-08 12:53 UTC.

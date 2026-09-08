@@ -75,6 +75,8 @@
   td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
   tr:hover td{background:var(--paper-dim)}
   .more{margin-top:14px;color:var(--ink-soft);font-size:.9rem}
+  .links{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  .links a{margin-right:10px;white-space:nowrap}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   a{color:var(--cobalt)}
@@ -93,11 +95,12 @@
   }
   .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in media &amp; creative</h1>
   <p class="lead">2,818 employers in media &amp; creative hold a Home Office licence to sponsor workers in the UK. A licence does not mean they are hiring today. It means they can sponsor your visa if they do hire you.</p>
@@ -107,35 +110,36 @@
   <table>
     <thead><tr><th>Employer</th><th>Location</th><th>Visa routes</th></tr></thead>
     <tbody>
-      <tr><td>1 Stop Print Ltd</td><td>Ilford</td><td>Skilled Worker</td></tr>
-      <tr><td>10 DAYS STUDIO LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>101 Studios UK Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1854 Media Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1CLICK STUDIO</td><td>Dagenham, Essex</td><td>Skilled Worker</td></tr>
-      <tr><td>1SW EVENTS LONDON LTD</td><td>Alfreds  Way</td><td>Skilled Worker</td></tr>
-      <tr><td>20-20 Events Management Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>200 CONFERENCE &amp; EVENTS LIMITED</td><td>Glasgow</td><td>Skilled Worker</td></tr>
-      <tr><td>24 PRODUCTIONS LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>2A PRODUCTIONS LIMITED</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>2CHE DESIGN LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>36.7 Studio LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>360 DIGI MARKETING LTD</td><td>Canary Wharf</td><td>Skilled Worker</td></tr>
-      <tr><td>360 DIGI MARKETING LTD</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>408 Media Group Ltd</td><td>Sandbach, Cheshire</td><td>Skilled Worker</td></tr>
-      <tr><td>43 Harbour News Ltd t/a Harbour News</td><td>Whitstable, Kent</td><td>Skilled Worker</td></tr>
-      <tr><td>474 Management Limited T/a Duke Of Design</td><td>Greenford</td><td>Skilled Worker</td></tr>
-      <tr><td>4J Studios Limited</td><td>East Linton, East Lothian</td><td>Skilled Worker</td></tr>
-      <tr><td>59 Studio Ltd</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>5th Studio Ltd.</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>663 Design Ltd</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>7 Oaks News &amp; Wine Store</td><td>Sevenoaks</td><td>Skilled Worker</td></tr>
-      <tr><td>7 TO 7 NEWS LIMITED T/A PREMIER STORE</td><td>Herne Bay</td><td>Skilled Worker</td></tr>
-      <tr><td>75 Media Limited</td><td>Leeds, West Yorkshire</td><td>Skilled Worker</td></tr>
-      <tr><td>A Creative Cog Ltd</td><td>London</td><td>Skilled Worker</td></tr>
+      <tr><td>Capricorn Studios Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: UK Expansion Worker, Skilled Worker</td></tr>
+      <tr><td>Immediate Media Company Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Korea Creative Content Agency UK</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: UK Expansion Worker, Skilled Worker</td></tr>
+      <tr><td>McCann Erickson Advertising Ltd</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Acoustic Marketing UK Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>ADM-Indicia Marketing Services Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>AI-Media UK B Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Akhtar Rizvi Films Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Amagi Media Private Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>American Lawyer Media International Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Aprimo Marketing Operations UK Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Arc Media Holdings Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Arrow International Media Limited</td><td>London</td><td>Creative Worker, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Art Partner Productions Limited</td><td>London</td><td>Creative Worker, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Artlogic Media Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>ASPECT Studios Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>ASSEMBLY MEDIA LIMITED</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Associates in Advertising Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Autosport Media UK Ltd</td><td>Isleworth</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Axion Marketing Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Basilic Fly Studio UK Private Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Be Kind Studios ltd</td><td>New Malden</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Blackhouse Media (BHM) Limited</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Blackmagic Design Ltd</td><td>Knutsford, Cheshire</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Blue Marlin Brand Design Limited</td><td>Frome, Somerset</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
     </tbody>
   </table>
   <p class="more">Showing 25 of 2,818.
      <a href="../?industry=Media+%26+Creative">Search the full list</a> to see the other 2,793.</p>
+
 </main>
 <footer><div class="wrap">
   <p>Source: GOV.UK Register of Licensed Sponsors (Workers), updated 2026-09-08 12:53 UTC.

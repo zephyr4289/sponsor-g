@@ -75,6 +75,8 @@
   td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
   tr:hover td{background:var(--paper-dim)}
   .more{margin-top:14px;color:var(--ink-soft);font-size:.9rem}
+  .links{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  .links a{margin-right:10px;white-space:nowrap}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   a{color:var(--cobalt)}
@@ -93,11 +95,12 @@
   }
   .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in hospitality &amp; food</h1>
   <p class="lead">8,560 employers in hospitality &amp; food hold a Home Office licence to sponsor workers in the UK. A licence does not mean they are hiring today. It means they can sponsor your visa if they do hire you.</p>
@@ -107,35 +110,36 @@
   <table>
     <thead><tr><th>Employer</th><th>Location</th><th>Visa routes</th></tr></thead>
     <tbody>
-      <tr><td>1 Green Foods Ltd</td><td>Northolt</td><td>Skilled Worker</td></tr>
-      <tr><td>10 DINING STREET LIMITED</td><td>Oakham</td><td>Skilled Worker</td></tr>
-      <tr><td>100% HALAL MEAT STORES LTD</td><td>Birmingham</td><td>Skilled Worker</td></tr>
-      <tr><td>1010 Restaurant @ The Blacksmiths arms</td><td>Billingshurst, West Sussex</td><td>Skilled Worker</td></tr>
-      <tr><td>114 GPS Ltd  T/A Sushi Atelier</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1212 AFRO CARIBBEAN FOOD</td><td>Nottingham</td><td>Skilled Worker</td></tr>
-      <tr><td>13th Street Hospitality Ltd t/a Sunday in Brooklyn</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>16 Barrack Ltd TA Saffron Indian Restaurant &amp; Pizza Place</td><td>Woodbridge</td><td>Skilled Worker</td></tr>
-      <tr><td>19 BY K &amp; R CATERING LTD T/A 19 BY KATHERINE CARR</td><td>Ballycastle, Northern Ireland</td><td>Skilled Worker</td></tr>
-      <tr><td>1947 Restaurant &amp; Bar Ltd T/A 1947 Restaurant, Bar &amp; Pizza Kitchen</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>1953 Bar And Restaurant</td><td>Galashiels, Scottish Borders</td><td>Skilled Worker</td></tr>
-      <tr><td>1986 The Kebab Kafe (just halal Kebabs)</td><td>Sheffield, South Yorkshire</td><td>Skilled Worker</td></tr>
-      <tr><td>1st Fresh Foods Ltd</td><td>Mitcham</td><td>Skilled Worker</td></tr>
-      <tr><td>2 Bro&#x27;s Pizza &amp; Dessert ltd</td><td>Luton</td><td>Skilled Worker</td></tr>
-      <tr><td>2 FRIENDS PUB COMPANY LTD</td><td>Oldbury,, West Midlands</td><td>Skilled Worker</td></tr>
-      <tr><td>2 Sisters Food Group Limited</td><td>Wakefield</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
-      <tr><td>201 ASIAN KITCHEN</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>2023 Cool Foods Ltd T/A Oishii Sushi</td><td>London, Middlesex</td><td>Skilled Worker</td></tr>
-      <tr><td>22 Hotel Management Limited</td><td>London</td><td>Skilled Worker</td></tr>
-      <tr><td>29 Spices</td><td>Bournemouth</td><td>Skilled Worker</td></tr>
-      <tr><td>2R1 Limited T/A German Doner Kebab</td><td>Ruislip</td><td>Skilled Worker</td></tr>
-      <tr><td>2tees AfroCaribbean Foods Ltd</td><td>Andover</td><td>Skilled Worker</td></tr>
-      <tr><td>3 Catering Limited</td><td>Oxford, Oxon</td><td>Skilled Worker</td></tr>
-      <tr><td>3 KILNS Pub</td><td>Leicester</td><td>Skilled Worker</td></tr>
-      <tr><td>3 Spices Restaurant Limited</td><td>Nottingham</td><td>Skilled Worker</td></tr>
+      <tr><td>Adonis Smart Foods Ltd</td><td>London, Lambeth</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Arla Foods Limited</td><td>Leeds</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Atariya Restaurant London Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Creative Foods Europe Limited</td><td>Burton-On-Trent, East Staffordshire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Essendi UK Hotels 1 Limited</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Greenwich Food Ingredients Ltd</td><td>Talbot Green, Pontyclun</td><td>Global Business Mobility: Senior or Specialist Worker, Global Business Mobility: UK Expansion Worker, Skilled Worker</td></tr>
+      <tr><td>Hilton UK Hotels Limited</td><td>Watford, Hertfordshire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Mars Food UK Limited</td><td>Slough, Berkshire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Mars Food UK Limited</td><td>Melton Mowbray, Leicestershire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>McCain Foods (GB) Ltd</td><td>Scarborough, North Yorkshire</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Pan Pacific London Hotel Ltd</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>STICKS &#x27;N&#x27; SUSHI UK LIMITED</td><td>London</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>A.B. Hotels (The Arch London) Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>AKBULAK FOODS UK LTD</td><td>London</td><td>Global Business Mobility: UK Expansion Worker</td></tr>
+      <tr><td>All World Foods Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Amira G Foods Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Andaz Hotel</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Archer Hotel Capital B.V.</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Ascott Hospitality Management UK Ltd</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Associated British Foods Plc</td><td>London, London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>ATARIYA FOODS RETAIL (UK) LIMITED</td><td>Hove</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Azuma Foods UK Ltd.</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>B&amp;B Hotels UK Limited</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Beyond Hospitality Group Ltd</td><td>Wilmslow, Cheshire</td><td>Global Business Mobility: Senior or Specialist Worker</td></tr>
+      <tr><td>BF INTERNATIONAL BEST FIELDS BEST FOOD LIMITED</td><td>London</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
     </tbody>
   </table>
   <p class="more">Showing 25 of 8,560.
      <a href="../?industry=Hospitality+%26+Food">Search the full list</a> to see the other 8,535.</p>
+
 </main>
 <footer><div class="wrap">
   <p>Source: GOV.UK Register of Licensed Sponsors (Workers), updated 2026-09-08 12:53 UTC.

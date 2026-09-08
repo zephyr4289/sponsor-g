@@ -218,13 +218,18 @@
     display:block;margin-top:3px;font-size:.83rem;color:var(--ink-soft);
     text-wrap:pretty;
   }
-  /* the differentiator, so it is the one that looks clickable */
+  /* Findable, not alarming. This used to be a solid red card, which made the
+     loudest thing on the page the one number derived from matching names
+     rather than from the register itself. A false positive here is somebody
+     told their prospective employer is dying when it is not, so it should
+     not shout louder than the data we are certain of. The arrow marks it as
+     the clickable one instead. */
   a.stat.flag{
-    text-decoration:none;color:inherit;
-    border-color:var(--warn-border);background:var(--warn-bg);
+    text-decoration:none;color:inherit;border-color:var(--line);
+    background:var(--paper);
   }
-  a.stat.flag .v{color:var(--warn-ink)}
-  a.stat.flag:hover{border-color:var(--bad);background:var(--warn-bg-2)}
+  a.stat.flag .l::after{content:' \2192';color:var(--cobalt);font-weight:700}
+  a.stat.flag:hover{border-color:var(--ink-soft);background:var(--paper-dim)}
   a.stat.flag[hidden]{display:none}
 
   /* Sticky filter bar. This is why there is no sidebar: the controls follow
@@ -311,6 +316,10 @@
     width:1%;white-space:nowrap;text-align:right;padding-left:18px;
   }
   tbody tr:hover{background:var(--paper-dim)}
+  /* The whole row opens the employer, so it has to look like it does. The
+     name stays a button because that is what the keyboard and a screen
+     reader need; this is only for the mouse. */
+  tbody tr[data-name]{cursor:pointer}
   td.name{font-weight:600}
   .tag{
     display:inline-block;font-size:.75rem;padding:2px 8px;border-radius:99px;
@@ -539,8 +548,8 @@
       <span class="wordmark">SponsorSignal<span class="dot">.</span></span>
     </a>
     <nav class="topnav" aria-label="Sections">
-      <a href="changes/">This week's changes <span class="badge" id="navChanges" hidden></span></a>
-      <a href="insights/">The numbers</a>
+      <a href="changes/">Changes <span class="badge" id="navChanges" hidden></span></a>
+      <a href="insights/">Numbers</a>
       <a href="data-api/">Data</a>
       <button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button>
     </nav>
@@ -570,7 +579,7 @@
       </div>
       <a class="stat flag" id="statWarnBox" href="?warn=1" hidden>
         <span class="v" id="statWarn">&mdash;</span>
-        <span class="l">whose company is in trouble at Companies House</span>
+        <span class="l">with something worth checking at Companies House</span>
       </a>
     </div>
     <p class="sourceline">From the GOV.UK Register of Licensed Sponsors, updated <strong id="updated">&mdash;</strong>.</p>
@@ -660,7 +669,7 @@
     </form>
     <p class="done" id="alertDone" role="status">Almost there. Check your inbox and click the confirmation link to finish signing up.</p>
     <p class="err" id="alertErr" role="alert"></p>
-    <p class="fineprint">Free. One email a week. Unsubscribe anytime.</p>
+    <p class="fineprint">Free. One email a week. Unsubscribe anytime. We never sell your address. <a href="privacy/">How we handle your data</a>.</p>
   </section>
 
   <section class="faq">
@@ -679,8 +688,9 @@
     </details>
     <details>
       <summary>What does the red warning next to an employer mean?</summary>
-      <p>It means Companies House records something about that company worth knowing before you apply. Most often the company is in liquidation, being struck off, or filing accounts as dormant. A sponsor licence is a permission, not a health check, so a company being wound up can stay on the register for months.</p>
-      <p>We match employers to Companies House by name, so a warning is not proof and an employer without one is not vetted. Every warning links straight to the official Companies House record. Check it there before you decide anything.</p>
+      <p>It means Companies House records something about that company worth knowing before you apply. A sponsor licence is a permission, not a health check, so a company being wound up can stay on the register for months.</p>
+      <p>The warnings are not all equally serious, which is why each one says what it found. "Liquidation" or "Strike-off proposed" is grave. "Accounts overdue" is often just paperwork at a company that is trading perfectly well. Read the label, not the colour.</p>
+      <p>We match employers to Companies House by name, so a warning is not proof and an employer without one is not vetted. Where one name is held by two different companies and we cannot tell which is the employer, we show no warning at all rather than guess. Every warning links straight to the official Companies House record. Check it there before you decide anything.</p>
     </details>
     <details>
       <summary>How do the industry tags work?</summary>
@@ -700,9 +710,13 @@
     <p><a href="changes/">Sponsors added and removed this week</a>. Who gained a licence, and who lost one.</p>
     <p><a href="insights/">UK visa sponsorship in numbers</a>. Where the sponsors are and which routes they hold.</p>
     <p><a href="data-api/">Use the data yourself</a>. Everything here as JSON, plus an <a href="feed.xml">RSS feed</a> of the weekly changes.</p>
+    <p><a href="methodology/">How this data is built</a>. Where it comes from, and which parts are guesses that can be wrong.</p>
+    <p><a href="about/">About SponsorSignal</a>. Who built it, and what it will never do.</p>
+    <p>Something wrong, or need a cut of the data for your team? Email <a href="mailto:rosona1829@gmail.com">rosona1829@gmail.com</a>.</p>
     </nav>
     <p>SponsorSignal is an independent search tool built on open public data from GOV.UK. It is not affiliated with the Home Office and is not immigration advice.</p>
     <p>Always confirm a sponsor's current status on the official register before making decisions.</p>
+    <p class="links"><a href="about/">About</a> <a href="methodology/">Methodology</a> <a href="privacy/">Privacy</a> <a href="data-api/">Data</a></p>
   </div>
 </footer>
 
@@ -835,7 +849,7 @@
               ` rel="noopener" title="${attr(warn.title)}">${esc(warn.label)}</a>`
             : ` <span class="tag warn" title="${attr(warn.title)}">${esc(warn.label)}</span>`)
         : '';
-      return `<tr>
+      return `<tr data-name="${attr(name)}">
         <td class="name"><button class="rowbtn" type="button" data-name="${attr(name)}">${esc(name)}</button>${isNew?' <span class="tag new">New</span>':''}${warnTag}</td>
         <td data-label="Location">${esc(loc)}</td>
         <td data-label="Industry">${esc(industry)}</td>
@@ -1271,8 +1285,17 @@
   // A real href, so it still works without JavaScript and can be opened in a
   // new tab. Intercepted here because a reload would re-fetch the register.
   rows.addEventListener('click',e=>{
+    // The company warning is a real link to Companies House. A click there
+    // must go there, and not also open the sheet behind it.
+    if(e.target.closest('a')) return;
     const btn = e.target.closest('.rowbtn');
-    if(btn) openSheet(btn.dataset.name, btn);
+    if(btn){ openSheet(btn.dataset.name, btn); return; }
+    // Anywhere else in the row. People click the row rather than hunting for
+    // the name, and on a five-column table that left most of the row dead:
+    // the click did nothing, which reads as a broken site rather than a
+    // missed target.
+    const tr = e.target.closest('tr[data-name]');
+    if(tr) openSheet(tr.dataset.name, tr);
   });
   $('sheetClose').addEventListener('click',closeSheet);
   $('sheetCopy').addEventListener('click',async ()=>{

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About SponsorSignal | SponsorSignal</title>
+<meta name="description" content="Who built SponsorSignal and why, what it will never do, and how it is paid for. Run by Roshan Yadav.">
+<link rel="canonical" href="https://roshan1208.github.io/sponsorsignal/about/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://roshan1208.github.io/sponsorsignal/about/">
+<meta property="og:title" content="About SponsorSignal">
+<meta property="og:description" content="Who built SponsorSignal and why, what it will never do, and how it is paid for. Run by Roshan Yadav.">
+<meta property="og:image" content="https://roshan1208.github.io/sponsorsignal/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --ink:#17233B; --ink-soft:#4A5670;
+    --paper:#FFFFFF; --paper-dim:#F5F7FB;
+    --cobalt:#2145C9; --cobalt-dark:#17348F; --on-cobalt:#FFFFFF;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#D9DFEA; --good:#0E7B4F; --bad:#B3261E;
+    --warn-bg:#FDF1F0; --warn-bg-2:#FBE3E1; --warn-border:#E7B4AE;
+    --warn-ink:#8A1E18; --warn-solid:#B3261E;
+    --mark-bg:#17233B; --mark-fg:#FFFFFF;
+    --note-bg:#FFF6DC; --note-border:#EAD48A;
+    --shadow:rgba(23,35,59,.10);
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ink:#E8ECF3; --ink-soft:#A3AEC2;
+      --paper:#10151F; --paper-dim:#1A2230;
+      --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F; --on-cobalt:#10151F;
+      --signal:#FFC933; --on-signal:#17233B;
+      --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+      --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+      --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+      --mark-bg:#E8ECF3; --mark-fg:#10151F;
+    --note-bg:#2A2412; --note-border:#5A4A1E;
+      --note-bg:#2A2412; --note-border:#5A4A1E;
+      --shadow:rgba(0,0,0,.45);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#E8ECF3; --ink-soft:#A3AEC2;
+    --paper:#10151F; --paper-dim:#1A2230;
+    --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+    --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+    --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+    --mark-bg:#E8ECF3; --mark-fg:#10151F;
+    --note-bg:#2A2412; --note-border:#5A4A1E;
+    --shadow:rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Public Sans',system-ui,sans-serif;color:var(--ink);
+       line-height:1.6;background:var(--paper)}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+  a{color:var(--cobalt)}
+  header{border-bottom:3px solid var(--ink);padding:14px 0}
+  .brand{font-weight:800;font-size:1.1rem}
+  .brand a{color:inherit;text-decoration:none}
+  .brand .dot{color:var(--cobalt)}
+  h1{font-size:clamp(1.6rem,4.5vw,2.3rem);font-weight:800;
+     letter-spacing:-0.02em;margin:36px 0 10px;text-wrap:balance;max-width:24ch}
+  .lead{color:var(--ink-soft);max-width:64ch;text-wrap:pretty;font-size:1.05rem}
+  h2{font-size:1.2rem;font-weight:800;margin:40px 0 8px;text-wrap:balance}
+  h3{font-size:1rem;font-weight:700;margin:22px 0 4px}
+  p{max-width:64ch;text-wrap:pretty}
+  p+p{margin-top:10px}
+  ul{margin:10px 0 0 20px;max-width:64ch}
+  li+li{margin-top:8px}
+  .updated{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .box{border:1.5px solid var(--line);border-radius:10px;
+       background:var(--paper-dim);padding:16px 18px;margin-top:16px}
+  .box p{max-width:none}
+  table{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:14px}
+  th{text-align:left;font-size:.8rem;color:var(--ink-soft);
+     border-bottom:2px solid var(--ink);padding:8px 10px 6px}
+  td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
+  footer{margin-top:52px;border-top:3px solid var(--ink);padding:22px 0 40px;
+         font-size:.85rem;color:var(--ink-soft)}
+  footer p+p{margin-top:6px}
+
+  .header-inner{display:flex;align-items:center;justify-content:space-between;
+                gap:16px;flex-wrap:wrap}
+  .topnav{display:flex;gap:18px;font-size:.9rem;font-weight:600}
+  .topnav a{text-decoration:none}
+  .topnav a:hover{text-decoration:underline}
+  .topnav [aria-current]{color:var(--ink-soft)}
+  @media (max-width:520px){.topnav{gap:14px;font-size:.85rem;width:100%}}
+
+  .themebtn{
+    font:inherit;font-size:1rem;line-height:1;cursor:pointer;
+    background:transparent;border:1.5px solid var(--line);border-radius:99px;
+    color:var(--ink-soft);padding:5px 10px;
+  }
+  .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
+
+</style>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+
+<main class="wrap">
+  <h1>About SponsorSignal</h1>
+  <p class="lead">SponsorSignal is run by one person. This page says who,
+     why it exists, and what it will never do, so you can judge whether to
+     trust anything else on the site.</p>
+
+  <h2>Who built it</h2>
+  <p>My name is Roshan Yadav. I built SponsorSignal because the
+     information was public but unusable. The Home Office does publish the
+     full list of employers licensed to sponsor a work visa. It publishes it
+     as a multi-megabyte spreadsheet with no search, no industries, and no way
+     to see what changed since last week.</p>
+  <p>If you need sponsorship, that list decides which jobs are worth applying
+     for. About 127,000 employers hold a licence, out of roughly five million
+     in the country. Every application sent to the other 98% is wasted effort,
+     and most people find that out far too late.</p>
+  <p>You can reach me at <a href="mailto:rosona1829@gmail.com">rosona1829@gmail.com</a>. I read everything, and if the site
+     has something wrong I would rather hear it from you than not.</p>
+
+  <h2>What it is, and what it is not</h2>
+  <p>It is a search tool over a public register. That is all it is.</p>
+  <p>It is not immigration advice, and I am not qualified to give any. UK
+     immigration advice is regulated for good reason. Nothing here assesses
+     your case, tells you whether you qualify, or ranks your chances. If you
+     need advice, use an adviser registered with the
+     <a href="https://www.gov.uk/find-an-immigration-adviser">Immigration
+     Advice Authority</a> or a solicitor regulated by the SRA.</p>
+  <p>It is also not the official register. It is a daily copy of one. Before
+     you act on anything, check the
+     <a href="https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers">official
+     list on GOV.UK</a>. If the two ever disagree, GOV.UK is right and I want
+     to know about it.</p>
+
+  <h2>Things this site will not do</h2>
+  <ul>
+    <li><strong>Charge job seekers to search.</strong> The data is public. Put
+        a paywall on it and the tool stops helping the people it is for.</li>
+    <li><strong>Sell or rent your email address.</strong> Not to recruiters,
+        not to advisers, not to anyone. See the
+        <a href="../privacy/">privacy notice</a>.</li>
+    <li><strong>Let anyone pay to change the search results.</strong> If paid
+        placement ever appears it will be labelled and kept out of the
+        rankings. An employer cannot pay to be listed, delisted, or to have a
+        Companies House warning removed.</li>
+    <li><strong>Pretend a guess is a fact.</strong> The industry tags and the
+        Companies House matching are both inferred, and both are labelled as
+        inferred wherever they appear. How they work is on the
+        <a href="../methodology/">methodology page</a>.</li>
+  </ul>
+
+  <h2>How it is paid for</h2>
+  <p>At the moment, it is not. It runs on free static hosting and a scheduled
+     job, and costs close to nothing.</p>
+  <p>The intention is to fund it by selling the change history to recruiters,
+     immigration advisers and relocation firms, who want to know which
+     employers gained or lost a licence. Those are businesses with budgets.
+     Job seekers are not, and the search stays free regardless of whether that
+     works.</p>
+  <p>I would rather say that plainly than pretend there is no commercial
+     intent. A free tool with a hidden business model is worse than a paid one
+     with an obvious one.</p>
+
+  <h2>Corrections</h2>
+  <p>If an employer is listed wrongly, if a warning is attached to the wrong
+     company, or if anything reads as more certain than it should, tell me and
+     I will fix it. Wrong data here costs somebody a real job application, so
+     corrections come before features.</p>
+
+<p class="updated">Last updated 8 September 2026.</p>
+</main>
+
+<footer><div class="wrap">
+  <p>SponsorSignal is an independent search tool built on open public data
+     from GOV.UK. It is not affiliated with the Home Office and is not
+     immigration advice.</p>
+  <p><a href="../">Search the register</a></p>
+</div></footer>
+<script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>(function(){var b=document.querySelector('[data-theme-toggle]');if(!b)return;var r=document.documentElement;function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}function sync(){b.setAttribute('aria-pressed',String(dark()));}b.addEventListener('click',function(){var next=dark()?'light':'dark';r.setAttribute('data-theme',next);try{localStorage.setItem('theme',next);}catch(e){}sync();});sync();})();</script>
+</body>
+</html>

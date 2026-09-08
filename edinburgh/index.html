@@ -75,6 +75,8 @@
   td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
   tr:hover td{background:var(--paper-dim)}
   .more{margin-top:14px;color:var(--ink-soft);font-size:.9rem}
+  .links{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  .links a{margin-right:10px;white-space:nowrap}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   a{color:var(--cobalt)}
@@ -93,11 +95,12 @@
   }
   .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">This week's changes</a><a href="../insights/">The numbers</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">SponsorSignal<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 <main class="wrap">
   <h1>Companies that sponsor UK work visas in Edinburgh</h1>
   <p class="lead">1,173 employers in Edinburgh hold a licence to sponsor work visas. If you need sponsorship, these are the ones who can offer it. Any other employer in Edinburgh cannot, no matter how good your application.</p>
@@ -107,35 +110,39 @@
   <table>
     <thead><tr><th>Employer</th><th>Location</th><th>Visa routes</th></tr></thead>
     <tbody>
-      <tr><td>023 LTD</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>10 Europe Limited</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
-      <tr><td>1partCarbon Ltd</td><td>Edinburgh, Scotland</td><td>Skilled Worker</td></tr>
-      <tr><td>1ST CHOICE RESOURCE GRP LTD</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>1st Focus Homecare Ltd</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>24 RT Limited</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>2i Limited</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>56Three Architects Limited</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>7N Architects (Randolph) Ltd</td><td>Edinburgh, Scotland</td><td>Skilled Worker</td></tr>
-      <tr><td>8 Million Stories Limited</td><td>Edinburgh, Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>A &amp; AQ LIMITED</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>A &amp; D Edinburgh Limited</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>A&amp;E BROTHERS LTD</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>A.D.I.Scotland LTD</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>AA EDINBURGH FOOD LIMITED TA Shapla Takeaway</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>AAC Technologies (Scotland) Limited</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
-      <tr><td>AaruvikA Limited</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>Abbey (UK) Travel Limited (Trading as Abbey Ireland &amp; UK</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>Abbott Risk Consulting Ltd</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>Abdul Halal Market Ltd</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>Abdur Rashids Sons Limited TA Eastern Spices</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>Abelon Systems Limited</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
       <tr><td>Aberdeen Group Plc</td><td>Edinburgh</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
-      <tr><td>Acoup Ltd</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
-      <tr><td>ACT Blade Ltd</td><td>Edinburgh</td><td>Skilled Worker</td></tr>
+      <tr><td>Copenhagen Offshore Partners A/S, UK Branch</td><td>Edinburgh</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Heineken UK Limited</td><td>Edinburgh</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Ocean Winds UK Ltd</td><td>Edinburgh</td><td>Global Business Mobility: Graduate Trainee, Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>AAC Technologies (Scotland) Limited</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>ADDEPAR UK LTD</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Administrate Ltd</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>ALPHA DATA PARALLEL SYSTEMS LTD</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Anywhereworks Ltd</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Baillie Gifford</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Bakkafrost Scotland Limited</td><td>Edinburgh, Scotland</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>BayWa R.E. UK Limited</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Blackhouse Media (BHM) Limited</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Blend360 UK Ltd.</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Canon Medical Research Europe Ltd</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Capricorn Energy PLC</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Cirrus Logic International Semiconductor Limited</td><td>Edinburgh, Midlothian</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Clearwater Analytics, Ltd.</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>CodeBase Ltd</td><td>Edinburgh, Midlothian</td><td>Scale-up</td></tr>
+      <tr><td>Commissum Associates Limited</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Current Health Limited</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Dexcom Operating Ltd</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>Ember Core Ltd</td><td>Edinburgh</td><td>Scale-up</td></tr>
+      <tr><td>Enercon Wind Energy UK Limited</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
+      <tr><td>ENERCON Wind Energy UK Ltd.</td><td>Edinburgh</td><td>Global Business Mobility: Senior or Specialist Worker, Skilled Worker</td></tr>
     </tbody>
   </table>
   <p class="more">Showing 25 of 1,173.
      <a href="../?city=Edinburgh">Search the full list</a> to see the other 1,148.</p>
+  <nav aria-label="Industries in Edinburgh">
+    <h2>By industry in Edinburgh</h2>
+    <p class="links"><a href="education-research/">Education &amp; Research (33)</a> <a href="finance-professional/">Finance &amp; Professional (42)</a> <a href="healthcare-care/">Healthcare &amp; Care (100)</a> <a href="hospitality-food/">Hospitality &amp; Food (94)</a> <a href="media-creative/">Media &amp; Creative (30)</a> <a href="retail-commerce/">Retail &amp; Commerce (51)</a> <a href="tech-software/">Tech &amp; Software (42)</a></p>
+  </nav>
 </main>
 <footer><div class="wrap">
   <p>Source: GOV.UK Register of Licensed Sponsors (Workers), updated 2026-09-08 12:53 UTC.
