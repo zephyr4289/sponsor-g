@@ -1133,10 +1133,23 @@
   let activeSlice = [];
   let totalMatches = 0;
   let currentOffset = 0;
+  let isLoadingNext = false;
   const PAGE_LIMIT = 150;
   
   let searchWorker = null;
   let requestId = 0;
+
+  // Sector to default SOC mapping
+  const SECTOR_TO_SOC = {
+    'Tech & Software': '2136',
+    'Healthcare & Nursing': '2231',
+    'Finance & Professional': '2421',
+    'Hospitality & Food': '5434',
+    'Construction & Engineering': '2121',
+    'Education & Research': '2311',
+    'Media & Creative': '2137',
+    'Retail & Commerce': '3543'
+  };
 
   // Shortlist in LocalStorage
   const SAVED_KEY = 'kys.shortlist';
@@ -1161,6 +1174,18 @@
     const d = document.createElement('span');
     d.textContent = s;
     return d.innerHTML;
+  }
+
+  function downloadBlob(content, filename) {
+    const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
   const WARNINGS = [
@@ -1193,9 +1218,11 @@
 
   // Fast Table Rendering
   function renderTable(rows, append) {
+    isLoadingNext = false;
     if (!append) {
       activeSlice = rows;
       currentOffset = rows.length;
+      selectedRowIndex = rows.length ? 0 : -1;
     } else {
       activeSlice = activeSlice.concat(rows);
       currentOffset += rows.length;
@@ -1262,6 +1289,11 @@
     }).join('');
 
     tbody.innerHTML = html;
+
+    // Auto-open docket for first row if not mobile and docket empty
+    if (!append && activeSlice.length && window.innerWidth > 960 && document.getElementById('docketContent').style.display === 'none') {
+      openDocket(activeSlice[0]);
+    }
   }
 
   // Forensic Inspection Docket
@@ -1296,7 +1328,7 @@
     if (warn && (warn.severity === 'serious' || warn.severity === 'notable')) {
       advBox.style.display = 'block';
       advBox.className = 'docket-advisory ' + (warn.severity === 'serious' ? 'critical' : 'warning');
-      advBox.innerHTML = `<strong>Advisory:</strong> ${esc(warn.explanation)} Corporate insolvency or strike-off proceedings legally impair the entity's ability to maintain worker sponsorship.`;
+      advBox.innerHTML = `<strong>Advisory:</strong> ${esc(warn.explanation)} Corporate insolvency or strike-off proceedings legally impair the entity's ability to issue or maintain Certificates of Sponsorship.`;
     } else {
       advBox.style.display = 'none';
     }
@@ -1311,16 +1343,27 @@
       const money = typeof latest.arrears === 'number' ? '£' + latest.arrears.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : '';
       const workers = latest.workers ? latest.workers.toLocaleString() + (latest.workers === 1 ? ' worker' : ' workers') : '';
       
-      let nmwHtml = `<strong>Named for underpaying the statutory minimum wage${year ? ' in ' + esc(year) : ''}.</strong> `;
+      let nmwHtml = `<strong>Named for underpaying statutory minimum wage${year ? ' in ' + esc(year) : ''}.</strong> `;
       if (money && workers) nmwHtml += `${money} was owed to ${workers}. `;
-      if (nmw.length > 1) nmwHtml += `Named in ${nmw.length} separate enforcement rounds. `;
+      if (nmw.length > 1) nmwHtml += `Named across ${nmw.length} separate enforcement rounds. `;
       if (latest.source && latest.source.startsWith('https://www.gov.uk/')) {
-        nmwHtml += `<br><a href="${esc(latest.source)}" target="_blank" rel="noopener">Official Government Publication &rarr;</a>`;
+        nmwHtml += `<br><a href="${esc(latest.source)}" target="_blank" rel="noopener">Official Government Finding &rarr;</a>`;
       }
-      nmwHtml += `<br><small style="opacity:0.85; margin-top:4px; display:block;">Published statutory enforcement finding. Arrears named must be repaid.</small>`;
+      nmwHtml += `<br><small style="opacity:0.85; margin-top:4px; display:block;">Published statutory enforcement record. Arrears named must be fully repaid to workers.</small>`;
       nmwBox.innerHTML = nmwHtml;
     } else {
       nmwSection.style.display = 'none';
+    }
+
+    // Contextual SOC preselection for salary calculator
+    if (socData && socData.occupations && socData.occupations.length) {
+      const defaultSoc = SECTOR_TO_SOC[industry] || '2136';
+      const occIdx = socData.occupations.findIndex(o => o.soc === defaultSoc);
+      const select = document.getElementById('calcSocSelect');
+      if (select && occIdx >= 0) {
+        select.value = occIdx;
+        updateSalaryGauge();
+      }
     }
 
     // Registry Links
@@ -1347,7 +1390,7 @@
     if (!select || !socData.occupations) return;
 
     select.innerHTML = socData.occupations.map((o, idx) => 
-      `<option value="${idx}">SOC ${o.soc}: ${esc(o.title)} (£${o.going_rate.toLocaleString()}/yr)</option>`
+      `<option value="${idx}">SOC ${o.soc}: ${esc(o.title)} (£${o.going_rate.toLocaleString('en-GB')}/yr)</option>`
     ).join('');
 
     select.addEventListener('change', updateSalaryGauge);
@@ -1361,18 +1404,39 @@
     const occ = socData.occupations[parseInt(select.value, 10)];
     if (!occ) return;
 
-    document.getElementById('calcGoingRate').textContent = '£' + occ.going_rate.toLocaleString();
-    const verdictEl = document.getElementById('calcVerdict');
+    const maxScale = 85000;
+    const baselineRate = socData.general_threshold || 38700;
+    const goingRate = occ.going_rate || 38700;
     
-    if (occ.going_rate >= socData.general_threshold) {
-      verdictEl.innerHTML = `<strong>Eligible.</strong> Sponsorship requires minimum £${occ.going_rate.toLocaleString()}/yr (higher of £38,700 base and occupational going rate).`;
+    const basePct = Math.min(95, Math.max(10, (baselineRate / maxScale) * 100));
+    const goingPct = Math.min(98, Math.max(10, (goingRate / maxScale) * 100));
+
+    const pin = document.getElementById('gaugeBaselinePin');
+    const bar = document.getElementById('gaugeBar');
+    if (pin) pin.style.left = `${basePct}%`;
+    if (bar) {
+      bar.style.width = `${goingPct}%`;
+      bar.style.background = goingRate >= baselineRate ? 'var(--status-regular-ink)' : 'var(--status-warning-ink)';
+    }
+
+    document.getElementById('calcGovMin').textContent = '£' + baselineRate.toLocaleString('en-GB');
+    document.getElementById('calcGoingRate').textContent = '£' + goingRate.toLocaleString('en-GB');
+    
+    const verdictEl = document.getElementById('calcVerdict');
+    const hourlyStr = occ.hourly_rate ? ` (£${occ.hourly_rate.toFixed(2)}/hr)` : '';
+    if (goingRate >= baselineRate) {
+      verdictEl.innerHTML = `<strong>Eligible Standard.</strong> Role requires minimum <strong>£${goingRate.toLocaleString('en-GB')}/yr</strong>${hourlyStr} (50th percentile statutory going rate for SOC ${occ.soc}).`;
     } else {
-      verdictEl.innerHTML = `<strong>General Threshold Rule.</strong> Occupational rate is £${occ.going_rate.toLocaleString()}, but statutory baseline enforces £38,700/yr minimum floor.`;
+      verdictEl.innerHTML = `<strong>General Threshold Floor.</strong> Occupation going rate is £${goingRate.toLocaleString('en-GB')}/yr, but Home Office rules enforce statutory <strong>£${baselineRate.toLocaleString('en-GB')}/yr</strong> floor (£15.88/hr).`;
     }
   }
 
   // Trigger Query
   function triggerQuery(append) {
+    if (append && isLoadingNext) return;
+    if (append && currentOffset >= totalMatches) return;
+    if (append) isLoadingNext = true;
+
     const q = document.getElementById('q').value;
     const city = document.getElementById('citySelect').value;
     const industry = document.getElementById('industrySelect').value;
@@ -1404,6 +1468,7 @@
       else if (currentView === 'removed') source = removedRows;
       else if (currentView === 'saved') source = allSponsors.filter(s => savedSet.has((s[0]+'|'+s[1]).toLowerCase()));
       else if (currentView === 'nmw') source = allSponsors.filter(s => !!nmwData[s[0]]);
+      else if (currentView === 'flagged') source = allSponsors.filter(s => !!warningFor(s[0]));
 
       const qWords = q ? q.trim().toLowerCase().split(/\s+/) : [];
       let filtered = source.filter(s => {
@@ -1411,6 +1476,7 @@
           const w = warningFor(s[0]);
           if (!w) return false;
           if (currentWarn === 'serious' && w.severity !== 'serious') return false;
+          if (currentWarn === 'notable' && w.severity !== 'notable' && w.severity !== 'serious') return false;
         }
         if (city && s[1] !== city) return false;
         if (industry && s[3] !== industry) return false;
@@ -1429,31 +1495,63 @@
     }
   }
 
-  // CSV Export
+  // High-Throughput CSV Export
   function exportCSV() {
-    if (!activeSlice || !activeSlice.length) return;
-    const headers = ['Employer', 'Town', 'County', 'Industry', 'Visa Routes', 'Rating', 'CRN', 'Status', 'Solvency Warning', 'NMW Underpaid'];
-    const rows = activeSlice.map(r => {
-      const warn = warningFor(r[0]);
-      const nmw = nmwData[r[0]];
-      return [
-        r[0], r[1], r[2], r[3],
-        (r[4] || []).join('; '),
-        r[5],
-        warn ? warn.crn : '',
-        warn ? warn.status : 'Active',
-        warn ? warn.label : '',
-        nmw ? 'Yes' : 'No'
-      ].map(v => '"' + String(v || '').replace(/"/g, '""') + '"').join(',');
-    });
-    const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\r\n');
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `knowyoursponsor-export-${new Date().toISOString().slice(0,10)}.csv`;
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    const exportBtn = document.getElementById('btnExport');
+    const originalText = exportBtn.textContent;
+    exportBtn.textContent = 'Generating CSV...';
+    exportBtn.disabled = true;
+
+    const q = document.getElementById('q').value;
+    const city = document.getElementById('citySelect').value;
+    const industry = document.getElementById('industrySelect').value;
+    const route = document.getElementById('routeSelect').value;
+    const rating = document.getElementById('ratingSelect').value;
+    const exportDate = new Date().toISOString().slice(0, 10);
+
+    if (searchWorker) {
+      const exportReq = ++requestId;
+      const onExportComplete = function(e) {
+        if (e.data.type === 'EXPORT_CSV_COMPLETE' && e.data.requestId === exportReq) {
+          searchWorker.removeEventListener('message', onExportComplete);
+          downloadBlob(e.data.csv, `knowyoursponsor-export-${exportDate}.csv`);
+          exportBtn.textContent = originalText;
+          exportBtn.disabled = false;
+        }
+      };
+      searchWorker.addEventListener('message', onExportComplete);
+      searchWorker.postMessage({
+        type: 'EXPORT_CSV',
+        requestId: exportReq,
+        query: q,
+        city: city,
+        industry: industry,
+        route: route,
+        rating: rating,
+        view: currentView,
+        warn: currentWarn,
+        savedKeys: [...savedSet]
+      });
+    } else {
+      const headers = ['Employer', 'Town', 'County', 'Industry', 'Visa Routes', 'Rating', 'CRN', 'Status', 'Solvency Warning', 'NMW Underpaid'];
+      const rows = activeSlice.map(r => {
+        const warn = warningFor(r[0]);
+        const nmw = nmwData[r[0]];
+        return [
+          r[0], r[1], r[2], r[3],
+          (r[4] || []).join('; '),
+          r[5],
+          warn ? warn.crn : '',
+          warn ? warn.status : 'Active',
+          warn ? warn.label : '',
+          nmw ? 'Yes' : 'No'
+        ].map(v => '"' + String(v || '').replace(/"/g, '""') + '"').join(',');
+      });
+      const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\r\n');
+      downloadBlob(csvContent, `knowyoursponsor-export-${exportDate}.csv`);
+      exportBtn.textContent = originalText;
+      exportBtn.disabled = false;
+    }
   }
 
   // Event Listeners
@@ -1507,19 +1605,30 @@
     }
   });
 
+  // Global Keyboard Grammar
   document.addEventListener('keydown', e => {
     const isInput = /^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement.tagName);
     
-    if (e.key === '/' && !isInput) {
+    if ((e.key === '/' || ((e.ctrlKey || e.metaKey) && e.key === 'k')) && !isInput) {
       e.preventDefault();
-      document.getElementById('q').focus();
-      document.getElementById('q').select();
+      const qInput = document.getElementById('q');
+      qInput.focus();
+      qInput.select();
     } else if (e.key === 'Escape') {
       if (document.getElementById('docketPane').classList.contains('open')) {
         document.getElementById('docketPane').classList.remove('open');
       } else if (document.activeElement === document.getElementById('q')) {
         document.getElementById('q').value = '';
         triggerQuery(false);
+      }
+    } else if (['1', '2', '3', '4', '5', '6'].includes(e.key) && !isInput) {
+      const viewMap = { '1': '', '2': 'added', '3': 'removed', '4': 'flagged', '5': 'nmw', '6': 'saved' };
+      const targetView = viewMap[e.key];
+      if (targetView !== undefined) {
+        e.preventDefault();
+        viewBtns.forEach(b => {
+          if (b.dataset.view === targetView) b.click();
+        });
       }
     } else if ((e.key === 'j' || e.key === 'ArrowDown') && !isInput) {
       e.preventDefault();
@@ -1532,6 +1641,9 @@
           trs[selectedRowIndex].scrollIntoView({ block: 'nearest' });
         }
         openDocket(activeSlice[selectedRowIndex]);
+        if (selectedRowIndex >= activeSlice.length - 5 && currentOffset < totalMatches) {
+          triggerQuery(true);
+        }
       }
     } else if ((e.key === 'k' || e.key === 'ArrowUp') && !isInput) {
       e.preventDefault();
@@ -1545,9 +1657,14 @@
         }
         openDocket(activeSlice[selectedRowIndex]);
       }
+    } else if (e.key === 'Enter' && !isInput && selectedRowIndex >= 0 && activeSlice[selectedRowIndex]) {
+      e.preventDefault();
+      openDocket(activeSlice[selectedRowIndex]);
     } else if (e.key === 'e' && !isInput) {
+      e.preventDefault();
       exportCSV();
     } else if (e.key === 's' && !isInput && selectedRowIndex >= 0 && activeSlice[selectedRowIndex]) {
+      e.preventDefault();
       const s = activeSlice[selectedRowIndex];
       const key = (s[0] + '|' + s[1]).toLowerCase();
       if (savedSet.has(key)) savedSet.delete(key);
@@ -1566,6 +1683,20 @@
       document.documentElement.setAttribute('data-theme', next);
       try { localStorage.setItem('theme', next); } catch(e) {}
     });
+  }
+
+  // IntersectionObserver for zero-lag continuous virtualization
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0] && entries[0].isIntersecting && !isLoadingNext) {
+        if (currentOffset < totalMatches) {
+          triggerQuery(true);
+        }
+      }
+    }, { root: document.getElementById('ledgerPane'), rootMargin: '350px' });
+
+    const triggerEl = document.getElementById('loadMoreTrigger');
+    if (triggerEl) observer.observe(triggerEl);
   }
 
   // Load All Verified Datasets
@@ -1599,7 +1730,7 @@
     const towns = [...new Set(allSponsors.map(s => s[1]).filter(Boolean))].sort();
     const citySel = document.getElementById('citySelect');
     citySel.innerHTML = '<option value="">All Jurisdictions</option>' + 
-      towns.slice(0, 60).map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join('');
+      towns.slice(0, 80).map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join('');
 
     const industries = [...new Set(allSponsors.map(s => s[3]).filter(Boolean))].sort();
     const indSel = document.getElementById('industrySelect');

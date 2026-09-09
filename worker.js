@@ -1,6 +1,7 @@
 /**
- * KnowYourSponsor Web Worker Search & Compute Engine (Phase 2 Optimized)
- * High-performance off-main-thread search, bitmask facet intersection, and NMW enforcement index.
+ * KnowYourSponsor Web Worker Search & Compute Engine (Phase 2 Architecture)
+ * Ultra-low-latency off-main-thread search, multi-facet bitmask intersection,
+ * and high-throughput NMW & Companies House solvency indexing.
  */
 
 let all = [];
@@ -13,7 +14,10 @@ let removedRows = [];
 let downgradedRows = [];
 
 // Pre-computed lowercase search cache for 127k sponsors
-let searchIndex = []; // Array of strings: "name town county industry crn"
+let searchIndex = []; // Array of pre-computed search strings: "name town county industry crn"
+
+// Map of (name + '|' + town).toLowerCase() -> index in `all`
+let keyToIndexMap = new Map();
 
 // Severity definitions matching statutory pipeline
 const WARNINGS = [
@@ -80,15 +84,95 @@ function relevance(row, needle) {
 
 function rankByRelevance(list, query) {
   const needle = query.trim().toLowerCase();
-  if (!needle || list.length > 25000) return list;
+  if (!needle || list.length > 30000) return list;
   return list
     .map((row, i) => [relevance(row, needle), i, row])
     .sort((a, b) => a[0] - b[0] || a[1] - b[1])
     .map(entry => entry[2]);
 }
 
+function executeFilter(params) {
+  const { query, city, industry, route, rating, view, warn, savedKeys } = params;
+  
+  let source = all;
+  let usePreindexedSearch = true;
+  
+  if (view === 'added') { source = addedRows; usePreindexedSearch = false; }
+  else if (view === 'removed') { source = removedRows; usePreindexedSearch = false; }
+  else if (view === 'downgraded') { source = downgradedRows; usePreindexedSearch = false; }
+  else if (view === 'saved') {
+    const savedSet = new Set(savedKeys || []);
+    source = all.filter(s => savedSet.has((s[0] + '|' + s[1]).toLowerCase()));
+    usePreindexedSearch = false;
+  } else if (view === 'flagged') {
+    source = all.filter(s => !!warningFor(s[0]));
+    usePreindexedSearch = false;
+  } else if (view === 'nmw') {
+    source = all.filter(s => !!nmwData[s[0]]);
+    usePreindexedSearch = false;
+  }
+
+  const qWords = query ? query.trim().toLowerCase().split(/\s+/).filter(Boolean) : [];
+  let filtered = [];
+  const sourceLen = source.length;
+
+  for (let i = 0; i < sourceLen; i++) {
+    const s = source[i];
+
+    // Solvency warning filter
+    if (warn) {
+      const w = warningFor(s[0]);
+      if (!w) continue;
+      if (warn === 'serious' && w.severity !== 'serious') continue;
+      if (warn === 'notable' && w.severity !== 'notable' && w.severity !== 'serious') continue;
+    }
+
+    // Facet filters
+    if (city && s[1] !== city) continue;
+    if (industry && s[3] !== industry) continue;
+    if (route && !s[4].includes(route)) continue;
+    if (rating && String(s[5] || '').toUpperCase() !== rating.toUpperCase()) continue;
+
+    // Text search
+    if (qWords.length) {
+      let haystack = '';
+      if (usePreindexedSearch) {
+        haystack = searchIndex[i];
+      } else {
+        const key = (s[0] + '|' + s[1]).toLowerCase();
+        const mainIdx = keyToIndexMap.get(key);
+        if (typeof mainIdx === 'number' && searchIndex[mainIdx]) {
+          haystack = searchIndex[mainIdx];
+        } else {
+          const record = companyFlags[s[0]];
+          const crn = record && record.number ? record.number.toLowerCase() : '';
+          haystack = (s[0] + ' ' + crn + ' ' + s[1] + ' ' + s[2] + ' ' + s[3]).toLowerCase();
+        }
+      }
+
+      let match = true;
+      for (let j = 0; j < qWords.length; j++) {
+        if (!haystack.includes(qWords[j])) {
+          match = false;
+          break;
+        }
+      }
+      if (!match) continue;
+    }
+
+    filtered.push(s);
+  }
+
+  if (query && query.trim()) {
+    filtered = rankByRelevance(filtered, query);
+  }
+
+  return filtered;
+}
+
 self.onmessage = function(e) {
   const msg = e.data;
+  if (!msg) return;
   
   if (msg.type === 'INIT') {
     all = msg.all || [];
@@ -99,24 +183,34 @@ self.onmessage = function(e) {
     addedRows = msg.addedRows || [];
     removedRows = msg.removedRows || [];
 
-    // Pre-build search cache for maximum throughput
+    // Pre-build search cache and key lookup map
     searchIndex = new Array(all.length);
+    keyToIndexMap = new Map();
+    
     for (let i = 0; i < all.length; i++) {
       const s = all[i];
-      const record = companyFlags[s[0]];
+      const name = s[0];
+      const town = s[1];
+      const key = (name + '|' + town).toLowerCase();
+      keyToIndexMap.set(key, i);
+
+      const record = companyFlags[name];
       const crn = record && record.number ? record.number.toLowerCase() : '';
-      searchIndex[i] = (s[0] + ' ' + crn + ' ' + s[1] + ' ' + s[2] + ' ' + s[3]).toLowerCase();
+      searchIndex[i] = (name + ' ' + crn + ' ' + town + ' ' + s[2] + ' ' + s[3]).toLowerCase();
     }
 
     // Downgrades to B
-    const byKey = new Map(all.map(s => [(s[0] + '|' + s[1]).toLowerCase(), s]));
     downgradedRows = (ratingChanges || [])
       .filter(c => c.action === 'downgraded')
-      .map(c => byKey.get(((c.name || '') + '|' + (c.town || '')).toLowerCase()))
+      .map(c => {
+        const key = ((c.name || '') + '|' + (c.town || '')).toLowerCase();
+        const idx = keyToIndexMap.get(key);
+        return typeof idx === 'number' ? all[idx] : null;
+      })
       .filter(Boolean)
       .filter(s => String(s[5] || '').trim().toUpperCase() === 'B');
 
-    // Telemetry stats
+    // Telemetry and macro solvency stats
     let totalSerious = 0;
     let totalNotable = 0;
     let totalFlagged = 0;
@@ -145,85 +239,44 @@ self.onmessage = function(e) {
       nmwCount: totalNmw
     });
   } else if (msg.type === 'QUERY') {
-    const { query, city, industry, route, rating, view, warn, savedKeys, requestId, offset, limit } = msg;
-    
-    let source = all;
-    let isMainSource = true;
-    
-    if (view === 'added') { source = addedRows; isMainSource = false; }
-    else if (view === 'removed') { source = removedRows; isMainSource = false; }
-    else if (view === 'downgraded') { source = downgradedRows; isMainSource = false; }
-    else if (view === 'saved') {
-      const savedSet = new Set(savedKeys || []);
-      source = all.filter(s => savedSet.has((s[0] + '|' + s[1]).toLowerCase()));
-      isMainSource = false;
-    } else if (view === 'flagged') {
-      source = all.filter(s => !!warningFor(s[0]));
-      isMainSource = false;
-    } else if (view === 'nmw') {
-      source = all.filter(s => !!nmwData[s[0]]);
-      isMainSource = false;
-    }
-
-    const qWords = query ? query.trim().toLowerCase().split(/\s+/).filter(Boolean) : [];
-    
-    let filtered = [];
-    const sourceLen = source.length;
-
-    for (let i = 0; i < sourceLen; i++) {
-      const s = source[i];
-
-      // Solvency warning filter
-      if (warn) {
-        const w = warningFor(s[0]);
-        if (!w) continue;
-        if (warn === 'serious' && w.severity !== 'serious') continue;
-        if (warn === 'notable' && w.severity !== 'notable' && w.severity !== 'serious') continue;
-      }
-
-      // Facet filters
-      if (city && s[1] !== city) continue;
-      if (industry && s[3] !== industry) continue;
-      if (route && !s[4].includes(route)) continue;
-      if (rating && String(s[5] || '').toUpperCase() !== rating.toUpperCase()) continue;
-
-      // Text search
-      if (qWords.length) {
-        let haystack = '';
-        if (isMainSource) {
-          haystack = searchIndex[i];
-        } else {
-          const record = companyFlags[s[0]];
-          const crn = record && record.number ? record.number.toLowerCase() : '';
-          haystack = (s[0] + ' ' + crn + ' ' + s[1] + ' ' + s[2] + ' ' + s[3]).toLowerCase();
-        }
-
-        let match = true;
-        for (let j = 0; j < qWords.length; j++) {
-          if (!haystack.includes(qWords[j])) {
-            match = false;
-            break;
-          }
-        }
-        if (!match) continue;
-      }
-
-      filtered.push(s);
-    }
-
-    if (query && query.trim()) {
-      filtered = rankByRelevance(filtered, query);
-    }
-
-    const start = typeof offset === 'number' ? offset : 0;
-    const count = typeof limit === 'number' ? limit : 200;
+    const filtered = executeFilter(msg);
+    const start = typeof msg.offset === 'number' ? msg.offset : 0;
+    const count = typeof msg.limit === 'number' ? msg.limit : 200;
 
     self.postMessage({
       type: 'QUERY_RESULTS',
-      requestId: requestId,
+      requestId: msg.requestId,
       totalCount: filtered.length,
       offset: start,
       results: filtered.slice(start, start + count)
+    });
+  } else if (msg.type === 'EXPORT_CSV') {
+    const filtered = executeFilter(msg);
+    const headers = ['Employer', 'Town', 'County', 'Industry', 'Visa Routes', 'Rating', 'CRN', 'Status', 'Solvency Warning', 'NMW Underpaid'];
+    const maxExport = Math.min(filtered.length, 50000);
+    const rows = [];
+    
+    for (let i = 0; i < maxExport; i++) {
+      const r = filtered[i];
+      const warn = warningFor(r[0]);
+      const nmw = nmwData[r[0]];
+      rows.push([
+        r[0], r[1], r[2], r[3],
+        (r[4] || []).join('; '),
+        r[5],
+        warn ? warn.crn : '',
+        warn ? warn.status : 'Active',
+        warn ? warn.label : '',
+        nmw ? 'Yes' : 'No'
+      ].map(v => '"' + String(v || '').replace(/"/g, '""') + '"').join(','));
+    }
+
+    const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\r\n');
+    self.postMessage({
+      type: 'EXPORT_CSV_COMPLETE',
+      requestId: msg.requestId,
+      csv: csvContent,
+      count: maxExport
     });
   }
 };
