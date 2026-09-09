@@ -1110,15 +1110,178 @@
   @media (min-width: 961px) {
     .docket-sheet-handle { display: none; }
   }
-  @media (max-width: 600px) {
-    .ledger-hud { grid-template-columns: 1fr; }
-    .facet-selects { grid-template-columns: 1fr; }
-    .views-group { width: 100%; }
-    .brand-block { gap: 8px; }
-    .brand-title { font-size: 1.5rem; }
-    .brand-subtitle { width: 100%; font-size: 0.72rem; }
-    .topnav { gap: 12px; font-size: 0.8rem; }
-    .quick-chips-row { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+  @media (max-width: 640px) {
+    /* 1. Micro-grid telemetry & masthead */
+    .telemetry-band {
+      font-size: 0.65rem;
+      padding: 5px 0;
+    }
+    .telemetry-inner {
+      gap: 3px 8px;
+    }
+    header.masthead {
+      padding: 10px 0 8px;
+    }
+    .masthead-inner {
+      gap: 8px;
+    }
+    .brand-block {
+      gap: 4px 10px;
+    }
+    .brand-title {
+      font-size: 1.45rem;
+    }
+    .brand-handwriting {
+      font-size: 1.25rem;
+    }
+    .brand-subtitle {
+      width: 100%;
+      font-size: 0.68rem;
+    }
+    .topnav {
+      gap: 12px;
+      font-size: 0.78rem;
+      width: 100%;
+      justify-content: space-between;
+      padding-top: 6px;
+      border-top: 1px solid var(--rule-hairline);
+    }
+    .themebtn {
+      padding: 2px 7px;
+      font-size: 0.85rem;
+    }
+
+    /* 2. Compact 2x2 HUD Micro-Grid (< 70px height) */
+    .ledger-hud {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 0 !important;
+    }
+    .hud-stat {
+      padding: 8px 12px !important;
+      border-right: 1px solid var(--rule-hairline) !important;
+      border-bottom: 1px solid var(--rule-hairline) !important;
+    }
+    .hud-stat:nth-child(2n) {
+      border-right: none !important;
+    }
+    .hud-stat:nth-child(3),
+    .hud-stat:nth-child(4) {
+      border-bottom: none !important;
+    }
+    .hud-label {
+      font-size: 0.65rem !important;
+      margin-bottom: 1px !important;
+    }
+    .hud-value {
+      font-size: 1.18rem !important;
+      margin: 1px 0 !important;
+      line-height: 1.15 !important;
+    }
+    .hud-note {
+      display: none !important; /* Hide verbose 3-line note to eliminate dead space */
+    }
+
+    /* 3. Solvency Macro Ratio Bar */
+    .solvency-meter-wrap {
+      padding: 6px 0 !important;
+    }
+    .solvency-meter-header {
+      font-size: 0.68rem !important;
+      margin-bottom: 3px !important;
+    }
+    .solvency-bar {
+      height: 5px !important;
+    }
+    .solvency-legend {
+      gap: 10px !important;
+      font-size: 0.68rem !important;
+      justify-content: space-between !important;
+      margin-top: 4px !important;
+    }
+
+    /* 4. Full-Width Omnibar & Input Standards */
+    .omnibar-section {
+      padding: 8px 0 !important;
+    }
+    .omnibar-row {
+      gap: 8px !important;
+    }
+    .search-cavity {
+      padding: 0 10px !important;
+    }
+    .search-cavity input {
+      font-size: 16px !important; /* Prevents iOS Safari viewport zoom on focus */
+      padding: 8px 4px !important;
+    }
+    .search-keyhint {
+      display: none !important; /* Hide desktop [/] shortcut badge on touchscreens */
+    }
+    .btn-export {
+      padding: 8px 12px !important;
+      font-size: 0.74rem !important;
+    }
+
+    /* 5. Horizontal Scrolling Filter Tabs & Quick Chips */
+    .facets-row {
+      margin-top: 8px !important;
+      gap: 8px !important;
+    }
+    .views-group {
+      width: 100% !important;
+      overflow-x: auto !important;
+      white-space: nowrap !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: none !important;
+      display: flex !important;
+    }
+    .views-group::-webkit-scrollbar { display: none !important; }
+    .view-btn {
+      flex: 0 0 auto !important;
+      padding: 6px 10px !important;
+      font-size: 0.74rem !important;
+    }
+    .facet-selects {
+      grid-template-columns: 1fr 1fr !important;
+      gap: 6px !important;
+    }
+    .facet-selects select {
+      font-size: 0.76rem !important;
+      padding: 6px 8px !important;
+    }
+    .quick-chips-row {
+      overflow-x: auto !important;
+      flex-wrap: nowrap !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: none !important;
+      padding-bottom: 2px !important;
+    }
+    .quick-chips-row::-webkit-scrollbar { display: none !important; }
+    .quick-chip {
+      flex: 0 0 auto !important;
+      font-size: 0.72rem !important;
+      padding: 3px 8px !important;
+    }
+
+    /* 6. Dense Ledger Table & Above-The-Fold Visibility */
+    .ledger-pane {
+      padding: 0 8px 60px !important;
+    }
+    .ledger-table th, .ledger-table td {
+      padding: 8px 6px !important;
+      font-size: 0.78rem !important;
+    }
+    .col-company {
+      font-size: 0.82rem !important;
+    }
+    .status-badge {
+      font-size: 0.68rem !important;
+      padding: 2px 5px !important;
+    }
+    .tag-route {
+      font-size: 0.65rem !important;
+      padding: 1px 4px !important;
+    }
   }
 </style>
 <script>
