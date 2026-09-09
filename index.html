@@ -218,7 +218,7 @@
     flex-wrap: wrap;
     gap: 16px;
   }
-  .brand-block { display: flex; align-items: baseline; gap: 14px; }
+  .brand-block { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
   .brand-title {
     font-family: var(--font-serif);
     font-size: 2.1rem;
@@ -226,6 +226,41 @@
     letter-spacing: 0.04em;
     color: var(--ink-carbon);
     text-transform: uppercase;
+  }
+  .brand-badge-cycle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px 3px 8px;
+    background: var(--surface-panel);
+    border: 1px solid var(--rule-prominent);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--status-regular-ink);
+    vertical-align: middle;
+  }
+  .brand-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--status-regular-ink);
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2);
+    display: inline-block;
+    animation: badgePulse 2.4s ease-in-out infinite;
+  }
+  @keyframes badgePulse {
+    0%, 100% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.25); opacity: 1; }
+  }
+  .brand-handwriting {
+    display: inline-flex;
+    align-items: center;
+    min-width: 68px;
+    height: 1.25em;
+    color: var(--status-regular-ink);
   }
   .brand-subtitle {
     font-family: var(--font-mono);
@@ -1100,7 +1135,9 @@
     .ledger-hud { grid-template-columns: 1fr; }
     .facet-selects { grid-template-columns: 1fr; }
     .views-group { width: 100%; }
+    .brand-block { gap: 8px; }
     .brand-title { font-size: 1.5rem; }
+    .brand-subtitle { width: 100%; font-size: 0.72rem; }
     .topnav { gap: 12px; font-size: 0.8rem; }
     .quick-chips-row { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
   }
@@ -1129,6 +1166,10 @@
   <div class="wrap masthead-inner">
     <div class="brand-block">
       <a href="./" class="brand-title">KnowYourSponsor<span style="color:var(--cobalt)">.</span></a>
+      <div class="brand-badge-cycle" id="brandCycleBadge" title="Continuous statutory verification">
+        <span class="brand-badge-dot"></span>
+        <span class="brand-handwriting" id="brandHandwriting">Verified.</span>
+      </div>
       <span class="brand-subtitle">UK Visa Sponsor Register &amp; Solvency Tracker</span>
     </div>
     <nav class="topnav">
@@ -2502,7 +2543,7 @@
   }
 })();
 </script>
-
+<script src="assets/js/handwriting.js" defer></script>
 <script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

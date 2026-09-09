@@ -15,12 +15,15 @@
  *
  * Bump CACHE when the shell changes to evict the old one.
  */
-const CACHE = 'knowyoursponsor-v3';
+const CACHE = 'knowyoursponsor-v4';
 
 const SHELL = [
   './',
   './index.html',
   './worker.js',
+  './assets/js/handwriting.js',
+  './assets/js/opentype.min.js',
+  './assets/fonts/handwriting.ttf',
   './manifest.json',
   './favicon.png',
   './icons/icon-192.png',
