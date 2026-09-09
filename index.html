@@ -382,17 +382,18 @@
 
   .facets-row {
     display: flex;
+    flex-direction: column;
     gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
     margin-top: 12px;
   }
   .views-group {
-    display: flex;
+    display: inline-flex;
     border: 1px solid var(--rule-prominent);
     border-radius: 3px;
-    overflow: hidden;
+    overflow-x: auto;
     background: var(--surface-panel);
+    align-self: flex-start;
+    max-width: 100%;
   }
   .view-btn {
     border: none;
@@ -404,6 +405,7 @@
     cursor: pointer;
     border-right: 1px solid var(--rule-hairline);
     white-space: nowrap;
+    transition: background 0.1s ease;
   }
   .view-btn:last-child { border-right: none; }
   .view-btn:hover { background: var(--surface-recessed); }
@@ -413,12 +415,13 @@
     font-weight: 600;
   }
   .facet-selects {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 100%;
   }
   .facet-selects select {
+    width: 100%;
     font-family: var(--font-sans);
     font-size: 0.82rem;
     padding: 7px 10px;
@@ -989,6 +992,7 @@
   @media (max-width: 960px) {
     .ledger-hud { grid-template-columns: repeat(2, 1fr); }
     .workspace { grid-template-columns: 1fr; }
+    .facet-selects { grid-template-columns: repeat(2, 1fr); }
     .docket-pane {
       position: fixed;
       bottom: 0;
@@ -1005,6 +1009,8 @@
   }
   @media (max-width: 600px) {
     .ledger-hud { grid-template-columns: 1fr; }
+    .facet-selects { grid-template-columns: 1fr; }
+    .views-group { width: 100%; }
     .brand-title { font-size: 1.5rem; }
     .topnav { gap: 12px; font-size: 0.8rem; }
   }
@@ -1094,7 +1100,10 @@
   <div class="wrap">
     <div class="omnibar-row">
       <div class="search-cavity">
-        <span style="color:var(--ink-faint); margin-right:8px;">&#128269;</span>
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--ink-graphite); margin-right:8px; flex-shrink:0;">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
         <input id="q" type="search" placeholder="Query corporate identity, CRN, town or industry (Press '/' to focus)..." aria-label="Search sponsors">
         <span class="search-keyhint">/</span>
       </div>
