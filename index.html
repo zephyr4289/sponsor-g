@@ -195,38 +195,48 @@
     font-family: var(--font-mono);
     font-size: 0.75rem;
     color: var(--ink-graphite);
-    padding: 6px 0;
+    padding: 4px 0;
   }
   .telemetry-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
   }
   .telemetry-tag { font-weight: 600; color: var(--ink-carbon); letter-spacing: 0.05em; text-transform: uppercase; }
 
   header.masthead {
     border-bottom: 2px solid var(--rule-master);
-    padding: 16px 0 14px;
+    padding: 10px 0 8px;
     background: var(--surface-ground);
   }
   .masthead-inner {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 12px;
   }
-  .brand-block { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px 16px; }
+  .brand-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .brand-primary {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
   .brand-title {
     font-family: var(--font-serif);
     font-size: 2.1rem;
     font-weight: 600;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
     color: var(--ink-carbon);
-    text-transform: uppercase;
     line-height: 1;
+    white-space: nowrap;
   }
   .brand-handwriting {
     display: inline-flex;
@@ -236,6 +246,11 @@
     line-height: 1;
     vertical-align: baseline;
     font-weight: normal;
+    width: 145px;
+    min-width: 145px;
+    max-width: 145px;
+    overflow: visible;
+    white-space: nowrap;
   }
   .brand-handwriting svg {
     display: inline-block;
@@ -1114,36 +1129,42 @@
     /* 1. Micro-grid telemetry & masthead */
     .telemetry-band {
       font-size: 0.65rem;
-      padding: 5px 0;
+      padding: 4px 0;
     }
     .telemetry-inner {
-      gap: 3px 8px;
+      gap: 2px 6px;
     }
     header.masthead {
-      padding: 10px 0 8px;
+      padding: 8px 0 6px;
     }
     .masthead-inner {
-      gap: 8px;
+      gap: 6px;
     }
     .brand-block {
-      gap: 4px 10px;
+      gap: 2px;
+    }
+    .brand-primary {
+      gap: 6px;
     }
     .brand-title {
       font-size: 1.45rem;
     }
     .brand-handwriting {
       font-size: 1.25rem;
+      width: 115px;
+      min-width: 115px;
+      max-width: 115px;
     }
     .brand-subtitle {
       width: 100%;
       font-size: 0.68rem;
     }
     .topnav {
-      gap: 12px;
+      gap: 10px;
       font-size: 0.78rem;
       width: 100%;
       justify-content: space-between;
-      padding-top: 6px;
+      padding-top: 5px;
       border-top: 1px solid var(--rule-hairline);
     }
     .themebtn {
@@ -1307,8 +1328,10 @@
 <header class="masthead">
   <div class="wrap masthead-inner">
     <div class="brand-block">
-      <a href="./" class="brand-title">KnowYourSponsor<span style="color:var(--cobalt)">.</span></a>
-      <span class="brand-handwriting" id="brandHandwriting">Verified.</span>
+      <div class="brand-primary">
+        <a href="./" class="brand-title">KnowYourSponsor<span style="color:var(--cobalt)">.</span></a>
+        <span class="brand-handwriting" id="brandHandwriting">Verified.</span>
+      </div>
       <span class="brand-subtitle">UK Visa Sponsor Register &amp; Solvency Tracker</span>
     </div>
     <nav class="topnav">
