@@ -26,6 +26,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://roshan1208.github.io/sponsorsignal/watchlist/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://roshan1208.github.io/sponsorsignal/about/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -504,5 +509,15 @@
     <loc>https://roshan1208.github.io/sponsorsignal/reading/tech-software/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://roshan1208.github.io/sponsorsignal/changes/2026-W37/</loc>
+    <changefreq>never</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://roshan1208.github.io/sponsorsignal/changes/2026-W36/</loc>
+    <changefreq>never</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>

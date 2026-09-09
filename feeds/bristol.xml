@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>KnowYourSponsor: Visa sponsors added and removed in Bristol</title>
+    <link>https://roshan1208.github.io/sponsorsignal/bristol/</link>
+    <atom:link href="https://roshan1208.github.io/sponsorsignal/feeds/bristol.xml" rel="self" type="application/rss+xml"/>
+    <description>Employers in Bristol that gained or lost a licence to sponsor UK work visas. Rebuilt every day from the official GOV.UK register. Covers the last 7 days.</description>
+    <language>en-GB</language>
+    <lastBuildDate>Wed, 09 Sep 2026 10:00:00 +0000</lastBuildDate>
+    <item>
+      <title>NRC STAR TRADING LTD is no longer a licensed sponsor</title>
+      <link>https://roshan1208.github.io/sponsorsignal/bristol/</link>
+      <guid isPermaLink="false">kys-bristol-removed-nrc-star-trading-ltd-bristol</guid>
+      <pubDate>Wed, 09 Sep 2026 10:00:00 +0000</pubDate>
+      <category>removed</category>
+      <description>Removed from the official register. It cannot sponsor anyone now, and an application there is unlikely to lead anywhere. Location: Bristol. Industry: Retail &amp; Commerce.</description>
+    </item>
+    <item>
+      <title>Pub World Ltd  T/A Ye Shakespeare is no longer a licensed sponsor</title>
+      <link>https://roshan1208.github.io/sponsorsignal/bristol/</link>
+      <guid isPermaLink="false">kys-bristol-removed-pub-world-ltd-t-a-ye-shakespeare-bristol</guid>
+      <pubDate>Wed, 09 Sep 2026 10:00:00 +0000</pubDate>
+      <category>removed</category>
+      <description>Removed from the official register. It cannot sponsor anyone now, and an application there is unlikely to lead anywhere. Location: Bristol. Industry: Hospitality &amp; Food.</description>
+    </item>
+    <item>
+      <title>BASHIR AA &amp; SONS LTD can now sponsor visas</title>
+      <link>https://roshan1208.github.io/sponsorsignal/bristol/</link>
+      <guid isPermaLink="false">kys-bristol-added-bashir-aa-sons-ltd-bristol</guid>
+      <pubDate>Wed, 09 Sep 2026 10:00:00 +0000</pubDate>
+      <category>added</category>
+      <description>Newly licensed to sponsor work visas. Fewer applicants know it exists yet. Location: Bristol. Industry: Other. Visa routes: Skilled Worker.</description>
+    </item>
+  </channel>
+</rss>

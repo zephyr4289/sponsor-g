@@ -100,6 +100,13 @@
              color:var(--on-cobalt);text-decoration:none;font-weight:600;padding:11px 22px;
              border-radius:8px}
   :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
+  .archive{margin-top:44px;border-top:1.5px solid var(--line);padding-top:22px}
+  .archive p{color:var(--ink-soft);max-width:62ch}
+  ul.weeks{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px;
+           grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  ul.weeks a{display:block;border:1.5px solid var(--line);border-radius:8px;
+             padding:10px 14px;text-decoration:none;font-weight:600}
+  ul.weeks a:hover{border-color:var(--cobalt);background:var(--paper-dim)}
   footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
          font-size:.85rem;color:var(--ink-soft)}
   footer p+p{margin-top:6px}
@@ -212,6 +219,11 @@
     <p style="margin-top:12px">Prefer no email? There is an
        <a href="../feed.xml">RSS feed</a>, and the
        <a href="../data-api/">raw data</a> if you would rather build on it.</p>
+  </section>
+  <section class="archive">
+    <h2>Every week, kept</h2>
+    <p>This page shows only the last few days. Each week below is a permanent page that will not change, so it can be cited or linked to.</p>
+    <ul class="weeks"><li><a href="2026-W37/">7 to 13 September 2026</a></li><li><a href="2026-W36/">31 August to 6 September 2026</a></li></ul>
   </section>
 </main>
 
