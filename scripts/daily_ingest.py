@@ -174,9 +174,15 @@ def parse_csv_content(csv_bytes):
                 continue
 
         # Expected format: Organisation Name, Town/City, County, Type & Rating, Route
-        name = row[0].strip() if len(row) > 0 else ""
-        town = row[1].strip() if len(row) > 1 else ""
-        county = row[2].strip() if len(row) > 2 else ""
+        def normalize_str(s):
+            if not s: return ""
+            s = s.replace("â??", "'").replace("â€™", "'").replace("â€˜", "'").replace("â€œ", '"').replace("â€\x9d", '"').replace("â€", '"').replace("Â", "")
+            s = s.replace("’", "'").replace("‘", "'").replace("`", "'")
+            return s.strip()
+
+        name = normalize_str(row[0]) if len(row) > 0 else ""
+        town = normalize_str(row[1]) if len(row) > 1 else ""
+        county = normalize_str(row[2]) if len(row) > 2 else ""
         type_rating = row[3].strip() if len(row) > 3 else ""
         route = row[4].strip() if len(row) > 4 else ""
 

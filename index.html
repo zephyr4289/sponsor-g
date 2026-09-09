@@ -1279,65 +1279,27 @@
       <div class="macro-card-grid">
         <div class="macro-card">
           <div class="macro-card-label">Net Licence Movement</div>
-          <div class="macro-stat-val" style="color:var(--status-regular-ink);">+60 <span class="macro-stat-sub">(+302 / -242)</span></div>
-          <div class="macro-stat-note">302 new licences granted, 242 revoked (past 7 days)</div>
+          <div class="macro-stat-val" style="color:var(--status-regular-ink);" id="macroNetMove">—</div>
+          <div class="macro-stat-note" id="macroNetNote">Calculating weekly delta...</div>
         </div>
         <div class="macro-card">
-          <div class="macro-card-label">Insolvency Risk Rate</div>
-          <div class="macro-stat-val" style="color:var(--status-critical-ink);">2.19% <span class="macro-stat-sub">(2,795 orgs)</span></div>
-          <div class="macro-stat-note">2,795 sponsors with active liquidation or strike-off filings</div>
+          <div class="macro-card-label">Corporate Solvency Watch</div>
+          <div class="macro-stat-val" style="color:var(--status-critical-ink);" id="macroRiskRate">—</div>
+          <div class="macro-stat-note" id="macroRiskNote">Calculating filing risk rate...</div>
         </div>
       </div>
 
       <div class="macro-section">
-        <div class="macro-section-title">Licences Revoked by Sector (Past 7 Days)</div>
-        <ul class="macro-list">
-          <li class="macro-list-item">
-            <span class="macro-item-name">Healthcare &amp; Nursing</span>
-            <span class="macro-item-stat" style="color:var(--status-critical-ink);">-42 licences <small>(-17.4%)</small></span>
-          </li>
-          <li class="macro-list-item">
-            <span class="macro-item-name">Hospitality &amp; Food Services</span>
-            <span class="macro-item-stat" style="color:var(--status-critical-ink);">-34 licences <small>(-14.0%)</small></span>
-          </li>
-          <li class="macro-list-item">
-            <span class="macro-item-name">Construction &amp; Engineering</span>
-            <span class="macro-item-stat" style="color:var(--status-critical-ink);">-21 licences <small>(-8.7%)</small></span>
-          </li>
-          <li class="macro-list-item">
-            <span class="macro-item-name">Tech &amp; Software Development</span>
-            <span class="macro-item-stat" style="color:var(--status-critical-ink);">-18 licences <small>(-7.4%)</small></span>
-          </li>
-          <li class="macro-list-item">
-            <span class="macro-item-name">Retail &amp; Wholesale Trade</span>
-            <span class="macro-item-stat" style="color:var(--status-critical-ink);">-14 licences <small>(-5.8%)</small></span>
-          </li>
+        <div class="macro-section-title">Licence Changes by Sector (Past 7 Days)</div>
+        <ul class="macro-list" id="macroSectorList">
+          <li class="macro-list-item"><span class="macro-item-name">Loading register movements...</span></li>
         </ul>
       </div>
 
       <div class="macro-section">
-        <div class="macro-section-title">Insolvency Warnings by Location</div>
-        <ul class="macro-list">
-          <li class="macro-list-item">
-            <span class="macro-item-name">Greater London</span>
-            <span class="macro-item-stat">164 flagged entities</span>
-          </li>
-          <li class="macro-list-item">
-            <span class="macro-item-name">West Midlands (Birmingham)</span>
-            <span class="macro-item-stat">42 flagged entities</span>
-          </li>
-          <li class="macro-list-item">
-            <span class="macro-item-name">Greater Manchester</span>
-            <span class="macro-item-stat">38 flagged entities</span>
-          </li>
-          <li class="macro-list-item">
-            <span class="macro-item-name">West Yorkshire (Leeds)</span>
-            <span class="macro-item-stat">29 flagged entities</span>
-          </li>
-          <li class="macro-list-item">
-            <span class="macro-item-name">East Midlands (Leicester/Nottingham)</span>
-            <span class="macro-item-stat">24 flagged entities</span>
-          </li>
+        <div class="macro-section-title">Filing Warnings by Region</div>
+        <ul class="macro-list" id="macroRegionList">
+          <li class="macro-list-item"><span class="macro-item-name">Loading regional analysis...</span></li>
         </ul>
       </div>
 
@@ -1346,15 +1308,15 @@
         <div class="macro-standards-box">
           <div class="macro-std-row">
             <span>Skilled Worker Baseline Floor</span>
-            <strong>£38,700 / yr</strong>
+            <strong id="macroThresholdStandard">£38,700 / yr</strong>
           </div>
           <div class="macro-std-row">
             <span>Minimum Statutory Hourly Floor</span>
-            <strong>£15.88 / hr</strong>
+            <strong id="macroHourlyStandard">£15.88 / hr</strong>
           </div>
           <div class="macro-std-row">
-            <span>DBT NMW Enforcement Round</span>
-            <strong>Round 20 Active</strong>
+            <span>New Entrant Statutory Floor</span>
+            <strong id="macroThresholdNewEntrant">£30,960 / yr</strong>
           </div>
         </div>
       </div>
@@ -1482,27 +1444,20 @@
     <table class="churn-table">
       <thead>
         <tr>
-          <th>Week</th>
+          <th>Period</th>
           <th>New Licences (+)</th>
           <th>Revoked Licences (-)</th>
           <th>Net Change</th>
           <th>Rating Downgrades (A &rarr; B)</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="churnTableBody">
         <tr>
-          <td><strong>2026-W37 (Active)</strong></td>
-          <td style="color:var(--status-regular-ink)">+302 organisations</td>
-          <td style="color:var(--status-critical-ink)">-242 organisations</td>
-          <td>+60 net change</td>
-          <td>3 organisations</td>
-        </tr>
-        <tr>
-          <td><strong>2026-W36</strong></td>
-          <td style="color:var(--status-regular-ink)">+288 organisations</td>
-          <td style="color:var(--status-critical-ink)">-261 organisations</td>
-          <td>+27 net change</td>
-          <td>1 organisation</td>
+          <td><strong>Current Rolling 7-Day Window</strong></td>
+          <td id="churnAdded" style="color:var(--status-regular-ink)">—</td>
+          <td id="churnRemoved" style="color:var(--status-critical-ink)">—</td>
+          <td id="churnNet">—</td>
+          <td id="churnDowngrades">—</td>
         </tr>
       </tbody>
     </table>
@@ -1566,17 +1521,13 @@
   let searchWorker = null;
   let requestId = 0;
 
-  // Sector to default SOC mapping
-  const SECTOR_TO_SOC = {
-    'Tech & Software': '2136',
-    'Healthcare & Nursing': '2231',
-    'Finance & Professional': '2421',
-    'Hospitality & Food': '5434',
-    'Construction & Engineering': '2121',
-    'Education & Research': '2311',
-    'Media & Creative': '2137',
-    'Retail & Commerce': '3543'
-  };
+  // Default SOC selector lookup driven by socData.sector_to_soc
+  function getDefaultSocForSector(sector) {
+    if (socData && socData.sector_to_soc && socData.sector_to_soc[sector]) {
+      return socData.sector_to_soc[sector];
+    }
+    return '2136';
+  }
 
   // URL Deep-Linking State Synchronization
   function syncUrlState(sponsorName) {
@@ -1776,6 +1727,104 @@
     tbody.innerHTML = html;
   }
 
+  // Dynamic Macro Summary & Churn Table Renderer
+  function renderMacroSummary() {
+    const totalSponsors = allSponsors.length;
+    const nAdded = addedRows.length;
+    const nRemoved = removedRows.length;
+    const netDelta = nAdded - nRemoved;
+    const nDowngrades = ratingChanges.length;
+
+    // 1. Net Movement Card
+    const netEl = document.getElementById('macroNetMove');
+    const netNote = document.getElementById('macroNetNote');
+    if (netEl) {
+      const sign = netDelta >= 0 ? '+' : '';
+      netEl.innerHTML = `${sign}${netDelta} <span class="macro-stat-sub">(+${nAdded} / -${nRemoved})</span>`;
+      netEl.style.color = netDelta >= 0 ? 'var(--status-regular-ink)' : 'var(--status-critical-ink)';
+    }
+    if (netNote) {
+      netNote.textContent = `${nAdded} new licences granted, ${nRemoved} revoked (past 7 days)`;
+    }
+
+    // 2. Churn Table
+    const churnAdded = document.getElementById('churnAdded');
+    const churnRemoved = document.getElementById('churnRemoved');
+    const churnNet = document.getElementById('churnNet');
+    const churnDowngrades = document.getElementById('churnDowngrades');
+    if (churnAdded) churnAdded.textContent = `+${nAdded.toLocaleString()} organisations`;
+    if (churnRemoved) churnRemoved.textContent = `-${nRemoved.toLocaleString()} organisations`;
+    if (churnNet) {
+      const sign = netDelta >= 0 ? '+' : '';
+      churnNet.textContent = `${sign}${netDelta.toLocaleString()} net change`;
+    }
+    if (churnDowngrades) churnDowngrades.textContent = `${nDowngrades.toLocaleString()} organisations`;
+
+    // 3. Solvency Risk Rate Card
+    const flaggedCount = Object.keys(companyFlags).length;
+    const riskPct = totalSponsors > 0 ? ((flaggedCount / totalSponsors) * 100).toFixed(2) : '0.00';
+    const riskEl = document.getElementById('macroRiskRate');
+    const riskNote = document.getElementById('macroRiskNote');
+    if (riskEl) {
+      riskEl.innerHTML = `${riskPct}% <span class="macro-stat-sub">(${flaggedCount.toLocaleString()} orgs)</span>`;
+    }
+    if (riskNote) {
+      riskNote.textContent = `${flaggedCount.toLocaleString()} sponsors with active filing or accounts advisories`;
+    }
+
+    // 4. Sector breakdown from real delta data
+    const sectorCount = {};
+    const datasetForSectors = removedRows.length > 0 ? removedRows : (addedRows.length > 0 ? addedRows : allSponsors.slice(0, 500));
+    datasetForSectors.forEach(r => {
+      const s = r[3] || 'Other';
+      if (s && s !== 'Other') sectorCount[s] = (sectorCount[s] || 0) + 1;
+    });
+    const topSectors = Object.entries(sectorCount).sort((a, b) => b[1] - a[1]).slice(0, 5);
+    const sectorListEl = document.getElementById('macroSectorList');
+    if (sectorListEl && topSectors.length > 0) {
+      const denom = removedRows.length > 0 ? removedRows.length : datasetForSectors.length;
+      sectorListEl.innerHTML = topSectors.map(([sec, count]) => {
+        const pct = ((count / denom) * 100).toFixed(1);
+        return `<li class="macro-list-item">
+          <span class="macro-item-name">${esc(sec)}</span>
+          <span class="macro-item-stat" style="color:var(--status-critical-ink);">${removedRows.length > 0 ? '-' : ''}${count} licences <small>(${pct}%)</small></span>
+        </li>`;
+      }).join('');
+    }
+
+    // 5. Regional Flagged Breakdown from real data
+    const locCount = {};
+    Object.keys(companyFlags).forEach(compName => {
+      const match = allSponsors.find(s => s[0] === compName);
+      if (match && match[1]) {
+        locCount[match[1]] = (locCount[match[1]] || 0) + 1;
+      }
+    });
+    const topLocations = Object.entries(locCount).sort((a, b) => b[1] - a[1]).slice(0, 5);
+    const regionListEl = document.getElementById('macroRegionList');
+    if (regionListEl && topLocations.length > 0) {
+      regionListEl.innerHTML = topLocations.map(([loc, count]) => 
+        `<li class="macro-list-item">
+          <span class="macro-item-name">${esc(loc)}</span>
+          <span class="macro-item-stat">${count} flagged entities</span>
+        </li>`
+      ).join('');
+    }
+
+    // 6. Threshold standards from socData
+    if (socData) {
+      const stdFloor = socData.general_threshold || 38700;
+      const stdHourly = socData.hourly_minimum || 15.88;
+      const newFloor = socData.new_entrant_threshold || 30960;
+      const elStd = document.getElementById('macroThresholdStandard');
+      const elHr = document.getElementById('macroHourlyStandard');
+      const elNew = document.getElementById('macroThresholdNewEntrant');
+      if (elStd) elStd.textContent = `£${stdFloor.toLocaleString('en-GB')} / yr`;
+      if (elHr) elHr.textContent = `£${stdHourly.toFixed(2)} / hr`;
+      if (elNew) elNew.textContent = `£${newFloor.toLocaleString('en-GB')} / yr`;
+    }
+  }
+
   // Forensic Inspection Docket
   function openDocket(row) {
     if (!row) return;
@@ -1837,7 +1886,7 @@
 
     // Contextual SOC preselection for salary calculator
     if (socData && socData.occupations && socData.occupations.length) {
-      const defaultSoc = SECTOR_TO_SOC[industry] || '2136';
+      const defaultSoc = getDefaultSocForSector(industry);
       const occIdx = socData.occupations.findIndex(o => o.soc === defaultSoc);
       const select = document.getElementById('calcSocSelect');
       if (select && occIdx >= 0) {
@@ -1886,13 +1935,23 @@
   // Salary Threshold Calculator
   function initSalaryCalc() {
     const select = document.getElementById('calcSocSelect');
-    if (!select || !socData.occupations) return;
+    if (!select || !socData || !socData.occupations) return;
 
     select.innerHTML = socData.occupations.map((o, idx) => 
       `<option value="${idx}">SOC ${o.soc}: ${esc(o.title)} (£${o.going_rate.toLocaleString('en-GB')}/yr)</option>`
     ).join('');
 
     select.addEventListener('change', updateSalaryGauge);
+
+    const toggleContainer = document.getElementById('salaryRuleToggle');
+    if (toggleContainer && socData.rules) {
+      const ruleKeys = Object.keys(socData.rules);
+      toggleContainer.innerHTML = ruleKeys.map(k => {
+        const r = socData.rules[k];
+        const activeClass = k === currentSalaryRule ? ' active' : '';
+        return `<button type="button" class="salary-rule-btn${activeClass}" data-rule="${k}">${esc(r.button_text || r.name)}<br><span style="font-size:0.62rem; opacity:0.85;">${esc(r.button_sub || '£' + (r.floor/1000).toFixed(1) + 'k')}</span></button>`;
+      }).join('');
+    }
 
     const ruleBtns = document.querySelectorAll('#salaryRuleToggle .salary-rule-btn');
     ruleBtns.forEach(btn => {
@@ -1909,25 +1968,23 @@
 
   function updateSalaryGauge() {
     const select = document.getElementById('calcSocSelect');
-    if (!select || !socData.occupations) return;
+    if (!select || !socData || !socData.occupations) return;
     
     const occ = socData.occupations[parseInt(select.value, 10)];
     if (!occ) return;
 
     const maxScale = 85000;
-    let baselineRate = socData.general_threshold || 38700;
-    let goingRate = occ.going_rate || 38700;
-    let pinText = '£38.7k Min';
+    const ruleConfig = (socData.rules && socData.rules[currentSalaryRule]) || {
+      floor: socData.general_threshold || 38700,
+      multiplier: 1.0,
+      label: 'Standard Skilled Worker',
+      hourly: socData.hourly_minimum || 15.88
+    };
 
-    if (currentSalaryRule === 'new_entrant') {
-      baselineRate = socData.new_entrant_threshold || 30960;
-      goingRate = Math.round((occ.going_rate || 38700) * 0.70);
-      pinText = '£30.9k Min';
-    } else if (currentSalaryRule === 'stem_phd') {
-      baselineRate = socData.stem_threshold || 34830;
-      goingRate = Math.round((occ.going_rate || 38700) * 0.80);
-      pinText = '£34.8k Min';
-    }
+    const baselineRate = ruleConfig.floor;
+    const multiplier = ruleConfig.multiplier !== undefined ? ruleConfig.multiplier : 1.0;
+    const goingRate = Math.round((occ.going_rate || 38700) * multiplier);
+    const pinText = '£' + (baselineRate / 1000).toFixed(1) + 'k Min';
 
     const effectiveRequired = Math.max(baselineRate, goingRate);
     const basePct = Math.min(95, Math.max(10, (baselineRate / maxScale) * 100));
@@ -1951,14 +2008,14 @@
     const hourlyRate = (effectiveRequired / (37.5 * 52)).toFixed(2);
     
     if (currentSalaryRule === 'new_entrant') {
-      verdictEl.innerHTML = `<strong>New Entrant:</strong> Sponsoring under 26 / Graduate switcher requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr), calculated as max(£30,960 statutory floor, 70% of £${occ.going_rate.toLocaleString('en-GB')}).`;
+      verdictEl.innerHTML = `<strong>New Entrant:</strong> Sponsoring under 26 / Graduate switcher requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr), calculated as max(£${baselineRate.toLocaleString('en-GB')} statutory floor, ${Math.round(multiplier * 100)}% of £${occ.going_rate.toLocaleString('en-GB')}).`;
     } else if (currentSalaryRule === 'stem_phd') {
-      verdictEl.innerHTML = `<strong>STEM PhD / ISL:</strong> Qualifying role requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr), calculated as max(£34,830 statutory floor, 80% of £${occ.going_rate.toLocaleString('en-GB')}).`;
+      verdictEl.innerHTML = `<strong>STEM PhD / ISL:</strong> Qualifying role requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr), calculated as max(£${baselineRate.toLocaleString('en-GB')} statutory floor, ${Math.round(multiplier * 100)}% of £${occ.going_rate.toLocaleString('en-GB')}).`;
     } else {
       if (goingRate >= baselineRate) {
         verdictEl.innerHTML = `<strong>Eligible standard:</strong> Role requires a minimum of <strong>£${goingRate.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr) (50th percentile statutory going rate for SOC ${occ.soc}).`;
       } else {
-        verdictEl.innerHTML = `<strong>General threshold floor:</strong> Occupation going rate is £${goingRate.toLocaleString('en-GB')}/yr, but Home Office rules enforce the statutory <strong>£${baselineRate.toLocaleString('en-GB')}/yr</strong> floor (£15.88/hr).`;
+        verdictEl.innerHTML = `<strong>General threshold floor:</strong> Occupation going rate is £${goingRate.toLocaleString('en-GB')}/yr, but Home Office rules enforce the statutory <strong>£${baselineRate.toLocaleString('en-GB')}/yr</strong> floor (£${ruleConfig.hourly || 15.88}/hr).`;
       }
     }
   }
@@ -2333,6 +2390,7 @@
     const initialSponsor = initFromUrl();
     updateShortlistCount();
     initSalaryCalc();
+    renderMacroSummary();
 
     function handleInitialSponsor() {
       if (initialSponsor) {

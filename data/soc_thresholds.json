@@ -2,8 +2,52 @@
   "updated": "2026-09-09",
   "source": "UK Home Office Immigration Rules (Appendix Skilled Occupations) & ONS SOC 2020",
   "general_threshold": 38700,
-  "lower_threshold": 30960,
   "hourly_minimum": 15.88,
+  "new_entrant_threshold": 30960,
+  "new_entrant_hourly_minimum": 12.72,
+  "new_entrant_rate_pct": 0.7,
+  "stem_threshold": 34830,
+  "stem_hourly_minimum": 14.29,
+  "stem_rate_pct": 0.8,
+  "rules": {
+    "standard": {
+      "name": "Standard",
+      "floor": 38700,
+      "hourly": 15.88,
+      "multiplier": 1.0,
+      "label": "Standard Skilled Worker",
+      "button_text": "Standard",
+      "button_sub": "£38.7k / 100%"
+    },
+    "new_entrant": {
+      "name": "New Entrant",
+      "floor": 30960,
+      "hourly": 12.72,
+      "multiplier": 0.7,
+      "label": "New Entrant (70% Discount)",
+      "button_text": "New Entrant",
+      "button_sub": "£30.9k / 70%"
+    },
+    "stem_phd": {
+      "name": "STEM PhD / ISL",
+      "floor": 34830,
+      "hourly": 14.29,
+      "multiplier": 0.8,
+      "label": "STEM PhD / ISL (80% Rate)",
+      "button_text": "STEM PhD / ISL",
+      "button_sub": "£34.8k / 80%"
+    }
+  },
+  "sector_to_soc": {
+    "Tech & Software": "2136",
+    "Healthcare & Nursing": "2231",
+    "Finance & Professional": "2421",
+    "Hospitality & Food": "5434",
+    "Construction & Engineering": "2121",
+    "Education & Research": "2311",
+    "Media & Creative": "2137",
+    "Retail & Commerce": "3543"
+  },
   "occupations": [
     {
       "soc": "2136",
@@ -12,7 +56,7 @@
       "going_rate": 49400,
       "hourly_rate": 25.33,
       "eligible": true,
-      "notes": "Standard skilled worker eligible. Going rate applies if higher than \u00a338,700."
+      "notes": "Standard skilled worker eligible. Going rate applies if higher than £38,700."
     },
     {
       "soc": "2135",
@@ -165,7 +209,7 @@
       "going_rate": 45000,
       "hourly_rate": 23.08,
       "eligible": true,
-      "notes": "Health and Care Visa eligible (exempt from \u00a338.7k threshold, \u00a330,960 or NHS national pay scale applies)."
+      "notes": "Health and Care Visa eligible (exempt from £38.7k threshold, £30,960 or NHS national pay scale applies)."
     },
     {
       "soc": "2212",
@@ -183,7 +227,7 @@
       "going_rate": 30960,
       "hourly_rate": 15.88,
       "eligible": true,
-      "notes": "Health and Care Visa eligible (Band 5+ NHS pay scale or \u00a330,960 minimum)."
+      "notes": "Health and Care Visa eligible (Band 5+ NHS pay scale or £30,960 minimum)."
     },
     {
       "soc": "2232",
@@ -246,7 +290,7 @@
       "going_rate": 38700,
       "hourly_rate": 19.85,
       "eligible": true,
-      "notes": "Subject to standard \u00a338,700 threshold. Fast food / takeaway roles excluded."
+      "notes": "Subject to standard £38,700 threshold. Fast food / takeaway roles excluded."
     },
     {
       "soc": "5436",
