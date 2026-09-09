@@ -105,6 +105,20 @@
   .tier ul{margin:12px 0 0 18px;font-size:.9rem}
   .tier li+li{margin-top:5px}
   .tier .note{margin-top:12px;font-size:.85rem;color:var(--ink-soft)}
+  /* The trial offer. It had no styling at all when first added, so the
+     strongest, lowest-friction ask on the page rendered as bare text with
+     an unstyled link at 81% scroll depth. Boxed and filled now, matching
+     the tier buttons, because it is the primary action here. */
+  .tryline{border-left:3px solid var(--signal);padding-left:16px;
+           margin-top:20px;max-width:62ch}
+  .cta{margin:44px 0;border:2px solid var(--ink);border-radius:10px;
+       background:var(--paper-dim);padding:22px}
+  .cta p{color:var(--ink-soft);margin-top:6px;max-width:60ch}
+  .cta .btn{display:inline-block;margin-top:16px;background:var(--cobalt);
+            color:var(--on-cobalt);text-decoration:none;font-weight:600;
+            padding:11px 22px;border-radius:8px}
+  .cta .btn:hover{background:var(--cobalt-dark)}
+  h3{font-size:1.02rem;font-weight:700;margin:30px 0 6px}
   .tier .btn{display:inline-block;margin-top:14px;background:var(--cobalt);
              color:var(--on-cobalt);text-decoration:none;font-weight:600;
              padding:9px 16px;border-radius:8px;font-size:.9rem}
@@ -146,6 +160,11 @@
        seekers, who are by definition short of money, and putting a price in
        front of them would be both useless and unkind.</p>
   </div>
+
+  <p class="tryline"><strong>Or try it before reading any of this.</strong>
+     Email me five employers you place people into and I will send back a
+     real report on them, usually the same day. No card, no signup, no
+     obligation. <a href="#try">What that involves</a>.</p>
 
   <h2>Tiers</h2>
   <div class="tiers">
@@ -218,8 +237,25 @@ A B-rated sponsor is on a Home Office action plan and usually cannot issue new c
   * Revital Dental Care  (A to B on 2026-09-09)
 
 Every line above is checkable against the official register and Companies House. Reply and ask if anything looks wrong.</code></pre>
-  <p class="note">Most weeks are quieter than this, which is the point: you
-     stop checking, and hear from us only when something moved.</p>
+
+  <h3>And this is a quiet week, which most of them are</h3>
+  <p>Worth showing, because it is what you will usually get. Nothing moved
+     on the list, so the email says so in a line and you stop thinking about
+     it. That is the product working, not failing.</p>
+  <pre><code>Nothing changed.
+
+All 12 employers on your watchlist still hold a licence, none was downgraded, and no company record moved. We checked every day.</code></pre>
+
+  <div class="cta" id="try">
+    <h2 style="margin-top:0">Try it on your own employers, before paying</h2>
+    <p>A sample built from somebody else's list only proves so much. Email me
+       five employers you actually place people into and I will send back a
+       real report on them, usually the same day. No card, no signup, and no
+       obligation to buy anything afterwards.</p>
+    <p>If it tells you nothing useful about your five, that is worth knowing
+       too, and you will have lost one email.</p>
+    <a class="btn" href="mailto:knowyoursponsor8@gmail.com?subject=Five%20employers%20to%20try">Send me five employers</a>
+  </div>
 
   <h2>What this cannot do</h2>
   <p>Worth knowing before you pay rather than after.</p>
