@@ -1,0 +1,297 @@
+{
+  "updated": "2026-09-09",
+  "source": "UK Home Office Immigration Rules (Appendix Skilled Occupations) & ONS SOC 2020",
+  "general_threshold": 38700,
+  "lower_threshold": 30960,
+  "hourly_minimum": 15.88,
+  "occupations": [
+    {
+      "soc": "2136",
+      "title": "Programmers and software development professionals",
+      "sector": "Tech & Software",
+      "going_rate": 49400,
+      "hourly_rate": 25.33,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible. Going rate applies if higher than \u00a338,700."
+    },
+    {
+      "soc": "2135",
+      "title": "IT business analysts, architects and systems designers",
+      "sector": "Tech & Software",
+      "going_rate": 50000,
+      "hourly_rate": 25.64,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "2134",
+      "title": "IT project and programme managers",
+      "sector": "Tech & Software",
+      "going_rate": 51300,
+      "hourly_rate": 26.31,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "2133",
+      "title": "IT specialist managers",
+      "sector": "Tech & Software",
+      "going_rate": 52500,
+      "hourly_rate": 26.92,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "2137",
+      "title": "Web design and development professionals",
+      "sector": "Tech & Software",
+      "going_rate": 39800,
+      "hourly_rate": 20.41,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "2139",
+      "title": "Information technology professionals n.e.c.",
+      "sector": "Tech & Software",
+      "going_rate": 43500,
+      "hourly_rate": 22.31,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "3545",
+      "title": "Data analysts and data engineers",
+      "sector": "Tech & Software",
+      "going_rate": 41000,
+      "hourly_rate": 21.03,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "2421",
+      "title": "Chartered and certified accountants",
+      "sector": "Finance & Professional",
+      "going_rate": 46800,
+      "hourly_rate": 24.0,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "2423",
+      "title": "Management consultants and business analysts",
+      "sector": "Finance & Professional",
+      "going_rate": 44000,
+      "hourly_rate": 22.56,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "2424",
+      "title": "Business and financial project management professionals",
+      "sector": "Finance & Professional",
+      "going_rate": 48000,
+      "hourly_rate": 24.62,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "1131",
+      "title": "Financial managers and directors",
+      "sector": "Finance & Professional",
+      "going_rate": 70000,
+      "hourly_rate": 35.9,
+      "eligible": true,
+      "notes": "Senior managerial tier."
+    },
+    {
+      "soc": "2471",
+      "title": "Solicitors and lawyers",
+      "sector": "Finance & Professional",
+      "going_rate": 48000,
+      "hourly_rate": 24.62,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "2121",
+      "title": "Civil engineers",
+      "sector": "Construction & Engineering",
+      "going_rate": 45500,
+      "hourly_rate": 23.33,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "2122",
+      "title": "Mechanical engineers",
+      "sector": "Construction & Engineering",
+      "going_rate": 44800,
+      "hourly_rate": 22.97,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "2123",
+      "title": "Electrical engineers",
+      "sector": "Construction & Engineering",
+      "going_rate": 47000,
+      "hourly_rate": 24.1,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "2126",
+      "title": "Design and development engineers",
+      "sector": "Construction & Engineering",
+      "going_rate": 46000,
+      "hourly_rate": 23.59,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "2431",
+      "title": "Architects",
+      "sector": "Construction & Engineering",
+      "going_rate": 43000,
+      "hourly_rate": 22.05,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "2211",
+      "title": "Generalist medical practitioners",
+      "sector": "Healthcare & Care",
+      "going_rate": 45000,
+      "hourly_rate": 23.08,
+      "eligible": true,
+      "notes": "Health and Care Visa eligible (exempt from \u00a338.7k threshold, \u00a330,960 or NHS national pay scale applies)."
+    },
+    {
+      "soc": "2212",
+      "title": "Specialist medical practitioners",
+      "sector": "Healthcare & Care",
+      "going_rate": 55000,
+      "hourly_rate": 28.21,
+      "eligible": true,
+      "notes": "Health and Care Visa eligible (NHS national pay scales apply)."
+    },
+    {
+      "soc": "2231",
+      "title": "Nurses",
+      "sector": "Healthcare & Care",
+      "going_rate": 30960,
+      "hourly_rate": 15.88,
+      "eligible": true,
+      "notes": "Health and Care Visa eligible (Band 5+ NHS pay scale or \u00a330,960 minimum)."
+    },
+    {
+      "soc": "2232",
+      "title": "Midwives",
+      "sector": "Healthcare & Care",
+      "going_rate": 30960,
+      "hourly_rate": 15.88,
+      "eligible": true,
+      "notes": "Health and Care Visa eligible."
+    },
+    {
+      "soc": "2221",
+      "title": "Pharmacists",
+      "sector": "Healthcare & Care",
+      "going_rate": 42000,
+      "hourly_rate": 21.54,
+      "eligible": true,
+      "notes": "Health and Care Visa eligible."
+    },
+    {
+      "soc": "6135",
+      "title": "Care workers and home carers",
+      "sector": "Healthcare & Care",
+      "going_rate": 23200,
+      "hourly_rate": 11.9,
+      "eligible": true,
+      "notes": "Health and Care Visa eligible. Note: Dependants restricted since March 2024."
+    },
+    {
+      "soc": "6136",
+      "title": "Senior care workers",
+      "sector": "Healthcare & Care",
+      "going_rate": 23200,
+      "hourly_rate": 11.9,
+      "eligible": true,
+      "notes": "Health and Care Visa eligible. Note: Dependants restricted since March 2024."
+    },
+    {
+      "soc": "2311",
+      "title": "Higher education teaching professionals",
+      "sector": "Education & Research",
+      "going_rate": 48000,
+      "hourly_rate": 24.62,
+      "eligible": true,
+      "notes": "Standard skilled worker eligible."
+    },
+    {
+      "soc": "2314",
+      "title": "Secondary education teaching professionals",
+      "sector": "Education & Research",
+      "going_rate": 38700,
+      "hourly_rate": 19.85,
+      "eligible": true,
+      "notes": "National pay scales for teachers apply if higher."
+    },
+    {
+      "soc": "5434",
+      "title": "Chefs (Head / Executive / Sous)",
+      "sector": "Hospitality & Food",
+      "going_rate": 38700,
+      "hourly_rate": 19.85,
+      "eligible": true,
+      "notes": "Subject to standard \u00a338,700 threshold. Fast food / takeaway roles excluded."
+    },
+    {
+      "soc": "5436",
+      "title": "Catering and bar managers",
+      "sector": "Hospitality & Food",
+      "going_rate": 38700,
+      "hourly_rate": 19.85,
+      "eligible": true,
+      "notes": "Standard skilled worker threshold applies."
+    },
+    {
+      "soc": "3421",
+      "title": "Graphic and multimedia designers",
+      "sector": "Media & Creative",
+      "going_rate": 38700,
+      "hourly_rate": 19.85,
+      "eligible": true,
+      "notes": "Standard skilled worker threshold applies."
+    },
+    {
+      "soc": "3411",
+      "title": "Artists",
+      "sector": "Media & Creative",
+      "going_rate": 38700,
+      "hourly_rate": 19.85,
+      "eligible": true,
+      "notes": "Eligible for Creative Worker or Skilled Worker routes."
+    },
+    {
+      "soc": "1132",
+      "title": "Marketing and sales directors",
+      "sector": "Retail & Commerce",
+      "going_rate": 68000,
+      "hourly_rate": 34.87,
+      "eligible": true,
+      "notes": "Senior management tier."
+    },
+    {
+      "soc": "3543",
+      "title": "Marketing and commercial managers",
+      "sector": "Retail & Commerce",
+      "going_rate": 42500,
+      "hourly_rate": 21.79,
+      "eligible": true,
+      "notes": "Standard skilled worker threshold applies."
+    }
+  ]
+}
