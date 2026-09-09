@@ -346,6 +346,27 @@
     font-weight:500;
   }
   .tag.warn.sev-context:hover{border-color:var(--ink-soft);color:var(--ink)}
+  /* The shortlist star. Sits before the name, sized for a thumb on mobile
+     without pushing the name off the line. */
+  .star{
+    position:relative;
+    background:none;border:0;padding:4px 8px 4px 0;margin:0;cursor:pointer;
+    font-size:1.15rem;line-height:1;color:var(--ink-soft);
+    vertical-align:baseline;
+  }
+  /* The glyph is ~17px, well under a comfortable thumb target. The hit area
+     is grown vertically and leftwards into the row's own padding, rather
+     than outwards to 44px in both directions: the employer name sits
+     immediately to the right, and a square target would swallow taps meant
+     for it. */
+  .star::after{
+    content:'';position:absolute;top:50%;left:-10px;
+    transform:translateY(-50%);
+    width:calc(100% + 10px);height:44px;
+  }
+  .star:hover{color:var(--signal)}
+  .star.on{color:var(--signal)}
+  .star:focus-visible{outline:3px solid var(--cobalt);outline-offset:2px;border-radius:4px}
   .rating-a{color:var(--good);font-weight:600}
   /* B is the whole point of the downgraded view, so it is not left as
      unstyled text next to a green A. */
@@ -410,6 +431,16 @@
     font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;
     color:var(--ink-soft);margin-bottom:6px;
   }
+  /* The health check. Two columns on a roomy sheet, stacked on a phone,
+     because a two-word label beside a two-line answer reads worse than
+     either one alone. */
+  .sheet dl.checks{margin-top:8px}
+  .sheet dl.checks dt{
+    font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--ink-soft);font-weight:700;margin-top:12px;
+  }
+  .sheet dl.checks dt:first-child{margin-top:0}
+  .sheet dl.checks dd{margin-top:2px;font-size:.92rem}
   .sheet .warnbox{
     margin-top:18px;padding:12px 14px;border-radius:8px;
     background:var(--warn-bg-2);border:1.5px solid var(--warn-border);
@@ -620,6 +651,9 @@
            "Downgraded (0)" would read as a broken feature rather than as
            good news, and the register can go weeks without one. -->
       <button class="view" id="viewDowngraded" aria-pressed="false" hidden>Downgraded <span class="n" id="nDowngraded"></span></button>
+      <!-- Hidden until something is saved. The star on each row is what
+           teaches the feature; a "Saved (0)" tab teaches nothing. -->
+      <button class="view" id="viewSaved" aria-pressed="false" hidden>Saved <span class="n" id="nSaved"></span></button>
     </div>
     <button class="pill" id="warnOnly" aria-pressed="false" hidden>
       Company warning <span class="n" id="nWarn"></span>
@@ -668,6 +702,7 @@
     </div>
     <div class="sheet-body" id="sheetBody"></div>
     <div class="sheet-foot">
+      <button class="download" id="sheetSave" type="button" aria-pressed="false">Save to shortlist</button>
       <button class="download" id="sheetCopy" type="button">Copy link to this employer</button>
     </div>
   </aside>
@@ -734,6 +769,7 @@
     <p><a href="insights/">UK visa sponsorship in numbers</a>. Where the sponsors are and which routes they hold.</p>
     <p><a href="data-api/">Use the data yourself</a>. Everything here as JSON, plus an <a href="feed.xml">RSS feed</a> of the weekly changes.</p>
     <p><a href="methodology/">How this data is built</a>. Where it comes from, and which parts are guesses that can be wrong.</p>
+    <p><a href="pricing/">What costs money, and what never will</a>. Search stays free; watchlist monitoring is the paid part.</p>
     <p><a href="about/">About KnowYourSponsor</a>. Who built it, and what it will never do.</p>
     <p>Something wrong, or need a cut of the data for your team? Email <a href="mailto:rosona1829@gmail.com">rosona1829@gmail.com</a>.</p>
     </nav>
@@ -766,6 +802,50 @@
   // watched arrive; `licensedBaseline` is the day we started looking, which
   // is all that can honestly be said about everyone else.
   let licensedSince = {}, licensedBaseline = '';
+
+  // A shortlist, kept on the device. Deliberately not an account: this is a
+  // search tool over public data, and a login would cost the SEO that brings
+  // people here, add a password breach to worry about, and gate a free
+  // public register behind a form. localStorage does the same job with no
+  // signup and nothing of anyone's leaving the browser.
+  const SAVED_KEY = 'kys.shortlist';
+  let saved = new Set();
+  try{
+    const raw = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]');
+    if(Array.isArray(raw)) saved = new Set(raw.filter(k => typeof k === 'string'));
+  }catch(err){ /* corrupt or blocked: start empty rather than break */ }
+
+  const savedKey = (name, town) => (name + '|' + town).toLowerCase();
+
+  function refreshSavedCount(){
+    const n = saved.size;
+    document.getElementById('nSaved').textContent = n ? `(${n})` : '';
+    document.getElementById('viewSaved').hidden = n === 0;
+    // Leaving an empty Saved view selected would show the "nothing saved
+    // yet" message under a tab that has just disappeared.
+    if(!n && view === 'saved'){ setView(''); }
+  }
+
+  function toggleSaved(key){
+    if(!key) return;
+    if(saved.has(key)) saved.delete(key); else saved.add(key);
+    persistSaved();
+    refreshSavedCount();
+    // Re-render so the star, the count and the Saved view all agree, and so
+    // un-saving from inside the Saved view removes the row you just cleared.
+    apply();
+    syncSheetStar();
+  }
+
+  function persistSaved(){
+    try{
+      localStorage.setItem(SAVED_KEY, JSON.stringify([...saved]));
+    }catch(err){
+      // Private browsing, or the quota is full. The shortlist still works
+      // for this visit; it just will not survive a reload. Not worth an
+      // error message the visitor can do nothing about.
+    }
+  }
   // Alert scope mirrors what someone is already looking at, until they set
   // it themselves. Asking again for something they just typed is friction.
   let alertTouched = false, knownTowns = new Set();
@@ -895,7 +975,9 @@
             : ` <span class="tag warn sev-${attr(warn.severity)}" title="${attr(warn.title)}">${esc(warn.label)}</span>`)
         : '';
       return `<tr data-name="${attr(name)}">
-        <td class="name"><button class="rowbtn" type="button" data-name="${attr(name)}">${esc(name)}</button>${isNew?' <span class="tag new">New</span>':''}${warnTag}</td>
+        <td class="name"><button class="star${saved.has(savedKey(name, town)) ? ' on' : ''}" type="button" data-save="${attr(savedKey(name, town))}"`+
+          ` aria-pressed="${saved.has(savedKey(name, town))}"`+
+          ` title="Save to your shortlist" aria-label="Save ${attr(name)} to your shortlist">${saved.has(savedKey(name, town)) ? '&#9733;' : '&#9734;'}</button><button class="rowbtn" type="button" data-name="${attr(name)}">${esc(name)}</button>${isNew?' <span class="tag new">New</span>':''}${warnTag}</td>
         <td data-label="Location">${esc(loc)}</td>
         <td data-label="Industry">${esc(industry)}</td>
         <td data-label="Visa routes">${routes.map(r=>`<span class="tag" title="${attr(r)}">${esc(shortRoute(r))}</span>`).join('')}</td>
@@ -942,6 +1024,11 @@
       if(view === 'removed'){
         return `<strong>No employer lost their licence in the last ${windowDays} days.</strong>` +
                `<br>That is good news for anyone job hunting right now.`;
+      }
+      if(view === 'saved'){
+        return '<strong>You have not saved any employers yet.</strong>' +
+               '<br>Tap the star next to any employer to add it here. It is ' +
+               'kept on this device, with no account needed.';
       }
       if(view === 'downgraded'){
         return `<strong>No employer was downgraded to a B rating in the last ${windowDays} days.</strong>` +
@@ -994,6 +1081,7 @@
     if(view === 'added') return addedRows;
     if(view === 'removed') return removedRows;
     if(view === 'downgraded') return downgradedRows;
+    if(view === 'saved') return all.filter(s => saved.has(savedKey(s[0], s[1])));
     return all;
   }
 
@@ -1050,6 +1138,8 @@
        'rating usually cannot issue new certificates until they return to an A.',
   };
   let sheetOpener = null;   // so focus can go back where it came from
+  // The row the sheet is showing, so the save button knows what to toggle.
+  let sheetRow = null;
 
   // "2026-09-01" -> "1 September 2026". Built from the parts rather than
   // through Date(), which would shift the day in western time zones.
@@ -1068,23 +1158,13 @@
     const parts = ['<dl>'];
     if(location) parts.push(`<dt>Location</dt><dd>${esc(location)}</dd>`);
     parts.push(`<dt>Industry</dt><dd>${esc(industry)}</dd>`);
-    if(rating){
-      parts.push(`<dt>Rating</dt><dd>${esc(rating)}${
-        RATING_NOTE[rating] ? ` &mdash; ${RATING_NOTE[rating]}` : ''}</dd>`);
-    }
-    // Nobody else can answer this. GOV.UK publishes who holds a licence
-    // today and never when it started, so this only exists because the
-    // pipeline has been keeping a dated log.
-    const started = licensedSince[(name + '|' + town).toLowerCase()];
-    if(started){
-      parts.push(`<dt>Licensed since</dt><dd>${esc(longDate(started))}</dd>`);
-    }else if(licensedBaseline){
-      parts.push('<dt>Licensed since</dt><dd>At least ' +
-        `${esc(longDate(licensedBaseline))}. It was already on the register ` +
-        'when we started keeping a daily record, so the licence is older ' +
-        'than that.</dd>');
-    }
+
     parts.push('</dl>');
+
+    // Nobody else can answer this. GOV.UK publishes who holds a licence
+    // today and never when it started, so it only exists because the
+    // pipeline has kept a dated log.
+    const started = licensedSince[(name + '|' + town).toLowerCase()];
 
     if(routes && routes.length){
       parts.push('<div class="block"><h3>Visa routes it can sponsor</h3>' +
@@ -1092,9 +1172,12 @@
     }
 
     if(record){
+      // known[3] is the explanation. known[2] became the severity when the
+      // warnings were tiered, and this line was left pointing at [2], so the
+      // sheet printed the word "serious" where a sentence belonged.
       const flags = (record.flags || []).map(f=>{
         const known = WARNINGS.find(w=>w[0]===f);
-        return known ? known[2] : f;
+        return known ? known[3] : f;
       });
       parts.push('<div class="warnbox"><strong>Companies House says:</strong> ' +
         (record.status ? esc(record.status) + '. ' : '') +
@@ -1102,6 +1185,41 @@
         '<br>Matched by name, so check the official record before deciding ' +
         'anything.</div>');
     }
+
+    // What we can and cannot vouch for, in one place. No competitor shows
+    // any of this, and the value is entirely in it being honest about the
+    // gap: an employer with no warning has not been vetted, it has either
+    // been matched and found clean or not matched at all, and the published
+    // file cannot tell those apart without shipping 96,000 more names.
+    const checks = [];
+    checks.push(['Home Office rating', rating === 'A'
+      ? 'A, which is good standing'
+      : (rating === 'B'
+          ? 'B, so it usually cannot issue new certificates right now'
+          : 'Not published')]);
+    checks.push(['Licence held since', started
+      ? esc(longDate(started))
+      : (licensedBaseline
+          ? `At least ${esc(longDate(licensedBaseline))}. It was already on ` +
+            'the register when we started keeping a daily record, so the ' +
+            'licence is older than that.'
+          : 'Not known')]);
+    if(record){
+      const worst = warningFor(name);
+      checks.push(['Companies House record',
+        (record.status ? esc(record.status) : 'Signal found') +
+        (worst && worst.severity === 'serious'
+          ? '. This is the serious kind: the company may not be trading.'
+          : '. Worth a look, but common and not proof of anything.')]);
+    }else{
+      checks.push(['Companies House record',
+        'No signal found. That is not a clean bill of health: we match ' +
+        'employers to company records by name, and this one either matched ' +
+        'and looked fine or could not be matched at all.']);
+    }
+    parts.push('<div class="block"><h3>What we can check</h3><dl class="checks">' +
+      checks.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${v}</dd>`).join('') +
+      '</dl></div>');
 
     const links = [];
     if(record && record.number){
@@ -1134,9 +1252,11 @@
   function openSheet(name, opener){
     const row = sourceRows().find(s=>s[0]===name) || all.find(s=>s[0]===name);
     if(!row) return;
+    sheetRow = row;
     sheetOpener = opener || null;
     $('sheetName').textContent = name;
     $('sheetBody').innerHTML = sheetHTML(row);
+    syncSheetStar();
     $('sheetBackdrop').hidden = false;
     $('sheet').hidden = false;
     $('sheetClose').focus();
@@ -1147,6 +1267,7 @@
 
   function closeSheet(){
     if($('sheet').hidden) return;
+    sheetRow = null;
     $('sheet').hidden = true;
     $('sheetBackdrop').hidden = true;
     for(const tr of rows.querySelectorAll('tr.open')) tr.classList.remove('open');
@@ -1229,6 +1350,7 @@
 
   function csvFilename(){
     const bits = ['knowyoursponsor'];
+    // view already covers 'saved', so a shortlist export is named as one.
     if(view) bits.push(view);
     const ct = $('city').value, ind = $('industry').value, rt = $('route').value;
     const q = $('q').value.trim();
@@ -1257,7 +1379,7 @@
 
   // ----------------------------------------------------------- views --
   const VIEW_BUTTONS = {'':'viewAll', 'added':'viewAdded', 'removed':'viewRemoved',
-                        'downgraded':'viewDowngraded'};
+                        'downgraded':'viewDowngraded', 'saved':'viewSaved'};
 
   function setView(next){
     view = VIEW_BUTTONS[next] ? next : '';
@@ -1273,10 +1395,33 @@
         'unlikely to lead anywhere.';
       el.hidden = false;
     }else if(view === 'added'){
+      // Newly licensed AND already carrying a Companies House signal. This
+      // cross-signal needs both datasets, which is why nobody else can show
+      // it: a company incorporated weeks ago, already licensed to sponsor,
+      // and already behind on its filings is worth a second look.
+      const flagged = addedRows.filter(s=>warningFor(s[0]));
+      const serious = flagged.filter(s=>{
+        const w = warningFor(s[0]);
+        return w && w.severity === 'serious';
+      }).length;
+      let extra = '';
+      if(flagged.length){
+        extra = ` <strong>${flagged.length} of them already have a ` +
+          `Companies House signal</strong>` +
+          (serious ? `, ${serious} of the serious kind` : '') +
+          '. New licence, existing question: worth checking before you apply.';
+      }
       el.className = 'notice';
       el.innerHTML = '<strong>Newly licensed employers.</strong> ' +
         `Added to the register in the last ${windowDays} days. Fewer applicants ` +
-        'know these exist yet, so there is often less competition.';
+        'know these exist yet, so there is often less competition.' + extra;
+      el.hidden = false;
+    }else if(view === 'saved'){
+      el.className = 'notice';
+      el.innerHTML = '<strong>Your shortlist.</strong> ' +
+        'Saved on this device only, so it is not tied to an account and ' +
+        'nobody else can see it. Clearing your browser data clears it too. ' +
+        'Download it as CSV if you want to keep it.';
       el.hidden = false;
     }else if(view === 'downgraded'){
       el.className = 'notice warn';
@@ -1388,6 +1533,8 @@
     // The company warning is a real link to Companies House. A click there
     // must go there, and not also open the sheet behind it.
     if(e.target.closest('a')) return;
+    const star = e.target.closest('.star');
+    if(star){ toggleSaved(star.dataset.save); return; }
     const btn = e.target.closest('.rowbtn');
     if(btn){ openSheet(btn.dataset.name, btn); return; }
     // Anywhere else in the row. People click the row rather than hunting for
@@ -1397,6 +1544,21 @@
     const tr = e.target.closest('tr[data-name]');
     if(tr) openSheet(tr.dataset.name, tr);
   });
+  // Keeps the sheet's save button showing the truth, including when the
+  // star for the same employer is toggled in the row behind it.
+  function syncSheetStar(){
+    const btn = $('sheetSave');
+    const row = sheetRow;
+    if(!btn || !row){ return; }
+    const on = saved.has(savedKey(row[0], row[1]));
+    btn.textContent = on ? 'Saved. Tap to remove' : 'Save to shortlist';
+    btn.setAttribute('aria-pressed', String(on));
+  }
+
+  $('sheetSave').addEventListener('click',()=>{
+    if(sheetRow) toggleSaved(savedKey(sheetRow[0], sheetRow[1]));
+  });
+
   $('sheetClose').addEventListener('click',closeSheet);
   $('sheetCopy').addEventListener('click',async ()=>{
     const btn = $('sheetCopy');
@@ -1598,6 +1760,9 @@
       $('nWarn').textContent = `(${warnCount.toLocaleString()})`;
       $('warnOnly').hidden = false;
     }
+    // A shortlist saved on an earlier visit only becomes visible once the
+    // register is in memory, because the Saved view filters it.
+    refreshSavedCount();
     setView(view);   // re-render the notice now that windowDays is known
 
     // build filter options from data
