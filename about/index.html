@@ -3,196 +3,375 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About KnowYourSponsor | KnowYourSponsor</title>
-<meta name="description" content="Who built KnowYourSponsor and why, what it will never do, and how it is paid for. Run by Roshan Yadav.">
+<title>About KnowYourSponsor | Corporate Solvency &amp; Immigration Ledger</title>
+<meta name="description" content="Who built KnowYourSponsor and why, ethical commitments, verification standards, and business model. Maintained by Roshan Yadav.">
 <link rel="canonical" href="https://roshan1208.github.io/sponsorsignal/about/">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://roshan1208.github.io/sponsorsignal/about/">
-<meta property="og:title" content="About KnowYourSponsor">
-<meta property="og:description" content="Who built KnowYourSponsor and why, what it will never do, and how it is paid for. Run by Roshan Yadav.">
+<meta property="og:title" content="About KnowYourSponsor — Archival Gazette &amp; Solvency Ledger">
+<meta property="og:description" content="Who built KnowYourSponsor and why, ethical commitments, verification standards, and business model. Maintained by Roshan Yadav.">
 <meta property="og:image" content="https://roshan1208.github.io/sponsorsignal/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../favicon.png" type="image/png">
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
 
-  :root{
-    --ink:#17233B; --ink-soft:#4A5670;
-    --paper:#FFFFFF; --paper-dim:#F5F7FB;
-    --cobalt:#2145C9; --cobalt-dark:#17348F; --on-cobalt:#FFFFFF;
-    --signal:#FFC933; --on-signal:#17233B;
-    --line:#D9DFEA; --good:#0E7B4F; --bad:#B3261E;
-    --warn-bg:#FDF1F0; --warn-bg-2:#FBE3E1; --warn-border:#E7B4AE;
-    --warn-ink:#8A1E18; --warn-solid:#B3261E;
-    --mark-bg:#17233B; --mark-fg:#FFFFFF;
-    --note-bg:#FFF6DC; --note-border:#EAD48A; --note-ink:#6B4E00;
-    --shadow:rgba(23,35,59,.10);
-    color-scheme:light;
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --surface-ground: #F4F1EA;
+    --surface-panel: #EAE5DA;
+    --surface-recessed: #DFD9CC;
+    --surface-paper: #FAF8F5;
+    
+    --ink-carbon: #141311;
+    --ink-graphite: #5A564F;
+    --ink-faint: #8C867A;
+    
+    --rule-hairline: #D3CDC0;
+    --rule-prominent: #A8A193;
+    --rule-master: #141311;
+    
+    --status-critical-ink: #8B1E1E;
+    --status-critical-wash: #F5E1E1;
+    --status-critical-rule: #D8A4A4;
+    
+    --status-warning-ink: #7A5310;
+    --status-warning-wash: #F3EAD8;
+    --status-warning-rule: #D8C496;
+    
+    --status-regular-ink: #1D5837;
+    --status-regular-wash: #E2EDE6;
+    --status-regular-rule: #A2C7B2;
+    
+    --cobalt: #1F3888;
+    --cobalt-dark: #14255C;
+    --on-cobalt: #FFFFFF;
+    
+    --font-serif: 'EB Garamond', Georgia, serif;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    
+    color-scheme: light;
   }
-  @media (prefers-color-scheme:dark){
-    :root:not([data-theme="light"]){
-      --ink:#E8ECF3; --ink-soft:#A3AEC2;
-      --paper:#10151F; --paper-dim:#1A2230;
-      --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F; --on-cobalt:#10151F;
-      --signal:#FFC933; --on-signal:#17233B;
-      --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
-      --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
-      --warn-ink:#F5B5AE; --warn-solid:#B3261E;
-      --mark-bg:#E8ECF3; --mark-fg:#10151F;
-      --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
-      --shadow:rgba(0,0,0,.45);
-      color-scheme:dark;
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --surface-ground: #121417;
+      --surface-panel: #1A1D22;
+      --surface-recessed: #23272E;
+      --surface-paper: #1E2229;
+      
+      --ink-carbon: #EDE9DF;
+      --ink-graphite: #A5A196;
+      --ink-faint: #767268;
+      
+      --rule-hairline: #2D323B;
+      --rule-prominent: #454B57;
+      --rule-master: #EDE9DF;
+      
+      --status-critical-ink: #F08A82;
+      --status-critical-wash: #2D1817;
+      --status-critical-rule: #6E2F2B;
+      
+      --status-warning-ink: #F0D28A;
+      --status-warning-wash: #2E2714;
+      --status-warning-rule: #6B5726;
+      
+      --status-regular-ink: #76D19E;
+      --status-regular-wash: #14281E;
+      --status-regular-rule: #285C40;
+      
+      --cobalt: #6B93F5;
+      --cobalt-dark: #8FADF8;
+      --on-cobalt: #121417;
+      
+      color-scheme: dark;
     }
   }
-  :root[data-theme="dark"]{
-    --ink:#E8ECF3; --ink-soft:#A3AEC2;
-    --paper:#10151F; --paper-dim:#1A2230;
-    --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F;
-    --signal:#FFC933; --on-signal:#17233B;
-    --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
-    --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
-    --warn-ink:#F5B5AE; --warn-solid:#B3261E;
-    --mark-bg:#E8ECF3; --mark-fg:#10151F;
-    --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
-    --shadow:rgba(0,0,0,.45);
-    color-scheme:dark;
+
+  :root[data-theme="dark"] {
+    --surface-ground: #121417;
+    --surface-panel: #1A1D22;
+    --surface-recessed: #23272E;
+    --surface-paper: #1E2229;
+    
+    --ink-carbon: #EDE9DF;
+    --ink-graphite: #A5A196;
+    --ink-faint: #767268;
+    
+    --rule-hairline: #2D323B;
+    --rule-prominent: #454B57;
+    --rule-master: #EDE9DF;
+    
+    --status-critical-ink: #F08A82;
+    --status-critical-wash: #2D1817;
+    --status-critical-rule: #6E2F2B;
+    
+    --status-warning-ink: #F0D28A;
+    --status-warning-wash: #2E2714;
+    --status-warning-rule: #6B5726;
+    
+    --status-regular-ink: #76D19E;
+    --status-regular-wash: #14281E;
+    --status-regular-rule: #285C40;
+    
+    --cobalt: #6B93F5;
+    --cobalt-dark: #8FADF8;
+    --on-cobalt: #121417;
+    
+    color-scheme: dark;
   }
 
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Public Sans',system-ui,sans-serif;color:var(--ink);
-       line-height:1.6;background:var(--paper)}
-  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
-  a{color:var(--cobalt)}
-  header{border-bottom:3px solid var(--ink);padding:14px 0}
-  .brand{font-weight:800;font-size:1.1rem}
-  .brand a{color:inherit;text-decoration:none}
-  .brand .dot{color:var(--cobalt)}
-  h1{font-size:clamp(1.6rem,4.5vw,2.3rem);font-weight:800;
-     letter-spacing:-0.02em;margin:36px 0 10px;text-wrap:balance;max-width:24ch}
-  .lead{color:var(--ink-soft);max-width:64ch;text-wrap:pretty;font-size:1.05rem}
-  h2{font-size:1.2rem;font-weight:800;margin:40px 0 8px;text-wrap:balance}
-  h3{font-size:1rem;font-weight:700;margin:22px 0 4px}
-  p{max-width:64ch;text-wrap:pretty}
-  p+p{margin-top:10px}
-  ul{margin:10px 0 0 20px;max-width:64ch}
-  li+li{margin-top:8px}
-  .updated{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
-  .box{border:1.5px solid var(--line);border-radius:10px;
-       background:var(--paper-dim);padding:16px 18px;margin-top:16px}
-  .box p{max-width:none}
-  table{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:14px}
-  th{text-align:left;font-size:.8rem;color:var(--ink-soft);
-     border-bottom:2px solid var(--ink);padding:8px 10px 6px}
-  td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
-  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
-  footer{margin-top:52px;border-top:3px solid var(--ink);padding:22px 0 40px;
-         font-size:.85rem;color:var(--ink-soft)}
-  footer p+p{margin-top:6px}
-
-  .header-inner{display:flex;align-items:center;justify-content:space-between;
-                gap:16px;flex-wrap:wrap}
-  .topnav{display:flex;gap:18px;font-size:.9rem;font-weight:600}
-  /* "For business" is two words and wrapped at 375px, which pushed the
-     header from 73px to 86px. nowrap keeps it on one line and costs nothing:
-     measured 29px nav either way. .header-inner already wraps, so on a
-     genuinely narrow screen the nav drops to its own line rather than
-     overflowing. */
-  .topnav a{text-decoration:none;white-space:nowrap}
-  .topnav a:hover{text-decoration:underline}
-  .topnav [aria-current]{color:var(--ink-soft)}
-  @media (max-width:520px){.topnav{gap:14px;font-size:.85rem;width:100%}}
-
-  .themebtn{
-    font:inherit;font-size:1rem;line-height:1;cursor:pointer;
-    background:transparent;border:1.5px solid var(--line);border-radius:99px;
-    color:var(--ink-soft);padding:5px 10px;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    color: var(--ink-carbon);
+    background: var(--surface-ground);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
-  .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+  a { color: var(--cobalt); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
+  /* Telemetry Band */
+  .telemetry-band {
+    border-bottom: 1px solid var(--rule-hairline);
+    background: var(--surface-panel);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-graphite);
+    padding: 6px 0;
+  }
+  .telemetry-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .telemetry-tag { font-weight: 600; color: var(--ink-carbon); letter-spacing: 0.05em; text-transform: uppercase; }
+
+  header.masthead {
+    border-bottom: 2px solid var(--rule-master);
+    padding: 16px 0 14px;
+    background: var(--surface-ground);
+  }
+  .masthead-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .brand-block { display: flex; align-items: baseline; gap: 14px; }
+  .brand-title {
+    font-family: var(--font-serif);
+    font-size: 2.1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink-carbon);
+    text-transform: uppercase;
+  }
+  .brand-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .topnav { display: flex; align-items: center; gap: 20px; font-size: 0.88rem; font-weight: 500; }
+  .topnav a { color: var(--ink-graphite); }
+  .topnav a:hover, .topnav a[aria-current] { color: var(--ink-carbon); font-weight: 600; }
+  .themebtn {
+    font: inherit; font-size: 0.95rem; cursor: pointer;
+    background: transparent; border: 1px solid var(--rule-prominent);
+    border-radius: 4px; color: var(--ink-carbon); padding: 3px 8px;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 36px 0 10px;
+    line-height: 1.15;
+    color: var(--ink-carbon);
+  }
+  .lead {
+    color: var(--ink-graphite);
+    font-size: 1.1rem;
+    max-width: 68ch;
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 44px 0 12px;
+    color: var(--ink-carbon);
+    border-bottom: 1px solid var(--rule-hairline);
+    padding-bottom: 6px;
+  }
+  h3 {
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 24px 0 8px;
+  }
+  p { max-width: 68ch; margin-bottom: 12px; }
+  ul { margin: 12px 0 16px 22px; max-width: 68ch; }
+  li { margin-bottom: 8px; }
+  
+  .box {
+    border: 1px solid var(--rule-prominent);
+    background: var(--surface-panel);
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .box p { max-width: none; margin-bottom: 8px; }
+  .box p:last-child { margin-bottom: 0; }
+
+  .callout-ethic {
+    background: var(--surface-paper);
+    border: 1px solid var(--rule-hairline);
+    border-left: 3px solid var(--cobalt);
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+
+  .updated {
+    margin-top: 40px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  :is(a, button):focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+  
+  footer {
+    margin-top: 60px;
+    border-top: 2px solid var(--rule-master);
+    padding: 28px 0 44px;
+    font-size: 0.84rem;
+    color: var(--ink-graphite);
+    background: var(--surface-ground);
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    margin-bottom: 16px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+  .footer-links a { color: var(--ink-carbon); }
 </style>
-<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>
+  (function(){
+    try {
+      var t = localStorage.getItem('theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    } catch(e) {}
+  })();
+</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">KnowYourSponsor<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><a href="../pricing/">For business</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+
+<div class="telemetry-band">
+  <div class="wrap telemetry-inner">
+    <span><span class="telemetry-tag">RECORD SYSTEM:</span> THE REGISTER OF LICENSED SPONSORS &middot; VOL. 2026 &middot; ISSUE W37</span>
+    <span>OFFICIAL GAZETTE &middot; HOME OFFICE &amp; COMPANIES HOUSE INTELLIGENCE</span>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <div class="brand-block">
+      <a href="../" class="brand-title">KnowYourSponsor<span style="color:var(--cobalt)">.</span></a>
+      <span class="brand-subtitle">Corporate Solvency &amp; Immigration Ledger</span>
+    </div>
+    <nav class="topnav" aria-label="Sections">
+      <a href="../changes/">Changes</a>
+      <a href="../insights/">Numbers</a>
+      <a href="../data-api/">Data API</a>
+      <a href="../pricing/">For Business</a>
+      <button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button>
+    </nav>
+  </div>
+</header>
 
 <main class="wrap">
   <h1>About KnowYourSponsor</h1>
-  <p class="lead">KnowYourSponsor is run by one person. This page says who,
-     why it exists, and what it will never do, so you can judge whether to
-     trust anything else on the site.</p>
+  <p class="lead">KnowYourSponsor is an independent public interest intelligence terminal and solvency ledger. This page documents who built it, why it exists, our strict data provenance rules, and the ethical boundaries we enforce.</p>
 
   <h2>Who built it</h2>
-  <p>My name is Roshan Yadav. I built KnowYourSponsor because the
-     information was public but unusable. The Home Office does publish the
-     full list of employers licensed to sponsor a work visa. It publishes it
-     as a multi-megabyte spreadsheet with no search, no industries, and no way
-     to see what changed since last week.</p>
-  <p>If you need sponsorship, that list decides which jobs are worth applying
-     for. About 127,000 employers hold a licence, out of roughly five million
-     in the country. Every application sent to the other 98% is wasted effort,
-     and most people find that out far too late.</p>
-  <p>You can reach me at <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a>. I read everything, and if the site
-     has something wrong I would rather hear it from you than not.</p>
+  <p>My name is Roshan Yadav. I built KnowYourSponsor because public immigration data was opaque, unwieldy, and lacked critical corporate solvency context. The UK Home Office publishes the complete list of employers licensed to sponsor Skilled Worker and temporary visas as an unindexed, multi-megabyte raw table with no historical diffs, no sector classification, and zero cross-referencing with statutory company health.</p>
+  <p>For skilled migrants, visa sponsorship determines legal status and employment rights. Roughly 127,000 employers hold a licence out of approximately five million registered UK entities. Job seekers frequently invest months applying to companies that either do not hold licences, have had their licences revoked, or are in active corporate insolvency.</p>
+  <p>Direct inquiries, bug reports, and dataset corrections can be sent to <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a>. Every message is reviewed personally.</p>
 
   <h2>What it is, and what it is not</h2>
-  <p>It is a search tool over a public register. That is all it is.</p>
-  <p>It is not immigration advice, and I am not qualified to give any. UK
-     immigration advice is regulated for good reason. Nothing here assesses
-     your case, tells you whether you qualify, or ranks your chances. If you
-     need advice, use an adviser registered with the
-     <a href="https://www.gov.uk/find-an-immigration-adviser">Immigration
-     Advice Authority</a> or a solicitor regulated by the SRA.</p>
-  <p>It is also not the official register. It is a daily copy of one. Before
-     you act on anything, check the
-     <a href="https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers">official
-     list on GOV.UK</a>. If the two ever disagree, GOV.UK is right and I want
-     to know about it.</p>
+  <div class="callout-ethic">
+    <p><strong>Primary Function:</strong> KnowYourSponsor is an archival search terminal and corporate diligence tool built over statutory public registers. It provides verifiable, factual records of licensing lineage and insolvency filings.</p>
+  </div>
+  <p><strong>Not Immigration Advice:</strong> This terminal does not provide immigration advice or legal counsel. UK immigration advice is strictly regulated by the Office of the Immigration Services Commissioner (OISC). Nothing on this platform assesses individual visa eligibility, computes points scores, or guarantees sponsorship feasibility. If you require legal representation or advice, consult an adviser registered with the <a href="https://www.gov.uk/find-an-immigration-adviser" target="_blank" rel="noopener">Immigration Services Commissioner</a> or a solicitor regulated by the Solicitors Regulation Authority (SRA).</p>
+  <p><strong>Secondary Mirror Notice:</strong> While updated daily from official feeds, this platform is an independent index. For legal proceedings or formal visa submissions, always verify live standing directly on the <a href="https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers" target="_blank" rel="noopener">GOV.UK Register of Licensed Sponsors</a>.</p>
 
-  <h2>Things this site will not do</h2>
+  <h2>Institutional Commitments &amp; Ethics</h2>
   <ul>
-    <li><strong>Charge job seekers to search.</strong> The data is public. Put
-        a paywall on it and the tool stops helping the people it is for.</li>
-    <li><strong>Sell or rent your email address.</strong> Not to recruiters,
-        not to advisers, not to anyone. See the
-        <a href="../privacy/">privacy notice</a>.</li>
-    <li><strong>Let anyone pay to change the search results.</strong> If paid
-        placement ever appears it will be labelled and kept out of the
-        rankings. An employer cannot pay to be listed, delisted, or to have a
-        Companies House warning removed.</li>
-    <li><strong>Pretend a guess is a fact.</strong> The industry tags and the
-        Companies House matching are both inferred, and both are labelled as
-        inferred wherever they appear. How they work is on the
-        <a href="../methodology/">methodology page</a>.</li>
+    <li><strong>Zero Paywalls for Job Seekers:</strong> Searching the register, viewing company warnings, inspecting salary thresholds, and checking daily licence changes is permanently free for individual job seekers.</li>
+    <li><strong>Zero Tracking &amp; Privacy First:</strong> We do not sell, broker, or rent user emails or query logs. All register searching executes locally in your browser via a client-side Web Worker. See our <a href="../privacy/">Privacy Statement</a>.</li>
+    <li><strong>Zero Paid Placement or Sponsored Delisting:</strong> Sponsor rankings and search results cannot be purchased. An employer cannot pay to be indexed, promoted, or have Companies House insolvency notices or DBT National Minimum Wage enforcement records removed.</li>
+    <li><strong>Verifiable Provenance:</strong> Inferred data (such as SIC industry tags or fuzzy name normalisation) is explicitly labelled as inferred across all views. Methodological details are published in our <a href="../methodology/">Data Methodology</a>.</li>
   </ul>
 
-  <h2>How it is paid for</h2>
-  <p>At the moment, it is not. It runs on free static hosting and a scheduled
-     job, and costs close to nothing.</p>
-  <p>The intention is to fund it by selling the change history to recruiters,
-     immigration advisers and relocation firms, who want to know which
-     employers gained or lost a licence. Those are businesses with budgets.
-     Job seekers are not, and the search stays free regardless of whether that
-     works.</p>
-  <p>I would rather say that plainly than pretend there is no commercial
-     intent. A free tool with a hidden business model is worse than a paid one
-     with an obvious one.</p>
+  <h2>Commercial Model &amp; Sustainability</h2>
+  <p>KnowYourSponsor operates with complete commercial transparency. Individual search and open data files are provided free to the public. The infrastructure is sustained by commercial intelligence feeds, longitudinal change archives, and automated compliance watchlists provided to immigration law practices, talent advisory firms, and enterprise compliance teams.</p>
+  <p>A free utility supported by clear, B2B data licensing is ethically sound and ensures that job seekers never bear the cost of public transparency.</p>
 
-  <h2>Corrections</h2>
-  <p>If an employer is listed wrongly, if a warning is attached to the wrong
-     company, or if anything reads as more certain than it should, tell me and
-     I will fix it. Wrong data here costs somebody a real job application, so
-     corrections come before features.</p>
+  <h2>Corrections &amp; Data Integrity</h2>
+  <p>If a company record is incorrectly joined, if an insolvency filing has been resolved upstream, or if an official correction has been published by Companies House or the Home Office, submit the details to <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a>. Factual integrity takes precedence over all other platform priorities.</p>
 
-<p class="updated">Last updated 09 September 2026.</p>
+  <p class="updated">Last updated 09 September 2026 &middot; Ledger Volume 2026.W37</p>
 </main>
 
-<footer><div class="wrap">
-  <p>KnowYourSponsor is an independent search tool built on open public data
-     from GOV.UK. It is not affiliated with the Home Office and is not
-     immigration advice.</p>
-  <p><a href="../">Search the register</a></p>
-</div></footer>
+<footer>
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="../about/">About &amp; Ethics</a>
+      <a href="../changes/">Weekly Register Changes</a>
+      <a href="../insights/">Statistical Numbers</a>
+      <a href="../methodology/">Data Methodology</a>
+      <a href="../data-api/">Public Data API</a>
+      <a href="../pricing/">Compliance Monitoring (B2B)</a>
+      <a href="../privacy/">Privacy Statement</a>
+    </div>
+    <p>KnowYourSponsor is an independent intelligence terminal built on statutory public registers (UK Home Office, Companies House, and DBT NMW Naming Rounds). Not immigration advice.</p>
+    <p style="margin-top:6px;">Contact: <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a></p>
+  </div>
+</footer>
+
 <script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<script>(function(){var b=document.querySelector('[data-theme-toggle]');if(!b)return;var r=document.documentElement;function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}function sync(){b.setAttribute('aria-pressed',String(dark()));}b.addEventListener('click',function(){var next=dark()?'light':'dark';r.setAttribute('data-theme',next);try{localStorage.setItem('theme',next);}catch(e){}sync();});sync();})();</script>
+<script>
+(function(){
+  var b=document.querySelector('[data-theme-toggle]');
+  if(!b)return;
+  var r=document.documentElement;
+  function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}
+  function sync(){b.setAttribute('aria-pressed',String(dark()));}
+  b.addEventListener('click',function(){
+    var next=dark()?'light':'dark';
+    r.setAttribute('data-theme',next);
+    try{localStorage.setItem('theme',next);}catch(e){}
+    sync();
+  });
+  sync();
+})();
+</script>
 </body>
 </html>

@@ -3,165 +3,401 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UK visa sponsorship in numbers | KnowYourSponsor</title>
-<meta name="description" content="127,716 UK employers hold a licence to sponsor work visas. Where they are, what they do, and which visa routes they can use. Updated every day from the official GOV.UK register.">
+<title>UK Visa Sponsorship in Numbers | KnowYourSponsor</title>
+<meta name="description" content="127,716 UK employers hold a licence to sponsor work visas. Where they are, what they do, and which visa routes they can use. Updated daily from the official Home Office register.">
 <link rel="canonical" href="https://roshan1208.github.io/sponsorsignal/insights/">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://roshan1208.github.io/sponsorsignal/insights/">
-<meta property="og:title" content="UK visa sponsorship in numbers">
-<meta property="og:description" content="127,716 UK employers hold a licence to sponsor work visas. Where they are, what they do, and which visa routes they can use. Updated every day from the official GOV.UK register.">
+<meta property="og:title" content="UK Visa Sponsorship in Numbers — Macro Statistical Dossier">
+<meta property="og:description" content="127,716 UK employers hold a licence to sponsor work visas. Where they are, what they do, and which visa routes they can use.">
 <meta property="og:image" content="https://roshan1208.github.io/sponsorsignal/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../favicon.png" type="image/png">
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
-<style>
 
-  :root{
-    --ink:#17233B; --ink-soft:#4A5670;
-    --paper:#FFFFFF; --paper-dim:#F5F7FB;
-    --cobalt:#2145C9; --cobalt-dark:#17348F; --on-cobalt:#FFFFFF;
-    --signal:#FFC933; --on-signal:#17233B;
-    --line:#D9DFEA; --good:#0E7B4F; --bad:#B3261E;
-    --warn-bg:#FDF1F0; --warn-bg-2:#FBE3E1; --warn-border:#E7B4AE;
-    --warn-ink:#8A1E18; --warn-solid:#B3261E;
-    --mark-bg:#17233B; --mark-fg:#FFFFFF;
-    --note-bg:#FFF6DC; --note-border:#EAD48A; --note-ink:#6B4E00;
-    --shadow:rgba(23,35,59,.10);
-    color-scheme:light;
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --surface-ground: #F4F1EA;
+    --surface-panel: #EAE5DA;
+    --surface-recessed: #DFD9CC;
+    --surface-paper: #FAF8F5;
+    
+    --ink-carbon: #141311;
+    --ink-graphite: #5A564F;
+    --ink-faint: #8C867A;
+    
+    --rule-hairline: #D3CDC0;
+    --rule-prominent: #A8A193;
+    --rule-master: #141311;
+    
+    --status-critical-ink: #8B1E1E;
+    --status-critical-wash: #F5E1E1;
+    --status-critical-rule: #D8A4A4;
+    
+    --status-warning-ink: #7A5310;
+    --status-warning-wash: #F3EAD8;
+    --status-warning-rule: #D8C496;
+    
+    --status-regular-ink: #1D5837;
+    --status-regular-wash: #E2EDE6;
+    --status-regular-rule: #A2C7B2;
+    
+    --cobalt: #1F3888;
+    --cobalt-dark: #14255C;
+    --on-cobalt: #FFFFFF;
+    
+    --font-serif: 'EB Garamond', Georgia, serif;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    
+    color-scheme: light;
   }
-  @media (prefers-color-scheme:dark){
-    :root:not([data-theme="light"]){
-      --ink:#E8ECF3; --ink-soft:#A3AEC2;
-      --paper:#10151F; --paper-dim:#1A2230;
-      --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F; --on-cobalt:#10151F;
-      --signal:#FFC933; --on-signal:#17233B;
-      --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
-      --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
-      --warn-ink:#F5B5AE; --warn-solid:#B3261E;
-      --mark-bg:#E8ECF3; --mark-fg:#10151F;
-      --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
-      --shadow:rgba(0,0,0,.45);
-      color-scheme:dark;
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --surface-ground: #121417;
+      --surface-panel: #1A1D22;
+      --surface-recessed: #23272E;
+      --surface-paper: #1E2229;
+      
+      --ink-carbon: #EDE9DF;
+      --ink-graphite: #A5A196;
+      --ink-faint: #767268;
+      
+      --rule-hairline: #2D323B;
+      --rule-prominent: #454B57;
+      --rule-master: #EDE9DF;
+      
+      --status-critical-ink: #F08A82;
+      --status-critical-wash: #2D1817;
+      --status-critical-rule: #6E2F2B;
+      
+      --status-warning-ink: #F0D28A;
+      --status-warning-wash: #2E2714;
+      --status-warning-rule: #6B5726;
+      
+      --status-regular-ink: #76D19E;
+      --status-regular-wash: #14281E;
+      --status-regular-rule: #285C40;
+      
+      --cobalt: #6B93F5;
+      --cobalt-dark: #8FADF8;
+      --on-cobalt: #121417;
+      
+      color-scheme: dark;
     }
   }
-  :root[data-theme="dark"]{
-    --ink:#E8ECF3; --ink-soft:#A3AEC2;
-    --paper:#10151F; --paper-dim:#1A2230;
-    --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F;
-    --signal:#FFC933; --on-signal:#17233B;
-    --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
-    --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
-    --warn-ink:#F5B5AE; --warn-solid:#B3261E;
-    --mark-bg:#E8ECF3; --mark-fg:#10151F;
-    --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
-    --shadow:rgba(0,0,0,.45);
-    color-scheme:dark;
+
+  :root[data-theme="dark"] {
+    --surface-ground: #121417;
+    --surface-panel: #1A1D22;
+    --surface-recessed: #23272E;
+    --surface-paper: #1E2229;
+    
+    --ink-carbon: #EDE9DF;
+    --ink-graphite: #A5A196;
+    --ink-faint: #767268;
+    
+    --rule-hairline: #2D323B;
+    --rule-prominent: #454B57;
+    --rule-master: #EDE9DF;
+    
+    --status-critical-ink: #F08A82;
+    --status-critical-wash: #2D1817;
+    --status-critical-rule: #6E2F2B;
+    
+    --status-warning-ink: #F0D28A;
+    --status-warning-wash: #2E2714;
+    --status-warning-rule: #6B5726;
+    
+    --status-regular-ink: #76D19E;
+    --status-regular-wash: #14281E;
+    --status-regular-rule: #285C40;
+    
+    --cobalt: #6B93F5;
+    --cobalt-dark: #8FADF8;
+    --on-cobalt: #121417;
+    
+    color-scheme: dark;
   }
 
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Public Sans',system-ui,sans-serif;color:var(--ink);
-       line-height:1.55;background:var(--paper)}
-  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
-  a{color:var(--cobalt)}
-  header{border-bottom:3px solid var(--ink);padding:14px 0}
-  .brand{font-weight:800;font-size:1.1rem}
-  .brand a{color:inherit;text-decoration:none}
-  .brand .dot{color:var(--cobalt)}
-
-  h1{font-size:clamp(1.6rem,4.5vw,2.4rem);font-weight:800;letter-spacing:-0.02em;
-     margin:36px 0 10px;text-wrap:balance;max-width:18ch}
-  .lead{color:var(--ink-soft);max-width:60ch;text-wrap:pretty}
-  .updated{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
-
-  /* the one number the page leads with */
-  .hero{margin:34px 0 6px;font-size:clamp(2.6rem,9vw,4rem);font-weight:800;
-        letter-spacing:-0.03em;line-height:1}
-  .hero-label{color:var(--ink-soft);max-width:46ch;text-wrap:pretty}
-
-  .tiles{display:grid;gap:12px;margin:28px 0 8px;
-         grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
-  .tile{border:1.5px solid var(--line);border-radius:10px;padding:14px 16px}
-  .tile .label{display:block;font-size:.82rem;color:var(--ink-soft)}
-  .tile .value{display:block;font-size:1.7rem;font-weight:600;letter-spacing:-0.02em;
-               margin-top:2px}
-  .tile .note{display:block;font-size:.78rem;color:var(--ink-soft);margin-top:2px;
-              text-wrap:pretty}
-
-  section.block{margin:52px 0}
-  h2{font-size:1.25rem;font-weight:800;letter-spacing:-0.01em;text-wrap:balance}
-  .sub{color:var(--ink-soft);font-size:.92rem;margin-top:4px;max-width:62ch;
-       text-wrap:pretty}
-
-  /* the pulled-out leader: stated, not squeezed into the bars */
-  .lead-figure{display:flex;align-items:baseline;gap:10px;margin-top:16px;
-               padding:12px 14px;border-radius:8px;background:var(--paper-dim);
-               border-left:4px solid var(--cobalt)}
-  .lead-figure .n{font-size:1.6rem;font-weight:600;letter-spacing:-0.02em}
-  .lead-figure .who{color:var(--ink-soft)}
-
-  .chart{width:100%;height:auto;margin-top:18px;overflow:visible}
-  .chart .cat{font-size:13px;fill:var(--ink)}
-  .chart .val{font-size:13px;fill:var(--ink-soft);font-variant-numeric:tabular-nums}
-  .chart path{fill:var(--cobalt)}
-  /* opacity only: a compositor property, so hover cannot cause layout work */
-  .chart .bar{opacity:1;transition:opacity .12s ease-out}
-  .chart:hover .bar{opacity:.55}
-  .chart .bar:hover{opacity:1}
-  @media (prefers-reduced-motion:reduce){.chart .bar{transition:none}}
-
-  .twin{margin-top:16px;font-size:.9rem}
-  .twin summary{cursor:pointer;color:var(--cobalt);font-weight:600}
-  .twin table{width:100%;border-collapse:collapse;margin-top:10px}
-  .twin th{text-align:left;font-size:.8rem;color:var(--ink-soft);
-           border-bottom:2px solid var(--ink);padding:6px 8px}
-  .twin td{padding:7px 8px;border-bottom:1px solid var(--line);
-           font-variant-numeric:tabular-nums}
-  .twin td:first-child{font-variant-numeric:normal}
-
-  .caveat{margin-top:14px;padding:12px 14px;border-radius:8px;
-          background:var(--paper-dim);border:1.5px solid var(--line);
-          font-size:.88rem;color:var(--ink-soft);max-width:62ch;text-wrap:pretty}
-  .caveat strong{color:var(--ink)}
-
-  .cta{margin:56px 0;border:2px solid var(--ink);border-radius:10px;
-       background:var(--paper-dim);padding:24px}
-  .cta h2{font-size:1.2rem}
-  .cta p{color:var(--ink-soft);margin-top:6px;max-width:52ch;text-wrap:pretty}
-  .cta a.btn{display:inline-block;margin-top:14px;background:var(--cobalt);
-             color:var(--on-cobalt);text-decoration:none;font-weight:600;padding:11px 22px;
-             border-radius:8px}
-  :is(a,summary,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
-
-  footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
-         font-size:.85rem;color:var(--ink-soft)}
-  footer p+p{margin-top:6px}
-  
-  .header-inner{display:flex;align-items:center;justify-content:space-between;
-                gap:16px;flex-wrap:wrap}
-  .topnav{display:flex;gap:18px;font-size:.9rem;font-weight:600}
-  /* "For business" is two words and wrapped at 375px, which pushed the
-     header from 73px to 86px. nowrap keeps it on one line and costs nothing:
-     measured 29px nav either way. .header-inner already wraps, so on a
-     genuinely narrow screen the nav drops to its own line rather than
-     overflowing. */
-  .topnav a{text-decoration:none;white-space:nowrap}
-  .topnav a:hover{text-decoration:underline}
-  .topnav [aria-current]{color:var(--ink-soft)}
-  @media (max-width:520px){.topnav{gap:14px;font-size:.85rem;width:100%}}
-
-  .themebtn{
-    font:inherit;font-size:1rem;line-height:1;cursor:pointer;
-    background:transparent;border:1.5px solid var(--line);border-radius:99px;
-    color:var(--ink-soft);padding:5px 10px;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    color: var(--ink-carbon);
+    background: var(--surface-ground);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
   }
-  .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  a { color: var(--cobalt); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
-  @media (max-width:640px){ .chart .cat{font-size:11px} .chart .val{font-size:11px} }
+  /* Telemetry Band */
+  .telemetry-band {
+    border-bottom: 1px solid var(--rule-hairline);
+    background: var(--surface-panel);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-graphite);
+    padding: 6px 0;
+  }
+  .telemetry-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .telemetry-tag { font-weight: 600; color: var(--ink-carbon); letter-spacing: 0.05em; text-transform: uppercase; }
+
+  header.masthead {
+    border-bottom: 2px solid var(--rule-master);
+    padding: 16px 0 14px;
+    background: var(--surface-ground);
+  }
+  .masthead-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .brand-block { display: flex; align-items: baseline; gap: 14px; }
+  .brand-title {
+    font-family: var(--font-serif);
+    font-size: 2.1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink-carbon);
+    text-transform: uppercase;
+  }
+  .brand-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .topnav { display: flex; align-items: center; gap: 20px; font-size: 0.88rem; font-weight: 500; }
+  .topnav a { color: var(--ink-graphite); }
+  .topnav a:hover, .topnav a[aria-current] { color: var(--ink-carbon); font-weight: 600; }
+  .themebtn {
+    font: inherit; font-size: 0.95rem; cursor: pointer;
+    background: transparent; border: 1px solid var(--rule-prominent);
+    border-radius: 4px; color: var(--ink-carbon); padding: 3px 8px;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 32px 0 8px;
+    color: var(--ink-carbon);
+    line-height: 1.15;
+  }
+  .lead { color: var(--ink-graphite); font-size: 1.05rem; max-width: 68ch; }
+  .updated {
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .hero {
+    margin: 30px 0 4px;
+    font-family: var(--font-serif);
+    font-size: clamp(2.8rem, 8vw, 4.2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--ink-carbon);
+  }
+  .hero-label { color: var(--ink-graphite); max-width: 54ch; font-size: 1.05rem; }
+
+  .tiles {
+    display: grid;
+    gap: 14px;
+    margin: 28px 0 16px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  .tile {
+    border: 1px solid var(--rule-prominent);
+    background: var(--surface-panel);
+    padding: 16px 18px;
+  }
+  .tile .label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-graphite);
+  }
+  .tile .value {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 1.9rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-top: 2px;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-carbon);
+  }
+  .tile .note {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-top: 2px;
+  }
+
+  section.block { margin: 48px 0; }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink-carbon);
+  }
+  .sub { color: var(--ink-graphite); font-size: 0.92rem; margin-top: 4px; max-width: 68ch; }
+
+  .lead-figure {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 12px 18px;
+    background: var(--surface-panel);
+    border-left: 4px solid var(--cobalt);
+    border: 1px solid var(--rule-hairline);
+    border-left-width: 4px;
+  }
+  .lead-figure .n {
+    font-family: var(--font-mono);
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ink-carbon);
+  }
+  .lead-figure .who { color: var(--ink-graphite); font-size: 0.95rem; }
+
+  .chart { width: 100%; height: auto; margin-top: 18px; overflow: visible; }
+  .chart .cat { font-family: var(--font-sans); font-size: 13px; fill: var(--ink-carbon); }
+  .chart .val { font-family: var(--font-mono); font-size: 13px; fill: var(--ink-graphite); font-variant-numeric: tabular-nums; }
+  .chart path { fill: var(--cobalt); }
+  .chart .bar { opacity: 1; transition: opacity 0.12s ease-out; }
+  .chart:hover .bar { opacity: 0.55; }
+  .chart .bar:hover { opacity: 1; }
+
+  .twin { margin-top: 16px; font-size: 0.88rem; }
+  .twin summary { cursor: pointer; color: var(--cobalt); font-weight: 600; font-family: var(--font-mono); }
+  .twin table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  .twin th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-graphite);
+    border-bottom: 1px solid var(--rule-master);
+    background: var(--surface-recessed);
+    padding: 8px 10px;
+  }
+  .twin td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--rule-hairline);
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+  .twin td:first-child { font-family: var(--font-sans); font-variant-numeric: normal; }
+
+  .caveat {
+    margin-top: 16px;
+    padding: 14px 18px;
+    background: var(--surface-panel);
+    border: 1px solid var(--rule-hairline);
+    font-size: 0.88rem;
+    color: var(--ink-graphite);
+    max-width: 68ch;
+  }
+  .caveat strong { color: var(--ink-carbon); }
+
+  .cta {
+    margin: 56px 0;
+    border: 2px solid var(--rule-master);
+    background: var(--surface-panel);
+    padding: 26px;
+  }
+  .cta h2 { font-size: 1.4rem; }
+  .cta p { color: var(--ink-graphite); margin-top: 6px; max-width: 58ch; }
+  .cta a.btn {
+    display: inline-block;
+    margin-top: 16px;
+    background: var(--rule-master);
+    color: var(--surface-ground);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 2px;
+  }
+
+  footer {
+    margin-top: 60px;
+    border-top: 2px solid var(--rule-master);
+    padding: 30px 0 50px;
+    background: var(--surface-panel);
+    font-size: 0.82rem;
+    color: var(--ink-graphite);
+  }
+  footer .footer-links { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+  footer .footer-links a { color: var(--ink-carbon); font-weight: 500; }
+
+  @media (max-width: 640px) {
+    .chart .cat { font-size: 11px; }
+    .chart .val { font-size: 11px; }
+    .brand-title { font-size: 1.6rem; }
+    .topnav { gap: 12px; font-size: 0.8rem; }
+  }
 </style>
-<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>
+  (function(){
+    try {
+      var t = localStorage.getItem('theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    } catch(e) {}
+  })();
+</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">KnowYourSponsor<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><span aria-current="page">Numbers</span><a href="../data-api/">Data</a><a href="../pricing/">For business</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+
+<div class="telemetry-band">
+  <div class="wrap telemetry-inner">
+    <div><span class="telemetry-tag">THE REGISTER OF LICENSED SPONSORS</span> · VOL. 2026 · ISSUE W37</div>
+    <div>SOURCE: UK HOME OFFICE &amp; COMPANIES HOUSE · SNAPSHOT: 2026-09-09 18:14 UTC</div>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <div class="brand-block">
+      <a href="../" class="brand-title">KnowYourSponsor<span style="color:var(--cobalt)">.</span></a>
+      <span class="brand-subtitle">Corporate Solvency &amp; Immigration Ledger</span>
+    </div>
+    <nav class="topnav">
+      <a href="../changes/">Changes</a>
+      <a href="../insights/" aria-current="page">Numbers</a>
+      <a href="../data-api/">Data API</a>
+      <a href="../pricing/">For Business</a>
+      <button class="themebtn" type="button" data-theme-toggle aria-label="Toggle theme">&#9789;</button>
+    </nav>
+  </div>
+</header>
 
 <main class="wrap">
   <h1>UK visa sponsorship in numbers</h1>
@@ -272,13 +508,37 @@
   </section>
 </main>
 
-<footer><div class="wrap">
-  <p>Built on the official GOV.UK Register of Licensed Sponsors (Workers).
-     KnowYourSponsor is an independent search tool built on open public data.
-     It is not affiliated with the Home Office and is not immigration advice.</p>
-  <p><a href="../">Search the full list</a></p>
-</div></footer>
+<footer>
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="../about/">About &amp; Ethics</a>
+      <a href="../changes/">Weekly Register Changes</a>
+      <a href="../insights/">Statistical Numbers</a>
+      <a href="../methodology/">Data Methodology</a>
+      <a href="../data-api/">Public Data API</a>
+      <a href="../pricing/">Compliance Monitoring (B2B)</a>
+      <a href="../privacy/">Privacy Statement</a>
+    </div>
+    <p>KnowYourSponsor is an independent intelligence terminal built on statutory public registers (UK Home Office, Companies House, and DBT NMW Naming Rounds). Not immigration advice.</p>
+    <p style="margin-top:6px;">Contact: <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a></p>
+  </div>
+</footer>
 <script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<script>(function(){var b=document.querySelector('[data-theme-toggle]');if(!b)return;var r=document.documentElement;function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}function sync(){b.setAttribute('aria-pressed',String(dark()));}b.addEventListener('click',function(){var next=dark()?'light':'dark';r.setAttribute('data-theme',next);try{localStorage.setItem('theme',next);}catch(e){}sync();});sync();})();</script>
+<script>
+(function(){
+  var b=document.querySelector('[data-theme-toggle]');
+  if(!b)return;
+  var r=document.documentElement;
+  function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}
+  function sync(){b.setAttribute('aria-pressed',String(dark()));}
+  b.addEventListener('click',function(){
+    var next=dark()?'light':'dark';
+    r.setAttribute('data-theme',next);
+    try{localStorage.setItem('theme',next);}catch(e){}
+    sync();
+  });
+  sync();
+})();
+</script>
 </body>
 </html>

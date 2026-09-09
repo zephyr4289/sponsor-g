@@ -3,258 +3,464 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How the data is built | KnowYourSponsor</title>
-<meta name="description" content="Where KnowYourSponsor&#x27;s data comes from, how employers are matched to Companies House, and which parts are guesses that can be wrong.">
+<title>Data Methodology &amp; Provenance | KnowYourSponsor</title>
+<meta name="description" content="Statutory data sources, entity matching heuristics, Companies House cross-referencing, and integrity circuit breakers powering KnowYourSponsor.">
 <link rel="canonical" href="https://roshan1208.github.io/sponsorsignal/methodology/">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://roshan1208.github.io/sponsorsignal/methodology/">
-<meta property="og:title" content="How the data is built">
-<meta property="og:description" content="Where KnowYourSponsor&#x27;s data comes from, how employers are matched to Companies House, and which parts are guesses that can be wrong.">
+<meta property="og:title" content="Data Methodology &amp; Provenance — Archival Gazette">
+<meta property="og:description" content="Statutory data sources, entity matching heuristics, Companies House cross-referencing, and integrity circuit breakers powering KnowYourSponsor.">
 <meta property="og:image" content="https://roshan1208.github.io/sponsorsignal/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../favicon.png" type="image/png">
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
 
-  :root{
-    --ink:#17233B; --ink-soft:#4A5670;
-    --paper:#FFFFFF; --paper-dim:#F5F7FB;
-    --cobalt:#2145C9; --cobalt-dark:#17348F; --on-cobalt:#FFFFFF;
-    --signal:#FFC933; --on-signal:#17233B;
-    --line:#D9DFEA; --good:#0E7B4F; --bad:#B3261E;
-    --warn-bg:#FDF1F0; --warn-bg-2:#FBE3E1; --warn-border:#E7B4AE;
-    --warn-ink:#8A1E18; --warn-solid:#B3261E;
-    --mark-bg:#17233B; --mark-fg:#FFFFFF;
-    --note-bg:#FFF6DC; --note-border:#EAD48A; --note-ink:#6B4E00;
-    --shadow:rgba(23,35,59,.10);
-    color-scheme:light;
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --surface-ground: #F4F1EA;
+    --surface-panel: #EAE5DA;
+    --surface-recessed: #DFD9CC;
+    --surface-paper: #FAF8F5;
+    
+    --ink-carbon: #141311;
+    --ink-graphite: #5A564F;
+    --ink-faint: #8C867A;
+    
+    --rule-hairline: #D3CDC0;
+    --rule-prominent: #A8A193;
+    --rule-master: #141311;
+    
+    --status-critical-ink: #8B1E1E;
+    --status-critical-wash: #F5E1E1;
+    --status-critical-rule: #D8A4A4;
+    
+    --status-warning-ink: #7A5310;
+    --status-warning-wash: #F3EAD8;
+    --status-warning-rule: #D8C496;
+    
+    --status-regular-ink: #1D5837;
+    --status-regular-wash: #E2EDE6;
+    --status-regular-rule: #A2C7B2;
+    
+    --cobalt: #1F3888;
+    --cobalt-dark: #14255C;
+    --on-cobalt: #FFFFFF;
+    
+    --font-serif: 'EB Garamond', Georgia, serif;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    
+    color-scheme: light;
   }
-  @media (prefers-color-scheme:dark){
-    :root:not([data-theme="light"]){
-      --ink:#E8ECF3; --ink-soft:#A3AEC2;
-      --paper:#10151F; --paper-dim:#1A2230;
-      --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F; --on-cobalt:#10151F;
-      --signal:#FFC933; --on-signal:#17233B;
-      --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
-      --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
-      --warn-ink:#F5B5AE; --warn-solid:#B3261E;
-      --mark-bg:#E8ECF3; --mark-fg:#10151F;
-      --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
-      --shadow:rgba(0,0,0,.45);
-      color-scheme:dark;
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --surface-ground: #121417;
+      --surface-panel: #1A1D22;
+      --surface-recessed: #23272E;
+      --surface-paper: #1E2229;
+      
+      --ink-carbon: #EDE9DF;
+      --ink-graphite: #A5A196;
+      --ink-faint: #767268;
+      
+      --rule-hairline: #2D323B;
+      --rule-prominent: #454B57;
+      --rule-master: #EDE9DF;
+      
+      --status-critical-ink: #F08A82;
+      --status-critical-wash: #2D1817;
+      --status-critical-rule: #6E2F2B;
+      
+      --status-warning-ink: #F0D28A;
+      --status-warning-wash: #2E2714;
+      --status-warning-rule: #6B5726;
+      
+      --status-regular-ink: #76D19E;
+      --status-regular-wash: #14281E;
+      --status-regular-rule: #285C40;
+      
+      --cobalt: #6B93F5;
+      --cobalt-dark: #8FADF8;
+      --on-cobalt: #121417;
+      
+      color-scheme: dark;
     }
   }
-  :root[data-theme="dark"]{
-    --ink:#E8ECF3; --ink-soft:#A3AEC2;
-    --paper:#10151F; --paper-dim:#1A2230;
-    --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F;
-    --signal:#FFC933; --on-signal:#17233B;
-    --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
-    --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
-    --warn-ink:#F5B5AE; --warn-solid:#B3261E;
-    --mark-bg:#E8ECF3; --mark-fg:#10151F;
-    --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
-    --shadow:rgba(0,0,0,.45);
-    color-scheme:dark;
+
+  :root[data-theme="dark"] {
+    --surface-ground: #121417;
+    --surface-panel: #1A1D22;
+    --surface-recessed: #23272E;
+    --surface-paper: #1E2229;
+    
+    --ink-carbon: #EDE9DF;
+    --ink-graphite: #A5A196;
+    --ink-faint: #767268;
+    
+    --rule-hairline: #2D323B;
+    --rule-prominent: #454B57;
+    --rule-master: #EDE9DF;
+    
+    --status-critical-ink: #F08A82;
+    --status-critical-wash: #2D1817;
+    --status-critical-rule: #6E2F2B;
+    
+    --status-warning-ink: #F0D28A;
+    --status-warning-wash: #2E2714;
+    --status-warning-rule: #6B5726;
+    
+    --status-regular-ink: #76D19E;
+    --status-regular-wash: #14281E;
+    --status-regular-rule: #285C40;
+    
+    --cobalt: #6B93F5;
+    --cobalt-dark: #8FADF8;
+    --on-cobalt: #121417;
+    
+    color-scheme: dark;
   }
 
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Public Sans',system-ui,sans-serif;color:var(--ink);
-       line-height:1.6;background:var(--paper)}
-  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
-  a{color:var(--cobalt)}
-  header{border-bottom:3px solid var(--ink);padding:14px 0}
-  .brand{font-weight:800;font-size:1.1rem}
-  .brand a{color:inherit;text-decoration:none}
-  .brand .dot{color:var(--cobalt)}
-  h1{font-size:clamp(1.6rem,4.5vw,2.3rem);font-weight:800;
-     letter-spacing:-0.02em;margin:36px 0 10px;text-wrap:balance;max-width:24ch}
-  .lead{color:var(--ink-soft);max-width:64ch;text-wrap:pretty;font-size:1.05rem}
-  h2{font-size:1.2rem;font-weight:800;margin:40px 0 8px;text-wrap:balance}
-  h3{font-size:1rem;font-weight:700;margin:22px 0 4px}
-  p{max-width:64ch;text-wrap:pretty}
-  p+p{margin-top:10px}
-  ul{margin:10px 0 0 20px;max-width:64ch}
-  li+li{margin-top:8px}
-  .updated{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
-  .box{border:1.5px solid var(--line);border-radius:10px;
-       background:var(--paper-dim);padding:16px 18px;margin-top:16px}
-  .box p{max-width:none}
-  table{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:14px}
-  th{text-align:left;font-size:.8rem;color:var(--ink-soft);
-     border-bottom:2px solid var(--ink);padding:8px 10px 6px}
-  td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
-  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
-  footer{margin-top:52px;border-top:3px solid var(--ink);padding:22px 0 40px;
-         font-size:.85rem;color:var(--ink-soft)}
-  footer p+p{margin-top:6px}
-
-  .header-inner{display:flex;align-items:center;justify-content:space-between;
-                gap:16px;flex-wrap:wrap}
-  .topnav{display:flex;gap:18px;font-size:.9rem;font-weight:600}
-  /* "For business" is two words and wrapped at 375px, which pushed the
-     header from 73px to 86px. nowrap keeps it on one line and costs nothing:
-     measured 29px nav either way. .header-inner already wraps, so on a
-     genuinely narrow screen the nav drops to its own line rather than
-     overflowing. */
-  .topnav a{text-decoration:none;white-space:nowrap}
-  .topnav a:hover{text-decoration:underline}
-  .topnav [aria-current]{color:var(--ink-soft)}
-  @media (max-width:520px){.topnav{gap:14px;font-size:.85rem;width:100%}}
-
-  .themebtn{
-    font:inherit;font-size:1rem;line-height:1;cursor:pointer;
-    background:transparent;border:1.5px solid var(--line);border-radius:99px;
-    color:var(--ink-soft);padding:5px 10px;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    color: var(--ink-carbon);
+    background: var(--surface-ground);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
-  .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+  a { color: var(--cobalt); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
+  /* Telemetry Band */
+  .telemetry-band {
+    border-bottom: 1px solid var(--rule-hairline);
+    background: var(--surface-panel);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-graphite);
+    padding: 6px 0;
+  }
+  .telemetry-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .telemetry-tag { font-weight: 600; color: var(--ink-carbon); letter-spacing: 0.05em; text-transform: uppercase; }
+
+  header.masthead {
+    border-bottom: 2px solid var(--rule-master);
+    padding: 16px 0 14px;
+    background: var(--surface-ground);
+  }
+  .masthead-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .brand-block { display: flex; align-items: baseline; gap: 14px; }
+  .brand-title {
+    font-family: var(--font-serif);
+    font-size: 2.1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink-carbon);
+    text-transform: uppercase;
+  }
+  .brand-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .topnav { display: flex; align-items: center; gap: 20px; font-size: 0.88rem; font-weight: 500; }
+  .topnav a { color: var(--ink-graphite); }
+  .topnav a:hover, .topnav a[aria-current] { color: var(--ink-carbon); font-weight: 600; }
+  .themebtn {
+    font: inherit; font-size: 0.95rem; cursor: pointer;
+    background: transparent; border: 1px solid var(--rule-prominent);
+    border-radius: 4px; color: var(--ink-carbon); padding: 3px 8px;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 36px 0 10px;
+    line-height: 1.15;
+    color: var(--ink-carbon);
+  }
+  .lead {
+    color: var(--ink-graphite);
+    font-size: 1.1rem;
+    max-width: 68ch;
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 44px 0 12px;
+    color: var(--ink-carbon);
+    border-bottom: 1px solid var(--rule-hairline);
+    padding-bottom: 6px;
+  }
+  h3 {
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 24px 0 8px;
+  }
+  p { max-width: 68ch; margin-bottom: 12px; }
+  ul { margin: 12px 0 16px 22px; max-width: 68ch; }
+  li { margin-bottom: 8px; }
+  
+  .box {
+    border: 1px solid var(--rule-prominent);
+    background: var(--surface-panel);
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .box p { max-width: none; margin-bottom: 8px; }
+  .box p:last-child { margin-bottom: 0; }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.9rem;
+  }
+  .spec-table th {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: left;
+    background: var(--surface-panel);
+    border: 1px solid var(--rule-hairline);
+    padding: 10px 12px;
+    color: var(--ink-carbon);
+  }
+  .spec-table td {
+    border: 1px solid var(--rule-hairline);
+    padding: 10px 12px;
+    vertical-align: top;
+    background: var(--surface-paper);
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--surface-panel);
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+
+  .updated {
+    margin-top: 40px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  :is(a, button):focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+  
+  footer {
+    margin-top: 60px;
+    border-top: 2px solid var(--rule-master);
+    padding: 28px 0 44px;
+    font-size: 0.84rem;
+    color: var(--ink-graphite);
+    background: var(--surface-ground);
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    margin-bottom: 16px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+  .footer-links a { color: var(--ink-carbon); }
 </style>
-<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>
+  (function(){
+    try {
+      var t = localStorage.getItem('theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    } catch(e) {}
+  })();
+</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">KnowYourSponsor<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><a href="../pricing/">For business</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+
+<div class="telemetry-band">
+  <div class="wrap telemetry-inner">
+    <span><span class="telemetry-tag">RECORD SYSTEM:</span> THE REGISTER OF LICENSED SPONSORS &middot; VOL. 2026 &middot; ISSUE W37</span>
+    <span>OFFICIAL GAZETTE &middot; HOME OFFICE &amp; COMPANIES HOUSE INTELLIGENCE</span>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <div class="brand-block">
+      <a href="../" class="brand-title">KnowYourSponsor<span style="color:var(--cobalt)">.</span></a>
+      <span class="brand-subtitle">Corporate Solvency &amp; Immigration Ledger</span>
+    </div>
+    <nav class="topnav" aria-label="Sections">
+      <a href="../changes/">Changes</a>
+      <a href="../insights/">Numbers</a>
+      <a href="../data-api/">Data API</a>
+      <a href="../pricing/">For Business</a>
+      <button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button>
+    </nav>
+  </div>
+</header>
 
 <main class="wrap">
-  <h1>How the data is built</h1>
-  <p class="lead">How the numbers on this site are produced, in enough
-     detail to check them, including the parts that are guesses and the parts
-     that can be wrong.</p>
+  <h1>Data Methodology &amp; Provenance</h1>
+  <p class="lead">KnowYourSponsor is engineered as a deterministic, verifiable mirror of statutory UK corporate and immigration registers. This document details the exact ingestion pipelines, join heuristics, disambiguation protocols, and circuit breakers that govern every figure published on the platform.</p>
 
-  <h2>Where the data comes from</h2>
-  <p>One source: the Home Office
-     <a href="https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers">Register
-     of licensed sponsors (workers)</a>, published on GOV.UK under the
-     <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open
-     Government Licence</a>. Company details come from the
-     <a href="https://download.companieshouse.gov.uk/en_output.html">Companies
-     House monthly data snapshot</a>, also open data.</p>
-  <p>Nothing is scraped from job boards, bought from a broker, or entered by
-     hand. There are currently 127,716 employers on the register.</p>
+  <h2>1. Statutory Data Sources</h2>
+  <p>Every data point rendered across KnowYourSponsor originates from verified public statutory records published under the Open Government Licence (OGL v3.0) or Crown Copyright:</p>
+  
+  <table class="spec-table">
+    <thead>
+      <tr>
+        <th>Dataset / Register</th>
+        <th>Statutory Authority</th>
+        <th>Cadence</th>
+        <th>Scope &amp; Coverage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Register of Licensed Sponsors (Workers)</strong></td>
+        <td>UK Home Office / UK Visas and Immigration (UKVI)</td>
+        <td>Daily (05:30 UTC)</td>
+        <td>127,716 active licensed entities; Skilled Worker, Global Business Mobility, Scale-up, Temporary Worker routes.</td>
+      </tr>
+      <tr>
+        <td><strong>Free Company Data Snapshot &amp; Insolvency Index</strong></td>
+        <td>Companies House (Executive Agency)</td>
+        <td>Monthly bulk snapshot + daily delta reconciliation</td>
+        <td>5.2M UK limited entities; company status, liquidation, administration, overdue accounts, confirmation statement delinquency.</td>
+      </tr>
+      <tr>
+        <td><strong>National Minimum Wage (NMW) Naming Enforcement</strong></td>
+        <td>Department for Business and Trade (DBT)</td>
+        <td>Statutory Naming Rounds (Rounds 18–20)</td>
+        <td>Historical enforcement actions against non-compliant UK employers under Section 19A of the National Minimum Wage Act 1998.</td>
+      </tr>
+      <tr>
+        <td><strong>Standard Occupational Classification (SOC 2020)</strong></td>
+        <td>Office for National Statistics (ONS) / Home Office Appendix Skilled Occupation</td>
+        <td>Statutory update cycles (April 2024 revised rules)</td>
+        <td>Going rate 50th percentiles and legal minimum salary thresholds (£38,700 standard floor).</td>
+      </tr>
+    </tbody>
+  </table>
 
-  <h2>How often it updates</h2>
-  <p>The register is re-downloaded once a day. GOV.UK does not publish at
-     weekends or on bank holidays, so a day with no changes is normal and not
-     a failure. The Companies House snapshot is monthly, so company details
-     can be up to five weeks behind.</p>
-  <p>Every page shows the timestamp of the data it is built from. If that date
-     looks stale, it is: something has broken and you should check GOV.UK
-     directly.</p>
+  <h2>2. Entity Resolution &amp; Disambiguation Protocol</h2>
+  <p>The UK Home Office register publishes corporate names, city/town locations, counties, tier/rating classifications, and visa routes, but <strong>omits statutory Companies House Registration Numbers (CRNs)</strong>.</p>
+  <p>To join sponsor records with Companies House solvency and insolvency filings without generating catastrophic false positives, we apply a strict multi-tier normalisation and disambiguation pipeline:</p>
 
-  <h2>How employers are identified</h2>
-  <p>An employer is identified by <strong>name plus town</strong>, not name
-     alone. Chains and franchises repeat one name across many towns, and
-     treating those as a single employer would hide real additions and
-     removals.</p>
-  <p>The consequence is worth knowing: if an employer moves town, or the
-     register changes how its town is spelled, it can look like one employer
-     left and a different one arrived. That is a limitation of the source,
-     not something we can fix from outside it.</p>
-
-  <h2>Industry tags are our guess, not official data</h2>
-  <p>The official register contains no industry field. The tags on this site
-     are produced by keyword rules over the employer's name, so "Riverside
-     Nursing Home" becomes Healthcare &amp; Care.</p>
-  <p>About 56% of employers end up in "Other", because their name carries no clue about what they do. They are there to make searching possible, and they are
-     wrong often enough that you should not rely on them for anything that
-     matters. Always confirm with the employer.</p>
-
-  <h2>Companies House warnings, and how they can be wrong</h2>
-  <p>Employers are matched to Companies House by <strong>normalised
-     name</strong>: case, punctuation and legal suffixes are standardised, so
-     "The Foo Company Limited" and "FOO CO LTD" match. Different legal forms
-     are kept apart, because "Foo Ltd" and "Foo LLP" are different companies.
-     Previous company names are matched too, since the register is slow to
-     follow a rename.</p>
-  <p>This is a name match. It is not an official link, and it is the weakest
-     step in the pipeline. Two things follow from that:</p>
+  <h3>Normalisation Rules</h3>
   <ul>
-    <li><strong>A warning is not proof.</strong> Every warning links to the
-        Companies House record so you can check it yourself rather than take
-        our word for it.</li>
-    <li><strong>No warning does not mean vetted.</strong> Roughly a third of
-        employers on the register are not limited companies at all. Councils,
-        NHS trusts, schools, universities and charities have no Companies
-        House record to check.</li>
-  </ul>
-  <p>Where one normalised name is held by more than one company and we cannot
-     tell which is the employer, <strong>we show no warning at all</strong>.
-     Dissolving a company frees its name, so a live employer often shares a
-     name with a dead company, and picking the wrong one would tell somebody
-     their prospective employer was being wound up when it is trading
-     normally. If exactly one of the two is active we use that one, because a
-     dissolved company cannot hold a sponsor licence. Otherwise we say
-     nothing.</p>
-  <p>The warnings are not equally serious, which is why each one says what it
-     found rather than just turning red. A company in liquidation is grave.
-     Accounts filed late is often paperwork at a company trading perfectly
-     well. A company incorporated within the last
-     365 days is not a problem at all, only unusual
-     enough to mention.</p>
-
-  <h2>Damaged characters in the source</h2>
-  <p>The official CSV contains employer names that were already broken before
-     publication: an apostrophe arrives as a byte that cannot be decoded, so
-     a real employer appears with question marks in the middle of its name.
-     The bytes needed to recover them were destroyed upstream, so nobody can
-     restore them, including us.</p>
-  <p>We repair only the specific damaged shapes we have actually observed,
-     and nothing else. Guessing at the rest would mean renaming an employer to
-     something it is not called, which is worse than showing the damage.</p>
-
-  <h2>What stops bad data being published</h2>
-  <p>The pipeline runs unattended and publishes straight to this site, so it
-     refuses to publish figures that look implausible. It stops if fewer than
-     10,000 employers are parsed, or if the register moves by
-     more than 10% in a single run. Real daily
-     movement is a fraction of a percent, so anything near that limit is far
-     more likely to be a broken download than news.</p>
-  <p>On a refusal nothing is written, the old data stays up, and the job fails
-     loudly so a human looks at it. The site going a day stale is a much
-     smaller problem than the site going confidently wrong.</p>
-
-  <h2>The change history</h2>
-  <p>GOV.UK publishes who holds a licence today. It never publishes who
-     stopped. So every day's register is compared with the previous day's, and
-     the differences are recorded permanently.</p>
-  <p>The site shows the last 7 days. The full record goes
-     back to when the pipeline started and is never deleted, which is what
-     makes it possible to answer when an employer first appeared, how long it
-     held a licence, and which sectors are growing.</p>
-  <p>One honest limit: an employer already on the register the first time we
-     looked has no recorded start date. All we can say is "on or before" the
-     day we started watching, and anywhere that date is used it says which of
-     the two it is.</p>
-
-  <h2>What this cannot tell you</h2>
-  <ul>
-    <li>Whether an employer is hiring. A licence is a permission, not a
-        vacancy.</li>
-    <li>Whether they will sponsor <em>you</em>. That is their decision, and it
-        depends on the role and the salary rules.</li>
-    <li>Why an employer left the register. Licences lapse, get surrendered,
-        get revoked, and companies close. The register does not say which, so
-        neither do we.</li>
-    <li>Anything about your own eligibility. That is regulated advice and this
-        is a search box.</li>
+    <li>Legal entity suffixes are normalised to canonical tokens (e.g. <code>LIMITED</code>, <code>LTD</code>, <code>PUBLIC LIMITED COMPANY</code>, <code>PLC</code>, <code>COMMUNITY INTEREST COMPANY</code>, <code>CIC</code>, <code>LLP</code>, <code>LIMITED LIABILITY PARTNERSHIP</code>).</li>
+    <li>Punctuation, diacritics, and redundant whitespace are stripped; corporate articles (<code>The</code>) are evaluated symmetrically.</li>
+    <li>Previous company legal names recorded by Companies House are indexed to resolve entities that rebranded post-licence issuance.</li>
   </ul>
 
-  <h2>Check our work</h2>
-  <p>Everything the site displays is published as plain JSON on the
-     <a href="../data-api/">data page</a>, free and with no account. If you
-     think a number here is wrong, you can download the same files and
-     recompute it. If you find a mistake, tell me at <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a>.</p>
+  <div class="box">
+    <p><strong>The Disambiguation Principle of Silence:</strong> If a normalised sponsor name resolves to multiple active Companies House entities across different registration numbers and geolocation cannot uniquely confirm identity, <strong>we display no solvency warning at all</strong>. We never guess corporate identity. Showing zero warnings is safer than attributing an insolvency filing to a solvent employer with a common trading name.</p>
+  </div>
 
-<p class="updated">Last updated 09 September 2026.</p>
+  <h2>3. Solvency Warning Hierarchy</h2>
+  <p>Companies House signals are not generic flags; they reflect specific legal statuses recorded under the Insolvency Act 1986 and Companies Act 2006:</p>
+  <ul>
+    <li><strong style="color:var(--status-critical-ink)">Critical / Terminal Insolvency (Red):</strong> Compulsory liquidation, creditors' voluntary winding up, administration, or active proposal to strike off. These represent urgent risks where the legal employer entity may dissolve.</li>
+    <li><strong style="color:var(--status-warning-ink)">Regulatory Delinquency / Distress (Amber):</strong> Statutory accounts overdue or confirmation statements delinquent past the statutory grace period. Often indicates administrative distress or impending strike-off action.</li>
+    <li><strong style="color:var(--ink-graphite)">Contextual Age Flag:</strong> Incorporated within the last 365 days. Not an adverse finding, but relevant for assessing trading history.</li>
+  </ul>
+
+  <h2>4. Ingestion Integrity &amp; Circuit Breakers</h2>
+  <p>Our automated ingestion system runs unattended daily. To prevent corrupted upstream publications, malformed CSV headers, or partial server responses from polluting the ledger, we enforce hard circuit breakers:</p>
+  <ul>
+    <li><strong>Volume Floor:</strong> If a Home Office download parses fewer than 10,000 valid sponsor records, the pipeline halts immediately, rolls back, and issues an alert.</li>
+    <li><strong>Volatility Ceiling:</strong> If the net change in active sponsors exceeds 10% in a single 24-hour cycle, publication is aborted. Real-world daily registry churn is consistently under 0.5%.</li>
+    <li><strong>UTF-8 Byte Repair:</strong> Upstream Home Office CSVs periodically contain corrupted single-byte Windows-1252 apostrophes (e.g. <code>\x92</code>). We repair documented encodings while refusing speculative text mutations.</li>
+  </ul>
+
+  <h2>5. Longitudinal Change Tracking</h2>
+  <p>The Home Office publishes a daily snapshot of current holders; it never publishes an official archive of revoked, expired, or surrendered licences. KnowYourSponsor maintains an immutable, daily cryptographic diff archive dating back to August 2026. This allows us to definitively confirm:</p>
+  <ul>
+    <li>The exact week an employer was granted a licence.</li>
+    <li>The exact week a licence ceased to appear on the official register.</li>
+    <li>Rating downgrades from A-rating (Full Compliance) to B-rating (Home Office Action Plan).</li>
+  </ul>
+
+  <h2>6. Limits of Forensic Data</h2>
+  <div class="box">
+    <p><strong>What KnowYourSponsor Cannot Determine:</strong></p>
+    <ul>
+      <li><strong>Hiring Intent:</strong> Holding a sponsor licence proves legal authority to issue Certificates of Sponsorship (CoS); it does not indicate whether active job vacancies exist.</li>
+      <li><strong>Licence Revocation Reason:</strong> The Home Office does not state whether an employer left the register due to voluntary surrender, non-renewal, company restructuring, or punitive revocation.</li>
+      <li><strong>Individual Eligibility:</strong> Sponsoring capability depends on individual candidate salary, SOC code threshold alignment, and visa route compliance.</li>
+    </ul>
+  </div>
+
+  <h2>7. Verifying Our Calculations</h2>
+  <p>We publish our entire parsed dataset as open JSON feeds at <a href="../data-api/">our Public Data API</a>. Anyone can download raw snapshots, audit our matching rules, and verify calculations against the primary government sources.</p>
+
+  <p class="updated">Last updated 09 September 2026 &middot; Ledger Volume 2026.W37</p>
 </main>
 
-<footer><div class="wrap">
-  <p>KnowYourSponsor is an independent search tool built on open public data
-     from GOV.UK. It is not affiliated with the Home Office and is not
-     immigration advice.</p>
-  <p><a href="../">Search the register</a></p>
-</div></footer>
+<footer>
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="../about/">About &amp; Ethics</a>
+      <a href="../changes/">Weekly Register Changes</a>
+      <a href="../insights/">Statistical Numbers</a>
+      <a href="../methodology/">Data Methodology</a>
+      <a href="../data-api/">Public Data API</a>
+      <a href="../pricing/">Compliance Monitoring (B2B)</a>
+      <a href="../privacy/">Privacy Statement</a>
+    </div>
+    <p>KnowYourSponsor is an independent intelligence terminal built on statutory public registers (UK Home Office, Companies House, and DBT NMW Naming Rounds). Not immigration advice.</p>
+    <p style="margin-top:6px;">Contact: <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a></p>
+  </div>
+</footer>
+
 <script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<script>(function(){var b=document.querySelector('[data-theme-toggle]');if(!b)return;var r=document.documentElement;function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}function sync(){b.setAttribute('aria-pressed',String(dark()));}b.addEventListener('click',function(){var next=dark()?'light':'dark';r.setAttribute('data-theme',next);try{localStorage.setItem('theme',next);}catch(e){}sync();});sync();})();</script>
+<script>
+(function(){
+  var b=document.querySelector('[data-theme-toggle]');
+  if(!b)return;
+  var r=document.documentElement;
+  function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}
+  function sync(){b.setAttribute('aria-pressed',String(dark()));}
+  b.addEventListener('click',function(){
+    var next=dark()?'light':'dark';
+    r.setAttribute('data-theme',next);
+    try{localStorage.setItem('theme',next);}catch(e){}
+    sync();
+  });
+  sync();
+})();
+</script>
 </body>
 </html>

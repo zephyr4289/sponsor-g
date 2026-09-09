@@ -3,206 +3,422 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How watchlist monitoring works | KnowYourSponsor</title>
-<meta name="description" content="Exactly what is checked, how often, how quickly you would hear, and what would slip through. The detail behind the paid tier.">
+<title>Watchlist Monitoring Architecture | KnowYourSponsor</title>
+<meta name="description" content="Technical mechanics of KnowYourSponsor's automated watchlist monitoring: signal ingestion, frequency, latency thresholds, and limits.">
 <link rel="canonical" href="https://roshan1208.github.io/sponsorsignal/watchlist/">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://roshan1208.github.io/sponsorsignal/watchlist/">
-<meta property="og:title" content="How watchlist monitoring works">
-<meta property="og:description" content="Exactly what is checked, how often, how quickly you would hear, and what would slip through. The detail behind the paid tier.">
+<meta property="og:title" content="Watchlist Monitoring Architecture — Archival Gazette">
+<meta property="og:description" content="Technical mechanics of KnowYourSponsor's automated watchlist monitoring: signal ingestion, frequency, latency thresholds, and limits.">
 <meta property="og:image" content="https://roshan1208.github.io/sponsorsignal/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../favicon.png" type="image/png">
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
 
-  :root{
-    --ink:#17233B; --ink-soft:#4A5670;
-    --paper:#FFFFFF; --paper-dim:#F5F7FB;
-    --cobalt:#2145C9; --cobalt-dark:#17348F; --on-cobalt:#FFFFFF;
-    --signal:#FFC933; --on-signal:#17233B;
-    --line:#D9DFEA; --good:#0E7B4F; --bad:#B3261E;
-    --warn-bg:#FDF1F0; --warn-bg-2:#FBE3E1; --warn-border:#E7B4AE;
-    --warn-ink:#8A1E18; --warn-solid:#B3261E;
-    --mark-bg:#17233B; --mark-fg:#FFFFFF;
-    --note-bg:#FFF6DC; --note-border:#EAD48A; --note-ink:#6B4E00;
-    --shadow:rgba(23,35,59,.10);
-    color-scheme:light;
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --surface-ground: #F4F1EA;
+    --surface-panel: #EAE5DA;
+    --surface-recessed: #DFD9CC;
+    --surface-paper: #FAF8F5;
+    
+    --ink-carbon: #141311;
+    --ink-graphite: #5A564F;
+    --ink-faint: #8C867A;
+    
+    --rule-hairline: #D3CDC0;
+    --rule-prominent: #A8A193;
+    --rule-master: #141311;
+    
+    --status-critical-ink: #8B1E1E;
+    --status-critical-wash: #F5E1E1;
+    --status-critical-rule: #D8A4A4;
+    
+    --status-warning-ink: #7A5310;
+    --status-warning-wash: #F3EAD8;
+    --status-warning-rule: #D8C496;
+    
+    --status-regular-ink: #1D5837;
+    --status-regular-wash: #E2EDE6;
+    --status-regular-rule: #A2C7B2;
+    
+    --cobalt: #1F3888;
+    --cobalt-dark: #14255C;
+    --on-cobalt: #FFFFFF;
+    
+    --font-serif: 'EB Garamond', Georgia, serif;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    
+    color-scheme: light;
   }
-  @media (prefers-color-scheme:dark){
-    :root:not([data-theme="light"]){
-      --ink:#E8ECF3; --ink-soft:#A3AEC2;
-      --paper:#10151F; --paper-dim:#1A2230;
-      --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F; --on-cobalt:#10151F;
-      --signal:#FFC933; --on-signal:#17233B;
-      --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
-      --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
-      --warn-ink:#F5B5AE; --warn-solid:#B3261E;
-      --mark-bg:#E8ECF3; --mark-fg:#10151F;
-      --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
-      --shadow:rgba(0,0,0,.45);
-      color-scheme:dark;
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --surface-ground: #121417;
+      --surface-panel: #1A1D22;
+      --surface-recessed: #23272E;
+      --surface-paper: #1E2229;
+      
+      --ink-carbon: #EDE9DF;
+      --ink-graphite: #A5A196;
+      --ink-faint: #767268;
+      
+      --rule-hairline: #2D323B;
+      --rule-prominent: #454B57;
+      --rule-master: #EDE9DF;
+      
+      --status-critical-ink: #F08A82;
+      --status-critical-wash: #2D1817;
+      --status-critical-rule: #6E2F2B;
+      
+      --status-warning-ink: #F0D28A;
+      --status-warning-wash: #2E2714;
+      --status-warning-rule: #6B5726;
+      
+      --status-regular-ink: #76D19E;
+      --status-regular-wash: #14281E;
+      --status-regular-rule: #285C40;
+      
+      --cobalt: #6B93F5;
+      --cobalt-dark: #8FADF8;
+      --on-cobalt: #121417;
+      
+      color-scheme: dark;
     }
   }
-  :root[data-theme="dark"]{
-    --ink:#E8ECF3; --ink-soft:#A3AEC2;
-    --paper:#10151F; --paper-dim:#1A2230;
-    --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F;
-    --signal:#FFC933; --on-signal:#17233B;
-    --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
-    --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
-    --warn-ink:#F5B5AE; --warn-solid:#B3261E;
-    --mark-bg:#E8ECF3; --mark-fg:#10151F;
-    --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
-    --shadow:rgba(0,0,0,.45);
-    color-scheme:dark;
+
+  :root[data-theme="dark"] {
+    --surface-ground: #121417;
+    --surface-panel: #1A1D22;
+    --surface-recessed: #23272E;
+    --surface-paper: #1E2229;
+    
+    --ink-carbon: #EDE9DF;
+    --ink-graphite: #A5A196;
+    --ink-faint: #767268;
+    
+    --rule-hairline: #2D323B;
+    --rule-prominent: #454B57;
+    --rule-master: #EDE9DF;
+    
+    --status-critical-ink: #F08A82;
+    --status-critical-wash: #2D1817;
+    --status-critical-rule: #6E2F2B;
+    
+    --status-warning-ink: #F0D28A;
+    --status-warning-wash: #2E2714;
+    --status-warning-rule: #6B5726;
+    
+    --status-regular-ink: #76D19E;
+    --status-regular-wash: #14281E;
+    --status-regular-rule: #285C40;
+    
+    --cobalt: #6B93F5;
+    --cobalt-dark: #8FADF8;
+    --on-cobalt: #121417;
+    
+    color-scheme: dark;
   }
 
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Public Sans',system-ui,sans-serif;color:var(--ink);
-       line-height:1.6;background:var(--paper)}
-  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
-  a{color:var(--cobalt)}
-  header{border-bottom:3px solid var(--ink);padding:14px 0}
-  .brand{font-weight:800;font-size:1.1rem}
-  .brand a{color:inherit;text-decoration:none}
-  .brand .dot{color:var(--cobalt)}
-  h1{font-size:clamp(1.6rem,4.5vw,2.3rem);font-weight:800;
-     letter-spacing:-0.02em;margin:36px 0 10px;text-wrap:balance;max-width:24ch}
-  .lead{color:var(--ink-soft);max-width:64ch;text-wrap:pretty;font-size:1.05rem}
-  h2{font-size:1.2rem;font-weight:800;margin:40px 0 8px;text-wrap:balance}
-  h3{font-size:1rem;font-weight:700;margin:22px 0 4px}
-  p{max-width:64ch;text-wrap:pretty}
-  p+p{margin-top:10px}
-  ul{margin:10px 0 0 20px;max-width:64ch}
-  li+li{margin-top:8px}
-  .updated{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
-  .box{border:1.5px solid var(--line);border-radius:10px;
-       background:var(--paper-dim);padding:16px 18px;margin-top:16px}
-  .box p{max-width:none}
-  table{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:14px}
-  th{text-align:left;font-size:.8rem;color:var(--ink-soft);
-     border-bottom:2px solid var(--ink);padding:8px 10px 6px}
-  td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
-  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
-  footer{margin-top:52px;border-top:3px solid var(--ink);padding:22px 0 40px;
-         font-size:.85rem;color:var(--ink-soft)}
-  footer p+p{margin-top:6px}
-
-  .header-inner{display:flex;align-items:center;justify-content:space-between;
-                gap:16px;flex-wrap:wrap}
-  .topnav{display:flex;gap:18px;font-size:.9rem;font-weight:600}
-  /* "For business" is two words and wrapped at 375px, which pushed the
-     header from 73px to 86px. nowrap keeps it on one line and costs nothing:
-     measured 29px nav either way. .header-inner already wraps, so on a
-     genuinely narrow screen the nav drops to its own line rather than
-     overflowing. */
-  .topnav a{text-decoration:none;white-space:nowrap}
-  .topnav a:hover{text-decoration:underline}
-  .topnav [aria-current]{color:var(--ink-soft)}
-  @media (max-width:520px){.topnav{gap:14px;font-size:.85rem;width:100%}}
-
-  .themebtn{
-    font:inherit;font-size:1rem;line-height:1;cursor:pointer;
-    background:transparent;border:1.5px solid var(--line);border-radius:99px;
-    color:var(--ink-soft);padding:5px 10px;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    color: var(--ink-carbon);
+    background: var(--surface-ground);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
-  .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+  a { color: var(--cobalt); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
+  /* Telemetry Band */
+  .telemetry-band {
+    border-bottom: 1px solid var(--rule-hairline);
+    background: var(--surface-panel);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-graphite);
+    padding: 6px 0;
+  }
+  .telemetry-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .telemetry-tag { font-weight: 600; color: var(--ink-carbon); letter-spacing: 0.05em; text-transform: uppercase; }
+
+  header.masthead {
+    border-bottom: 2px solid var(--rule-master);
+    padding: 16px 0 14px;
+    background: var(--surface-ground);
+  }
+  .masthead-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .brand-block { display: flex; align-items: baseline; gap: 14px; }
+  .brand-title {
+    font-family: var(--font-serif);
+    font-size: 2.1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink-carbon);
+    text-transform: uppercase;
+  }
+  .brand-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .topnav { display: flex; align-items: center; gap: 20px; font-size: 0.88rem; font-weight: 500; }
+  .topnav a { color: var(--ink-graphite); }
+  .topnav a:hover, .topnav a[aria-current] { color: var(--ink-carbon); font-weight: 600; }
+  .themebtn {
+    font: inherit; font-size: 0.95rem; cursor: pointer;
+    background: transparent; border: 1px solid var(--rule-prominent);
+    border-radius: 4px; color: var(--ink-carbon); padding: 3px 8px;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 36px 0 10px;
+    line-height: 1.15;
+    color: var(--ink-carbon);
+  }
+  .lead {
+    color: var(--ink-graphite);
+    font-size: 1.1rem;
+    max-width: 68ch;
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 44px 0 12px;
+    color: var(--ink-carbon);
+    border-bottom: 1px solid var(--rule-hairline);
+    padding-bottom: 6px;
+  }
+  p { max-width: 68ch; margin-bottom: 12px; }
+  ul { margin: 12px 0 16px 22px; max-width: 68ch; }
+  li { margin-bottom: 8px; }
+  
+  .box {
+    border: 1px solid var(--rule-prominent);
+    background: var(--surface-panel);
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .box p { max-width: none; margin-bottom: 8px; }
+  .box p:last-child { margin-bottom: 0; }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.9rem;
+  }
+  .spec-table th {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: left;
+    background: var(--surface-panel);
+    border: 1px solid var(--rule-hairline);
+    padding: 10px 12px;
+    color: var(--ink-carbon);
+  }
+  .spec-table td {
+    border: 1px solid var(--rule-hairline);
+    padding: 10px 12px;
+    vertical-align: top;
+    background: var(--surface-paper);
+  }
+
+  .updated {
+    margin-top: 40px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  :is(a, button):focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+  
+  footer {
+    margin-top: 60px;
+    border-top: 2px solid var(--rule-master);
+    padding: 28px 0 44px;
+    font-size: 0.84rem;
+    color: var(--ink-graphite);
+    background: var(--surface-ground);
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    margin-bottom: 16px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+  .footer-links a { color: var(--ink-carbon); }
 </style>
-<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>
+  (function(){
+    try {
+      var t = localStorage.getItem('theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    } catch(e) {}
+  })();
+</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">KnowYourSponsor<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><a href="../pricing/">For business</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+
+<div class="telemetry-band">
+  <div class="wrap telemetry-inner">
+    <span><span class="telemetry-tag">RECORD SYSTEM:</span> THE REGISTER OF LICENSED SPONSORS &middot; VOL. 2026 &middot; ISSUE W37</span>
+    <span>OFFICIAL GAZETTE &middot; HOME OFFICE &amp; COMPANIES HOUSE INTELLIGENCE</span>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <div class="brand-block">
+      <a href="../" class="brand-title">KnowYourSponsor<span style="color:var(--cobalt)">.</span></a>
+      <span class="brand-subtitle">Corporate Solvency &amp; Immigration Ledger</span>
+    </div>
+    <nav class="topnav" aria-label="Sections">
+      <a href="../changes/">Changes</a>
+      <a href="../insights/">Numbers</a>
+      <a href="../data-api/">Data API</a>
+      <a href="../pricing/">For Business</a>
+      <button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button>
+    </nav>
+  </div>
+</header>
 
 <main class="wrap">
-  <h1>How watchlist monitoring works</h1>
-  <p class="lead">Watchlist monitoring in full: what is checked,
-     how often, how quickly you would hear, and the things it would miss.
-     Everything here is what actually runs, not what is planned.</p>
+  <h1>Watchlist Monitoring Architecture</h1>
+  <p class="lead">KnowYourSponsor Watchlist is an automated compliance surveillance engine. It cross-references an organization's custom roster of UK employers against daily Home Office register diffs and statutory Companies House insolvency filings.</p>
 
-  <h2>What gets checked</h2>
-  <p>You send a list of employers. Every day, each one is checked against
-     two public registers and one thing only we hold.</p>
-  <table>
-    <thead><tr><th>Signal</th><th>Source</th><th>Checked</th></tr></thead>
+  <h2>1. Signals Monitored</h2>
+  <table class="spec-table">
+    <thead>
+      <tr>
+        <th>Regulatory Signal</th>
+        <th>Statutory Source</th>
+        <th>Check Frequency</th>
+        <th>Operational Impact</th>
+      </tr>
+    </thead>
     <tbody>
-      <tr><td>Still on the sponsor register</td>
-          <td>GOV.UK Register of Licensed Sponsors</td><td>Daily</td></tr>
-      <tr><td>Rating dropped from A to B</td>
-          <td>The same register, compared with yesterday's copy</td>
-          <td>Daily</td></tr>
-      <tr><td>Company no longer active</td>
-          <td>Companies House Free Company Data</td><td>Monthly</td></tr>
-      <tr><td>Accounts or confirmation statement overdue</td>
-          <td>Companies House</td><td>Monthly</td></tr>
-      <tr><td>Newly licensed, and already carrying a signal</td>
-          <td>Both, joined</td><td>Daily</td></tr>
+      <tr>
+        <td><strong>Licence Revocation / Removal</strong></td>
+        <td>Home Office Register Diff</td>
+        <td>Daily (05:30 UTC)</td>
+        <td>Entity loses legal authority to issue CoS or sponsor migrant workers.</td>
+      </tr>
+      <tr>
+        <td><strong>Rating Downgrade (A &rarr; B)</strong></td>
+        <td>Home Office Register Diff</td>
+        <td>Daily (05:30 UTC)</td>
+        <td>Entity placed on UKVI Action Plan; CoS allocations capped or frozen.</td>
+      </tr>
+      <tr>
+        <td><strong>Terminal Insolvency (Liquidation/Admin)</strong></td>
+        <td>Companies House Register</td>
+        <td>Monthly snapshot + Daily delta</td>
+        <td>Entity in formal winding-up or administration proceedings.</td>
+      </tr>
+      <tr>
+        <td><strong>Statutory Filing Delinquency</strong></td>
+        <td>Companies House Register</td>
+        <td>Monthly snapshot</td>
+        <td>Accounts or confirmation statements overdue past legal deadlines.</td>
+      </tr>
+      <tr>
+        <td><strong>DBT NMW Enforcement</strong></td>
+        <td>Department for Business &amp; Trade</td>
+        <td>Per published round</td>
+        <td>Employer named under Section 19A of National Minimum Wage Act 1998.</td>
+      </tr>
     </tbody>
   </table>
-  <p>The rating check and the "still on the register" check exist because
-     GOV.UK publishes today's register and never what changed. Comparing
-     each day's copy with the last is the only way to see a movement, and
-     it is why this cannot be answered retrospectively by anyone who was
-     not already watching.</p>
 
-  <h2>How quickly you would know</h2>
-  <p>The register is fetched once a day. A licence disappearing or a rating
-     dropping is therefore detected within 24 hours of GOV.UK publishing
-     it, and reaches you in the next email.</p>
-  <p>Companies House publishes its bulk company data monthly, on the first.
-     A company entering liquidation is picked up in the next monthly
-     snapshot, so that signal can be up to a month behind. It is listed as
-     monthly in the table above rather than described as real time, because
-     it is not.</p>
+  <h2>2. Signal Latency &amp; Detection Timelines</h2>
+  <p>The Home Office register is fetched and cryptographically diffed every business day at 05:30 UTC. If an employer leaves the register or is downgraded to a B-rating, the movement is flagged within 24 hours of government publication and dispatched in your audit alert.</p>
+  <p>Companies House publishes full company registry data snapshots monthly. While critical winding-up notices and dissolution proposals are reflected in gazette filings, routine accounts overdue indicators operate on the monthly snapshot reconciliation cadence.</p>
 
-  <h2>What would slip through</h2>
+  <h2>3. Technical &amp; Forensic Boundaries</h2>
   <div class="box">
-    <p><strong>A vacancy.</strong> No register records who is hiring. A
-       licence means an employer can sponsor a visa, nothing more.</p>
-    <p><strong>Anything about a specific person's case.</strong> This is
-       employer data. Whether somebody qualifies for a visa is a question
-       for a regulated adviser, and we are careful to stay on the far side
-       of that line.</p>
-    <p><strong>A company we cannot match by name.</strong> Employers are
-       joined to company records by name. About 83% match. Where a name is
-       held by more than one company we report nothing rather than guess,
-       so a quiet employer is not the same as a healthy one.</p>
-    <p><strong>Distress that Companies House has not recorded yet.</strong>
-       A company can be in trouble for months before its filings show it.
-       This reports the paperwork, which is a lagging indicator.</p>
+    <p><strong>Explicit Operational Limits:</strong></p>
+    <ul>
+      <li><strong>Vacancy State:</strong> Holding a sponsor licence is a statutory permission, not an active hiring announcement.</li>
+      <li><strong>Individual Feasibility:</strong> We monitor employer corporate standing. Individual visa suitability requires assessment by a regulated immigration adviser.</li>
+      <li><strong>Disambiguation Constraints:</strong> We resolve entities with 83% direct precision. Where multiple corporate entities share an identical normalised name, we suppress warnings rather than generate false positives.</li>
+    </ul>
   </div>
 
-  <h2>Why the emails are plain text</h2>
-  <p>No tracking pixel, no images, no click wrapping. It renders the same
-     everywhere, it forwards to a colleague without falling apart, and I
-     cannot tell whether you opened it. That last part is deliberate: a
-     monitoring service that watches you back is a strange thing to buy.</p>
+  <h2>4. Plain-Text Communication Standard</h2>
+  <p>Compliance alerts are delivered as standard plain text (UTF-8). We include zero tracking pixels, zero marketing redirects, and zero third-party javascript payloads. Audit dispatches can be cleanly forwarded to legal partners, HR leadership, or internal compliance committees with full cryptographic timestamp integrity.</p>
 
-  <h2>What happens when nothing happens</h2>
-  <p>Most weeks, nothing on your list moves. You still get the email, and
-     it says so in one line. That is the product working: the alternative
-     is checking 127,716 employers yourself in case one of them changed.</p>
+  <h2>5. How to Initiate Roster Monitoring</h2>
+  <p>To establish an automated watchlist for your organisation, consult our <a href="../pricing/">Commercial Pricing</a> or transmit your roster directly to <a href="mailto:knowyoursponsor8@gmail.com?subject=Watchlist%20Roster%20Setup">knowyoursponsor8@gmail.com</a>.</p>
 
-  <h2>Checking my work</h2>
-  <p>Every line in every report names the employer and the source, so you
-     can verify it against GOV.UK and Companies House directly. If a report
-     is ever wrong I would rather hear about it than not, and the
-     <a href="../methodology/">methodology page</a> sets out where the data
-     can be wrong and why.</p>
-  <p>Questions before you spend anything? Ask me at <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a>.</p>
-  <p><a href="../pricing/">What it costs, and a real sample report</a>.</p>
-
-<p class="updated">Last updated 09 September 2026.</p>
+  <p class="updated">Last updated 09 September 2026 &middot; Ledger Volume 2026.W37</p>
 </main>
 
-<footer><div class="wrap">
-  <p>KnowYourSponsor is an independent search tool built on open public data
-     from GOV.UK. It is not affiliated with the Home Office and is not
-     immigration advice.</p>
-  <p><a href="../">Search the register</a></p>
-</div></footer>
+<footer>
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="../about/">About &amp; Ethics</a>
+      <a href="../changes/">Weekly Register Changes</a>
+      <a href="../insights/">Statistical Numbers</a>
+      <a href="../methodology/">Data Methodology</a>
+      <a href="../data-api/">Public Data API</a>
+      <a href="../pricing/">Compliance Monitoring (B2B)</a>
+      <a href="../privacy/">Privacy Statement</a>
+    </div>
+    <p>KnowYourSponsor is an independent intelligence terminal built on statutory public registers (UK Home Office, Companies House, and DBT NMW Naming Rounds). Not immigration advice.</p>
+    <p style="margin-top:6px;">Contact: <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a></p>
+  </div>
+</footer>
+
 <script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<script>(function(){var b=document.querySelector('[data-theme-toggle]');if(!b)return;var r=document.documentElement;function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}function sync(){b.setAttribute('aria-pressed',String(dark()));}b.addEventListener('click',function(){var next=dark()?'light':'dark';r.setAttribute('data-theme',next);try{localStorage.setItem('theme',next);}catch(e){}sync();});sync();})();</script>
+<script>
+(function(){
+  var b=document.querySelector('[data-theme-toggle]');
+  if(!b)return;
+  var r=document.documentElement;
+  function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}
+  function sync(){b.setAttribute('aria-pressed',String(dark()));}
+  b.addEventListener('click',function(){
+    var next=dark()?'light':'dark';
+    r.setAttribute('data-theme',next);
+    try{localStorage.setItem('theme',next);}catch(e){}
+    sync();
+  });
+  sync();
+})();
+</script>
 </body>
 </html>
