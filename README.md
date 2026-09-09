@@ -21,38 +21,35 @@ Every record rendered across KnowYourSponsor originates exclusively from verifie
 
 ---
 
-## 2. Ingestion Pipeline & Data Integrity Rules
+### 2. Autonomous Ingestion Pipeline & Zero-Bloat Data Architecture
 
-The automated data ingestion pipeline runs daily at 05:30 UTC. It enforces deterministic parsing, joining, and validation rules before generating static payloads:
+The automated data ingestion pipeline runs every business day at **06:00 UTC** via GitHub Actions ([`.github/workflows/daily_sync.yml`](.github/workflows/daily_sync.yml)). It enforces deterministic parsing, cryptographic diffing, and zero-bloat repository hygiene:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                        DATA INGESTION & INTEGRITY LIFECYCLE                            │
+│                        DECOUPLED ZERO-BLOAT INGESTION PIPELINE                         │
 ├────────────────────────────────────────────────────────────────────────────────────────┤
-│ 1. Download & Byte Repair                                                              │
-│    Fetches upstream Home Office CSV; repairs corrupted Windows-1252 byte encodings.    │
+│ 1. Upstream Scraping & SHA-256 Idempotency Guard                                       │
+│    • Dynamically resolves the latest Home Office CSV URL from GOV.UK.                  │
+│    • Computes SHA-256 hash. If unchanged (weekends/holidays), terminates as no-op.     │
 │                                                                                        │
-│ 2. Pipeline Circuit Breakers                                                           │
+│ 2. Pipeline Circuit Breakers & Validation                                              │
 │    • Volume Floor: If parsed records < 10,000, execution halts and alerts.             │
-│    • Volatility Ceiling: If net daily movement > 10%, publication is aborted.          │
+│    • Byte Repair: Auto-detects and repairs Windows-1252 / UTF-8-BOM byte corruption.   │
 │                                                                                        │
-│ 3. Entity Resolution & Normalization                                                   │
-│    • Strips punctuation, diacritics, and corporate articles ("The").                   │
-│    • Standardizes legal forms (LIMITED, LTD, PLC, LLP, CIC).                           │
-│    • Matches against Companies House primary and previous corporate name registers.    │
+│ 3. Longitudinal Differential Engine (scripts/daily_ingest.py)                          │
+│    • Loads rolling reference state from GitHub Release asset (state-anchor).           │
+│    • Resolves entity changes: new grants, rescinded licences, and rating shifts.       │
+│    • Updates static JSON payloads (sponsors.json, meta.json, new/removed_sponsors.json).│
 │                                                                                        │
-│ 4. Disambiguation Principle of Silence                                                 │
-│    If a normalized sponsor name matches multiple active registration numbers (CRNs)    │
-│    without unambiguous geolocation confirmation, warning flags are suppressed.         │
-│    Showing zero warnings is strictly preferred over attributing insolvency to an       │
-│    unrelated solvent company.                                                          │
+│ 4. Micro-Delta Audit Trails (Zero Git Bloat)                                           │
+│    • Writes immutable daily delta (data/deltas/YYYY-MM-DD.json, ~18KB).                │
+│    • Caps annual repository history growth to <15MB/year, eliminating DAG pack bloat.  │
 │                                                                                        │
-│ 5. Longitudinal Cryptographic Diffing                                                  │
-│    Compares current snapshot T against previous snapshot T-1 to compute:               │
-│    • Newly granted licences (new_sponsors.json)                                        │
-│    • Removed / rescinded licences (removed_sponsors.json)                              │
-│    • Rating downgrades (A-rating -> B-rating in rating_changes.json)                   │
-│    • Regional movements (regional_changes.json)                                        │
+│ 5. Atomic Unified Deployment                                                           │
+│    • Clobbers rolling release asset state-anchor out-of-band via GitHub CLI.           │
+│    • Deploys static build directly to GitHub Pages via actions/deploy-pages in one run,│
+│      completely bypassing the GITHUB_TOKEN downstream event suppression platform trap. │
 └────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -188,6 +185,7 @@ All 781 pages across the site adhere to a unified editorial design system built 
 All datasets powering the application are publicly accessible as unauthenticated static JSON endpoints:
 
 - **Active Register:** [`data/sponsors.json`](data/sponsors.json)
+- **Daily Micro-Deltas:** [`data/deltas/`](data/deltas/)
 - **Solvency Flags:** [`data/company_flags.json`](data/company_flags.json)
 - **Minimum Wage Enforcement:** [`data/nmw.json`](data/nmw.json)
 - **Salary Thresholds (SOC 2020):** [`data/soc_thresholds.json`](data/soc_thresholds.json)
@@ -198,21 +196,22 @@ All datasets powering the application are publicly accessible as unauthenticated
 
 ## 7. Deployment & Local Development
 
-### Local Execution
+### Local Execution & Testing
 The application requires zero build tools, node compilers, or bundlers. It runs directly on any local HTTP server:
 
 ```bash
-# Using Python 3 built-in HTTP server
+# Run local HTTP server
 python3 -m http.server 8000
 
-# Open in browser
-open http://localhost:8000
+# Run daily ingestion & diff engine manually
+python3 scripts/daily_ingest.py --prev data/sponsors.json --out-dir ./data --out-delta ./data/deltas
 ```
 
-### GitHub Pages Deployment
+### Automated GitHub Actions Deployment
 The production deployment is hosted on GitHub Pages:
 - **Canonical URL:** `https://zephyr4289.github.io/sponsor-g/`
 - **Branch:** `main` (synchronized with archive branch `V1`)
+- **Automated Cadence:** 06:00 UTC Monday through Friday via [`.github/workflows/daily_sync.yml`](.github/workflows/daily_sync.yml)
 
 ---
 
