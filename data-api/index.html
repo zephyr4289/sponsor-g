@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The data behind KnowYourSponsor | KnowYourSponsor</title>
+<meta name="description" content="Published JSON files of the UK register of licensed visa sponsors, including daily additions and removals. Free to use, no account needed.">
+<link rel="canonical" href="https://roshan1208.github.io/sponsorsignal/data-api/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://roshan1208.github.io/sponsorsignal/data-api/">
+<meta property="og:title" content="The data behind KnowYourSponsor">
+<meta property="og:description" content="Published JSON files of the UK register of licensed visa sponsors, including daily additions and removals. Free to use, no account needed.">
+<meta property="og:image" content="https://roshan1208.github.io/sponsorsignal/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.png" type="image/png">
+<link rel="alternate" type="application/rss+xml" title="Sponsor changes" href="../feed.xml">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --ink:#17233B; --ink-soft:#4A5670;
+    --paper:#FFFFFF; --paper-dim:#F5F7FB;
+    --cobalt:#2145C9; --cobalt-dark:#17348F; --on-cobalt:#FFFFFF;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#D9DFEA; --good:#0E7B4F; --bad:#B3261E;
+    --warn-bg:#FDF1F0; --warn-bg-2:#FBE3E1; --warn-border:#E7B4AE;
+    --warn-ink:#8A1E18; --warn-solid:#B3261E;
+    --mark-bg:#17233B; --mark-fg:#FFFFFF;
+    --note-bg:#FFF6DC; --note-border:#EAD48A; --note-ink:#6B4E00;
+    --shadow:rgba(23,35,59,.10);
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ink:#E8ECF3; --ink-soft:#A3AEC2;
+      --paper:#10151F; --paper-dim:#1A2230;
+      --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F; --on-cobalt:#10151F;
+      --signal:#FFC933; --on-signal:#17233B;
+      --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+      --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+      --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+      --mark-bg:#E8ECF3; --mark-fg:#10151F;
+      --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
+      --shadow:rgba(0,0,0,.45);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#E8ECF3; --ink-soft:#A3AEC2;
+    --paper:#10151F; --paper-dim:#1A2230;
+    --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+    --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+    --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+    --mark-bg:#E8ECF3; --mark-fg:#10151F;
+    --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
+    --shadow:rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Public Sans',system-ui,sans-serif;color:var(--ink);
+       line-height:1.55;background:var(--paper)}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px}
+  a{color:var(--cobalt)}
+  header{border-bottom:3px solid var(--ink);padding:14px 0}
+  .brand{font-weight:800;font-size:1.1rem}
+  .brand a{color:inherit;text-decoration:none}
+  .brand .dot{color:var(--cobalt)}
+  
+  .header-inner{display:flex;align-items:center;justify-content:space-between;
+                gap:16px;flex-wrap:wrap}
+  .topnav{display:flex;gap:18px;font-size:.9rem;font-weight:600}
+  /* "For business" is two words and wrapped at 375px, which pushed the
+     header from 73px to 86px. nowrap keeps it on one line and costs nothing:
+     measured 29px nav either way. .header-inner already wraps, so on a
+     genuinely narrow screen the nav drops to its own line rather than
+     overflowing. */
+  .topnav a{text-decoration:none;white-space:nowrap}
+  .topnav a:hover{text-decoration:underline}
+  .topnav [aria-current]{color:var(--ink-soft)}
+  @media (max-width:520px){.topnav{gap:14px;font-size:.85rem;width:100%}}
+
+  .themebtn{
+    font:inherit;font-size:1rem;line-height:1;cursor:pointer;
+    background:transparent;border:1.5px solid var(--line);border-radius:99px;
+    color:var(--ink-soft);padding:5px 10px;
+  }
+  .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
+
+  h1{font-size:clamp(1.6rem,4.5vw,2.3rem);font-weight:800;
+     letter-spacing:-0.02em;margin:36px 0 10px;text-wrap:balance;max-width:20ch}
+  .lead{color:var(--ink-soft);max-width:64ch;text-wrap:pretty}
+  h2{font-size:1.2rem;font-weight:800;margin:44px 0 8px;text-wrap:balance}
+  p{max-width:64ch;text-wrap:pretty}
+  p+p{margin-top:10px}
+  .endpoint{border:1.5px solid var(--line);border-radius:10px;
+            padding:16px 18px;margin-top:14px}
+  .path{font-weight:600;font-size:1rem}
+  .what{color:var(--ink-soft);margin-top:2px}
+  pre{margin-top:10px;background:var(--paper-dim);border-radius:8px;
+      padding:12px 14px;overflow-x:auto}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+       font-size:.82rem;color:var(--ink)}
+  .note{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+  ul{margin:10px 0 0 20px;color:var(--ink-soft);max-width:64ch}
+  li+li{margin-top:6px}
+  .cta{margin:48px 0;border:2px solid var(--ink);border-radius:10px;
+       background:var(--paper-dim);padding:22px}
+  .cta p{color:var(--ink-soft);margin-top:6px}
+  .cta a.btn{display:inline-block;margin-top:14px;margin-right:10px;
+             background:var(--cobalt);color:var(--on-cobalt);
+             text-decoration:none;font-weight:600;
+             padding:11px 22px;border-radius:8px}
+  /* The email is the ask on this page, so the newsletter link stops
+     competing with it for the same visual weight. */
+  .cta a.btn.ghost{background:transparent;color:var(--cobalt);
+                   border:1.5px solid var(--line)}
+  .cta a.btn.ghost:hover{border-color:var(--cobalt)}
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
+  footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
+         font-size:.85rem;color:var(--ink-soft)}
+  footer p+p{margin-top:6px}
+</style>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">KnowYourSponsor<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><span aria-current="page">Data</span><a href="../pricing/">For business</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+
+<main class="wrap">
+  <h1>The data behind KnowYourSponsor</h1>
+  <p class="lead">Everything this site shows is published as plain JSON,
+     rebuilt every day from the official GOV.UK register. It is free to use,
+     needs no account, and you are welcome to build on it.</p>
+
+  <h2>Start here</h2>
+  <p>If you only want one thing, it is <a href="../data/regional_changes.json">
+     <code>regional_changes.json</code></a>: the employers that gained or lost
+     a licence in the last seven days, split by town. That is the part the
+     official register does not publish, because it shows only who holds a
+     licence today and never who stopped.</p>
+  <p>There is also an <a href="../feed.xml">RSS feed</a> if you would rather
+     not write any code at all.</p>
+
+  <h2>The files</h2>
+    <div class="endpoint">
+      <p class="path"><a href="../data/sponsors.json">data/sponsors.json</a></p>
+      <p class="what">Every licensed sponsor on the register.</p>
+      <pre><code>{&quot;updated&quot;: &quot;...&quot;, &quot;source&quot;: &quot;...&quot;, &quot;sponsors&quot;: [[name, town, county, industry, [routes], rating], ...]}</code></pre>
+      <p class="note">About 10MB uncompressed, served gzipped. Rows are arrays, not objects, to keep it small.</p>
+    </div>
+    <div class="endpoint">
+      <p class="path"><a href="../data/company_flags.json">data/company_flags.json</a></p>
+      <p class="what">Employers whose company record raises a question at Companies House.</p>
+      <pre><code>{&quot;updated&quot;: &quot;...&quot;, &quot;snapshot&quot;: &quot;YYYY-MM-01&quot;, &quot;stats&quot;: {...}, &quot;companies&quot;: {&quot;Employer Name&quot;: {&quot;number&quot;: &quot;...&quot;, &quot;status&quot;: &quot;...&quot;, &quot;flags&quot;: [&quot;not_active&quot;, ...]}}}</code></pre>
+      <p class="note">Keyed by the employer&#x27;s name exactly as the register spells it. Matched by name, so treat it as a pointer to the Companies House record rather than proof.</p>
+    </div>
+    <div class="endpoint">
+      <p class="path"><a href="../data/regional_changes.json">data/regional_changes.json</a></p>
+      <p class="what">The same changes, split by town or city.</p>
+      <pre><code>{&quot;updated&quot;: &quot;...&quot;, &quot;window_days&quot;: 7, &quot;totals&quot;: {...}, &quot;regions&quot;: {&quot;London&quot;: {&quot;added&quot;: [...], &quot;removed&quot;: [...], &quot;slug&quot;: &quot;london&quot;}, ...}}</code></pre>
+      <p class="note">Built for exactly one job: sending someone the changes in their own area.</p>
+    </div>
+    <div class="endpoint">
+      <p class="path"><a href="../data/new_sponsors.json">data/new_sponsors.json</a></p>
+      <p class="what">Employers licensed in the last 7 days.</p>
+      <pre><code>{&quot;updated&quot;: &quot;...&quot;, &quot;window_days&quot;: 7, &quot;new&quot;: [row, ...]}</code></pre>
+      
+    </div>
+    <div class="endpoint">
+      <p class="path"><a href="../data/removed_sponsors.json">data/removed_sponsors.json</a></p>
+      <p class="what">Employers removed in the last 7 days.</p>
+      <pre><code>{&quot;updated&quot;: &quot;...&quot;, &quot;window_days&quot;: 7, &quot;removed&quot;: [row, ...]}</code></pre>
+      
+    </div>
+    <div class="endpoint">
+      <p class="path"><a href="../data/meta.json">data/meta.json</a></p>
+      <p class="what">Counts and the last update time. Small, cheap to poll.</p>
+      <pre><code>{&quot;updated&quot;: &quot;...&quot;, &quot;total&quot;: 0, &quot;added_recently&quot;: 0, &quot;removed_recently&quot;: 0, &quot;window_days&quot;: 7}</code></pre>
+      <p class="note">Poll this first and only fetch the big files when &quot;updated&quot; has moved.</p>
+    </div>
+    <div class="endpoint">
+      <p class="path"><a href="../feed.xml">feed.xml</a></p>
+      <p class="what">RSS feed, one item per day that changed.</p>
+      <pre><code>RSS 2.0</code></pre>
+      <p class="note">For readers, and for anything that turns a feed into email.</p>
+    </div>
+    <div class="endpoint">
+      <p class="path"><a href="../feeds/&lt;city-or-industry&gt;.xml">feeds/&lt;city-or-industry&gt;.xml</a></p>
+      <p class="what">The same changes, filtered to one city or one industry.</p>
+      <pre><code>RSS 2.0, one item per employer</code></pre>
+      <p class="note">One per landing page, so feeds/london.xml and feeds/healthcare-care.xml both exist. Each item has a permanent guid, so polling it will not re-notify you about the same employer twice. This is the free version of a filtered feed; email delivery and watchlists are the paid one.</p>
+    </div>
+
+  <h2>How to use it kindly</h2>
+  <ul>
+    <li>The pipeline runs once a day, at 05:30 UTC. Polling more often than
+        hourly only costs you bandwidth.</li>
+    <li>Check <code>meta.json</code> first. It is small, and its
+        <code>updated</code> value tells you whether anything moved.</li>
+    <li>These are static files on GitHub Pages. There is no authentication,
+        no rate limit, and no uptime guarantee. Do not put anything critical
+        behind them without caching your own copy.</li>
+    <li>A row is an array, in this order: name, town, county, industry,
+        routes, rating. Industry is our own guess from the employer's name,
+        not official data.</li>
+  </ul>
+
+  <h2>Licence and credit</h2>
+  <p>The underlying register is Crown copyright, published under the
+     <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open
+     Government Licence v3.0</a>. The cleaning, the industry tags and the
+     change history are ours, and you may use them freely. A link back is
+     appreciated but not required.</p>
+  <p>The register covers 127,716 employers.</p>
+
+  <h2>What is not here</h2>
+  <p>These files cover the current register and the last seven days. We keep a
+     dated snapshot of the register every single day, which means we can
+     answer questions the files above cannot: when an employer first appeared,
+     how long it held a licence, which sectors are growing, what changed in
+     any given month.</p>
+  <p>That history only exists because it has been collected day by day. GOV.UK
+     publishes today's register and never what left it, so it cannot be
+     reconstructed after the fact by anyone, including us.</p>
+
+  <div class="cta">
+    <h2 style="margin-top:0">Need the history, or a cut of your own?</h2>
+    <p>If you need a longer history, a filtered feed for one region or sector,
+       or a regular export for your team, email me and tell me what you are
+       trying to do. It is easier to build the thing somebody actually asked
+       for than to guess at it.</p>
+    <p>Useful things to say: which sectors or regions you care about, how far
+       back you need, and how you would rather receive it. I reply to
+       everything.</p>
+    <a class="btn" href="mailto:knowyoursponsor8@gmail.com?subject=KnowYourSponsor%20data%20request">Email knowyoursponsor8@gmail.com</a>
+    <a class="btn ghost" href="../pricing/">Or see what it costs</a>
+  </div>
+</main>
+
+<footer><div class="wrap">
+  <p>Built on the official GOV.UK Register of Licensed Sponsors (Workers).
+     KnowYourSponsor is an independent search tool built on open public data. It
+     is not affiliated with the Home Office and is not immigration advice.</p>
+  <p><a href="../">Search the register</a> &middot;
+     <a href="../pricing/">Pricing</a></p>
+</div></footer>
+<script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>(function(){var b=document.querySelector('[data-theme-toggle]');if(!b)return;var r=document.documentElement;function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}function sync(){b.setAttribute('aria-pressed',String(dark()));}b.addEventListener('click',function(){var next=dark()?'light':'dark';r.setAttribute('data-theme',next);try{localStorage.setItem('theme',next);}catch(e){}sync();});sync();})();</script>
+</body>
+</html>

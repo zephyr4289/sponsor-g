@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>KnowYourSponsor: Visa sponsors added and removed in Coventry</title>
+    <link>https://roshan1208.github.io/sponsorsignal/coventry/</link>
+    <atom:link href="https://roshan1208.github.io/sponsorsignal/feeds/coventry.xml" rel="self" type="application/rss+xml"/>
+    <description>Employers in Coventry that gained or lost a licence to sponsor UK work visas. Rebuilt every day from the official GOV.UK register. Covers the last 7 days.</description>
+    <language>en-GB</language>
+    <lastBuildDate>Wed, 09 Sep 2026 13:49:09 +0000</lastBuildDate>
+    <item>
+      <title>DKM Healthcare limited is no longer a licensed sponsor</title>
+      <link>https://roshan1208.github.io/sponsorsignal/coventry/</link>
+      <guid isPermaLink="false">kys-coventry-removed-dkm-healthcare-limited-coventry</guid>
+      <pubDate>Wed, 09 Sep 2026 13:49:09 +0000</pubDate>
+      <category>removed</category>
+      <description>Removed from the official register. It cannot sponsor anyone now, and an application there is unlikely to lead anywhere. Location: Coventry. Industry: Healthcare &amp; Care.</description>
+    </item>
+    <item>
+      <title>INFRARED LIMITED is no longer a licensed sponsor</title>
+      <link>https://roshan1208.github.io/sponsorsignal/coventry/</link>
+      <guid isPermaLink="false">kys-coventry-removed-infrared-limited-coventry</guid>
+      <pubDate>Wed, 09 Sep 2026 13:49:09 +0000</pubDate>
+      <category>removed</category>
+      <description>Removed from the official register. It cannot sponsor anyone now, and an application there is unlikely to lead anywhere. Location: Coventry, West Midlands. Industry: Other.</description>
+    </item>
+    <item>
+      <title>JRD Innovations Ltd is no longer a licensed sponsor</title>
+      <link>https://roshan1208.github.io/sponsorsignal/coventry/</link>
+      <guid isPermaLink="false">kys-coventry-removed-jrd-innovations-ltd-coventry</guid>
+      <pubDate>Wed, 09 Sep 2026 13:49:09 +0000</pubDate>
+      <category>removed</category>
+      <description>Removed from the official register. It cannot sponsor anyone now, and an application there is unlikely to lead anywhere. Location: Coventry. Industry: Other.</description>
+    </item>
+    <item>
+      <title>CREST (INTERNATIONAL) can now sponsor visas</title>
+      <link>https://roshan1208.github.io/sponsorsignal/coventry/</link>
+      <guid isPermaLink="false">kys-coventry-added-crest-international-coventry</guid>
+      <pubDate>Wed, 09 Sep 2026 13:49:09 +0000</pubDate>
+      <category>added</category>
+      <description>Newly licensed to sponsor work visas. Fewer applicants know it exists yet. Location: Coventry, West Midlands. Industry: Other. Visa routes: Skilled Worker.</description>
+    </item>
+    <item>
+      <title>ELENIAK LIMITED can now sponsor visas</title>
+      <link>https://roshan1208.github.io/sponsorsignal/coventry/</link>
+      <guid isPermaLink="false">kys-coventry-added-eleniak-limited-coventry</guid>
+      <pubDate>Wed, 09 Sep 2026 13:49:09 +0000</pubDate>
+      <category>added</category>
+      <description>Newly licensed to sponsor work visas. Fewer applicants know it exists yet. Location: Coventry. Industry: Other. Visa routes: Skilled Worker.</description>
+    </item>
+    <item>
+      <title>Fineline AV can now sponsor visas</title>
+      <link>https://roshan1208.github.io/sponsorsignal/coventry/</link>
+      <guid isPermaLink="false">kys-coventry-added-fineline-av-coventry</guid>
+      <pubDate>Wed, 09 Sep 2026 13:49:09 +0000</pubDate>
+      <category>added</category>
+      <description>Newly licensed to sponsor work visas. Fewer applicants know it exists yet. Location: Coventry. Industry: Other. Visa routes: Skilled Worker.</description>
+    </item>
+  </channel>
+</rss>

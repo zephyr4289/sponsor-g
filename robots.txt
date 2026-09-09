@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://roshan1208.github.io/sponsorsignal/sitemap.xml

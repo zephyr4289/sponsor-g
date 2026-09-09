@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy | KnowYourSponsor</title>
+<meta name="description" content="What KnowYourSponsor collects, which is very little, and who else sees it. Searching is anonymous and nothing is ever sold.">
+<link rel="canonical" href="https://roshan1208.github.io/sponsorsignal/privacy/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://roshan1208.github.io/sponsorsignal/privacy/">
+<meta property="og:title" content="Privacy">
+<meta property="og:description" content="What KnowYourSponsor collects, which is very little, and who else sees it. Searching is anonymous and nothing is ever sold.">
+<meta property="og:image" content="https://roshan1208.github.io/sponsorsignal/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --ink:#17233B; --ink-soft:#4A5670;
+    --paper:#FFFFFF; --paper-dim:#F5F7FB;
+    --cobalt:#2145C9; --cobalt-dark:#17348F; --on-cobalt:#FFFFFF;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#D9DFEA; --good:#0E7B4F; --bad:#B3261E;
+    --warn-bg:#FDF1F0; --warn-bg-2:#FBE3E1; --warn-border:#E7B4AE;
+    --warn-ink:#8A1E18; --warn-solid:#B3261E;
+    --mark-bg:#17233B; --mark-fg:#FFFFFF;
+    --note-bg:#FFF6DC; --note-border:#EAD48A; --note-ink:#6B4E00;
+    --shadow:rgba(23,35,59,.10);
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ink:#E8ECF3; --ink-soft:#A3AEC2;
+      --paper:#10151F; --paper-dim:#1A2230;
+      --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F; --on-cobalt:#10151F;
+      --signal:#FFC933; --on-signal:#17233B;
+      --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+      --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+      --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+      --mark-bg:#E8ECF3; --mark-fg:#10151F;
+      --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
+      --shadow:rgba(0,0,0,.45);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#E8ECF3; --ink-soft:#A3AEC2;
+    --paper:#10151F; --paper-dim:#1A2230;
+    --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+    --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+    --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+    --mark-bg:#E8ECF3; --mark-fg:#10151F;
+    --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
+    --shadow:rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Public Sans',system-ui,sans-serif;color:var(--ink);
+       line-height:1.6;background:var(--paper)}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+  a{color:var(--cobalt)}
+  header{border-bottom:3px solid var(--ink);padding:14px 0}
+  .brand{font-weight:800;font-size:1.1rem}
+  .brand a{color:inherit;text-decoration:none}
+  .brand .dot{color:var(--cobalt)}
+  h1{font-size:clamp(1.6rem,4.5vw,2.3rem);font-weight:800;
+     letter-spacing:-0.02em;margin:36px 0 10px;text-wrap:balance;max-width:24ch}
+  .lead{color:var(--ink-soft);max-width:64ch;text-wrap:pretty;font-size:1.05rem}
+  h2{font-size:1.2rem;font-weight:800;margin:40px 0 8px;text-wrap:balance}
+  h3{font-size:1rem;font-weight:700;margin:22px 0 4px}
+  p{max-width:64ch;text-wrap:pretty}
+  p+p{margin-top:10px}
+  ul{margin:10px 0 0 20px;max-width:64ch}
+  li+li{margin-top:8px}
+  .updated{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .box{border:1.5px solid var(--line);border-radius:10px;
+       background:var(--paper-dim);padding:16px 18px;margin-top:16px}
+  .box p{max-width:none}
+  table{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:14px}
+  th{text-align:left;font-size:.8rem;color:var(--ink-soft);
+     border-bottom:2px solid var(--ink);padding:8px 10px 6px}
+  td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
+  footer{margin-top:52px;border-top:3px solid var(--ink);padding:22px 0 40px;
+         font-size:.85rem;color:var(--ink-soft)}
+  footer p+p{margin-top:6px}
+
+  .header-inner{display:flex;align-items:center;justify-content:space-between;
+                gap:16px;flex-wrap:wrap}
+  .topnav{display:flex;gap:18px;font-size:.9rem;font-weight:600}
+  /* "For business" is two words and wrapped at 375px, which pushed the
+     header from 73px to 86px. nowrap keeps it on one line and costs nothing:
+     measured 29px nav either way. .header-inner already wraps, so on a
+     genuinely narrow screen the nav drops to its own line rather than
+     overflowing. */
+  .topnav a{text-decoration:none;white-space:nowrap}
+  .topnav a:hover{text-decoration:underline}
+  .topnav [aria-current]{color:var(--ink-soft)}
+  @media (max-width:520px){.topnav{gap:14px;font-size:.85rem;width:100%}}
+
+  .themebtn{
+    font:inherit;font-size:1rem;line-height:1;cursor:pointer;
+    background:transparent;border:1.5px solid var(--line);border-radius:99px;
+    color:var(--ink-soft);padding:5px 10px;
+  }
+  .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
+
+</style>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">KnowYourSponsor<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><a href="../pricing/">For business</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+
+<main class="wrap">
+  <h1>Privacy</h1>
+  <p class="lead">What this site collects, which is very little, and
+     who else sees it. In plain English, because a notice nobody reads
+     protects nobody.</p>
+
+  <h2>The short version</h2>
+  <div class="box">
+    <p>Searching is completely anonymous. Nothing you type in the search box
+       is sent anywhere. It never leaves your browser, because the whole
+       register is downloaded and searched on your own device.</p>
+    <p>The only personal data collected is an email address, and only if you
+       choose to give it. It is never sold, rented or shared for marketing.</p>
+  </div>
+
+  <h2>What is collected</h2>
+
+  <h3>If you sign up for the weekly email</h3>
+  <p>Your email address, plus the city and industry you picked, so the email
+     can be about your area instead of the whole country. That is all. No
+     name, no phone number, no address.</p>
+  <p>Sign-up is double opt-in: you are not subscribed until you click the
+     link in the confirmation email. Every email has a one-click unsubscribe
+     link, and unsubscribing deletes you from the list.</p>
+
+  <h3>If you only search</h3>
+  <p>Nothing that identifies you. The site records anonymous page views so I
+     know which pages are worth keeping. There are no cookies, no advertising
+     trackers and no profiling, which is also why there is no cookie banner:
+     there is nothing to consent to.</p>
+  <p>Your browser stores one thing locally, on your own device: whether you
+     chose the light or dark theme. That never leaves your computer and is
+     not readable by me.</p>
+
+  <h3>What your browser reveals to servers</h3>
+  <p>Loading any page means your device asks a server for files, and that
+     request carries your IP address. That is true of every website. The
+     companies below see those requests.</p>
+
+  <h2>Who else sees anything</h2>
+  <p>Four services, and no others. I do not sell, rent or share personal data
+     with anyone else, and I never will. That includes the email list, which
+     is the fastest way to destroy the only thing this site has.</p>
+  <table>
+    <thead><tr><th>Service</th><th>What it receives</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://www.mailerlite.com/legal/privacy-policy">MailerLite</a></td><td>Holds the email address, and the city and industry you chose, if you sign up for the weekly email. Based in the EU.</td></tr>
+      <tr><td><a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Pages</a></td><td>Serves this site. GitHub sees the IP address of every request, the same as any web server would.</td></tr>
+      <tr><td><a href="https://www.goatcounter.com/help/privacy">GoatCounter</a></td><td>Counts page views. No cookies, and it does not store your IP address or build a profile of you.</td></tr>
+      <tr><td><a href="https://developers.google.com/fonts/faq/privacy">Google Fonts</a></td><td>Serves the typeface. Your browser requests the font file from Google, which means Google sees your IP address when a page loads.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Why I am allowed to hold it</h2>
+  <p>Under UK GDPR there has to be a lawful basis for processing personal
+     data. There are two here:</p>
+  <ul>
+    <li><strong>Consent</strong>, for the weekly email. You asked for it, you
+        confirmed it by clicking a link, and you can withdraw it at any time
+        by unsubscribing.</li>
+    <li><strong>Legitimate interests</strong>, for anonymous page counts and
+        server logs. Knowing which pages are used is necessary to run the
+        site, and it cannot identify you.</li>
+  </ul>
+
+  <h2>How long it is kept</h2>
+  <p>Your email address is kept until you unsubscribe or ask for it to be
+     deleted, and then it is gone. Anonymous page-view counts are aggregate
+     numbers with nothing personal in them, so they are kept indefinitely.</p>
+
+  <h2>Your rights</h2>
+  <p>UK GDPR gives you the right to ask what data I hold about you, to have it
+     corrected, to have it deleted, to get a copy of it, and to object to it
+     being processed. There is no charge and I will answer within one month.</p>
+  <p>In practice, for almost everyone, the answer is one email address and one
+     city. Unsubscribing removes it immediately without needing to ask.</p>
+  <p>To exercise any of these rights, contact me at <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a>.</p>
+  <p>If you think I have handled your data badly, you can complain to the
+     Information Commissioner's Office, the UK regulator, at
+     <a href="https://ico.org.uk/make-a-complaint/">ico.org.uk</a>. You are
+     welcome to raise it with me first, but you do not have to.</p>
+
+  <h2>Children</h2>
+  <p>This site is for adults looking for work in the UK. I do not knowingly
+     collect data from children.</p>
+
+  <h2>Changes to this notice</h2>
+  <p>If what the site collects ever changes, this page changes with it and the
+     date below changes too. Nothing here is retroactive: I will not start
+     using data already collected for something new without asking you.</p>
+
+  <h2>Who I am</h2>
+  <p>KnowYourSponsor is run by one person, not a company. I am the data
+     controller for the small amount of personal data described above.
+     Contact: <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a>.</p>
+
+<p class="updated">Last updated 09 September 2026.</p>
+</main>
+
+<footer><div class="wrap">
+  <p>KnowYourSponsor is an independent search tool built on open public data
+     from GOV.UK. It is not affiliated with the Home Office and is not
+     immigration advice.</p>
+  <p><a href="../">Search the register</a></p>
+</div></footer>
+<script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>(function(){var b=document.querySelector('[data-theme-toggle]');if(!b)return;var r=document.documentElement;function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}function sync(){b.setAttribute('aria-pressed',String(dark()));}b.addEventListener('click',function(){var next=dark()?'light':'dark';r.setAttribute('data-theme',next);try{localStorage.setItem('theme',next);}catch(e){}sync();});sync();})();</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What costs money, and what never will | KnowYourSponsor</title>
+<meta name="description" content="The UK sponsor register, Companies House warnings and daily change tracking are free forever. Watchlist monitoring for recruiters and advisers starts at £49 a month.">
+<link rel="canonical" href="https://roshan1208.github.io/sponsorsignal/pricing/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://roshan1208.github.io/sponsorsignal/pricing/">
+<meta property="og:title" content="What costs money, and what never will">
+<meta property="og:description" content="The UK sponsor register, Companies House warnings and daily change tracking are free forever. Watchlist monitoring for recruiters and advisers starts at £49 a month.">
+<meta property="og:image" content="https://roshan1208.github.io/sponsorsignal/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --ink:#17233B; --ink-soft:#4A5670;
+    --paper:#FFFFFF; --paper-dim:#F5F7FB;
+    --cobalt:#2145C9; --cobalt-dark:#17348F; --on-cobalt:#FFFFFF;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#D9DFEA; --good:#0E7B4F; --bad:#B3261E;
+    --warn-bg:#FDF1F0; --warn-bg-2:#FBE3E1; --warn-border:#E7B4AE;
+    --warn-ink:#8A1E18; --warn-solid:#B3261E;
+    --mark-bg:#17233B; --mark-fg:#FFFFFF;
+    --note-bg:#FFF6DC; --note-border:#EAD48A; --note-ink:#6B4E00;
+    --shadow:rgba(23,35,59,.10);
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ink:#E8ECF3; --ink-soft:#A3AEC2;
+      --paper:#10151F; --paper-dim:#1A2230;
+      --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F; --on-cobalt:#10151F;
+      --signal:#FFC933; --on-signal:#17233B;
+      --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+      --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+      --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+      --mark-bg:#E8ECF3; --mark-fg:#10151F;
+      --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
+      --shadow:rgba(0,0,0,.45);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#E8ECF3; --ink-soft:#A3AEC2;
+    --paper:#10151F; --paper-dim:#1A2230;
+    --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+    --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+    --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+    --mark-bg:#E8ECF3; --mark-fg:#10151F;
+    --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
+    --shadow:rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Public Sans',system-ui,sans-serif;color:var(--ink);
+       line-height:1.6;background:var(--paper)}
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px}
+  a{color:var(--cobalt)}
+  header{border-bottom:3px solid var(--ink);padding:14px 0}
+  .brand{font-weight:800;font-size:1.1rem}
+  .brand a{color:inherit;text-decoration:none}
+  .brand .dot{color:var(--cobalt)}
+  
+  .header-inner{display:flex;align-items:center;justify-content:space-between;
+                gap:16px;flex-wrap:wrap}
+  .topnav{display:flex;gap:18px;font-size:.9rem;font-weight:600}
+  /* "For business" is two words and wrapped at 375px, which pushed the
+     header from 73px to 86px. nowrap keeps it on one line and costs nothing:
+     measured 29px nav either way. .header-inner already wraps, so on a
+     genuinely narrow screen the nav drops to its own line rather than
+     overflowing. */
+  .topnav a{text-decoration:none;white-space:nowrap}
+  .topnav a:hover{text-decoration:underline}
+  .topnav [aria-current]{color:var(--ink-soft)}
+  @media (max-width:520px){.topnav{gap:14px;font-size:.85rem;width:100%}}
+
+  .themebtn{
+    font:inherit;font-size:1rem;line-height:1;cursor:pointer;
+    background:transparent;border:1.5px solid var(--line);border-radius:99px;
+    color:var(--ink-soft);padding:5px 10px;
+  }
+  .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
+
+  h1{font-size:clamp(1.6rem,4.5vw,2.3rem);font-weight:800;
+     letter-spacing:-0.02em;margin:36px 0 10px;text-wrap:balance;max-width:24ch}
+  .lead{color:var(--ink-soft);max-width:62ch;text-wrap:pretty;font-size:1.05rem}
+  h2{font-size:1.25rem;font-weight:800;margin:46px 0 10px;text-wrap:balance}
+  p{max-width:62ch;text-wrap:pretty}
+  p+p{margin-top:10px}
+  .tiers{display:grid;gap:14px;margin-top:18px;
+         grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .tier{border:1.5px solid var(--line);border-radius:12px;padding:18px}
+  .tier.free{border:2px solid var(--ink);background:var(--paper-dim)}
+  .tier h3{font-size:1.05rem;font-weight:800}
+  .price{font-size:1.7rem;font-weight:800;margin:6px 0 2px;letter-spacing:-0.02em}
+  .price span{font-size:.8rem;font-weight:500;color:var(--ink-soft)}
+  .who{color:var(--ink-soft);font-size:.9rem;min-height:2.6em}
+  .tier ul{margin:12px 0 0 18px;font-size:.9rem}
+  .tier li+li{margin-top:5px}
+  .tier .note{margin-top:12px;font-size:.85rem;color:var(--ink-soft)}
+  .tier .btn{display:inline-block;margin-top:14px;background:var(--cobalt);
+             color:var(--on-cobalt);text-decoration:none;font-weight:600;
+             padding:9px 16px;border-radius:8px;font-size:.9rem}
+  pre{margin-top:14px;background:var(--paper-dim);border:1.5px solid var(--line);
+      border-radius:10px;padding:16px 18px;overflow-x:auto;
+      font-size:.85rem;line-height:1.5;white-space:pre-wrap}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  dl{margin-top:14px;max-width:62ch}
+  /* Deliberately the same quiet treatment as the limitations list. A
+     coloured promo strip here would look like a countdown timer, which is
+     the opposite of what these three sentences are for. */
+  dl.offers{border-left:3px solid var(--signal);padding-left:16px}
+  dt{font-weight:700;margin-top:14px}
+  dd{color:var(--ink-soft)}
+  .box{border:1.5px solid var(--line);border-radius:10px;
+       background:var(--paper-dim);padding:16px 18px;margin-top:16px;
+       max-width:62ch}
+  .box p{max-width:none}
+  :is(a,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
+  footer{margin-top:52px;border-top:3px solid var(--ink);padding:22px 0 40px;
+         font-size:.85rem;color:var(--ink-soft)}
+  footer p+p{margin-top:6px}
+</style>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">KnowYourSponsor<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><a href="../insights/">Numbers</a><a href="../data-api/">Data</a><span aria-current="page">For business</span><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+
+<main class="wrap">
+  <h1>What costs money, and what never will</h1>
+  <p class="lead">Searching the register is free and always will be. What
+     costs money is being told, without looking, when something happens to
+     employers you care about.</p>
+
+  <div class="box">
+    <p><strong>The free part is not a trial.</strong> Search, the Companies
+       House warnings, the daily change tracking and the published JSON files
+       stay free with no account. The people who need this most are job
+       seekers, who are by definition short of money, and putting a price in
+       front of them would be both useless and unkind.</p>
+  </div>
+
+  <h2>Tiers</h2>
+  <div class="tiers">
+    <div class="tier free">
+      <h3>Search</h3>
+      <p class="price">Free <span>forever</span></p>
+      <p class="who">Anyone looking for a job.</p>
+      <ul><li>Search all licensed sponsors</li><li>Companies House warnings, ranked by how much they mean</li><li>Newly licensed, lost licence, and rating downgrades</li><li>Filter by town, industry and visa route</li><li>Export what is on screen as CSV</li><li>The published JSON files, no account, no rate limit</li></ul>
+      <p class="note">Not a trial and not a teaser. This part never gets a paywall, because the people who need it most are the ones least able to pay.</p>
+      
+      
+    </div>
+    <div class="tier">
+      <h3>Watchlist</h3>
+      <p class="price">£49 <span>per month</span></p>
+      <p class="who">Recruiters and advisers with a list of employers they place people into.</p>
+      <ul><li>Up to 200 employers on your list</li><li>Emailed the week anything happens to any of them</li><li>Licence lost, rating downgraded, company stopped trading</li><li>New Companies House signals, and ones that cleared</li><li>Plain text, forwardable, no tracking pixel</li></ul>
+      <p class="note">The sample below is this tier, built from real data. See exactly what is checked and what is not.</p>
+      <p class="note"><a href="../watchlist/">How the monitoring works</a></p>
+      <a class="btn" href="mailto:knowyoursponsor8@gmail.com?subject=Start%20a%20watchlist">Start a watchlist</a>
+    </div>
+    <div class="tier">
+      <h3>Sector feed</h3>
+      <p class="price">£149 <span>per month</span></p>
+      <p class="who">Anyone who needs a whole sector or region rather than a list.</p>
+      <ul><li>One sector or region, everything that moves in it</li><li>New licences, removals, downgrades, distress signals</li><li>Weekly or daily</li><li>CSV and JSON export</li></ul>
+      
+      
+      <a class="btn" href="mailto:knowyoursponsor8@gmail.com?subject=Ask%20about%20a%20sector%20feed">Ask about a sector feed</a>
+    </div>
+    <div class="tier">
+      <h3>Data licence</h3>
+      <p class="price">Quoted <span>per project</span></p>
+      <p class="who">Teams building something on top of this.</p>
+      <ul><li>The full dated history, not just the current register</li><li>When each employer first appeared, and how long it held a licence</li><li>Companies House history month by month</li><li>Bulk export, or a cut shaped to your question</li></ul>
+      
+      
+      <a class="btn" href="mailto:knowyoursponsor8@gmail.com?subject=Ask%20about%20a%20data%20licence">Ask about a data licence</a>
+    </div>
+  </div>
+
+  <h2>Getting started costs nothing</h2>
+  <p>Three ways the risk sits with me rather than you. There is no discount
+     code and no countdown, because a price that drops when you hesitate was
+     never the real price.</p>
+  <dl class="offers"><dt>First month free</dt><dd>Use it for a month and I will invoice you after. If it was not useful, do not pay. No card, no direct debit, nothing to cancel.</dd><dt>Founding rate for the first 10</dt><dd>Keep this price for as long as you stay, while it rises behind you.</dd><dt>Two months free on annual</dt><dd>Pay for ten months and get twelve, if you would rather pay once.</dd></dl>
+
+  <h2>What a watchlist email actually looks like</h2>
+  <p>This is not a mockup. It is generated by the same function that would
+     build your report, from the register and Companies House data this site
+     is serving right now, as of 2026-09-09 13:49 UTC. Every
+     employer named is checkable against the official sources.</p>
+  <pre><code>5 of 12 employers on your watchlist changed for the last 7 days.
+
+No longer on the register
+-------------------------
+They cannot sponsor anyone now. A candidate in the middle of an application there needs to know today.
+
+  * Aariv Group Ltd
+  * ACUCARE LIMITED
+  * Amazing Thai Therapy T/A Lavender Thai Therapy
+Downgraded to a B rating
+------------------------
+A B-rated sponsor is on a Home Office action plan and usually cannot issue new certificates until it is back to an A.
+
+  * Passion Home Care Ltd  (A to B on 2026-09-09)
+  * Revital Dental Care  (A to B on 2026-09-09)
+
+Every line above is checkable against the official register and Companies House. Reply and ask if anything looks wrong.</code></pre>
+  <p class="note">Most weeks are quieter than this, which is the point: you
+     stop checking, and hear from us only when something moved.</p>
+
+  <h2>What this cannot do</h2>
+  <p>Worth knowing before you pay rather than after.</p>
+  <dl><dt>It is not immigration advice.</dt><dd>We report what two public registers say. Whether you or a candidate qualifies for anything is a question for a regulated adviser.</dd><dt>A Companies House signal is not proof.</dt><dd>Employers are matched to company records by name. Where a name is held by more than one company we show nothing rather than guess, but a match is still a pointer to the official record, not a verdict.</dd><dt>We cannot tell you who is hiring.</dt><dd>A licence means an employer can sponsor a visa. It does not mean they have a vacancy, and no register anywhere records that.</dd><dt>The history starts when we started.</dt><dd>Daily records begin 31 August 2026 and Companies House snapshots begin September 2026. We will not pretend to know what happened before we were looking.</dd></dl>
+
+  <h2>How to start</h2>
+  <p>Email me with the employers or the sector you care about. There is no
+     checkout and no signup form: the first customers get invoiced by hand,
+     because I would rather spend that conversation finding out what you
+     actually need than guessing at a product page.</p>
+  <p>Reach me at <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a>.</p>
+  <p>Prices are per month, no contract, cancel by telling me to stop.</p>
+</main>
+
+<footer><div class="wrap">
+  <p>KnowYourSponsor is an independent search tool built on open public data
+     from GOV.UK and Companies House. It is not affiliated with the Home
+     Office and is not immigration advice.</p>
+  <p><a href="../">Search the register</a> &middot;
+     <a href="../methodology/">How the data is built</a> &middot;
+     <a href="../about/">About</a></p>
+</div></footer>
+<script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>(function(){var b=document.querySelector('[data-theme-toggle]');if(!b)return;var r=document.documentElement;function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}function sync(){b.setAttribute('aria-pressed',String(dark()));}b.addEventListener('click',function(){var next=dark()?'light':'dark';r.setAttribute('data-theme',next);try{localStorage.setItem('theme',next);}catch(e){}sync();});sync();})();</script>
+</body>
+</html>

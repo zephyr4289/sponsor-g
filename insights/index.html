@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UK visa sponsorship in numbers | KnowYourSponsor</title>
+<meta name="description" content="127,716 UK employers hold a licence to sponsor work visas. Where they are, what they do, and which visa routes they can use. Updated every day from the official GOV.UK register.">
+<link rel="canonical" href="https://roshan1208.github.io/sponsorsignal/insights/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://roshan1208.github.io/sponsorsignal/insights/">
+<meta property="og:title" content="UK visa sponsorship in numbers">
+<meta property="og:description" content="127,716 UK employers hold a licence to sponsor work visas. Where they are, what they do, and which visa routes they can use. Updated every day from the official GOV.UK register.">
+<meta property="og:image" content="https://roshan1208.github.io/sponsorsignal/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --ink:#17233B; --ink-soft:#4A5670;
+    --paper:#FFFFFF; --paper-dim:#F5F7FB;
+    --cobalt:#2145C9; --cobalt-dark:#17348F; --on-cobalt:#FFFFFF;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#D9DFEA; --good:#0E7B4F; --bad:#B3261E;
+    --warn-bg:#FDF1F0; --warn-bg-2:#FBE3E1; --warn-border:#E7B4AE;
+    --warn-ink:#8A1E18; --warn-solid:#B3261E;
+    --mark-bg:#17233B; --mark-fg:#FFFFFF;
+    --note-bg:#FFF6DC; --note-border:#EAD48A; --note-ink:#6B4E00;
+    --shadow:rgba(23,35,59,.10);
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ink:#E8ECF3; --ink-soft:#A3AEC2;
+      --paper:#10151F; --paper-dim:#1A2230;
+      --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F; --on-cobalt:#10151F;
+      --signal:#FFC933; --on-signal:#17233B;
+      --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+      --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+      --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+      --mark-bg:#E8ECF3; --mark-fg:#10151F;
+      --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
+      --shadow:rgba(0,0,0,.45);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#E8ECF3; --ink-soft:#A3AEC2;
+    --paper:#10151F; --paper-dim:#1A2230;
+    --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F;
+    --signal:#FFC933; --on-signal:#17233B;
+    --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
+    --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
+    --warn-ink:#F5B5AE; --warn-solid:#B3261E;
+    --mark-bg:#E8ECF3; --mark-fg:#10151F;
+    --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
+    --shadow:rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Public Sans',system-ui,sans-serif;color:var(--ink);
+       line-height:1.55;background:var(--paper)}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+  a{color:var(--cobalt)}
+  header{border-bottom:3px solid var(--ink);padding:14px 0}
+  .brand{font-weight:800;font-size:1.1rem}
+  .brand a{color:inherit;text-decoration:none}
+  .brand .dot{color:var(--cobalt)}
+
+  h1{font-size:clamp(1.6rem,4.5vw,2.4rem);font-weight:800;letter-spacing:-0.02em;
+     margin:36px 0 10px;text-wrap:balance;max-width:18ch}
+  .lead{color:var(--ink-soft);max-width:60ch;text-wrap:pretty}
+  .updated{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+
+  /* the one number the page leads with */
+  .hero{margin:34px 0 6px;font-size:clamp(2.6rem,9vw,4rem);font-weight:800;
+        letter-spacing:-0.03em;line-height:1}
+  .hero-label{color:var(--ink-soft);max-width:46ch;text-wrap:pretty}
+
+  .tiles{display:grid;gap:12px;margin:28px 0 8px;
+         grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+  .tile{border:1.5px solid var(--line);border-radius:10px;padding:14px 16px}
+  .tile .label{display:block;font-size:.82rem;color:var(--ink-soft)}
+  .tile .value{display:block;font-size:1.7rem;font-weight:600;letter-spacing:-0.02em;
+               margin-top:2px}
+  .tile .note{display:block;font-size:.78rem;color:var(--ink-soft);margin-top:2px;
+              text-wrap:pretty}
+
+  section.block{margin:52px 0}
+  h2{font-size:1.25rem;font-weight:800;letter-spacing:-0.01em;text-wrap:balance}
+  .sub{color:var(--ink-soft);font-size:.92rem;margin-top:4px;max-width:62ch;
+       text-wrap:pretty}
+
+  /* the pulled-out leader: stated, not squeezed into the bars */
+  .lead-figure{display:flex;align-items:baseline;gap:10px;margin-top:16px;
+               padding:12px 14px;border-radius:8px;background:var(--paper-dim);
+               border-left:4px solid var(--cobalt)}
+  .lead-figure .n{font-size:1.6rem;font-weight:600;letter-spacing:-0.02em}
+  .lead-figure .who{color:var(--ink-soft)}
+
+  .chart{width:100%;height:auto;margin-top:18px;overflow:visible}
+  .chart .cat{font-size:13px;fill:var(--ink)}
+  .chart .val{font-size:13px;fill:var(--ink-soft);font-variant-numeric:tabular-nums}
+  .chart path{fill:var(--cobalt)}
+  /* opacity only: a compositor property, so hover cannot cause layout work */
+  .chart .bar{opacity:1;transition:opacity .12s ease-out}
+  .chart:hover .bar{opacity:.55}
+  .chart .bar:hover{opacity:1}
+  @media (prefers-reduced-motion:reduce){.chart .bar{transition:none}}
+
+  .twin{margin-top:16px;font-size:.9rem}
+  .twin summary{cursor:pointer;color:var(--cobalt);font-weight:600}
+  .twin table{width:100%;border-collapse:collapse;margin-top:10px}
+  .twin th{text-align:left;font-size:.8rem;color:var(--ink-soft);
+           border-bottom:2px solid var(--ink);padding:6px 8px}
+  .twin td{padding:7px 8px;border-bottom:1px solid var(--line);
+           font-variant-numeric:tabular-nums}
+  .twin td:first-child{font-variant-numeric:normal}
+
+  .caveat{margin-top:14px;padding:12px 14px;border-radius:8px;
+          background:var(--paper-dim);border:1.5px solid var(--line);
+          font-size:.88rem;color:var(--ink-soft);max-width:62ch;text-wrap:pretty}
+  .caveat strong{color:var(--ink)}
+
+  .cta{margin:56px 0;border:2px solid var(--ink);border-radius:10px;
+       background:var(--paper-dim);padding:24px}
+  .cta h2{font-size:1.2rem}
+  .cta p{color:var(--ink-soft);margin-top:6px;max-width:52ch;text-wrap:pretty}
+  .cta a.btn{display:inline-block;margin-top:14px;background:var(--cobalt);
+             color:var(--on-cobalt);text-decoration:none;font-weight:600;padding:11px 22px;
+             border-radius:8px}
+  :is(a,summary,button):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
+
+  footer{margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
+         font-size:.85rem;color:var(--ink-soft)}
+  footer p+p{margin-top:6px}
+  
+  .header-inner{display:flex;align-items:center;justify-content:space-between;
+                gap:16px;flex-wrap:wrap}
+  .topnav{display:flex;gap:18px;font-size:.9rem;font-weight:600}
+  /* "For business" is two words and wrapped at 375px, which pushed the
+     header from 73px to 86px. nowrap keeps it on one line and costs nothing:
+     measured 29px nav either way. .header-inner already wraps, so on a
+     genuinely narrow screen the nav drops to its own line rather than
+     overflowing. */
+  .topnav a{text-decoration:none;white-space:nowrap}
+  .topnav a:hover{text-decoration:underline}
+  .topnav [aria-current]{color:var(--ink-soft)}
+  @media (max-width:520px){.topnav{gap:14px;font-size:.85rem;width:100%}}
+
+  .themebtn{
+    font:inherit;font-size:1rem;line-height:1;cursor:pointer;
+    background:transparent;border:1.5px solid var(--line);border-radius:99px;
+    color:var(--ink-soft);padding:5px 10px;
+  }
+  .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
+
+  @media (max-width:640px){ .chart .cat{font-size:11px} .chart .val{font-size:11px} }
+</style>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">KnowYourSponsor<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><span aria-current="page">Numbers</span><a href="../data-api/">Data</a><a href="../pricing/">For business</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+
+<main class="wrap">
+  <h1>UK visa sponsorship in numbers</h1>
+  <p class="lead">Every employer allowed to sponsor a UK work visa is on one
+     official register. Here is what is actually in it.</p>
+  <p class="updated">From the GOV.UK Register of Licensed Sponsors, updated 2026-09-09 13:49 UTC.</p>
+
+  <p class="hero">127,716</p>
+  <p class="hero-label">employers can sponsor a UK work visa. Every other
+     employer in the country cannot, however good your application.</p>
+
+  <div class="tiles">
+    <div class="tile"><span class="label">Added in the last 7 days</span><span class="value">302</span><span class="note">newly licensed</span></div>
+    <div class="tile"><span class="label">Lost their licence</span><span class="value">242</span><span class="note">in the last 7 days</span></div>
+    <div class="tile"><span class="label">On a B rating</span><span class="value">58</span><span class="note">usually cannot issue new certificates</span></div>
+    <div class="tile"><span class="label">Towns and cities</span><span class="value">6,338</span><span class="note">with at least one sponsor</span></div>
+  </div>
+
+  <section class="block">
+    <h2>Where the sponsors are</h2>
+    <p class="sub">London is not a tie-breaker, it is the whole race.
+       London alone has 36,506 of them, more than the next 14 cities put together (18,586). It is left out of the chart below so the rest can be compared with each other.</p>
+    <p class="lead-figure"><span class="n">36,506</span><span class="who">in London</span></p>
+    <svg class="chart" viewBox="0 0 720 456" role="img" aria-labelledby="cities-t" preserveAspectRatio="xMinYMin meet">
+<title id="cities-t">Licensed employers by town or city, outside the largest</title>
+<g class="bar"><title>Birmingham: 3,078 employers</title><text class="cat" x="0" y="19">Birmingham</text><path d="M232,4 H628.0 Q632.0,4 632.0,8 V20 Q632.0,24 628.0,24 H232 Z"/><text class="val" x="640.0" y="19">3,078</text></g>
+<g class="bar"><title>Manchester: 2,869 employers</title><text class="cat" x="0" y="51">Manchester</text><path d="M232,36 H600.8 Q604.8,36 604.8,40 V52 Q604.8,56 600.8,56 H232 Z"/><text class="val" x="612.8" y="51">2,869</text></g>
+<g class="bar"><title>Leicester: 1,410 employers</title><text class="cat" x="0" y="83">Leicester</text><path d="M232,68 H411.2 Q415.2,68 415.2,72 V84 Q415.2,88 411.2,88 H232 Z"/><text class="val" x="423.2" y="83">1,410</text></g>
+<g class="bar"><title>Glasgow: 1,362 employers</title><text class="cat" x="0" y="115">Glasgow</text><path d="M232,100 H405.0 Q409.0,100 409.0,104 V116 Q409.0,120 405.0,120 H232 Z"/><text class="val" x="417.0" y="115">1,362</text></g>
+<g class="bar"><title>Bristol: 1,296 employers</title><text class="cat" x="0" y="147">Bristol</text><path d="M232,132 H396.4 Q400.4,132 400.4,136 V148 Q400.4,152 396.4,152 H232 Z"/><text class="val" x="408.4" y="147">1,296</text></g>
+<g class="bar"><title>Edinburgh: 1,173 employers</title><text class="cat" x="0" y="179">Edinburgh</text><path d="M232,164 H380.4 Q384.4,164 384.4,168 V180 Q384.4,184 380.4,184 H232 Z"/><text class="val" x="392.4" y="179">1,173</text></g>
+<g class="bar"><title>Leeds: 1,081 employers</title><text class="cat" x="0" y="211">Leeds</text><path d="M232,196 H368.5 Q372.5,196 372.5,200 V212 Q372.5,216 368.5,216 H232 Z"/><text class="val" x="380.5" y="211">1,081</text></g>
+<g class="bar"><title>Nottingham: 1,047 employers</title><text class="cat" x="0" y="243">Nottingham</text><path d="M232,228 H364.1 Q368.1,228 368.1,232 V244 Q368.1,248 364.1,248 H232 Z"/><text class="val" x="376.1" y="243">1,047</text></g>
+<g class="bar"><title>Ilford: 926 employers</title><text class="cat" x="0" y="275">Ilford</text><path d="M232,260 H348.3 Q352.3,260 352.3,264 V276 Q352.3,280 348.3,280 H232 Z"/><text class="val" x="360.3" y="275">926</text></g>
+<g class="bar"><title>Reading: 914 employers</title><text class="cat" x="0" y="307">Reading</text><path d="M232,292 H346.8 Q350.8,292 350.8,296 V308 Q350.8,312 346.8,312 H232 Z"/><text class="val" x="358.8" y="307">914</text></g>
+<g class="bar"><title>Coventry: 900 employers</title><text class="cat" x="0" y="339">Coventry</text><path d="M232,324 H345.0 Q349.0,324 349.0,328 V340 Q349.0,344 345.0,344 H232 Z"/><text class="val" x="357.0" y="339">900</text></g>
+<g class="bar"><title>Slough: 852 employers</title><text class="cat" x="0" y="371">Slough</text><path d="M232,356 H338.7 Q342.7,356 342.7,360 V372 Q342.7,376 338.7,376 H232 Z"/><text class="val" x="350.7" y="371">852</text></g>
+<g class="bar"><title>Milton Keynes: 843 employers</title><text class="cat" x="0" y="403">Milton Keynes</text><path d="M232,388 H337.6 Q341.6,388 341.6,392 V404 Q341.6,408 337.6,408 H232 Z"/><text class="val" x="349.6" y="403">843</text></g>
+<g class="bar"><title>Cambridge: 835 employers</title><text class="cat" x="0" y="435">Cambridge</text><path d="M232,420 H336.5 Q340.5,420 340.5,424 V436 Q340.5,440 336.5,440 H232 Z"/><text class="val" x="348.5" y="435">835</text></g>
+</svg>
+    <details class="twin"><summary>See these numbers as a table, including London</summary><table><thead><tr><th>Town or city</th><th>Employers</th><th>Share</th></tr></thead><tbody><tr><td>London</td><td>36,506</td><td>28.6%</td></tr><tr><td>Birmingham</td><td>3,078</td><td>2.4%</td></tr><tr><td>Manchester</td><td>2,869</td><td>2.2%</td></tr><tr><td>Leicester</td><td>1,410</td><td>1.1%</td></tr><tr><td>Glasgow</td><td>1,362</td><td>1.1%</td></tr><tr><td>Bristol</td><td>1,296</td><td>1.0%</td></tr><tr><td>Edinburgh</td><td>1,173</td><td>0.9%</td></tr><tr><td>Leeds</td><td>1,081</td><td>0.8%</td></tr><tr><td>Nottingham</td><td>1,047</td><td>0.8%</td></tr><tr><td>Ilford</td><td>926</td><td>0.7%</td></tr><tr><td>Reading</td><td>914</td><td>0.7%</td></tr><tr><td>Coventry</td><td>900</td><td>0.7%</td></tr><tr><td>Slough</td><td>852</td><td>0.7%</td></tr><tr><td>Milton Keynes</td><td>843</td><td>0.7%</td></tr><tr><td>Cambridge</td><td>835</td><td>0.7%</td></tr></tbody></table></details>
+  </section>
+
+  <section class="block">
+    <h2>Which visa routes they can use</h2>
+    <p class="sub">A licence covers named routes, and most employers hold only
+       one. Skilled Worker alone has 122,342 of them, more than the next 7 routes put together (18,940). It is left out of the chart below so the rest can be compared with each other.</p>
+    <p class="lead-figure"><span class="n">122,342</span><span class="who">in Skilled Worker</span></p>
+    <svg class="chart" viewBox="0 0 720 232" role="img" aria-labelledby="routes-t" preserveAspectRatio="xMinYMin meet">
+<title id="routes-t">Employers licensed for each visa route, excluding the most common</title>
+<g class="bar"><title>Global Business Mobility: Senior or Specialist Worker: 10,364 employers</title><text class="cat" x="0" y="19">GBM: Senior or Specialist Worker</text><path d="M232,4 H628.0 Q632.0,4 632.0,8 V20 Q632.0,24 628.0,24 H232 Z"/><text class="val" x="640.0" y="19">10,364</text></g>
+<g class="bar"><title>Tier 2 Ministers of Religion: 1,953 employers</title><text class="cat" x="0" y="51">Tier 2 Ministers of Religion</text><path d="M232,36 H303.4 Q307.4,36 307.4,40 V52 Q307.4,56 303.4,56 H232 Z"/><text class="val" x="315.4" y="51">1,953</text></g>
+<g class="bar"><title>Creative Worker: 1,580 employers</title><text class="cat" x="0" y="83">Creative Worker</text><path d="M232,68 H289.0 Q293.0,68 293.0,72 V84 Q293.0,88 289.0,88 H232 Z"/><text class="val" x="301.0" y="83">1,580</text></g>
+<g class="bar"><title>Charity Worker: 1,527 employers</title><text class="cat" x="0" y="115">Charity Worker</text><path d="M232,100 H286.9 Q290.9,100 290.9,104 V116 Q290.9,120 286.9,120 H232 Z"/><text class="val" x="298.9" y="115">1,527</text></g>
+<g class="bar"><title>International Sportsperson: 1,466 employers</title><text class="cat" x="0" y="147">International Sportsperson</text><path d="M232,132 H284.6 Q288.6,132 288.6,136 V148 Q288.6,152 284.6,152 H232 Z"/><text class="val" x="296.6" y="147">1,466</text></g>
+<g class="bar"><title>Religious Worker: 1,430 employers</title><text class="cat" x="0" y="179">Religious Worker</text><path d="M232,164 H283.2 Q287.2,164 287.2,168 V180 Q287.2,184 283.2,184 H232 Z"/><text class="val" x="295.2" y="179">1,430</text></g>
+<g class="bar"><title>Global Business Mobility: Graduate Trainee: 620 employers</title><text class="cat" x="0" y="211">GBM: Graduate Trainee</text><path d="M232,196 H251.9 Q255.9,196 255.9,200 V212 Q255.9,216 251.9,216 H232 Z"/><text class="val" x="263.9" y="211">620</text></g>
+</svg>
+    <details class="twin"><summary>See these numbers as a table, including Skilled Worker</summary><table><thead><tr><th>Visa route</th><th>Employers</th></tr></thead><tbody><tr><td>Skilled Worker</td><td>122,342</td></tr><tr><td>Global Business Mobility: Senior or Specialist Worker</td><td>10,364</td></tr><tr><td>Tier 2 Ministers of Religion</td><td>1,953</td></tr><tr><td>Creative Worker</td><td>1,580</td></tr><tr><td>Charity Worker</td><td>1,527</td></tr><tr><td>International Sportsperson</td><td>1,466</td></tr><tr><td>Religious Worker</td><td>1,430</td></tr><tr><td>Global Business Mobility: Graduate Trainee</td><td>620</td></tr></tbody></table></details>
+    <p class="caveat">One employer can hold several routes, so these add up to
+       more than 127,716.</p>
+  </section>
+
+  <section class="block">
+    <h2>What they do</h2>
+    <p class="sub">Industries are not in the official register. We work them
+       out from each employer's name, which only succeeds when the name says
+       what the business does.</p>
+    <svg class="chart" viewBox="0 0 720 680" role="img" aria-labelledby="industries-t" preserveAspectRatio="xMinYMin meet">
+<title id="industries-t">Licensed employers by industry</title>
+<g class="bar"><title>Healthcare &amp; Care: 11,909 employers</title><text class="cat" x="0" y="19">Healthcare &amp; Care</text><path d="M232,4 H628.0 Q632.0,4 632.0,8 V20 Q632.0,24 628.0,24 H232 Z"/><text class="val" x="640.0" y="19">11,909</text></g>
+<g class="bar"><title>Hospitality &amp; Food: 8,560 employers</title><text class="cat" x="0" y="51">Hospitality &amp; Food</text><path d="M232,36 H515.5 Q519.5,36 519.5,40 V52 Q519.5,56 515.5,56 H232 Z"/><text class="val" x="527.5" y="51">8,560</text></g>
+<g class="bar"><title>Finance &amp; Professional: 6,549 employers</title><text class="cat" x="0" y="83">Finance &amp; Professional</text><path d="M232,68 H448.0 Q452.0,68 452.0,72 V84 Q452.0,88 448.0,88 H232 Z"/><text class="val" x="460.0" y="83">6,549</text></g>
+<g class="bar"><title>Retail &amp; Commerce: 4,565 employers</title><text class="cat" x="0" y="115">Retail &amp; Commerce</text><path d="M232,100 H381.3 Q385.3,100 385.3,104 V116 Q385.3,120 381.3,120 H232 Z"/><text class="val" x="393.3" y="115">4,565</text></g>
+<g class="bar"><title>Tech &amp; Software: 4,425 employers</title><text class="cat" x="0" y="147">Tech &amp; Software</text><path d="M232,132 H376.6 Q380.6,132 380.6,136 V148 Q380.6,152 376.6,152 H232 Z"/><text class="val" x="388.6" y="147">4,425</text></g>
+<g class="bar"><title>Education &amp; Research: 3,320 employers</title><text class="cat" x="0" y="179">Education &amp; Research</text><path d="M232,164 H339.5 Q343.5,164 343.5,168 V180 Q343.5,184 339.5,184 H232 Z"/><text class="val" x="351.5" y="179">3,320</text></g>
+<g class="bar"><title>Construction &amp; Engineering: 2,853 employers</title><text class="cat" x="0" y="211">Construction &amp; Engineering</text><path d="M232,196 H323.8 Q327.8,196 327.8,200 V212 Q327.8,216 323.8,216 H232 Z"/><text class="val" x="335.8" y="211">2,853</text></g>
+<g class="bar"><title>Media &amp; Creative: 2,818 employers</title><text class="cat" x="0" y="243">Media &amp; Creative</text><path d="M232,228 H322.7 Q326.7,228 326.7,232 V244 Q326.7,248 322.7,248 H232 Z"/><text class="val" x="334.7" y="243">2,818</text></g>
+<g class="bar"><title>Charity &amp; Faith: 1,661 employers</title><text class="cat" x="0" y="275">Charity &amp; Faith</text><path d="M232,260 H283.8 Q287.8,260 287.8,264 V276 Q287.8,280 283.8,280 H232 Z"/><text class="val" x="295.8" y="275">1,661</text></g>
+<g class="bar"><title>Property &amp; Real Estate: 1,483 employers</title><text class="cat" x="0" y="307">Property &amp; Real Estate</text><path d="M232,292 H277.8 Q281.8,292 281.8,296 V308 Q281.8,312 277.8,312 H232 Z"/><text class="val" x="289.8" y="307">1,483</text></g>
+<g class="bar"><title>Motor &amp; Automotive: 1,441 employers</title><text class="cat" x="0" y="339">Motor &amp; Automotive</text><path d="M232,324 H276.4 Q280.4,324 280.4,328 V340 Q280.4,344 276.4,344 H232 Z"/><text class="val" x="288.4" y="339">1,441</text></g>
+<g class="bar"><title>Sport &amp; Leisure: 1,368 employers</title><text class="cat" x="0" y="371">Sport &amp; Leisure</text><path d="M232,356 H273.9 Q277.9,356 277.9,360 V372 Q277.9,376 273.9,376 H232 Z"/><text class="val" x="285.9" y="371">1,368</text></g>
+<g class="bar"><title>Logistics &amp; Transport: 1,140 employers</title><text class="cat" x="0" y="403">Logistics &amp; Transport</text><path d="M232,388 H266.3 Q270.3,388 270.3,392 V404 Q270.3,408 266.3,408 H232 Z"/><text class="val" x="278.3" y="403">1,140</text></g>
+<g class="bar"><title>Energy &amp; Utilities: 810 employers</title><text class="cat" x="0" y="435">Energy &amp; Utilities</text><path d="M232,420 H255.2 Q259.2,420 259.2,424 V436 Q259.2,440 255.2,440 H232 Z"/><text class="val" x="267.2" y="435">810</text></g>
+<g class="bar"><title>Beauty &amp; Wellbeing: 734 employers</title><text class="cat" x="0" y="467">Beauty &amp; Wellbeing</text><path d="M232,452 H252.7 Q256.7,452 256.7,456 V468 Q256.7,472 252.7,472 H232 Z"/><text class="val" x="264.7" y="467">734</text></g>
+<g class="bar"><title>Security &amp; Facilities: 693 employers</title><text class="cat" x="0" y="499">Security &amp; Facilities</text><path d="M232,484 H251.3 Q255.3,484 255.3,488 V500 Q255.3,504 251.3,504 H232 Z"/><text class="val" x="263.3" y="499">693</text></g>
+<g class="bar"><title>Manufacturing &amp; Industry: 613 employers</title><text class="cat" x="0" y="531">Manufacturing &amp; Industry</text><path d="M232,516 H248.6 Q252.6,516 252.6,520 V532 Q252.6,536 248.6,536 H232 Z"/><text class="val" x="260.6" y="531">613</text></g>
+<g class="bar"><title>Public Sector: 578 employers</title><text class="cat" x="0" y="563">Public Sector</text><path d="M232,548 H247.4 Q251.4,548 251.4,552 V564 Q251.4,568 247.4,568 H232 Z"/><text class="val" x="259.4" y="563">578</text></g>
+<g class="bar"><title>Travel &amp; Tourism: 433 employers</title><text class="cat" x="0" y="595">Travel &amp; Tourism</text><path d="M232,580 H242.5 Q246.5,580 246.5,584 V596 Q246.5,600 242.5,600 H232 Z"/><text class="val" x="254.5" y="595">433</text></g>
+<g class="bar"><title>Recruitment &amp; Staffing: 408 employers</title><text class="cat" x="0" y="627">Recruitment &amp; Staffing</text><path d="M232,612 H241.7 Q245.7,612 245.7,616 V628 Q245.7,632 241.7,632 H232 Z"/><text class="val" x="253.7" y="627">408</text></g>
+<g class="bar"><title>Agriculture &amp; Food Production: 296 employers</title><text class="cat" x="0" y="659">Agriculture &amp; Food Production</text><path d="M232,644 H237.9 Q241.9,644 241.9,648 V660 Q241.9,664 237.9,664 H232 Z"/><text class="val" x="249.9" y="659">296</text></g>
+</svg>
+    <details class="twin"><summary>See these numbers as a table</summary><table><thead><tr><th>Industry</th><th>Employers</th><th>Share</th></tr></thead><tbody><tr><td>Healthcare &amp; Care</td><td>11,909</td><td>21.0%</td></tr><tr><td>Hospitality &amp; Food</td><td>8,560</td><td>15.1%</td></tr><tr><td>Finance &amp; Professional</td><td>6,549</td><td>11.6%</td></tr><tr><td>Retail &amp; Commerce</td><td>4,565</td><td>8.1%</td></tr><tr><td>Tech &amp; Software</td><td>4,425</td><td>7.8%</td></tr><tr><td>Education &amp; Research</td><td>3,320</td><td>5.9%</td></tr><tr><td>Construction &amp; Engineering</td><td>2,853</td><td>5.0%</td></tr><tr><td>Media &amp; Creative</td><td>2,818</td><td>5.0%</td></tr><tr><td>Charity &amp; Faith</td><td>1,661</td><td>2.9%</td></tr><tr><td>Property &amp; Real Estate</td><td>1,483</td><td>2.6%</td></tr><tr><td>Motor &amp; Automotive</td><td>1,441</td><td>2.5%</td></tr><tr><td>Sport &amp; Leisure</td><td>1,368</td><td>2.4%</td></tr><tr><td>Logistics &amp; Transport</td><td>1,140</td><td>2.0%</td></tr><tr><td>Energy &amp; Utilities</td><td>810</td><td>1.4%</td></tr><tr><td>Beauty &amp; Wellbeing</td><td>734</td><td>1.3%</td></tr><tr><td>Security &amp; Facilities</td><td>693</td><td>1.2%</td></tr><tr><td>Manufacturing &amp; Industry</td><td>613</td><td>1.1%</td></tr><tr><td>Public Sector</td><td>578</td><td>1.0%</td></tr><tr><td>Travel &amp; Tourism</td><td>433</td><td>0.8%</td></tr><tr><td>Recruitment &amp; Staffing</td><td>408</td><td>0.7%</td></tr><tr><td>Agriculture &amp; Food Production</td><td>296</td><td>0.5%</td></tr></tbody></table></details>
+    <p class="caveat"><strong>Read this before quoting these figures.</strong>
+       They cover the 56,657 employers whose industry we could
+       work out. The other 71,059,
+       56% of the register, have names that do not say what
+       the business does, so they are not counted here. This is a limit of our
+       own guesswork, not of the register.</p>
+  </section>
+
+  <section class="cta">
+    <h2>Get the changes each week</h2>
+    <p>The register moves every week. We send the newly licensed employers,
+       and the ones that lost their licence, so you are not applying into the
+       dark.</p>
+    <a class="btn" href="../#alerts">Get the weekly email</a>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <p>Built on the official GOV.UK Register of Licensed Sponsors (Workers).
+     KnowYourSponsor is an independent search tool built on open public data.
+     It is not affiliated with the Home Office and is not immigration advice.</p>
+  <p><a href="../">Search the full list</a></p>
+</div></footer>
+<script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>(function(){var b=document.querySelector('[data-theme-toggle]');if(!b)return;var r=document.documentElement;function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}function sync(){b.setAttribute('aria-pressed',String(dark()));}b.addEventListener('click',function(){var next=dark()?'light':'dark';r.setAttribute('data-theme',next);try{localStorage.setItem('theme',next);}catch(e){}sync();});sync();})();</script>
+</body>
+</html>
