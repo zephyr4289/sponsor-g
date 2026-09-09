@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Ledger</title>
+<title>KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Tracker</title>
 <meta name="description" content="Every UK employer licensed to sponsor a work visa, cross-referenced against Companies House insolvency filings and National Minimum Wage enforcement. Search 127,000+ sponsors, check salary thresholds, and identify corporate distress.">
 <link rel="canonical" href="https://zephyr4289.github.io/sponsor-g/">
 <meta name="google-site-verification" content="ZNbGBoW8FlnVr5MM5wrTNaQqzvFz_Pgcde_K1t5RHF8">
@@ -17,11 +17,11 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KnowYourSponsor">
 <meta property="og:url" content="https://zephyr4289.github.io/sponsor-g/">
-<meta property="og:title" content="KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Ledger">
+<meta property="og:title" content="KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Tracker">
 <meta property="og:description" content="Searchable UK Home Office sponsor register cross-referenced against Companies House corporate insolvency filings and minimum wage enforcement. Rebuilt daily.">
 <meta property="og:image" content="https://zephyr4289.github.io/sponsor-g/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Ledger">
+<meta name="twitter:title" content="KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Tracker">
 <meta name="twitter:description" content="Searchable UK Home Office sponsor register cross-referenced against Companies House corporate insolvency filings.">
 <meta name="twitter:image" content="https://zephyr4289.github.io/sponsor-g/og-image.png">
 
@@ -52,7 +52,7 @@
     {
       "@type": "Dataset",
       "@id": "https://zephyr4289.github.io/sponsor-g/#dataset",
-      "name": "UK Register of Licensed Sponsors (Workers) — Searchable Mirror with Solvency Ledger",
+      "name": "UK Register of Licensed Sponsors (Workers) — Searchable Register with Solvency Tracker",
       "description": "Every organisation holding a UK Home Office worker sponsor licence cross-referenced with Companies House corporate filing and insolvency status. Rebuilt daily.",
       "url": "https://zephyr4289.github.io/sponsor-g/",
       "inLanguage": "en-GB",
@@ -1029,7 +1029,7 @@
 <!-- Telemetry Top Band -->
 <div class="telemetry-band">
   <div class="wrap telemetry-inner">
-    <div><span class="telemetry-tag">THE REGISTER OF LICENSED SPONSORS</span> · VOL. 2026 · ISSUE W37</div>
+    <div><span class="telemetry-tag">UK REGISTER OF LICENSED SPONSORS</span> · 2026 ISSUE W37</div>
     <div>SOURCE: UK HOME OFFICE &amp; COMPANIES HOUSE · SNAPSHOT: <span id="telemetryDate">2026-09-09 18:14 UTC</span></div>
   </div>
 </div>
@@ -1039,7 +1039,7 @@
   <div class="wrap masthead-inner">
     <div class="brand-block">
       <a href="./" class="brand-title">KnowYourSponsor<span style="color:var(--cobalt)">.</span></a>
-      <span class="brand-subtitle">Corporate Solvency &amp; Immigration Ledger</span>
+      <span class="brand-subtitle">UK Visa Sponsor Register &amp; Solvency Tracker</span>
     </div>
     <nav class="topnav">
       <a href="changes/">Changes</a>
@@ -1056,22 +1056,22 @@
   <div class="hud-stat" data-filter="all">
     <span class="hud-label">Total Licensed Entities</span>
     <span class="hud-value" id="hudTotal">127,716</span>
-    <span class="hud-note">Home Office Worker Tier</span>
+    <span class="hud-note">Home Office worker tier</span>
   </div>
   <div class="hud-stat" data-filter="added">
     <span class="hud-label">Weekly Additions (+7D)</span>
     <span class="hud-value" style="color:var(--status-regular-ink)" id="hudAdded">+302</span>
-    <span class="hud-note">Lowest Applicant Competition</span>
+    <span class="hud-note">First registered within last 7 days</span>
   </div>
   <div class="hud-stat" data-filter="serious">
-    <span class="hud-label">Terminal Distress</span>
+    <span class="hud-label">Insolvency Warnings</span>
     <span class="hud-value" style="color:var(--status-critical-ink)" id="hudSerious">2,795</span>
-    <span class="hud-note">Liquidation / Strike-Off / Insolvent</span>
+    <span class="hud-note">Liquidation, strike-off, or administration</span>
   </div>
   <div class="hud-stat" data-filter="warning">
-    <span class="hud-label">Compliance Deficiencies</span>
+    <span class="hud-label">Filing Warnings</span>
     <span class="hud-value" style="color:var(--status-warning-ink)" id="hudDeficient">6,695</span>
-    <span class="hud-note">Accounts Overdue / Dormant</span>
+    <span class="hud-note">Accounts overdue or dormant</span>
   </div>
 </section>
 
@@ -1079,7 +1079,7 @@
 <div class="solvency-meter-wrap">
   <div class="wrap">
     <div class="solvency-meter-header">
-      <span>Macro Solvency Distribution</span>
+      <span>Corporate Filing Status Distribution</span>
       <span id="solvencyMetricSummary">91.0% Solvent · 6.8% Overdue · 2.2% Insolvent</span>
     </div>
     <div class="solvency-bar" id="solvencyBar" title="Click to filter by solvency category">
@@ -1088,7 +1088,7 @@
       <div class="solvency-seg seg-critical" id="barCritical"></div>
     </div>
     <div class="solvency-legend">
-      <div class="legend-item" id="legSolvent"><span class="legend-dot" style="background:var(--status-regular-ink)"></span> Active &amp; Compliant</div>
+      <div class="legend-item" id="legSolvent"><span class="legend-dot" style="background:var(--status-regular-ink)"></span> Active &amp; Up to Date</div>
       <div class="legend-item" id="legWarning"><span class="legend-dot" style="background:var(--status-warning-ink)"></span> Accounts Overdue / Dormant</div>
       <div class="legend-item" id="legCritical"><span class="legend-dot" style="background:var(--status-critical-ink)"></span> Liquidation / Strike-Off</div>
     </div>
@@ -1104,7 +1104,7 @@
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <input id="q" type="search" placeholder="Query corporate identity, CRN, town or industry (Press '/' to focus)..." aria-label="Search sponsors">
+        <input id="q" type="search" placeholder="Search by employer name, CRN, town, or industry (Press '/' to focus)..." aria-label="Search sponsors">
         <span class="search-keyhint">/</span>
       </div>
       <button class="btn-export" id="btnExport" title="Export current results as CSV (Shortcut: E)">Export CSV</button>
@@ -1112,7 +1112,7 @@
 
     <div class="facets-row">
       <div class="views-group">
-        <button class="view-btn active" id="viewAll" data-view="">Master Index</button>
+        <button class="view-btn active" id="viewAll" data-view="">All Sponsors</button>
         <button class="view-btn" id="viewAdded" data-view="added">Additions <span id="nAdded"></span></button>
         <button class="view-btn" id="viewRemoved" data-view="removed">Revoked <span id="nRemoved"></span></button>
         <button class="view-btn" id="viewDowngraded" data-view="downgraded" style="display:none">Downgraded</button>
@@ -1122,8 +1122,8 @@
       </div>
 
       <div class="facet-selects">
-        <select id="citySelect" aria-label="Filter by city"><option value="">All Jurisdictions</option></select>
-        <select id="industrySelect" aria-label="Filter by industry"><option value="">All Classifications</option></select>
+        <select id="citySelect" aria-label="Filter by city"><option value="">All Towns / Cities</option></select>
+        <select id="industrySelect" aria-label="Filter by industry"><option value="">All Industries</option></select>
         <select id="routeSelect" aria-label="Filter by route"><option value="">All Visa Routes</option></select>
         <select id="ratingSelect" aria-label="Filter by rating">
           <option value="">Rating: All</option>
@@ -1141,17 +1141,17 @@
   <div class="ledger-pane" id="ledgerPane">
     <div id="tableStatus">
       <span>Showing <strong id="matchCount">127,716</strong> verified organisations</span>
-      <span style="font-size:0.7rem; color:var(--ink-faint);"><kbd>J</kbd>/<kbd>K</kbd> Navigate · <kbd>Enter</kbd> Inspect · <kbd>Esc</kbd> Macro</span>
+      <span style="font-size:0.7rem; color:var(--ink-faint);"><kbd>J</kbd>/<kbd>K</kbd> Navigate · <kbd>Enter</kbd> Details · <kbd>Esc</kbd> Overview</span>
     </div>
     
     <table class="gazette-table" id="ledgerTable">
       <thead>
         <tr>
           <th style="width:36px;">★</th>
-          <th>Corporate Identity</th>
-          <th>Jurisdiction</th>
-          <th>Sector Classification</th>
-          <th>Approved Routes</th>
+          <th>Employer Name</th>
+          <th>Town / City</th>
+          <th>Industry</th>
+          <th>Approved Visa Routes</th>
           <th>Status / Rating</th>
         </tr>
       </thead>
@@ -1160,37 +1160,37 @@
       </tbody>
     </table>
     <div id="tableEmpty" style="display:none; padding:40px; text-align:center; color:var(--ink-graphite); font-family:var(--font-mono); font-size:0.85rem;">
-      No corporate records match the active query facets.
+      No employers match the active search filters.
     </div>
     <div id="loadMoreTrigger" style="padding:16px; text-align:center;">
       <button id="btnLoadMore" style="font-family:var(--font-mono); font-size:0.8rem; padding:8px 16px; background:var(--surface-panel); border:1px solid var(--rule-prominent); cursor:pointer;">Load More Records</button>
     </div>
   </div>
 
-  <!-- Right Pane: Forensic Inspection Docket -->
+  <!-- Right Pane: Employer Details & Overview -->
   <aside class="docket-pane" id="docketPane">
     <div class="docket-empty-macro" id="docketEmpty">
       <div class="macro-header">
-        <div class="macro-badge">STATUTORY OBSERVATORY</div>
-        <h2 class="macro-title">Macro Solvency &amp; Churn Dossier</h2>
-        <p class="macro-desc">Cross-referenced Home Office Worker Tier &amp; Companies House Ledger · Rolling 7-Day Observation</p>
+        <div class="macro-badge">REGISTER SUMMARY</div>
+        <h2 class="macro-title">National Register &amp; Weekly Movement Summary</h2>
+        <p class="macro-desc">Official UKVI Worker Sponsor Register &amp; Companies House Filings · Past 7 Days</p>
       </div>
 
       <div class="macro-card-grid">
         <div class="macro-card">
-          <div class="macro-card-label">Weekly Net Drift</div>
+          <div class="macro-card-label">Net Licence Movement</div>
           <div class="macro-stat-val" style="color:var(--status-regular-ink);">+60 <span class="macro-stat-sub">(+302 / -242)</span></div>
-          <div class="macro-stat-note">New registrations outpace revocations by 24.8%</div>
+          <div class="macro-stat-note">302 new licences granted, 242 revoked (past 7 days)</div>
         </div>
         <div class="macro-card">
-          <div class="macro-card-label">Distress Quotient</div>
+          <div class="macro-card-label">Insolvency Risk Rate</div>
           <div class="macro-stat-val" style="color:var(--status-critical-ink);">2.19% <span class="macro-stat-sub">(2,795 orgs)</span></div>
-          <div class="macro-stat-note">Active licences under liquidation / strike-off</div>
+          <div class="macro-stat-note">2,795 sponsors with active liquidation or strike-off filings</div>
         </div>
       </div>
 
       <div class="macro-section">
-        <div class="macro-section-title">Top 5 Revoked Sectors (Rolling Week)</div>
+        <div class="macro-section-title">Licences Revoked by Sector (Past 7 Days)</div>
         <ul class="macro-list">
           <li class="macro-list-item">
             <span class="macro-item-name">Healthcare &amp; Nursing</span>
@@ -1216,7 +1216,7 @@
       </div>
 
       <div class="macro-section">
-        <div class="macro-section-title">Top Jurisdictions by Insolvency Flags</div>
+        <div class="macro-section-title">Insolvency Warnings by Location</div>
         <ul class="macro-list">
           <li class="macro-list-item">
             <span class="macro-item-name">Greater London</span>
@@ -1242,7 +1242,7 @@
       </div>
 
       <div class="macro-section">
-        <div class="macro-section-title">Statutory Compliance Standards</div>
+        <div class="macro-section-title">Salary &amp; Minimum Wage Thresholds</div>
         <div class="macro-standards-box">
           <div class="macro-std-row">
             <span>Skilled Worker Baseline Floor</span>
@@ -1262,8 +1262,8 @@
       <div class="macro-inspection-prompt">
         <div class="prompt-icon">&#9878;</div>
         <div class="prompt-text">
-          <strong>Individual Sponsor Forensic Dossier</strong><br>
-          Select any employer from the table or press <kbd>J</kbd> / <kbd>K</kbd> + <kbd>Enter</kbd> to inspect licence history, corporate autopsy, and salary going rates.
+          <strong>Employer Details &amp; Licence History</strong><br>
+          Select an employer from the table or press <kbd>J</kbd> / <kbd>K</kbd> + <kbd>Enter</kbd> to view licence rating, Companies House filing status, National Minimum Wage findings, and salary going rates.
         </div>
       </div>
     </div>
@@ -1279,7 +1279,7 @@
 
       <!-- Section 1: Home Office Immigration Profile -->
       <div class="docket-section">
-        <div class="docket-heading">1. Home Office Licence Lineage</div>
+        <div class="docket-heading">1. Home Office Licence Details</div>
         <dl class="docket-dl">
           <dt>Licence Rating</dt>
           <dd id="docketRating">—</dd>
@@ -1292,7 +1292,7 @@
 
       <!-- Section 2: Companies House Solvency Autopsy -->
       <div class="docket-section">
-        <div class="docket-heading">2. Companies House Corporate Autopsy</div>
+        <div class="docket-heading">2. Companies House Corporate Status</div>
         <dl class="docket-dl">
           <dt>Corporate Status</dt>
           <dd id="docketStatus">—</dd>
@@ -1306,13 +1306,13 @@
 
       <!-- Section 2.5: National Minimum Wage Underpayment Enforcement -->
       <div class="docket-section" id="docketNmwSection" style="display:none;">
-        <div class="docket-heading" style="color:#92400E;">2.5. National Minimum Wage Enforcement Finding</div>
+        <div class="docket-heading" style="color:#92400E;">2.5. National Minimum Wage Enforcement</div>
         <div id="docketNmwBox" class="docket-advisory nmw-box"></div>
       </div>
 
       <!-- Section 3: Skilled Worker Salary Threshold Calculator -->
       <div class="docket-section">
-        <div class="docket-heading">3. Skilled Worker Threshold Calculator</div>
+        <div class="docket-heading">3. Skilled Worker Salary Threshold</div>
         <div class="calc-box">
           <label style="font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-graphite); display:block; margin-bottom:4px;">
             Select Standard Occupation Code (SOC 2020):
@@ -1338,22 +1338,22 @@
 
       <!-- Section 4: Actionable External Verifications -->
       <div class="docket-section">
-        <div class="docket-heading">4. Official Public Registry Links</div>
+        <div class="docket-heading">4. Public Register Links</div>
         <div class="docket-actions">
           <a class="docket-link" id="linkCH" href="#" target="_blank" rel="noopener">
-            <span>Examine Companies House Public Record</span>
+            <span>View on Companies House</span>
             <span>&rarr;</span>
           </a>
           <a class="docket-link" id="linkGazette" href="#" target="_blank" rel="noopener">
-            <span>Search Insolvency Notices in The Gazette</span>
+            <span>Search notices in The Gazette</span>
             <span>&rarr;</span>
           </a>
           <a class="docket-link" id="linkLinkedIn" href="#" target="_blank" rel="noopener">
-            <span>Search Active Roles on LinkedIn</span>
+            <span>Search jobs on LinkedIn</span>
             <span>&rarr;</span>
           </a>
           <a class="docket-link" id="linkGOV" href="https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers" target="_blank" rel="noopener">
-            <span>Official Home Office Publication</span>
+            <span>View official Home Office register</span>
             <span>&rarr;</span>
           </a>
         </div>
@@ -1365,14 +1365,14 @@
 <!-- Longitudinal Churn Matrix -->
 <section class="wrap">
   <div class="churn-module">
-    <div class="churn-title">Longitudinal Registry Churn Matrix (Rolling Observation)</div>
+    <div class="churn-title">Weekly Register Movements</div>
     <table class="churn-table">
       <thead>
         <tr>
-          <th>Cycle</th>
+          <th>Week</th>
           <th>New Licences (+)</th>
-          <th>Rescinded Licences (-)</th>
-          <th>Net Growth</th>
+          <th>Revoked Licences (-)</th>
+          <th>Net Change</th>
           <th>Rating Downgrades (A &rarr; B)</th>
         </tr>
       </thead>
@@ -1381,14 +1381,14 @@
           <td><strong>2026-W37 (Active)</strong></td>
           <td style="color:var(--status-regular-ink)">+302 organisations</td>
           <td style="color:var(--status-critical-ink)">-242 organisations</td>
-          <td>+60 net expansion</td>
+          <td>+60 net change</td>
           <td>3 organisations</td>
         </tr>
         <tr>
           <td><strong>2026-W36</strong></td>
           <td style="color:var(--status-regular-ink)">+288 organisations</td>
           <td style="color:var(--status-critical-ink)">-261 organisations</td>
-          <td>+27 net expansion</td>
+          <td>+27 net change</td>
           <td>1 organisation</td>
         </tr>
       </tbody>
@@ -1423,7 +1423,7 @@
       <a href="pricing/">Compliance Monitoring (B2B)</a>
       <a href="privacy/">Privacy Statement</a>
     </div>
-    <p>KnowYourSponsor is an independent intelligence terminal built on statutory public registers (UK Home Office, Companies House, and DBT NMW Naming Rounds). Not immigration advice.</p>
+    <p>KnowYourSponsor is an independent public register directory and corporate search tool built on statutory public records (UK Home Office, Companies House, and DBT NMW Naming Rounds). Not immigration advice.</p>
     <p style="margin-top:6px;">Contact: <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a></p>
   </div>
 </footer>
@@ -1610,7 +1610,7 @@
     const warn = warningFor(name);
     const nmw = nmwData[name];
     const key = (name + '|' + town).toLowerCase();
-    const sinceDate = licensedSince[key] || 'Historical baseline';
+    const sinceDate = licensedSince[key] || 'Historical register record';
 
     document.getElementById('docketEmpty').style.display = 'none';
     document.getElementById('docketContent').style.display = 'block';
@@ -1621,12 +1621,12 @@
 
     document.getElementById('docketRating').innerHTML = rating === 'A' 
       ? '<span class="status-badge regular">A-Rating (Approved Standard)</span>' 
-      : (rating === 'B' ? '<span class="status-badge critical">B-Rating (Suspended CoS Privileges)</span>' : esc(rating));
+      : (rating === 'B' ? '<span class="status-badge critical">B-Rating (Action Plan Required)</span>' : esc(rating));
       
     document.getElementById('docketSince').textContent = sinceDate;
     document.getElementById('docketRoutes').textContent = (routes || []).join(', ');
 
-    document.getElementById('docketStatus').textContent = warn && warn.status ? warn.status : 'Active (No Corporate Red Flags)';
+    document.getElementById('docketStatus').textContent = warn && warn.status ? warn.status : 'Active (No filing warnings)';
     document.getElementById('docketIncorp').textContent = warn && warn.incorporated ? warn.incorporated : 'Not specified in registry';
     document.getElementById('docketAccounts').textContent = warn && warn.accounts ? warn.accounts : 'Standard Private Company';
 
@@ -1635,7 +1635,7 @@
     if (warn && (warn.severity === 'serious' || warn.severity === 'notable')) {
       advBox.style.display = 'block';
       advBox.className = 'docket-advisory ' + (warn.severity === 'serious' ? 'critical' : 'warning');
-      advBox.innerHTML = `<strong>Advisory:</strong> ${esc(warn.explanation)} Corporate insolvency or strike-off proceedings legally impair the entity's ability to issue or maintain Certificates of Sponsorship.`;
+      advBox.innerHTML = `<strong>Advisory:</strong> ${esc(warn.explanation)} When a company enters liquidation, administration, or dissolution, its ability to sponsor workers under Home Office rules is affected.`;
     } else {
       advBox.style.display = 'none';
     }
@@ -1732,9 +1732,9 @@
     const verdictEl = document.getElementById('calcVerdict');
     const hourlyStr = occ.hourly_rate ? ` (£${occ.hourly_rate.toFixed(2)}/hr)` : '';
     if (goingRate >= baselineRate) {
-      verdictEl.innerHTML = `<strong>Eligible Standard.</strong> Role requires minimum <strong>£${goingRate.toLocaleString('en-GB')}/yr</strong>${hourlyStr} (50th percentile statutory going rate for SOC ${occ.soc}).`;
+      verdictEl.innerHTML = `<strong>Eligible standard:</strong> Role requires a minimum of <strong>£${goingRate.toLocaleString('en-GB')}/yr</strong>${hourlyStr} (50th percentile statutory going rate for SOC ${occ.soc}).`;
     } else {
-      verdictEl.innerHTML = `<strong>General Threshold Floor.</strong> Occupation going rate is £${goingRate.toLocaleString('en-GB')}/yr, but Home Office rules enforce statutory <strong>£${baselineRate.toLocaleString('en-GB')}/yr</strong> floor (£15.88/hr).`;
+      verdictEl.innerHTML = `<strong>General threshold floor:</strong> Occupation going rate is £${goingRate.toLocaleString('en-GB')}/yr, but Home Office rules enforce the statutory <strong>£${baselineRate.toLocaleString('en-GB')}/yr</strong> floor (£15.88/hr).`;
     }
   }
 
@@ -2044,12 +2044,12 @@
 
     const towns = [...new Set(allSponsors.map(s => s[1]).filter(Boolean))].sort();
     const citySel = document.getElementById('citySelect');
-    citySel.innerHTML = '<option value="">All Jurisdictions</option>' + 
+    citySel.innerHTML = '<option value="">All Towns / Cities</option>' + 
       towns.slice(0, 80).map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join('');
 
     const industries = [...new Set(allSponsors.map(s => s[3]).filter(Boolean))].sort();
     const indSel = document.getElementById('industrySelect');
-    indSel.innerHTML = '<option value="">All Classifications</option>' + 
+    indSel.innerHTML = '<option value="">All Industries</option>' + 
       industries.map(i => `<option value="${esc(i)}">${esc(i)}</option>`).join('');
 
     const routes = [...new Set(allSponsors.flatMap(s => s[4]))].sort();

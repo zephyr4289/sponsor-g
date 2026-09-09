@@ -72,7 +72,7 @@ KnowYourSponsor is engineered as a zero-latency, client-side web application. It
        ├─────────────────────────┤           ├─────────────────────────┤
        │ • Keyboard Grammar      │           │ • In-Memory Flat Index  │
        │ • Virtualized Row Pool  │◄─────────►│ • Bitmask Intersections │
-       │ • Forensic Docket View  │ postMessage│ • Exact/Prefix Scans    │
+       │ • Employer Details Pane │ postMessage│ • Exact/Prefix Scans    │
        │ • SVG Threshold Gauge   │           │ • Off-Thread CSV Engine │
        └─────────────────────────┘           └─────────────────────────┘
                     ▲                                     ▲
@@ -93,10 +93,10 @@ KnowYourSponsor is engineered as a zero-latency, client-side web application. It
 - **Recycled DOM Pool:** The DOM maintains strictly the visible window plus an overscan buffer.
 - **Continuous 120 FPS Rendering:** Elements are positioned via hardware-accelerated transforms, eliminating layout shifts during fast scrolling.
 
-### 3.3 The Forensic Inspection Docket
+### 3.3 Employer Details & Verification Docket
 Selecting any employer (via click or keyboard `J`/`K` + `Enter`) opens the side pane containing:
-1. **Home Office Licence Lineage:** Licence rating tier (A-rating vs B-rating action plan), first-seen inception date, and eligible visa routes.
-2. **Companies House Corporate Autopsy:** Company registration number (CRN), statutory status (active, liquidation, administration, strike-off proposed), corporate age, accounting type, and filing delinquency.
+1. **Home Office Licence Details:** Licence rating tier (A-rating vs B-rating action plan), first-seen inception date, and eligible visa routes.
+2. **Companies House Corporate Status:** Company registration number (CRN), statutory status (active, liquidation, administration, strike-off proposed), corporate age, accounting type, and filing delinquency.
 3. **National Minimum Wage Enforcement Record:** Statutory arrears amount, worker count, and DBT publication round.
 4. **Skilled Worker Salary Threshold Calculator:** Dynamic comparison of the Home Office standard minimum floor (£38,700) against the 50th percentile going rate for the matching SOC 2020 occupation code.
 5. **Statutory External Verification Links:** Direct links to Companies House Beta, The London Gazette Insolvency Notices, and LinkedIn job openings.
@@ -106,10 +106,10 @@ Selecting any employer (via click or keyboard `J`/`K` + `Enter`) opens the side 
 | Key Binding | Target Scope | Action Executed |
 | :--- | :--- | :--- |
 | `/` or `Cmd/Ctrl+K` | Global | Focuses and selects the main search input. |
-| `Escape` | Global | Clears search input; dismisses the Forensic Docket; resets focus. |
+| `Escape` | Global | Clears search input; dismisses the side details docket; resets focus. |
 | `J` or `DownArrow` | Data Table | Moves active highlight down to the next sponsor. |
 | `K` or `UpArrow` | Data Table | Moves active highlight up to the previous sponsor. |
-| `Enter` | Data Table | Expands the selected sponsor's full Forensic Docket. |
+| `Enter` | Data Table | Expands the selected sponsor's full details docket. |
 | `S` | Data Table | Toggles the saved/shortlist status of the highlighted employer. |
 | `E` | Data Table | Triggers an immediate off-thread CSV export of active query results. |
 | `1` – `6` | Quick Views | `[1] All`, `[2] Added`, `[3] Removed`, `[4] Flagged`, `[5] Downgraded`, `[6] NMW`. |
@@ -136,7 +136,7 @@ All 781 pages across the site adhere to a unified editorial design system built 
 
 ```
 .
-├── index.html                  # Main Forensic Ledger & Inspection Terminal
+├── index.html                  # Main Sponsor Register & Verification Directory
 ├── worker.js                   # Dedicated Web Worker Search & Compute Engine
 ├── sw.js                       # Service Worker (Cache v3, Network-First Revalidation)
 ├── manifest.json               # Progressive Web Application (PWA) Manifest
