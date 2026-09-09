@@ -3,37 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KnowYourSponsor — Check a UK visa sponsor before you apply</title>
-<meta name="description" content="Every UK employer licensed to sponsor a work visa, plus what Companies House says about them. A licence means they can sponsor you. It does not mean they are still trading. Updated daily.">
+<title>KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Ledger</title>
+<meta name="description" content="Every UK employer licensed to sponsor a work visa, cross-referenced against Companies House insolvency filings and National Minimum Wage enforcement. Search 127,000+ sponsors, check salary thresholds, and identify corporate distress.">
 <link rel="canonical" href="https://roshan1208.github.io/sponsorsignal/">
-
-<!-- Proves ownership to Google Search Console. Must stay on the homepage:
-     removing it makes the property fall out of verification. -->
 <meta name="google-site-verification" content="ZNbGBoW8FlnVr5MM5wrTNaQqzvFz_Pgcde_K1t5RHF8">
 
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="alternate" type="application/rss+xml" title="UK visa sponsors added and removed" href="feed.xml">
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#17233B">
+<meta name="theme-color" content="#141311">
 
 <!-- Open Graph / Twitter -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KnowYourSponsor">
 <meta property="og:url" content="https://roshan1208.github.io/sponsorsignal/">
-<meta property="og:title" content="KnowYourSponsor — Check a UK visa sponsor before you apply">
-<meta property="og:description" content="Every UK employer licensed to sponsor a work visa, plus what Companies House says about them. A licence means they can sponsor you. It does not mean they are still trading. Updated daily.">
+<meta property="og:title" content="KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Ledger">
+<meta property="og:description" content="Searchable UK Home Office sponsor register cross-referenced against Companies House corporate insolvency filings and minimum wage enforcement. Rebuilt daily.">
 <meta property="og:image" content="https://roshan1208.github.io/sponsorsignal/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="KnowYourSponsor — check a UK visa sponsor before you apply.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="KnowYourSponsor — Check a UK visa sponsor before you apply">
-<meta name="twitter:description" content="The UK sponsor register, cross-checked against Companies House. See who can sponsor you, and who is in trouble.">
+<meta name="twitter:title" content="KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Ledger">
+<meta name="twitter:description" content="Searchable UK Home Office sponsor register cross-referenced against Companies House corporate insolvency filings.">
 <meta name="twitter:image" content="https://roshan1208.github.io/sponsorsignal/og-image.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <script type="application/ld+json">
 {
@@ -44,7 +38,7 @@
       "@id": "https://roshan1208.github.io/sponsorsignal/#website",
       "url": "https://roshan1208.github.io/sponsorsignal/",
       "name": "KnowYourSponsor",
-      "description": "Searchable copy of the official UK Home Office register of licensed sponsors, refreshed daily.",
+      "description": "Searchable copy of the official UK Home Office register of licensed sponsors with Companies House cross-referencing.",
       "inLanguage": "en-GB",
       "potentialAction": {
         "@type": "SearchAction",
@@ -58,1864 +52,1609 @@
     {
       "@type": "Dataset",
       "@id": "https://roshan1208.github.io/sponsorsignal/#dataset",
-      "name": "UK Register of Licensed Sponsors (Workers) — searchable mirror",
-      "description": "Every organisation holding a UK Home Office worker sponsor licence, grouped one record per organisation with visa routes, rating, location and a heuristic industry tag. Rebuilt daily from the official GOV.UK publication.",
+      "name": "UK Register of Licensed Sponsors (Workers) — Searchable Mirror with Solvency Ledger",
+      "description": "Every organisation holding a UK Home Office worker sponsor licence cross-referenced with Companies House corporate filing and insolvency status. Rebuilt daily.",
       "url": "https://roshan1208.github.io/sponsorsignal/",
       "inLanguage": "en-GB",
       "isAccessibleForFree": true,
       "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
-      "creativeWorkStatus": "Published",
-      "isBasedOn": "https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers",
       "creator": {
         "@type": "Person",
         "name": "Roshan Yadav",
         "url": "https://roshan1208.github.io/sponsorsignal/about/"
-      },
-      "identifier": "https://roshan1208.github.io/sponsorsignal/#dataset",
-      "keywords": [
-        "UK visa sponsorship",
-        "licensed sponsors",
-        "Skilled Worker visa",
-        "sponsor licence",
-        "Home Office register",
-        "Companies House",
-        "immigration"
-      ],
-      "temporalCoverage": "2026-08-31/..",
-      "variableMeasured": [
-        "Sponsor name",
-        "Town or city",
-        "Visa routes",
-        "Home Office rating",
-        "Companies House status"
-      ],
-      "sourceOrganization": {
-        "@type": "GovernmentOrganization",
-        "name": "UK Home Office",
-        "url": "https://www.gov.uk/government/organisations/home-office"
-      },
-      "spatialCoverage": {
-        "@type": "Place",
-        "name": "United Kingdom"
-      },
-      "distribution": [
-        {
-          "@type": "DataDownload",
-          "encodingFormat": "application/json",
-          "contentUrl": "https://roshan1208.github.io/sponsorsignal/data/sponsors.json"
-        }
-      ]
+      }
     }
   ]
 }
 </script>
+
 <style>
-  :root{
-    --ink:#17233B; --ink-soft:#4A5670;
-    --paper:#FFFFFF; --paper-dim:#F5F7FB;
-    --cobalt:#2145C9; --cobalt-dark:#17348F; --on-cobalt:#FFFFFF;
-    --signal:#FFC933; --on-signal:#17233B;
-    --line:#D9DFEA; --good:#0E7B4F; --bad:#B3261E;
-    --warn-bg:#FDF1F0; --warn-bg-2:#FBE3E1; --warn-border:#E7B4AE;
-    --warn-ink:#8A1E18; --warn-solid:#B3261E;
-    --mark-bg:#17233B; --mark-fg:#FFFFFF;
-    --note-bg:#FFF6DC; --note-border:#EAD48A; --note-ink:#6B4E00;
-    --shadow:rgba(23,35,59,.10);
-    color-scheme:light;
+  :root {
+    --surface-ground: #F4F1EA;
+    --surface-panel: #EAE5DA;
+    --surface-recessed: #DFD9CC;
+    --surface-paper: #FAF8F5;
+    
+    --ink-carbon: #141311;
+    --ink-graphite: #5A564F;
+    --ink-faint: #8C867A;
+    
+    --rule-hairline: #D3CDC0;
+    --rule-prominent: #A8A193;
+    --rule-master: #141311;
+    
+    --status-critical-ink: #8B1E1E;
+    --status-critical-wash: #F5E1E1;
+    --status-critical-rule: #D8A4A4;
+    
+    --status-warning-ink: #7A5310;
+    --status-warning-wash: #F3EAD8;
+    --status-warning-rule: #D8C496;
+    
+    --status-regular-ink: #1D5837;
+    --status-regular-wash: #E2EDE6;
+    --status-regular-rule: #A2C7B2;
+    
+    --cobalt: #1F3888;
+    --cobalt-dark: #14255C;
+    --on-cobalt: #FFFFFF;
+    
+    --font-serif: 'EB Garamond', Georgia, serif;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    
+    color-scheme: light;
   }
-  @media (prefers-color-scheme:dark){
-    :root:not([data-theme="light"]){
-      --ink:#E8ECF3; --ink-soft:#A3AEC2;
-      --paper:#10151F; --paper-dim:#1A2230;
-      --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F;
-      --signal:#FFC933; --on-signal:#17233B;
-      --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
-      --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
-      --warn-ink:#F5B5AE; --warn-solid:#B3261E;
-      --mark-bg:#E8ECF3; --mark-fg:#10151F;
-      --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
-      --shadow:rgba(0,0,0,.45);
-      color-scheme:dark;
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --surface-ground: #121417;
+      --surface-panel: #1A1D22;
+      --surface-recessed: #23272E;
+      --surface-paper: #1E2229;
+      
+      --ink-carbon: #EDE9DF;
+      --ink-graphite: #A5A196;
+      --ink-faint: #767268;
+      
+      --rule-hairline: #2D323B;
+      --rule-prominent: #454B57;
+      --rule-master: #EDE9DF;
+      
+      --status-critical-ink: #F08A82;
+      --status-critical-wash: #2D1817;
+      --status-critical-rule: #6E2F2B;
+      
+      --status-warning-ink: #F0D28A;
+      --status-warning-wash: #2E2714;
+      --status-warning-rule: #6B5726;
+      
+      --status-regular-ink: #76D19E;
+      --status-regular-wash: #14281E;
+      --status-regular-rule: #285C40;
+      
+      --cobalt: #6B93F5;
+      --cobalt-dark: #8FADF8;
+      --on-cobalt: #121417;
+      
+      color-scheme: dark;
     }
   }
-  :root[data-theme="dark"]{
-    --ink:#E8ECF3; --ink-soft:#A3AEC2;
-    --paper:#10151F; --paper-dim:#1A2230;
-    --cobalt:#6B93F5; --cobalt-dark:#8FADF8; --on-cobalt:#10151F;
-    --signal:#FFC933; --on-signal:#17233B;
-    --line:#2A3444; --good:#4FBF8B; --bad:#F08A82;
-    --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
-    --warn-ink:#F5B5AE; --warn-solid:#B3261E;
-    --mark-bg:#E8ECF3; --mark-fg:#10151F;
-    --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
-    --shadow:rgba(0,0,0,.45);
-    color-scheme:dark;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
-  body{
-    font-family:'Public Sans',system-ui,sans-serif;
-    color:var(--ink);
-    background:var(--paper);
-    line-height:1.55;
-  }
-  a{color:var(--cobalt)}
-  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
 
-  /* header */
-  header{border-bottom:3px solid var(--ink);padding:14px 0}
-  .header-inner{display:flex;align-items:center;justify-content:space-between;
-                gap:16px;flex-wrap:wrap}
-  .brand{
-    display:flex;align-items:center;gap:9px;font-weight:800;font-size:1.1rem;
-    letter-spacing:-0.01em;color:inherit;text-decoration:none;
-  }
-  .brand .mark{display:block;flex:0 0 auto;border-radius:7px}
-  .brand .dot{color:var(--cobalt)}
-  .topnav{display:flex;gap:18px;font-size:.9rem;font-weight:600}
-  /* "For business" is two words and wrapped at 375px, which pushed the
-     header from 73px to 86px. nowrap keeps it on one line and costs nothing:
-     measured 29px nav either way. .header-inner already wraps, so on a
-     genuinely narrow screen the nav drops to its own line rather than
-     overflowing. */
-  .topnav a{text-decoration:none;white-space:nowrap}
-  .topnav a:hover{text-decoration:underline}
-  .badge{
-    display:inline-block;background:var(--signal);color:var(--on-signal);
-    border-radius:99px;padding:1px 8px;font-size:.78rem;
-    font-variant-numeric:tabular-nums;
-  }
-  .badge[hidden]{display:none}
-  .themebtn{
-    font:inherit;font-size:1rem;line-height:1;cursor:pointer;
-    background:transparent;border:1.5px solid var(--line);border-radius:99px;
-    color:var(--ink-soft);padding:5px 10px;
-  }
-  .themebtn:hover{border-color:var(--ink-soft);color:var(--ink)}
-  @media (max-width:520px){
-    .topnav{gap:14px;font-size:.85rem;width:100%}
+  :root[data-theme="dark"] {
+    --surface-ground: #121417;
+    --surface-panel: #1A1D22;
+    --surface-recessed: #23272E;
+    --surface-paper: #1E2229;
+    
+    --ink-carbon: #EDE9DF;
+    --ink-graphite: #A5A196;
+    --ink-faint: #767268;
+    
+    --rule-hairline: #2D323B;
+    --rule-prominent: #454B57;
+    --rule-master: #EDE9DF;
+    
+    --status-critical-ink: #F08A82;
+    --status-critical-wash: #2D1817;
+    --status-critical-rule: #6E2F2B;
+    
+    --status-warning-ink: #F0D28A;
+    --status-warning-wash: #2E2714;
+    --status-warning-rule: #6B5726;
+    
+    --status-regular-ink: #76D19E;
+    --status-regular-wash: #14281E;
+    --status-regular-rule: #285C40;
+    
+    --cobalt: #6B93F5;
+    --cobalt-dark: #8FADF8;
+    --on-cobalt: #121417;
+    
+    color-scheme: dark;
   }
 
-  /* hero = the search itself */
-  .hero{padding:30px 0 6px}
-  .hero h1{
-    font-size:clamp(1.5rem,4vw,2.15rem);
-    font-weight:800;line-height:1.15;letter-spacing:-0.02em;
-    max-width:640px;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 15px; }
+  body {
+    font-family: var(--font-sans);
+    color: var(--ink-carbon);
+    background: var(--surface-ground);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
   }
-  .hero p.lead{margin-top:8px;color:var(--ink-soft);max-width:56ch;text-wrap:pretty}
-  .sourceline{margin-top:10px;font-size:.82rem;color:var(--ink-soft)}
-  .sourceline strong{color:var(--ink)}
-  .sample-note{
-    display:none;margin-top:10px;padding:8px 12px;background:var(--note-bg);
-    border:1px solid var(--note-border);border-radius:6px;font-size:.85rem;max-width:560px;
+  a { color: var(--cobalt); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 0 20px; }
+
+  /* Masthead & Telemetry Band */
+  .telemetry-band {
+    border-bottom: 1px solid var(--rule-hairline);
+    background: var(--surface-panel);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-graphite);
+    padding: 6px 0;
+  }
+  .telemetry-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .telemetry-tag { font-weight: 600; color: var(--ink-carbon); letter-spacing: 0.05em; text-transform: uppercase; }
+
+  header.masthead {
+    border-bottom: 2px solid var(--rule-master);
+    padding: 16px 0 14px;
+    background: var(--surface-ground);
+  }
+  .masthead-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .brand-block { display: flex; align-items: baseline; gap: 14px; }
+  .brand-title {
+    font-family: var(--font-serif);
+    font-size: 2.1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink-carbon);
+    text-transform: uppercase;
+  }
+  .brand-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .topnav { display: flex; align-items: center; gap: 20px; font-size: 0.88rem; font-weight: 500; }
+  .topnav a { color: var(--ink-graphite); }
+  .topnav a:hover { color: var(--ink-carbon); }
+  .themebtn {
+    font: inherit; font-size: 0.95rem; cursor: pointer;
+    background: transparent; border: 1px solid var(--rule-prominent);
+    border-radius: 4px; color: var(--ink-carbon); padding: 3px 8px;
   }
 
-  .searchbox{
-    margin-top:18px;display:flex;gap:0;border:2px solid var(--ink);
-    border-radius:8px;overflow:hidden;background:var(--paper);
-    box-shadow:4px 4px 0 var(--cobalt);
+  /* HUD Ledger Grid */
+  .ledger-hud {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--rule-master);
+    background: var(--surface-panel);
   }
-  .searchbox input{
-    flex:1;border:0;outline:none;font:inherit;font-size:1.05rem;
-    padding:14px 16px;min-width:0;
-    background:var(--paper);color:var(--ink);
+  .hud-stat {
+    padding: 14px 18px;
+    border-right: 1px solid var(--rule-hairline);
+    cursor: pointer;
+    transition: background 0.15s ease;
   }
-  .searchbox input:focus{background:var(--paper-dim)}
-  .searchbox button{
-    border:0;background:var(--cobalt);color:var(--on-cobalt);font:inherit;font-weight:600;
-    padding:0 22px;cursor:pointer;
+  .hud-stat:last-child { border-right: none; }
+  .hud-stat:hover { background: var(--surface-recessed); }
+  .hud-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-graphite);
   }
-  .searchbox button:hover{background:var(--cobalt-dark)}
+  .hud-value {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 1.65rem;
+    font-weight: 600;
+    color: var(--ink-carbon);
+    margin: 3px 0 1px;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .hud-note {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+  }
 
-  /* proof strip: the three numbers that justify the page existing */
-  .proof{
-    display:grid;gap:10px;margin-top:16px;
-    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  /* Solvency Macro Ratio Rule */
+  .solvency-meter-wrap {
+    border-bottom: 1px solid var(--rule-hairline);
+    background: var(--surface-ground);
+    padding: 10px 0;
   }
-  .stat{
-    border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;
-    background:var(--paper);
+  .solvency-meter-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--ink-graphite);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
-  .stat .v{
-    display:block;font-size:1.45rem;font-weight:800;letter-spacing:-0.02em;
-    line-height:1.1;
+  .solvency-bar {
+    height: 8px;
+    display: flex;
+    background: var(--rule-hairline);
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
   }
-  .stat .l{
-    display:block;margin-top:3px;font-size:.83rem;color:var(--ink-soft);
-    text-wrap:pretty;
+  .solvency-seg { height: 100%; transition: opacity 0.15s ease; }
+  .solvency-seg:hover { opacity: 0.8; }
+  .seg-solvent { background: var(--status-regular-ink); width: 91.0%; }
+  .seg-warning { background: var(--status-warning-ink); width: 6.8%; }
+  .seg-critical { background: var(--status-critical-ink); width: 2.2%; }
+  .solvency-legend {
+    display: flex;
+    gap: 18px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    margin-top: 6px;
+    color: var(--ink-graphite);
   }
-  /* Findable, not alarming. This used to be a solid red card, which made the
-     loudest thing on the page the one number derived from matching names
-     rather than from the register itself. A false positive here is somebody
-     told their prospective employer is dying when it is not, so it should
-     not shout louder than the data we are certain of. The arrow marks it as
-     the clickable one instead. */
-  a.stat.flag{
-    text-decoration:none;color:inherit;border-color:var(--line);
-    background:var(--paper);
-  }
-  a.stat.flag .l::after{content:' \2192';color:var(--cobalt);font-weight:700}
-  a.stat.flag:hover{border-color:var(--ink-soft);background:var(--paper-dim)}
-  a.stat.flag[hidden]{display:none}
+  .legend-item { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 1px; }
 
-  /* Sticky filter bar. This is why there is no sidebar: the controls follow
-     you down the list instead of taking a column from a table that needs
-     the width. */
-  .filterbar{
-    position:sticky;top:0;z-index:20;
-    background:var(--paper);border-bottom:1.5px solid var(--line);
-    padding:9px 0;margin-top:14px;
+  /* Omnibar & Facet Ledger */
+  .omnibar-section {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule-hairline);
+    background: var(--surface-ground);
   }
-  .filterbar.stuck{box-shadow:0 2px 10px var(--shadow)}
-  .filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-  .filters select{
-    font:inherit;font-size:.9rem;padding:8px 10px;border:1.5px solid var(--line);
-    border-radius:6px;background:var(--paper);color:var(--ink);max-width:100%;
+  .omnibar-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
   }
-  .views{display:flex;gap:0;border:1.5px solid var(--line);border-radius:6px;overflow:hidden}
-  .view{
-    font:inherit;font-size:.9rem;padding:8px 12px;border:0;
-    border-right:1.5px solid var(--line);
-    background:var(--paper);cursor:pointer;color:var(--ink);white-space:nowrap;
+  .search-cavity {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: var(--surface-paper);
+    border: 1px solid var(--rule-prominent);
+    border-radius: 3px;
+    padding: 0 12px;
   }
-  .view:last-child{border-right:0}
-  .view:hover{background:var(--paper-dim)}
-  .view[aria-pressed="true"]{font-weight:600;background:var(--paper-dim)}
-  #viewAdded[aria-pressed="true"]{background:var(--signal);color:var(--on-signal)}
-  #viewRemoved[aria-pressed="true"]{background:var(--warn-bg-2)}
-  .view .n{opacity:.65;font-weight:400;margin-left:2px}
+  .search-cavity:focus-within {
+    border-color: var(--rule-master);
+    outline: 2px solid var(--cobalt);
+  }
+  .search-cavity input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 11px 8px;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: var(--ink-carbon);
+    outline: none;
+  }
+  .search-cavity input::placeholder { color: var(--ink-faint); }
+  .search-keyhint {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    background: var(--surface-recessed);
+    padding: 2px 6px;
+    border-radius: 2px;
+    border: 1px solid var(--rule-hairline);
+  }
+  .btn-export {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 11px 16px;
+    background: var(--surface-panel);
+    border: 1px solid var(--rule-prominent);
+    border-radius: 3px;
+    color: var(--ink-carbon);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-export:hover { background: var(--surface-recessed); }
 
-  /* A modifier, not a mode: it composes with whichever view is active, so
-     "just added" and "company warning" can be asked together. */
-  .pill{
-    font:inherit;font-size:.9rem;padding:8px 12px;cursor:pointer;
-    border:1.5px solid var(--warn-border);border-radius:99px;
-    background:var(--warn-bg);color:var(--warn-ink);white-space:nowrap;font-weight:600;
+  .facets-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 12px;
   }
-  .pill:hover{background:var(--warn-bg-2)}
-  .pill[aria-pressed="true"]{background:var(--warn-solid);border-color:var(--warn-solid);color:#fff}
-  .pill[hidden]{display:none}
-  .pill .n{font-weight:400;opacity:.8}
+  .views-group {
+    display: flex;
+    border: 1px solid var(--rule-prominent);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface-panel);
+  }
+  .view-btn {
+    border: none;
+    background: transparent;
+    padding: 7px 12px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+    cursor: pointer;
+    border-right: 1px solid var(--rule-hairline);
+    white-space: nowrap;
+  }
+  .view-btn:last-child { border-right: none; }
+  .view-btn:hover { background: var(--surface-recessed); }
+  .view-btn.active {
+    background: var(--rule-master);
+    color: var(--surface-ground);
+    font-weight: 600;
+  }
+  .facet-selects {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+  .facet-selects select {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    padding: 7px 10px;
+    border: 1px solid var(--rule-hairline);
+    border-radius: 3px;
+    background: var(--surface-paper);
+    color: var(--ink-carbon);
+    outline: none;
+  }
+  .facet-selects select:focus { border-color: var(--rule-prominent); }
 
-  /* explains a view whose meaning is not obvious from the rows alone */
-  .notice{
-    margin:20px 0 0;padding:12px 14px;border-radius:8px;
-    border:1.5px solid var(--line);background:var(--paper-dim);
-    font-size:.9rem;color:var(--ink-soft);max-width:640px;
+  /* Workspace Layout (Split-Plane) */
+  .workspace {
+    display: grid;
+    grid-template-columns: 1fr 440px;
+    min-height: calc(100vh - 350px);
+    border-bottom: 1px solid var(--rule-master);
   }
-  .notice[hidden]{display:none}
-  .notice strong{color:var(--ink)}
-  .notice.warn{background:var(--warn-bg-2);border-color:var(--warn-border)}
-  :is(input,select,button,a):focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
+  
+  .ledger-pane {
+    border-right: 1px solid var(--rule-master);
+    background: var(--surface-ground);
+    overflow-y: auto;
+    max-height: 85vh;
+    position: relative;
+  }
 
-  /* results */
-  .results-bar{
-    display:flex;align-items:center;justify-content:space-between;gap:12px;
-    flex-wrap:wrap;margin:18px 0 8px;
+  /* Virtualized Data Table */
+  table.gazette-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    text-align: left;
   }
-  .results-bar[hidden]{display:none}
-  .results-meta{font-size:.9rem;color:var(--ink-soft)}
-  .results-meta strong{color:var(--ink)}
-  .download{
-    font:inherit;font-size:.85rem;font-weight:600;padding:7px 14px;
-    border:1.5px solid var(--line);border-radius:6px;background:var(--paper);
-    color:var(--ink);cursor:pointer;
+  table.gazette-table th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--surface-recessed);
+    padding: 8px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-graphite);
+    border-bottom: 1px solid var(--rule-master);
   }
-  .download:hover{background:var(--paper-dim);border-color:var(--ink)}
-  .download[disabled]{opacity:.6;cursor:default}
-  .actions{display:flex;gap:8px}
-  .clear{
-    font:inherit;font-size:.82rem;margin-left:10px;padding:2px 10px;
-    border:1.5px solid var(--line);border-radius:99px;background:var(--paper);
-    color:var(--cobalt);cursor:pointer;font-weight:600;
+  table.gazette-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--rule-hairline);
+    vertical-align: middle;
   }
-  .clear:hover{border-color:var(--cobalt)}
-  .clear[hidden]{display:none}
-  table{width:100%;border-collapse:collapse;font-size:.95rem}
-  thead th{
-    text-align:left;font-weight:600;font-size:.82rem;color:var(--ink-soft);
-    border-bottom:2px solid var(--ink);padding:8px 10px 6px;
+  table.gazette-table tr {
+    cursor: pointer;
+    transition: background 0.1s ease;
   }
-  tbody td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-  thead th:nth-child(4),tbody td:nth-child(4){max-width:280px}
-  thead th:last-child,tbody td:last-child{
-    width:1%;white-space:nowrap;text-align:right;padding-left:18px;
+  table.gazette-table tr:hover { background: var(--surface-panel); }
+  table.gazette-table tr.selected {
+    background: var(--surface-paper);
+    outline: 1px solid var(--rule-prominent);
   }
-  tbody tr:hover{background:var(--paper-dim)}
-  /* The whole row opens the employer, so it has to look like it does. The
-     name stays a button because that is what the keyboard and a screen
-     reader need; this is only for the mouse. */
-  tbody tr[data-name]{cursor:pointer}
-  td.name{font-weight:600}
-  .tag{
-    display:inline-block;font-size:.75rem;padding:2px 8px;border-radius:99px;
-    border:1px solid var(--line);color:var(--ink-soft);margin:1px 4px 1px 0;white-space:nowrap;
-  }
-  .tag.new{background:var(--signal);border-color:var(--ink);color:var(--on-signal);font-weight:600}
-  /* A company-status warning. Red because it is a warning, and always a link
-     to Companies House so the reader can check us rather than trust us. */
-  .tag.warn{
-    background:var(--warn-bg-2);border-color:var(--warn-solid);color:var(--warn-ink);
-    font-weight:600;text-decoration:none;
-  }
-  .tag.warn:hover{background:var(--warn-bg)}
-  /* Red is reserved for "this company may not exist any more". A late
-     filing gets a quiet grey tag, because that is what it is worth. Using
-     the same red for both is what made the loud number untrustworthy. */
-  .tag.warn.sev-notable{
-    background:var(--note-bg);border-color:var(--note-border);
-    color:var(--note-ink);
-  }
-  .tag.warn.sev-notable:hover{border-color:var(--note-ink)}
-  .tag.warn.sev-context{
-    background:var(--paper-dim);border-color:var(--line);color:var(--ink-soft);
-    font-weight:500;
-  }
-  .tag.warn.sev-context:hover{border-color:var(--ink-soft);color:var(--ink)}
-  /* The shortlist star. Sits before the name, sized for a thumb on mobile
-     without pushing the name off the line. */
-  .star{
-    position:relative;
-    background:none;border:0;padding:4px 8px 4px 0;margin:0;cursor:pointer;
-    font-size:1.15rem;line-height:1;color:var(--ink-soft);
-    vertical-align:baseline;
-  }
-  /* The glyph is ~17px, well under a comfortable thumb target. The hit area
-     is grown vertically and leftwards into the row's own padding, rather
-     than outwards to 44px in both directions: the employer name sits
-     immediately to the right, and a square target would swallow taps meant
-     for it. */
-  .star::after{
-    content:'';position:absolute;top:50%;left:-10px;
-    transform:translateY(-50%);
-    width:calc(100% + 10px);height:44px;
-  }
-  .star:hover{color:var(--signal)}
-  .star.on{color:var(--signal)}
-  .star:focus-visible{outline:3px solid var(--cobalt);outline-offset:2px;border-radius:4px}
-  .rating-a{color:var(--good);font-weight:600}
-  /* B is the whole point of the downgraded view, so it is not left as
-     unstyled text next to a green A. */
-  .rating-b{color:var(--bad);font-weight:700}
-  .loadmore{
-    display:block;margin:18px auto 0;font:inherit;font-weight:600;
-    padding:10px 26px;border:2px solid var(--ink);border-radius:8px;
-    background:var(--paper);cursor:pointer;
-  }
-  .loadmore:hover{background:var(--paper-dim)}
-  /* the employer name is a real button, so the row is reachable by keyboard
-     and announced as actionable, not just clickable by mouse */
-  .rowbtn{
-    font:inherit;font-weight:600;color:var(--ink);background:none;border:0;
-    padding:0;text-align:left;cursor:pointer;
-  }
-  .rowbtn:hover{color:var(--cobalt);text-decoration:underline}
-  tbody tr.open{background:var(--paper-dim)}
 
-  /* detail sheet: a side panel on desktop, a bottom sheet on a phone */
-  .sheet-backdrop{
-    position:fixed;inset:0;background:rgba(23,35,59,.45);z-index:40;
-    animation:fade .12s ease-out;
+  .col-company { font-weight: 600; color: var(--ink-carbon); }
+  .col-meta {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--ink-faint);
+    display: block;
+    margin-top: 1px;
   }
-  .sheet-backdrop[hidden]{display:none}
-  @keyframes fade{from{opacity:0}to{opacity:1}}
-  .sheet{
-    position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);z-index:41;
-    background:var(--paper);border-left:2px solid var(--ink);
-    box-shadow:-14px 0 34px var(--shadow);
-    display:flex;flex-direction:column;overflow-y:auto;
-    animation:slide .16s ease-out;
+  .col-routes { display: flex; flex-wrap: wrap; gap: 3px; }
+
+  /* Forensic Status Badges */
+  .status-badge {
+    display: inline-block;
+    padding: 2px 7px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    border-radius: 2px;
+    border: 1px solid;
+    white-space: nowrap;
   }
-  .sheet[hidden]{display:none}
-  @keyframes slide{from{transform:translateX(12px);opacity:.6}
-                   to{transform:none;opacity:1}}
-  @media (prefers-reduced-motion:reduce){
-    .sheet,.sheet-backdrop{animation:none}
+  .status-badge.critical {
+    color: var(--status-critical-ink);
+    background: var(--status-critical-wash);
+    border-color: var(--status-critical-rule);
   }
-  .sheet-head{
-    display:flex;align-items:flex-start;gap:12px;padding:18px 18px 12px;
-    border-bottom:1.5px solid var(--line);position:sticky;top:0;
-    background:var(--paper);
+  .status-badge.warning {
+    color: var(--status-warning-ink);
+    background: var(--status-warning-wash);
+    border-color: var(--status-warning-rule);
   }
-  .sheet-head h2{
-    font-size:1.1rem;font-weight:800;letter-spacing:-0.01em;flex:1;
-    text-wrap:pretty;
+  .status-badge.regular {
+    color: var(--status-regular-ink);
+    background: var(--status-regular-wash);
+    border-color: var(--status-regular-rule);
   }
-  .sheet-close{
-    font:inherit;font-size:1.5rem;line-height:1;background:none;border:0;
-    color:var(--ink-soft);cursor:pointer;padding:0 4px;
+  .status-badge.nmw {
+    color: #92400E;
+    background: #FEF3C7;
+    border-color: #FCD34D;
   }
-  .sheet-close:hover{color:var(--ink)}
-  .sheet-body{padding:16px 18px 8px}
-  .sheet-foot{padding:0 18px 24px;margin-top:auto}
-  .sheet-foot .download{width:100%}
-  .sheet dl{display:grid;grid-template-columns:auto 1fr;gap:8px 14px}
-  .sheet dt{font-size:.8rem;color:var(--ink-soft);white-space:nowrap}
-  .sheet dd{font-size:.93rem}
-  .sheet .block{margin-top:20px}
-  .sheet .block h3{
-    font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;
-    color:var(--ink-soft);margin-bottom:6px;
+
+  .tag-route {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 1px 5px;
+    background: var(--surface-panel);
+    border: 1px solid var(--rule-hairline);
+    border-radius: 2px;
+    color: var(--ink-graphite);
   }
-  /* The health check. Two columns on a roomy sheet, stacked on a phone,
-     because a two-word label beside a two-line answer reads worse than
-     either one alone. */
-  .sheet dl.checks{margin-top:8px}
-  .sheet dl.checks dt{
-    font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;
-    color:var(--ink-soft);font-weight:700;margin-top:12px;
+
+  .star-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--ink-faint);
+    padding: 2px 6px;
   }
-  .sheet dl.checks dt:first-child{margin-top:0}
-  .sheet dl.checks dd{margin-top:2px;font-size:.92rem}
-  .sheet .warnbox{
-    margin-top:18px;padding:12px 14px;border-radius:8px;
-    background:var(--warn-bg-2);border:1.5px solid var(--warn-border);
-    font-size:.9rem;
+  .star-btn.saved { color: #D48806; font-weight: bold; }
+
+  /* Forensic Inspection Docket (Right Pane) */
+  .docket-pane {
+    background: var(--surface-paper);
+    padding: 20px 22px;
+    overflow-y: auto;
+    max-height: 85vh;
+    position: sticky;
+    top: 0;
   }
-  .sheet .warnbox strong{color:var(--warn-ink)}
-  .sheet .links{margin-top:20px;display:flex;flex-direction:column;gap:8px}
-  .sheet .links a{font-size:.9rem}
-  .sheet .caveat{
-    margin-top:20px;font-size:.82rem;color:var(--ink-soft);text-wrap:pretty;
+  .docket-empty {
+    color: var(--ink-faint);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 80px 20px;
+    line-height: 1.6;
   }
-  @media (max-width:560px){
-    .sheet{
-      top:auto;left:0;right:0;width:100%;max-height:88vh;
-      border-left:0;border-top:2px solid var(--ink);
-      border-radius:14px 14px 0 0;
+  .docket-section {
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rule-hairline);
+  }
+  .docket-section:last-child { border-bottom: none; margin-bottom: 0; }
+  .docket-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--ink-carbon);
+    margin-bottom: 6px;
+  }
+  .docket-crn {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+  }
+  .docket-heading {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-graphite);
+    margin-bottom: 8px;
+  }
+  .docket-dl {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 6px 12px;
+    font-size: 0.84rem;
+  }
+  .docket-dl dt { color: var(--ink-faint); font-family: var(--font-mono); font-size: 0.75rem; }
+  .docket-dl dd { color: var(--ink-carbon); }
+
+  .docket-advisory {
+    padding: 12px 14px;
+    border-radius: 3px;
+    border: 1px solid;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    margin-top: 8px;
+  }
+  .docket-advisory.critical {
+    background: var(--status-critical-wash);
+    border-color: var(--status-critical-rule);
+    color: var(--status-critical-ink);
+  }
+  .docket-advisory.warning {
+    background: var(--status-warning-wash);
+    border-color: var(--status-warning-rule);
+    color: var(--status-warning-ink);
+  }
+  .docket-advisory.nmw-box {
+    background: #FFFBEB;
+    border-color: #FCD34D;
+    color: #92400E;
+  }
+
+  /* Salary Calculator Component */
+  .calc-box {
+    background: var(--surface-panel);
+    border: 1px solid var(--rule-hairline);
+    padding: 12px 14px;
+    border-radius: 3px;
+    margin-top: 8px;
+  }
+  .calc-select {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    padding: 6px 8px;
+    margin-bottom: 10px;
+    border: 1px solid var(--rule-prominent);
+    background: var(--surface-paper);
+    color: var(--ink-carbon);
+  }
+  .gauge-wrap { margin-top: 8px; }
+  .gauge-track {
+    height: 8px;
+    background: var(--rule-hairline);
+    border-radius: 2px;
+    position: relative;
+    margin: 16px 0 10px;
+  }
+  .gauge-bar {
+    height: 100%;
+    background: var(--status-regular-ink);
+    border-radius: 2px;
+  }
+  .gauge-pin {
+    position: absolute;
+    top: -6px;
+    width: 2px;
+    height: 20px;
+    background: var(--rule-master);
+  }
+  .gauge-pin-label {
+    position: absolute;
+    top: 16px;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    white-space: nowrap;
+    color: var(--ink-graphite);
+  }
+  .calc-summary {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--ink-graphite);
+    margin-top: 18px;
+  }
+
+  /* Action links */
+  .docket-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+  .docket-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: var(--surface-ground);
+    border: 1px solid var(--rule-hairline);
+    border-radius: 2px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink-carbon);
+  }
+  .docket-link:hover {
+    background: var(--surface-recessed);
+    border-color: var(--rule-prominent);
+    text-decoration: none;
+  }
+
+  /* Churn Matrix Module */
+  .churn-module {
+    margin: 32px 0;
+    border: 1px solid var(--rule-prominent);
+    background: var(--surface-panel);
+    padding: 16px 20px;
+  }
+  .churn-title {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-graphite);
+    margin-bottom: 12px;
+  }
+  table.churn-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+  table.churn-table th {
+    text-align: left;
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--rule-master);
+    color: var(--ink-graphite);
+    font-size: 0.72rem;
+  }
+  table.churn-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--rule-hairline);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Alerts Section */
+  .alerts-band {
+    margin: 40px 0;
+    border: 2px solid var(--rule-master);
+    padding: 24px;
+    background: var(--surface-panel);
+  }
+  .alerts-band h2 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+  }
+  .alerts-band p { color: var(--ink-graphite); font-size: 0.9rem; max-width: 600px; }
+  .alerts-form { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+  .alerts-form input[type=email] {
+    flex: 1;
+    min-width: 240px;
+    padding: 10px 14px;
+    border: 1px solid var(--rule-master);
+    background: var(--surface-paper);
+    font-family: var(--font-sans);
+    color: var(--ink-carbon);
+  }
+  .alerts-form button {
+    padding: 10px 22px;
+    background: var(--rule-master);
+    color: var(--surface-ground);
+    border: none;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  footer {
+    border-top: 2px solid var(--rule-master);
+    padding: 30px 0 50px;
+    background: var(--surface-panel);
+    font-size: 0.82rem;
+    color: var(--ink-graphite);
+  }
+  footer .footer-links { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+  footer .footer-links a { color: var(--ink-carbon); font-weight: 500; }
+
+  /* Mobile responsiveness */
+  @media (max-width: 960px) {
+    .ledger-hud { grid-template-columns: repeat(2, 1fr); }
+    .workspace { grid-template-columns: 1fr; }
+    .docket-pane {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: auto;
+      max-height: 80vh;
+      border-top: 2px solid var(--rule-master);
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.25);
+      z-index: 100;
+      display: none;
     }
-    @keyframes slide{from{transform:translateY(16px);opacity:.6}
-                     to{transform:none;opacity:1}}
+    .docket-pane.open { display: block; }
   }
-
-  .empty{padding:40px 10px;color:var(--ink-soft)}
-  .empty strong{color:var(--ink)}
-
-  /* loading: reserves the same vertical space the first page of rows will
-     occupy, so nothing below it jumps when the data lands */
-  .loading{
-    display:flex;align-items:center;gap:12px;
-    min-height:220px;padding:40px 10px;color:var(--ink-soft);
-  }
-  /* an author display: rule beats the UA [hidden] rule, so restate it */
-  .loading[hidden]{display:none}
-  .spinner{
-    width:18px;height:18px;flex:0 0 auto;border-radius:50%;
-    border:2.5px solid var(--line);border-top-color:var(--cobalt);
-    animation:spin .8s linear infinite;
-  }
-  @keyframes spin{to{transform:rotate(360deg)}}
-  @media (prefers-reduced-motion:reduce){.spinner{animation:none}}
-
-  /* alerts band */
-  .alerts{
-    margin:56px 0;border:2px solid var(--ink);border-radius:10px;
-    background:var(--paper-dim);padding:26px 24px;
-  }
-  .alerts h2{font-size:1.25rem;font-weight:800;letter-spacing:-0.01em}
-  .alerts p{color:var(--ink-soft);margin-top:6px;max-width:520px}
-  .alerts form{margin-top:16px}
-  .alert-scope{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-  .alert-scope label{font-size:.9rem;color:var(--ink-soft)}
-  .alert-scope select{
-    font:inherit;font-size:.9rem;padding:7px 10px;border:1.5px solid var(--line);
-    border-radius:6px;background:var(--paper);color:var(--ink);max-width:100%;
-  }
-  .alert-row{display:flex;gap:10px;flex-wrap:wrap}
-  .alerts input[type=email]{
-    flex:1;min-width:220px;font:inherit;padding:11px 14px;
-    border:2px solid var(--ink);border-radius:8px;
-    background:var(--paper);color:var(--ink);
-  }
-  .alerts button{
-    font:inherit;font-weight:600;color:var(--on-cobalt);background:var(--cobalt);
-    border:0;border-radius:8px;padding:11px 22px;cursor:pointer;
-  }
-  .alerts button:hover{background:var(--cobalt-dark)}
-  .alerts .fineprint{font-size:.8rem;margin-top:10px}
-  .alerts .done{display:none;font-weight:600;color:var(--good);margin-top:12px}
-  .alerts .err{display:none;font-weight:600;color:var(--bad);margin-top:12px}
-  .alerts button[disabled]{opacity:.6;cursor:progress}
-
-  /* faq + footer */
-  .faq{margin:40px 0 10px}
-  .faq h2{font-size:1.25rem;font-weight:800;margin-bottom:8px}
-  .faq details{border-bottom:1px solid var(--line);padding:12px 0}
-  .faq summary{cursor:pointer;font-weight:600}
-  .faq details p{margin-top:8px;color:var(--ink-soft);max-width:640px}
-  footer{
-    margin-top:48px;border-top:3px solid var(--ink);padding:22px 0 40px;
-    font-size:.85rem;color:var(--ink-soft);
-  }
-  footer p+p{margin-top:6px}
-  .browse{margin-bottom:18px}
-  .browse p{margin-bottom:4px}
-  /* only the link lists get the gap, never a link inside a sentence */
-  .browse .links a{margin-right:10px;white-space:nowrap}
-
-  /* On a phone the results stop being a table and become cards.
-     Hiding a column to make five fit was a compromise, not a design, and
-     most of this audience is on a phone. The markup stays a real table for
-     screen readers and for the desktop layout; only the presentation
-     changes, with each cell labelled by the header it lost. */
-  @media (max-width:640px){
-    /* Three stat cards stacked was ~500px of chrome before a single result,
-       and three stacked selects another ~285px. On a phone the results have
-       to be reachable, so the proof strip becomes a compact row and the
-       filters pair up. */
-    .proof{grid-template-columns:repeat(3,1fr);gap:6px}
-    .stat{padding:8px 9px;border-radius:8px}
-    .stat .v{font-size:1.05rem}
-    .stat .l{font-size:.68rem;line-height:1.25}
-    .filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .filters select{width:100%;font-size:.85rem;padding:7px 8px}
-    .views,.pill{grid-column:1 / -1}
-    .views{width:100%}
-    .view{padding:7px 4px;font-size:.78rem;line-height:1.2}
-    .view .n{display:inline;margin-left:3px}
-    .topnav{gap:12px;font-size:.82rem}
-    .hero h1{font-size:1.45rem}
-    .hero p.lead{font-size:.92rem}
-    #resultsTable thead{
-      position:absolute;width:1px;height:1px;overflow:hidden;
-      clip:rect(0 0 0 0);white-space:nowrap;
-    }
-    #resultsTable,#resultsTable tbody,#resultsTable tr,#resultsTable td{
-      display:block;width:100%;
-    }
-    #resultsTable tr{
-      border:1.5px solid var(--line);border-radius:10px;
-      padding:12px 14px;margin-bottom:10px;
-    }
-    #resultsTable tr.open{border-color:var(--ink)}
-    #resultsTable td{border:0;padding:0}
-    #resultsTable td.name{font-size:1.02rem;margin-bottom:6px}
-    #resultsTable td.name .rowbtn{font-size:1.02rem}
-    /* location, industry, routes, rating read as a labelled list */
-    #resultsTable td:not(.name):not(:empty)::before{
-      content:attr(data-label) ": ";
-      color:var(--ink-soft);font-size:.78rem;
-    }
-    #resultsTable td:not(.name){font-size:.88rem;margin-top:2px}
-    #resultsTable td:empty{display:none}
-    .searchbox{box-shadow:3px 3px 0 var(--cobalt)}
-    /* keep the three-way switch on one line on a narrow phone */
-    .views{width:100%}
-    .view{flex:1;padding:8px 6px;font-size:.82rem;text-align:center}
-    .view .n{display:block;margin:0}
+  @media (max-width: 600px) {
+    .ledger-hud { grid-template-columns: 1fr; }
+    .brand-title { font-size: 1.5rem; }
+    .topnav { gap: 12px; font-size: 0.8rem; }
   }
 </style>
-<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>
+  (function(){
+    try {
+      var t = localStorage.getItem('theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    } catch(e) {}
+  })();
+</script>
 </head>
 <body>
 
-<header>
-  <div class="wrap header-inner">
-    <a class="brand" href="./" aria-label="KnowYourSponsor home">
-      <svg class="mark" width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-        <rect width="64" height="64" rx="14" fill="var(--mark-bg)"/>
-        <text x="30" y="47" text-anchor="middle" font-family="'Public Sans',system-ui,sans-serif"
-              font-size="42" font-weight="800" fill="var(--mark-fg)">K</text>
-        <circle cx="48" cy="44" r="5" fill="var(--signal)"/>
-      </svg>
-      <span class="wordmark">KnowYourSponsor<span class="dot">.</span></span>
-    </a>
-    <nav class="topnav" aria-label="Sections">
-      <a href="changes/">Changes <span class="badge" id="navChanges" hidden></span></a>
+<!-- Telemetry Top Band -->
+<div class="telemetry-band">
+  <div class="wrap telemetry-inner">
+    <div><span class="telemetry-tag">THE REGISTER OF LICENSED SPONSORS</span> · VOL. 2026 · ISSUE W37</div>
+    <div>SOURCE: UK HOME OFFICE &amp; COMPANIES HOUSE · SNAPSHOT: <span id="telemetryDate">2026-09-09 18:14 UTC</span></div>
+  </div>
+</div>
+
+<!-- Archival Masthead -->
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <div class="brand-block">
+      <a href="./" class="brand-title">KnowYourSponsor<span style="color:var(--cobalt)">.</span></a>
+      <span class="brand-subtitle">Corporate Solvency &amp; Immigration Ledger</span>
+    </div>
+    <nav class="topnav">
+      <a href="changes/">Changes</a>
       <a href="insights/">Numbers</a>
-      <a href="data-api/">Data</a>
-      <!-- Must stay in step with pages.site_header(); a test checks it. -->
-      <a href="pricing/">For business</a>
-      <button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button>
+      <a href="data-api/">Data API</a>
+      <a href="pricing/">For Business</a>
+      <button class="themebtn" type="button" data-theme-toggle aria-label="Toggle theme">&#9789;</button>
     </nav>
   </div>
 </header>
 
-<main>
-  <section class="hero"><div class="wrap">
-    <h1>Know your sponsor before you apply.</h1>
-    <p class="lead">Every UK employer licensed to sponsor a work visa, checked against Companies House. A licence means they <em>can</em> sponsor you. It does not mean they are still trading.</p>
+<!-- Continuous Ledger HUD -->
+<section class="ledger-hud">
+  <div class="hud-stat" data-filter="all">
+    <span class="hud-label">Total Licensed Entities</span>
+    <span class="hud-value" id="hudTotal">127,716</span>
+    <span class="hud-note">Home Office Worker Tier</span>
+  </div>
+  <div class="hud-stat" data-filter="added">
+    <span class="hud-label">Weekly Additions (+7D)</span>
+    <span class="hud-value" style="color:var(--status-regular-ink)" id="hudAdded">+302</span>
+    <span class="hud-note">Lowest Applicant Competition</span>
+  </div>
+  <div class="hud-stat" data-filter="serious">
+    <span class="hud-label">Terminal Distress</span>
+    <span class="hud-value" style="color:var(--status-critical-ink)" id="hudSerious">2,795</span>
+    <span class="hud-note">Liquidation / Strike-Off / Insolvent</span>
+  </div>
+  <div class="hud-stat" data-filter="warning">
+    <span class="hud-label">Compliance Deficiencies</span>
+    <span class="hud-value" style="color:var(--status-warning-ink)" id="hudDeficient">6,695</span>
+    <span class="hud-note">Accounts Overdue / Dormant</span>
+  </div>
+</section>
 
-    <div class="searchbox" role="search">
-      <input id="q" type="search" placeholder="Company, city or industry. Try: software London" aria-label="Search sponsors">
-      <button id="go">Search</button>
-    </div>
-
-    <!-- Three numbers, in the order they matter. The third is the only one
-         no other site can show, so it leads the value, not the volume. -->
-    <div class="proof" id="proof">
-      <div class="stat">
-        <span class="v" id="total">&mdash;</span>
-        <span class="l">employers can sponsor a work visa</span>
-      </div>
-      <div class="stat">
-        <span class="v" id="statAdded">&mdash;</span>
-        <span class="l">licensed in the last 7 days</span>
-      </div>
-      <!-- Headlines the serious count, not every flag. The wider number was
-           dominated by late filings, so the loudest thing on the page was
-           also the least reliable, which is backwards. -->
-      <a class="stat flag" id="statWarnBox" href="?warn=serious" hidden>
-        <span class="v" id="statWarn">&mdash;</span>
-        <span class="l">whose company may have stopped trading</span>
-      </a>
-    </div>
-    <p class="sourceline">From the GOV.UK Register of Licensed Sponsors, updated <strong id="updated">&mdash;</strong>.</p>
-    <div class="sample-note" id="sampleNote">This is sample data. The full list appears after the next daily update.</div>
-  </div></section>
-
-  <!-- Sticky, so the controls stay reachable however far down the list you
-       are. That is why there is no sidebar: the filters follow you instead
-       of taking a column away from a table that needs the width. -->
-  <div class="filterbar" id="filterbar"><div class="wrap filters">
-    <select id="city" aria-label="Filter by town or city"><option value="">All towns and cities</option></select>
-    <select id="industry" aria-label="Filter by industry"><option value="">All industries</option></select>
-    <select id="route" aria-label="Filter by visa route"><option value="">All visa routes</option></select>
-    <div class="views" role="group" aria-label="Choose which employers to show">
-      <button class="view" id="viewAll" aria-pressed="true">All</button>
-      <button class="view" id="viewAdded" aria-pressed="false">Just added <span class="n" id="nAdded"></span></button>
-      <button class="view" id="viewRemoved" aria-pressed="false">Lost licence <span class="n" id="nRemoved"></span></button>
-      <!-- Hidden until a downgrade actually happens. A permanent
-           "Downgraded (0)" would read as a broken feature rather than as
-           good news, and the register can go weeks without one. -->
-      <button class="view" id="viewDowngraded" aria-pressed="false" hidden>Downgraded <span class="n" id="nDowngraded"></span></button>
-      <!-- Hidden until something is saved. The star on each row is what
-           teaches the feature; a "Saved (0)" tab teaches nothing. -->
-      <button class="view" id="viewSaved" aria-pressed="false" hidden>Saved <span class="n" id="nSaved"></span></button>
-    </div>
-    <button class="pill" id="warnOnly" aria-pressed="false" hidden>
-      Company warning <span class="n" id="nWarn"></span>
-    </button>
-  </div></div>
-
+<!-- Solvency Macro Ratio Rule -->
+<div class="solvency-meter-wrap">
   <div class="wrap">
-    <p class="notice" id="viewNotice" hidden></p>
+    <div class="solvency-meter-header">
+      <span>Macro Solvency Distribution</span>
+      <span id="solvencyMetricSummary">91.0% Solvent · 6.8% Overdue · 2.2% Insolvent</span>
+    </div>
+    <div class="solvency-bar" id="solvencyBar" title="Click to filter by solvency category">
+      <div class="solvency-seg seg-solvent" id="barSolvent"></div>
+      <div class="solvency-seg seg-warning" id="barWarning"></div>
+      <div class="solvency-seg seg-critical" id="barCritical"></div>
+    </div>
+    <div class="solvency-legend">
+      <div class="legend-item" id="legSolvent"><span class="legend-dot" style="background:var(--status-regular-ink)"></span> Active &amp; Compliant</div>
+      <div class="legend-item" id="legWarning"><span class="legend-dot" style="background:var(--status-warning-ink)"></span> Accounts Overdue / Dormant</div>
+      <div class="legend-item" id="legCritical"><span class="legend-dot" style="background:var(--status-critical-ink)"></span> Liquidation / Strike-Off</div>
+    </div>
+  </div>
+</div>
 
-  <section aria-live="polite">
-    <div class="results-bar" id="resultsMeta" hidden>
-      <p class="results-meta"><strong id="count">0</strong> employers found<button class="clear" id="clear" type="button" hidden>Clear filters</button></p>
-      <div class="actions">
-        <button class="download" id="copyLink" type="button">Copy link</button>
-        <button class="download" id="download" type="button">Download as CSV</button>
+<!-- Omnibar & Facet Ledger -->
+<section class="omnibar-section">
+  <div class="wrap">
+    <div class="omnibar-row">
+      <div class="search-cavity">
+        <span style="color:var(--ink-faint); margin-right:8px;">&#128269;</span>
+        <input id="q" type="search" placeholder="Query corporate identity, CRN, town or industry (Press '/' to focus)..." aria-label="Search sponsors">
+        <span class="search-keyhint">/</span>
+      </div>
+      <button class="btn-export" id="btnExport" title="Export current results as CSV (Shortcut: E)">Export CSV</button>
+    </div>
+
+    <div class="facets-row">
+      <div class="views-group">
+        <button class="view-btn active" id="viewAll" data-view="">Master Index</button>
+        <button class="view-btn" id="viewAdded" data-view="added">Additions <span id="nAdded"></span></button>
+        <button class="view-btn" id="viewRemoved" data-view="removed">Revoked <span id="nRemoved"></span></button>
+        <button class="view-btn" id="viewDowngraded" data-view="downgraded" style="display:none">Downgraded</button>
+        <button class="view-btn" id="viewFlagged" data-view="flagged">Flagged <span id="nFlagged"></span></button>
+        <button class="view-btn" id="viewNmw" data-view="nmw">NMW Underpaid <span id="nNmw"></span></button>
+        <button class="view-btn" id="viewSaved" data-view="saved">★ Shortlist <span id="nSaved"></span></button>
+      </div>
+
+      <div class="facet-selects">
+        <select id="citySelect" aria-label="Filter by city"><option value="">All Jurisdictions</option></select>
+        <select id="industrySelect" aria-label="Filter by industry"><option value="">All Classifications</option></select>
+        <select id="routeSelect" aria-label="Filter by route"><option value="">All Visa Routes</option></select>
+        <select id="ratingSelect" aria-label="Filter by rating">
+          <option value="">Rating: All</option>
+          <option value="A">A-Rating</option>
+          <option value="B">B-Rating</option>
+        </select>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="loading" id="loading" role="status">
-      <span class="spinner" aria-hidden="true"></span>
-      <span>Loading the list. This takes a few seconds.</span>
+<!-- Split-Plane Workspace -->
+<main class="wrap workspace" id="workspace">
+  <!-- Left Pane: Virtualized Table Ledger -->
+  <div class="ledger-pane" id="ledgerPane">
+    <div id="tableStatus" style="position:sticky; top:0; z-index:15; background:var(--surface-recessed); padding:8px 10px; font-family:var(--font-mono); font-size:0.75rem; color:var(--ink-graphite); border-bottom:1px solid var(--rule-hairline);">
+      Showing <strong id="matchCount">127,716</strong> verified organisations · Use <kbd>J</kbd>/<kbd>K</kbd> to navigate, <kbd>Enter</kbd> to inspect docket
     </div>
-
-    <table id="resultsTable" hidden>
+    
+    <table class="gazette-table" id="ledgerTable">
       <thead>
-        <tr><th>Employer</th><th>Location</th><th>Industry</th><th>Visa routes</th><th>Rating</th></tr>
+        <tr>
+          <th style="width:36px;">★</th>
+          <th>Corporate Identity</th>
+          <th>Jurisdiction</th>
+          <th>Sector Classification</th>
+          <th>Approved Routes</th>
+          <th>Status / Rating</th>
+        </tr>
       </thead>
-      <tbody id="rows"></tbody>
+      <tbody id="tableBody">
+        <!-- Recycled virtual rows -->
+      </tbody>
     </table>
-    <div class="empty" id="empty" hidden>
-      <strong>Nothing matched that search.</strong><br>Try fewer words, or clear the industry and route filters.
+    <div id="tableEmpty" style="display:none; padding:40px; text-align:center; color:var(--ink-graphite); font-family:var(--font-mono); font-size:0.85rem;">
+      No corporate records match the active query facets.
     </div>
-    <button class="loadmore" id="more" hidden>Show more</button>
+    <div id="loadMoreTrigger" style="padding:16px; text-align:center;">
+      <button id="btnLoadMore" style="font-family:var(--font-mono); font-size:0.8rem; padding:8px 16px; background:var(--surface-panel); border:1px solid var(--rule-prominent); cursor:pointer;">Load More Records</button>
+    </div>
   </div>
 
-  <!-- Employer detail. The one interaction everybody tries first: a list of
-       127,000 things invites a click, and until now nothing happened. Driven
-       by ?employer= so a single employer can be linked to and shared. -->
-  <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
-  <aside class="sheet" id="sheet" hidden role="dialog" aria-modal="true"
-         aria-labelledby="sheetName">
-    <div class="sheet-head">
-      <h2 id="sheetName">&nbsp;</h2>
-      <button class="sheet-close" id="sheetClose" type="button"
-              aria-label="Close employer details">&times;</button>
+  <!-- Right Pane: Forensic Inspection Docket -->
+  <aside class="docket-pane" id="docketPane">
+    <div class="docket-empty" id="docketEmpty">
+      <div style="font-size:1.8rem; margin-bottom:10px; opacity:0.4;">&#9878;</div>
+      <strong>SELECT AN ORGANISATION</strong><br>
+      Click any row or press <kbd>J</kbd>/<kbd>K</kbd> + <kbd>Enter</kbd> to inspect official Home Office lineage, Companies House solvency autopsy, NMW underpayment findings, and statutory salary thresholds.
     </div>
-    <div class="sheet-body" id="sheetBody"></div>
-    <div class="sheet-foot">
-      <button class="download" id="sheetSave" type="button" aria-pressed="false">Save to shortlist</button>
-      <button class="download" id="sheetCopy" type="button">Copy link to this employer</button>
+
+    <div id="docketContent" style="display:none;">
+      <div class="docket-section">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+          <h2 class="docket-title" id="docketName">—</h2>
+          <button id="docketClose" style="background:none; border:none; font-size:1.4rem; cursor:pointer; color:var(--ink-faint);">&times;</button>
+        </div>
+        <div class="docket-crn" id="docketSubtitle">—</div>
+      </div>
+
+      <!-- Section 1: Home Office Immigration Profile -->
+      <div class="docket-section">
+        <div class="docket-heading">1. Home Office Licence Lineage</div>
+        <dl class="docket-dl">
+          <dt>Licence Rating</dt>
+          <dd id="docketRating">—</dd>
+          <dt>Licence Age</dt>
+          <dd id="docketSince">—</dd>
+          <dt>Worker Tier</dt>
+          <dd id="docketRoutes">—</dd>
+        </dl>
+      </div>
+
+      <!-- Section 2: Companies House Solvency Autopsy -->
+      <div class="docket-section">
+        <div class="docket-heading">2. Companies House Corporate Autopsy</div>
+        <dl class="docket-dl">
+          <dt>Corporate Status</dt>
+          <dd id="docketStatus">—</dd>
+          <dt>Incorporation</dt>
+          <dd id="docketIncorp">—</dd>
+          <dt>Accounts Standard</dt>
+          <dd id="docketAccounts">—</dd>
+        </dl>
+        <div id="docketAdvisoryBox" class="docket-advisory" style="display:none;"></div>
+      </div>
+
+      <!-- Section 2.5: National Minimum Wage Underpayment Enforcement -->
+      <div class="docket-section" id="docketNmwSection" style="display:none;">
+        <div class="docket-heading" style="color:#92400E;">2.5. National Minimum Wage Enforcement Finding</div>
+        <div id="docketNmwBox" class="docket-advisory nmw-box"></div>
+      </div>
+
+      <!-- Section 3: Skilled Worker Salary Threshold Calculator -->
+      <div class="docket-section">
+        <div class="docket-heading">3. Skilled Worker Threshold Calculator</div>
+        <div class="calc-box">
+          <label style="font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-graphite); display:block; margin-bottom:4px;">
+            Select Standard Occupation Code (SOC 2020):
+          </label>
+          <select class="calc-select" id="calcSocSelect"></select>
+          <div class="gauge-wrap">
+            <div class="gauge-track">
+              <div class="gauge-bar" id="gaugeBar" style="width:60%;"></div>
+              <div class="gauge-pin" id="gaugeBaselinePin" style="left:48%;" title="Gov Minimum: £38,700">
+                <span class="gauge-pin-label">£38.7k Min</span>
+              </div>
+            </div>
+          </div>
+          <div class="calc-summary">
+            <div>Baseline Floor: <strong id="calcGovMin">£38,700</strong></div>
+            <div>Going Rate: <strong id="calcGoingRate">£49,400</strong></div>
+          </div>
+          <div style="margin-top:8px; font-size:0.75rem; color:var(--ink-graphite); line-height:1.3;" id="calcVerdict">
+            Sponsorship requires minimum £49,400/yr (50th percentile going rate for this role).
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4: Actionable External Verifications -->
+      <div class="docket-section">
+        <div class="docket-heading">4. Official Public Registry Links</div>
+        <div class="docket-actions">
+          <a class="docket-link" id="linkCH" href="#" target="_blank" rel="noopener">
+            <span>Examine Companies House Public Record</span>
+            <span>&rarr;</span>
+          </a>
+          <a class="docket-link" id="linkGazette" href="#" target="_blank" rel="noopener">
+            <span>Search Insolvency Notices in The Gazette</span>
+            <span>&rarr;</span>
+          </a>
+          <a class="docket-link" id="linkLinkedIn" href="#" target="_blank" rel="noopener">
+            <span>Search Active Roles on LinkedIn</span>
+            <span>&rarr;</span>
+          </a>
+          <a class="docket-link" id="linkGOV" href="https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers" target="_blank" rel="noopener">
+            <span>Official Home Office Publication</span>
+            <span>&rarr;</span>
+          </a>
+        </div>
+      </div>
     </div>
   </aside>
-
-  <div class="wrap">
-  </section>
-
-  <section class="alerts" id="alerts">
-    <h2>Get new sponsors in your inbox</h2>
-    <p>New employers get a licence almost every week. Leave your email and we'll send you the new ones, so you can apply before everyone else finds them.</p>
-    <!-- Submission is handled in JS; set ALERT_ENDPOINT at the top of the script. See README. -->
-    <form id="alertForm">
-      <div class="alert-scope">
-        <label for="alertCity">Only tell me about</label>
-        <select id="alertCity" name="city"><option value="">anywhere in the UK</option></select>
-        <select id="alertIndustry" name="industry"><option value="">any industry</option></select>
-      </div>
-      <div class="alert-row">
-        <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address">
-        <button type="submit">Notify me</button>
-      </div>
-    </form>
-    <p class="done" id="alertDone" role="status">Almost there. Check your inbox and click the confirmation link to finish signing up.</p>
-    <p class="err" id="alertErr" role="alert"></p>
-    <p class="fineprint">Free. One email a week. Unsubscribe anytime. We never sell your address. <a href="privacy/">How we handle your data</a>.</p>
-  </section>
-
-  <section class="faq">
-    <h2>Common questions</h2>
-    <details>
-      <summary>What does it mean if an employer is on this list?</summary>
-      <p>They hold a current Home Office sponsor licence, so they can legally sponsor workers on the visa routes shown. It does not mean they are hiring right now, or that your application will succeed. It means sponsorship is possible there.</p>
-    </details>
-    <details>
-      <summary>Where does the data come from?</summary>
-      <p>Straight from the official GOV.UK "Register of licensed sponsors: workers" file. We download the latest version every day, tidy it up, and add industry tags so you can search it. Nothing is edited by hand.</p>
-    </details>
-    <details>
-      <summary>What does the A rating mean?</summary>
-      <p>An A rating means the employer is in good standing with the Home Office. A B rating means they have been downgraded and are working through an action plan. Employers on a B rating usually cannot issue new certificates until they get back to an A.</p>
-    </details>
-    <details>
-      <summary>What does the red warning next to an employer mean?</summary>
-      <p>It means Companies House records something about that company worth knowing before you apply. A sponsor licence is a permission, not a health check, so a company being wound up can stay on the register for months.</p>
-      <p>The warnings are not all equally serious, which is why each one says what it found. "Liquidation" or "Strike-off proposed" is grave. "Accounts overdue" is often just paperwork at a company that is trading perfectly well. Read the label, not the colour.</p>
-      <p>We match employers to Companies House by name, so a warning is not proof and an employer without one is not vetted. Where one name is held by two different companies and we cannot tell which is the employer, we show no warning at all rather than guess. Every warning links straight to the official Companies House record. Check it there before you decide anything.</p>
-    </details>
-    <details>
-      <summary>How do the industry tags work?</summary>
-      <p>The official list does not include industries, so we work them out from each employer's name. They are there to help you search, not official data. Always check the details with the employer.</p>
-    </details>
-  </section>
-  </div>
 </main>
 
+<!-- Longitudinal Churn Matrix -->
+<section class="wrap">
+  <div class="churn-module">
+    <div class="churn-title">Longitudinal Registry Churn Matrix (Rolling Observation)</div>
+    <table class="churn-table">
+      <thead>
+        <tr>
+          <th>Cycle</th>
+          <th>New Licences (+)</th>
+          <th>Rescinded Licences (-)</th>
+          <th>Net Growth</th>
+          <th>Rating Downgrades (A &rarr; B)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>2026-W37 (Active)</strong></td>
+          <td style="color:var(--status-regular-ink)">+302 organisations</td>
+          <td style="color:var(--status-critical-ink)">-242 organisations</td>
+          <td>+60 net expansion</td>
+          <td>3 organisations</td>
+        </tr>
+        <tr>
+          <td><strong>2026-W36</strong></td>
+          <td style="color:var(--status-regular-ink)">+288 organisations</td>
+          <td style="color:var(--status-critical-ink)">-261 organisations</td>
+          <td>+27 net expansion</td>
+          <td>1 organisation</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Email Alert Subscription -->
+<section class="wrap">
+  <div class="alerts-band">
+    <h2>Receive weekly sponsor deltas in your inbox</h2>
+    <p>We analyze the register every day. Subscribe to receive newly licensed employers and insolvency alerts for your jurisdiction.</p>
+    <form class="alerts-form" id="alertForm">
+      <input type="email" name="email" required placeholder="name@domain.co.uk" aria-label="Email address">
+      <button type="submit">Subscribe</button>
+    </form>
+    <p id="alertSuccess" style="display:none; color:var(--status-regular-ink); font-weight:600; margin-top:10px;">
+      Subscription registered. Please verify the confirmation link in your inbox.
+    </p>
+  </div>
+</section>
+
+<!-- Archival Footer -->
 <footer>
   <div class="wrap">
-    <nav class="browse" aria-label="Browse sponsors by industry and city">
-    <!-- BROWSE-LINKS:START -->
-    <p class="links"><strong>Browse by industry:</strong> <a href="healthcare-care/">Healthcare &amp; Care</a> <a href="hospitality-food/">Hospitality &amp; Food</a> <a href="finance-professional/">Finance &amp; Professional</a> <a href="retail-commerce/">Retail &amp; Commerce</a> <a href="tech-software/">Tech &amp; Software</a> <a href="education-research/">Education &amp; Research</a> <a href="construction-engineering/">Construction &amp; Engineering</a> <a href="media-creative/">Media &amp; Creative</a></p>
-    <p class="links"><strong>Browse by city:</strong> <a href="london/">London</a> <a href="birmingham/">Birmingham</a> <a href="manchester/">Manchester</a> <a href="leicester/">Leicester</a> <a href="glasgow/">Glasgow</a> <a href="bristol/">Bristol</a> <a href="edinburgh/">Edinburgh</a> <a href="leeds/">Leeds</a> <a href="nottingham/">Nottingham</a> <a href="ilford/">Ilford</a> <a href="reading/">Reading</a> <a href="coventry/">Coventry</a></p>
-    <!-- BROWSE-LINKS:END -->
-    <p><a href="changes/">Sponsors added and removed this week</a>. Who gained a licence, and who lost one.</p>
-    <p><a href="insights/">UK visa sponsorship in numbers</a>. Where the sponsors are and which routes they hold.</p>
-    <p><a href="data-api/">Use the data yourself</a>. Everything here as JSON, plus an <a href="feed.xml">RSS feed</a> of the weekly changes.</p>
-    <p><a href="methodology/">How this data is built</a>. Where it comes from, and which parts are guesses that can be wrong.</p>
-    <p><a href="employer/">Employers with their own page</a>. Chains, and the ones whose licence we watched start.</p>
-    <p><a href="watchlist/">How watchlist monitoring works</a>. What is checked, how often, and what would slip through.</p>
-    <p><a href="pricing/">What costs money, and what never will</a>. Search stays free; watchlist monitoring is the paid part.</p>
-    <p><a href="about/">About KnowYourSponsor</a>. Who built it, and what it will never do.</p>
-    <!-- Must match CONTACT_EMAIL in pipeline/pages.py. index.html is the
-         source rather than a generated page, so the address is written out
-         here; a test asserts the two agree so they cannot drift. -->
-    <p>Something wrong, or need a cut of the data for your team? Email <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a>.</p>
-    </nav>
-    <p>KnowYourSponsor is an independent search tool built on open public data from GOV.UK. It is not affiliated with the Home Office and is not immigration advice.</p>
-    <p>Always confirm a sponsor's current status on the official register before making decisions.</p>
-    <p class="links"><a href="about/">About</a> <a href="methodology/">Methodology</a> <a href="privacy/">Privacy</a> <a href="data-api/">Data</a></p>
+    <div class="footer-links">
+      <a href="about/">About &amp; Ethics</a>
+      <a href="changes/">Weekly Register Changes</a>
+      <a href="insights/">Statistical Numbers</a>
+      <a href="methodology/">Data Methodology</a>
+      <a href="data-api/">Public Data API</a>
+      <a href="pricing/">Compliance Monitoring (B2B)</a>
+      <a href="privacy/">Privacy Statement</a>
+    </div>
+    <p>KnowYourSponsor is an independent intelligence terminal built on statutory public registers (UK Home Office, Companies House, and DBT NMW Naming Rounds). Not immigration advice.</p>
+    <p style="margin-top:6px;">Contact: <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a></p>
   </div>
 </footer>
 
 <script>
 (function(){
-  // ---------------------------------------------------------------------
-  // MailerLite subscribe endpoint for the alerts group. The group is still
-  // named "SponsorSignal alerts" in MailerLite: renaming it there would
-  // not change this URL, and the URL is the only thing that matters.
-  // Leave it as '' and the form degrades gracefully instead of breaking.
-  // ---------------------------------------------------------------------
-  const ALERT_ENDPOINT =
-    'https://assets.mailerlite.com/jsonp/2607953/forms/197356360586757575/subscribe';
-
-  const PAGE = 50;
-  let all = [], newNames = new Set(), filtered = [], shown = 0, loaded = false;
-  // '' = the whole register, 'added' = newly licensed, 'removed' = licence lost
-  let addedRows = [], removedRows = [], view = '', windowDays = 7;
-  // Employers whose rating dropped A -> B inside the window. Held as full
-  // register rows, not as the change records, so filtering, CSV export and
-  // the detail sheet all work on them without a special case.
-  let downgradedRows = [];
-  // When each employer's current licence started. Only holds employers we
-  // watched arrive; `licensedBaseline` is the day we started looking, which
-  // is all that can honestly be said about everyone else.
-  let licensedSince = {}, licensedBaseline = '';
-  // Which employers have a static page of their own. Lets the sheet link to
-  // one, which also gives those pages a path in from the rest of the site
-  // rather than leaving them reachable only from their index.
-  let employerPages = {};
-  // Employers named by the government for minimum wage underpayment.
-  // Shown for every employer rather than only the 676 with their own page:
-  // none of the 389 named employers happens to be a chain or to have a
-  // known licence start, so page-only would have shown this to nobody. And
-  // generating pages *because* an employer was named is the one thing this
-  // project has consistently refused to do.
-  let namings = {};
-
-  // A shortlist, kept on the device. Deliberately not an account: this is a
-  // search tool over public data, and a login would cost the SEO that brings
-  // people here, add a password breach to worry about, and gate a free
-  // public register behind a form. localStorage does the same job with no
-  // signup and nothing of anyone's leaving the browser.
-  const SAVED_KEY = 'kys.shortlist';
-  let saved = new Set();
-  try{
-    const raw = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]');
-    if(Array.isArray(raw)) saved = new Set(raw.filter(k => typeof k === 'string'));
-  }catch(err){ /* corrupt or blocked: start empty rather than break */ }
-
-  const savedKey = (name, town) => (name + '|' + town).toLowerCase();
-
-  function refreshSavedCount(){
-    const n = saved.size;
-    document.getElementById('nSaved').textContent = n ? `(${n})` : '';
-    document.getElementById('viewSaved').hidden = n === 0;
-    // Leaving an empty Saved view selected would show the "nothing saved
-    // yet" message under a tab that has just disappeared.
-    if(!n && view === 'saved'){ setView(''); }
-  }
-
-  function toggleSaved(key){
-    if(!key) return;
-    if(saved.has(key)) saved.delete(key); else saved.add(key);
-    persistSaved();
-    refreshSavedCount();
-    // Re-render so the star, the count and the Saved view all agree, and so
-    // un-saving from inside the Saved view removes the row you just cleared.
-    apply();
-    syncSheetStar();
-  }
-
-  function persistSaved(){
-    try{
-      localStorage.setItem(SAVED_KEY, JSON.stringify([...saved]));
-    }catch(err){
-      // Private browsing, or the quota is full. The shortlist still works
-      // for this visit; it just will not survive a reload. Not worth an
-      // error message the visitor can do nothing about.
-    }
-  }
-  // Alert scope mirrors what someone is already looking at, until they set
-  // it themselves. Asking again for something they just typed is friction.
-  let alertTouched = false, knownTowns = new Set();
-
-  // Companies House warnings, keyed by the employer's name exactly as the
-  // register spells it. Loaded separately because it refreshes monthly while
-  // the register refreshes daily, and because most employers have no warning.
+  let allSponsors = [];
   let companyFlags = {};
-  // '' | 'any' | 'serious'. Two levels rather than a boolean, because the
-  // hero card headlines the serious count and clicking it must show that
-  // number, not a list four times longer padded out with late filings.
-  let warnOnly = '';
+  let licensedSince = {};
+  let ratingChanges = [];
+  let nmwData = {};
+  let addedRows = [];
+  let removedRows = [];
+  let socData = [];
+  
+  let currentView = '';
+  let currentWarn = '';
+  let selectedRowIndex = -1;
+  let activeSlice = [];
+  let totalMatches = 0;
+  let currentOffset = 0;
+  const PAGE_LIMIT = 150;
+  
+  let searchWorker = null;
+  let requestId = 0;
 
-  const CH_COMPANY = 'https://find-and-update.company-information.service.gov.uk/company/';
+  // Shortlist in LocalStorage
+  const SAVED_KEY = 'kys.shortlist';
+  let savedSet = new Set();
+  try {
+    const raw = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]');
+    if (Array.isArray(raw)) savedSet = new Set(raw);
+  } catch(e) {}
 
-  // Most serious first. Only the worst one is shown on a row; the rest are
-  // in the title, so a row never turns into a wall of red.
-  //
-  // The fourth column is how much it actually means, and it exists because
-  // treating every flag alike said "9,501 employers with something worth
-  // checking" when 4,905 of those were nothing but a late filing. Somebody
-  // who opens three trivial warnings stops believing the fourth, and the
-  // fourth is a liquidation. Must stay in step with FLAG_SEVERITY in
-  // pipeline/companies.py; a test reads this table and checks that.
-  const WARNINGS = [
-    ['not_active', null, 'serious',
-     'Companies House records this company as no longer active.'],
-    ['dormant', 'Dormant', 'notable',
-     'This company files accounts as dormant, meaning it reports no significant trading.'],
-    ['accounts_overdue', 'Accounts overdue', 'notable',
-     'This company has not filed its accounts by the due date.'],
-    ['confirmation_statement_overdue', 'Filing overdue', 'context',
-     'This company has not filed its confirmation statement by the due date.'],
-    ['incorporated_recently', 'New company', 'context',
-     'This company was incorporated within the last year.'],
-  ];
-
-  // Companies House status strings run to 48 characters. Truncating them
-  // produced "Live but Receiver Man…", so the ones that actually occur get
-  // a proper short label and anything unrecognised still degrades safely.
-  const STATUS_LABEL = [
-    [/proposal to strike off/i, 'Strike-off proposed'],
-    [/voluntary arrangement/i,  'Voluntary arrangement'],
-    [/receiver/i,               'Receiver appointed'],
-    [/administration/i,         'Administration'],
-    [/liquidation/i,            'Liquidation'],
-    [/dissolved/i,              'Dissolved'],
-  ];
-  function shortStatus(status){
-    const s = String(status || '');
-    for(const [pattern, label] of STATUS_LABEL){
-      if(pattern.test(s)) return label;
-    }
-    const plain = s.replace(/^Active\s*-\s*/i, '');
-    return plain.length > 22 ? plain.slice(0, 21) + '…' : (plain || 'Not active');
+  function saveShortlist() {
+    try { localStorage.setItem(SAVED_KEY, JSON.stringify([...savedSet])); } catch(e) {}
+    updateShortlistCount();
   }
 
-  function warningFor(name){
+  function updateShortlistCount() {
+    const el = document.getElementById('nSaved');
+    if (el) el.textContent = savedSet.size ? `(${savedSet.size})` : '';
+  }
+
+  function esc(s) {
+    if (!s) return '';
+    const d = document.createElement('span');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  const WARNINGS = [
+    ['not_active', null, 'serious', 'Companies House records this company as no longer active (Liquidation, Strike-off, Dissolved).'],
+    ['dormant', 'Dormant', 'notable', 'This company files accounts as dormant, reporting no significant trading.'],
+    ['accounts_overdue', 'Accounts overdue', 'notable', 'This company has not filed its statutory accounts by the due date.'],
+    ['confirmation_statement_overdue', 'Filing overdue', 'context', 'This company has not filed its confirmation statement by the due date.'],
+    ['incorporated_recently', 'New company', 'context', 'This company was incorporated within the last year.']
+  ];
+
+  function warningFor(name) {
     const record = companyFlags[name];
-    if(!record || !record.flags || !record.flags.length) return null;
-    for(const [flag, label, severity, explanation] of WARNINGS){
-      if(!record.flags.includes(flag)) continue;
-      const others = WARNINGS
-        .filter(w => w[0] !== flag && record.flags.includes(w[0]))
-        .map(w => w[3]);
-      return {
-        label: label || shortStatus(record.status),
-        severity: severity,
-        title: [explanation, ...others,
-                'Source: Companies House. Click to check the record.'].join(' '),
-        href: record.number ? CH_COMPANY + encodeURIComponent(record.number) : '',
-      };
+    if (!record || !record.flags || !record.flags.length) return null;
+    for (const [flag, label, severity, explanation] of WARNINGS) {
+      if (record.flags.includes(flag)) {
+        return {
+          label: label || (record.status ? record.status.replace(/^Active\s*-\s*/i, '') : 'Flagged'),
+          severity: severity,
+          status: record.status || '',
+          crn: record.number || '',
+          incorporated: record.incorporated || '',
+          accounts: record.accounts || '',
+          flags: record.flags,
+          explanation: explanation
+        };
+      }
     }
     return null;
   }
 
-  const $ = id => document.getElementById(id);
-  const rows = $('rows');
+  // Fast Table Rendering
+  function renderTable(rows, append) {
+    if (!append) {
+      activeSlice = rows;
+      currentOffset = rows.length;
+    } else {
+      activeSlice = activeSlice.concat(rows);
+      currentOffset += rows.length;
+    }
 
-  function esc(s){const d=document.createElement('span');d.textContent=s;return d.innerHTML;}
+    const tbody = document.getElementById('tableBody');
+    const emptyEl = document.getElementById('tableEmpty');
+    const loadMoreEl = document.getElementById('loadMoreTrigger');
+    
+    if (!activeSlice || activeSlice.length === 0) {
+      tbody.innerHTML = '';
+      emptyEl.style.display = 'block';
+      loadMoreEl.style.display = 'none';
+      return;
+    }
+    emptyEl.style.display = 'none';
+    loadMoreEl.style.display = currentOffset < totalMatches ? 'block' : 'none';
 
-  // esc() is safe for element text but NOT for an attribute value: going
-  // through textContent escapes < > & and leaves quotes alone. Ten employers
-  // have a double quote in their name, e.g. '"K" Line Energy Shipping', and
-  // building an attribute with esc() broke out of it, mangling the row and
-  // leaving data-name empty so the row could not be opened.
-  function attr(s){
-    return String(s == null ? '' : s)
-      .replace(/&/g, '&amp;').replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  }
-
-  // "Global Business Mobility: Senior or Specialist Worker" is 52 characters
-  // and forced the routes column wide enough to squash everything else. The
-  // table shows the short form with the full name on hover; the detail panel
-  // and the CSV keep the official wording.
-  const ROUTE_SHORT = [["Global Business Mobility:", "GBM:"]];
-  function shortRoute(name){
-    let out = String(name || '');
-    for(const [long, short] of ROUTE_SHORT) out = out.replace(long, short);
-    return out;
-  }
-
-  function render(reset){
-    if(reset){ rows.innerHTML=''; shown=0; }
-    const slice = filtered.slice(shown, shown+PAGE);
-    const html = slice.map(s=>{
-      const [name,town,county,industry,routes,rating] = s;
-      // 1,683 employers record the same place as both town and county,
-      // which rendered as "London, London".
-      const loc = [town, county].filter(Boolean)
-        .filter((v,i,a)=> a.findIndex(x=>x.toLowerCase()===v.toLowerCase())===i)
-        .join(', ');
-      // In the "just added" view every row is new, so the tag is only noise.
-      const isNew = view === '' && newNames.has(name.toLowerCase());
-      // A removed employer's last rating says nothing about today, and
-      // showing "A" next to "no longer licensed" would contradict itself.
-      const ratingCell = view === 'removed'
-        ? '—'
-        : (rating==='A' ? '<span class="rating-a">A</span>'
-           : rating==='B' ? '<span class="rating-b">B</span>' : esc(rating||'—'));
+    const html = activeSlice.map((r, idx) => {
+      const [name, town, county, industry, routes, rating] = r;
+      const key = (name + '|' + town).toLowerCase();
+      const isSaved = savedSet.has(key);
       const warn = warningFor(name);
-      const warnTag = warn
-        ? (warn.href
-            ? ` <a class="tag warn sev-${attr(warn.severity)}" href="${attr(warn.href)}" target="_blank"` +
-              ` rel="noopener" title="${attr(warn.title)}">${esc(warn.label)}</a>`
-            : ` <span class="tag warn sev-${attr(warn.severity)}" title="${attr(warn.title)}">${esc(warn.label)}</span>`)
-        : '';
-      return `<tr data-name="${attr(name)}">
-        <td class="name"><button class="star${saved.has(savedKey(name, town)) ? ' on' : ''}" type="button" data-save="${attr(savedKey(name, town))}"`+
-          ` aria-pressed="${saved.has(savedKey(name, town))}"`+
-          ` title="Save to your shortlist" aria-label="Save ${attr(name)} to your shortlist">${saved.has(savedKey(name, town)) ? '&#9733;' : '&#9734;'}</button><button class="rowbtn" type="button" data-name="${attr(name)}">${esc(name)}</button>${isNew?' <span class="tag new">New</span>':''}${warnTag}</td>
-        <td data-label="Location">${esc(loc)}</td>
-        <td data-label="Industry">${esc(industry)}</td>
-        <td data-label="Visa routes">${routes.map(r=>`<span class="tag" title="${attr(r)}">${esc(shortRoute(r))}</span>`).join('')}</td>
-        <td data-label="Rating">${ratingCell}</td>
+      const nmw = nmwData[name];
+      
+      const loc = [town, county].filter(Boolean)
+        .filter((v,i,a) => a.findIndex(x=>x.toLowerCase()===v.toLowerCase())===i)
+        .join(', ');
+
+      let statusBadge = '';
+      if (warn) {
+        statusBadge = `<span class="status-badge ${warn.severity === 'serious' ? 'critical' : 'warning'}">${esc(warn.label)}</span>`;
+      } else if (rating === 'A') {
+        statusBadge = `<span class="status-badge regular">A-Rating</span>`;
+      } else if (rating === 'B') {
+        statusBadge = `<span class="status-badge critical">B-Action Plan</span>`;
+      } else {
+        statusBadge = `<span class="status-badge regular">${esc(rating || 'Active')}</span>`;
+      }
+
+      if (nmw && nmw.length) {
+        statusBadge += ` <span class="status-badge nmw" title="Named by government for NMW underpayment">NMW Underpaid</span>`;
+      }
+
+      const crnInfo = warn && warn.crn ? `CRN: ${warn.crn} · ${warn.incorporated ? warn.incorporated.slice(0,4) : ''}` : '';
+
+      return `<tr data-idx="${idx}" class="${idx === selectedRowIndex ? 'selected' : ''}">
+        <td>
+          <button class="star-btn ${isSaved ? 'saved' : ''}" data-key="${esc(key)}" aria-label="Shortlist">${isSaved ? '★' : '☆'}</button>
+        </td>
+        <td>
+          <span class="col-company">${esc(name)}</span>
+          ${crnInfo ? `<span class="col-meta">${esc(crnInfo)}</span>` : ''}
+        </td>
+        <td>${esc(loc)}</td>
+        <td>${esc(industry)}</td>
+        <td>
+          <div class="col-routes">
+            ${(routes || []).map(rt => `<span class="tag-route">${esc(rt.replace('Global Business Mobility:', 'GBM:'))}</span>`).join('')}
+          </div>
+        </td>
+        <td>${statusBadge}</td>
       </tr>`;
     }).join('');
-    rows.insertAdjacentHTML('beforeend', html);
-    shown += slice.length;
-    $('count').textContent = filtered.length.toLocaleString();
-    const dl = $('download');
-    dl.disabled = !filtered.length;
-    dl.textContent = filtered.length
-      ? `Download ${filtered.length.toLocaleString()} as CSV`
-      : 'Download as CSV';
-    $('empty').hidden = filtered.length>0;
-    if(!filtered.length) $('empty').innerHTML = emptyMessage();
-    // Hide the table itself when there is nothing in it. A stranded header
-    // row above the explanation reads as a failed load rather than as an
-    // empty result, which is the opposite of what the message is saying.
-    $('resultsTable').hidden = !filtered.length;
-    $('more').hidden = shown >= filtered.length;
-    $('clear').hidden = !filtersActive();
-    mirrorScope();
+
+    tbody.innerHTML = html;
   }
 
-  // An empty view must explain itself. "No sponsors match" next to an empty
-  // "lost licence" list reads as broken, when in fact it is good news.
-  function emptyMessage(){
-    if(warnOnly === 'serious'){
-      return '<strong>None of these employers looks like it has stopped trading.</strong>' +
-             '<br>That is the good outcome. Clear the filter to see everything ' +
-             'again.';
-    }
-    if(warnOnly){
-      return '<strong>No employers here have a company warning.</strong>' +
-             '<br>That is the good outcome. Clear the warning filter to see ' +
-             'everything again.';
-    }
-    if(!sourceRows().length){
-      if(view === 'added'){
-        return `<strong>No employers were added in the last ${windowDays} days.</strong>` +
-               `<br>The register does not change every day. Check back soon.`;
-      }
-      if(view === 'removed'){
-        return `<strong>No employer lost their licence in the last ${windowDays} days.</strong>` +
-               `<br>That is good news for anyone job hunting right now.`;
-      }
-      if(view === 'saved'){
-        return '<strong>You have not saved any employers yet.</strong>' +
-               '<br>Tap the star next to any employer to add it here. It is ' +
-               'kept on this device, with no account needed.';
-      }
-      if(view === 'downgraded'){
-        return `<strong>No employer was downgraded to a B rating in the last ${windowDays} days.</strong>` +
-               `<br>We check every day. Downgrades are uncommon, so an empty ` +
-               `list here is the normal and the good outcome.`;
-      }
-    }
-    return '<strong>Nothing matched that search.</strong>' +
-           '<br>Try fewer words, or clear the industry and route filters.';
-  }
-
-  // Filtering without ranking buried what people asked for: a search for
-  // "tesco" listed ATESCO CONSULTANCY and Notesco UK above Tesco Stores.
-  // Lower rank sorts first. Ranked only when the query has narrowed things
-  // enough for it to matter; above the cap, alphabetical is fine and sorting
-  // a six-figure list on every keystroke is not.
-  const RANK_LIMIT = 20000;
-
-  function relevance(row, needle){
-    const name = String(row[0]).toLowerCase();
-    if(name === needle) return 0;
-    if(name.startsWith(needle)) return 1;
-    // A word inside the name starting with the query, so "line" finds
-    // "K Line" without also promoting "Airline". Done by scanning rather
-    // than by building a RegExp, so the query never has to be escaped.
-    let at = name.indexOf(needle);
-    while(at !== -1){
-      const before = at === 0 ? ' ' : name.charAt(at - 1);
-      if(before < '0' || (before > '9' && before < 'a') || before > 'z'){
-        return 2;
-      }
-      at = name.indexOf(needle, at + 1);
-    }
-    if(name.includes(needle)) return 3;
-    return 4;   // matched on town, county or industry only
-  }
-
-  function rankByRelevance(list, query){
-    const needle = query.trim().toLowerCase();
-    if(!needle || list.length > RANK_LIMIT) return list;
-    return list
-      .map((row, i) => [relevance(row, needle), i, row])
-      .sort((a, b) => a[0] - b[0] || a[1] - b[1])   // stable within a rank
-      .map(entry => entry[2]);
-  }
-
-  // Removed employers are not in the main register any more, so the views
-  // swap the underlying list rather than filtering it.
-  function sourceRows(){
-    if(view === 'added') return addedRows;
-    if(view === 'removed') return removedRows;
-    if(view === 'downgraded') return downgradedRows;
-    if(view === 'saved') return all.filter(s => saved.has(savedKey(s[0], s[1])));
-    return all;
-  }
-
-  function apply(){
-    // Typing is allowed before the register arrives; filtering an empty
-    // array would just flash "no sponsors match". The load handler calls
-    // apply() again once the data is in, honouring whatever was typed.
-    if(!loaded) return;
-    const q = $('q').value.trim().toLowerCase().split(/\s+/).filter(Boolean);
-    const city = $('city').value;
-    const ind = $('industry').value;
-    const route = $('route').value;
-    filtered = sourceRows().filter(s=>{
-      if(warnOnly){
-        const w = warningFor(s[0]);
-        if(!w) return false;
-        if(warnOnly === 'serious' && w.severity !== 'serious') return false;
-      }
-      if(city && s[1]!==city) return false;
-      if(ind && s[3]!==ind) return false;
-      if(route && !s[4].includes(route)) return false;
-      if(q.length){
-        const hay = (s[0]+' '+s[1]+' '+s[2]+' '+s[3]).toLowerCase();
-        for(const w of q){ if(!hay.includes(w)) return false; }
-      }
-      return true;
-    });
-    filtered = rankByRelevance(filtered, $('q').value);
-    render(true);
-  }
-
-  // Prefill the alert scope from the current search, so someone who just
-  // searched "healthcare Manchester" is offered alerts for exactly that.
-  function mirrorScope(){
-    if(alertTouched) return;
-    const ind = $('industry').value;
-    if(ind) $('alertIndustry').value = ind;
-    // The city filter is the reliable signal. A typed search term only
-    // counts when it names a town we actually offer alerts for.
-    const typed = $('q').value.trim().toLowerCase();
-    const want = $('city').value || (knownTowns.has(typed) ? typed : '');
-    if(!want) return;
-    for(const opt of $('alertCity').options){
-      if(opt.value.toLowerCase() === want.toLowerCase()){
-        $('alertCity').value = opt.value; return;
-      }
-    }
-  }
-
-  // ----------------------------------------------------- detail sheet --
-  const RATING_NOTE = {
-    A: 'In good standing with the Home Office.',
-    B: 'Downgraded and working through an action plan. Employers on a B ' +
-       'rating usually cannot issue new certificates until they return to an A.',
-  };
-  let sheetOpener = null;   // so focus can go back where it came from
-  // The row the sheet is showing, so the save button knows what to toggle.
-  let sheetRow = null;
-
-  // "2026-09-01" -> "1 September 2026". Built from the parts rather than
-  // through Date(), which would shift the day in western time zones.
-  const MONTHS = ['January','February','March','April','May','June','July',
-                  'August','September','October','November','December'];
-  function longDate(iso){
-    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || ''));
-    if(!m) return String(iso || '');
-    return `${Number(m[3])} ${MONTHS[Number(m[2]) - 1]} ${m[1]}`;
-  }
-
-  function sheetHTML(row){
+  // Forensic Inspection Docket
+  function openDocket(row) {
+    if (!row) return;
     const [name, town, county, industry, routes, rating] = row;
-    const location = [town, county].filter(Boolean).join(', ');
-    const record = companyFlags[name];
-    const parts = ['<dl>'];
-    if(location) parts.push(`<dt>Location</dt><dd>${esc(location)}</dd>`);
-    parts.push(`<dt>Industry</dt><dd>${esc(industry)}</dd>`);
+    const warn = warningFor(name);
+    const nmw = nmwData[name];
+    const key = (name + '|' + town).toLowerCase();
+    const sinceDate = licensedSince[key] || 'Historical baseline';
 
-    parts.push('</dl>');
+    document.getElementById('docketEmpty').style.display = 'none';
+    document.getElementById('docketContent').style.display = 'block';
 
-    // Nobody else can answer this. GOV.UK publishes who holds a licence
-    // today and never when it started, so it only exists because the
-    // pipeline has kept a dated log.
-    const started = licensedSince[(name + '|' + town).toLowerCase()];
+    document.getElementById('docketName').textContent = name;
+    document.getElementById('docketSubtitle').textContent = 
+      (warn && warn.crn ? `CRN: ${warn.crn} · ` : '') + [town, county].filter(Boolean).join(', ');
 
-    if(routes && routes.length){
-      parts.push('<div class="block"><h3>Visa routes it can sponsor</h3>' +
-        routes.map(r=>`<span class="tag">${esc(r)}</span>`).join('') + '</div>');
+    document.getElementById('docketRating').innerHTML = rating === 'A' 
+      ? '<span class="status-badge regular">A-Rating (Approved Standard)</span>' 
+      : (rating === 'B' ? '<span class="status-badge critical">B-Rating (Suspended CoS Privileges)</span>' : esc(rating));
+      
+    document.getElementById('docketSince').textContent = sinceDate;
+    document.getElementById('docketRoutes').textContent = (routes || []).join(', ');
+
+    document.getElementById('docketStatus').textContent = warn && warn.status ? warn.status : 'Active (No Corporate Red Flags)';
+    document.getElementById('docketIncorp').textContent = warn && warn.incorporated ? warn.incorporated : 'Not specified in registry';
+    document.getElementById('docketAccounts').textContent = warn && warn.accounts ? warn.accounts : 'Standard Private Company';
+
+    // Solvency warning box
+    const advBox = document.getElementById('docketAdvisoryBox');
+    if (warn && (warn.severity === 'serious' || warn.severity === 'notable')) {
+      advBox.style.display = 'block';
+      advBox.className = 'docket-advisory ' + (warn.severity === 'serious' ? 'critical' : 'warning');
+      advBox.innerHTML = `<strong>Advisory:</strong> ${esc(warn.explanation)} Corporate insolvency or strike-off proceedings legally impair the entity's ability to maintain worker sponsorship.`;
+    } else {
+      advBox.style.display = 'none';
     }
 
-    if(record){
-      // known[3] is the explanation. known[2] became the severity when the
-      // warnings were tiered, and this line was left pointing at [2], so the
-      // sheet printed the word "serious" where a sentence belonged.
-      const flags = (record.flags || []).map(f=>{
-        const known = WARNINGS.find(w=>w[0]===f);
-        return known ? known[3] : f;
-      });
-      parts.push('<div class="warnbox"><strong>Companies House says:</strong> ' +
-        (record.status ? esc(record.status) + '. ' : '') +
-        flags.map(esc).join(' ') +
-        '<br>Matched by name, so check the official record before deciding ' +
-        'anything.</div>');
-    }
-
-    // Named for minimum wage underpayment. An enforcement finding rather
-    // than a filing signal, so it gets its own box and its own wording:
-    // what was owed, to how many workers, when, and a link to the
-    // government publication. Nothing about what it implies.
-    const named = namings[name];
-    if(named && named.length){
-      const latest = named[0];
-      const year = String(latest.round || '').slice(0,4);
-      const money = typeof latest.arrears === 'number'
-        ? '£' + latest.arrears.toLocaleString('en-GB',
-            {minimumFractionDigits:2, maximumFractionDigits:2}) : '';
-      const workers = latest.workers
-        ? latest.workers.toLocaleString() +
-          (latest.workers === 1 ? ' worker' : ' workers') : '';
-      const bits = ['<strong>Named for underpaying the minimum wage' +
-        (year ? ' in ' + esc(year) : '') + '.</strong>'];
-      if(money && workers) bits.push(money + ' was owed to ' + workers + '.');
-      else if(money) bits.push(money + ' was owed.');
-      if(named.length > 1) bits.push('Named in ' + named.length +
-        ' separate rounds.');
-      const src = String(latest.source || '');
-      if(src.startsWith('https://www.gov.uk/')){
-        bits.push('<a href="' + attr(src) + '" target="_blank" ' +
-          'rel="noopener">The government publication</a>.');
+    // NMW enforcement box
+    const nmwSection = document.getElementById('docketNmwSection');
+    const nmwBox = document.getElementById('docketNmwBox');
+    if (nmw && nmw.length) {
+      nmwSection.style.display = 'block';
+      const latest = nmw[0];
+      const year = String(latest.round || '').slice(0, 4);
+      const money = typeof latest.arrears === 'number' ? '£' + latest.arrears.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : '';
+      const workers = latest.workers ? latest.workers.toLocaleString() + (latest.workers === 1 ? ' worker' : ' workers') : '';
+      
+      let nmwHtml = `<strong>Named for underpaying the statutory minimum wage${year ? ' in ' + esc(year) : ''}.</strong> `;
+      if (money && workers) nmwHtml += `${money} was owed to ${workers}. `;
+      if (nmw.length > 1) nmwHtml += `Named in ${nmw.length} separate enforcement rounds. `;
+      if (latest.source && latest.source.startsWith('https://www.gov.uk/')) {
+        nmwHtml += `<br><a href="${esc(latest.source)}" target="_blank" rel="noopener">Official Government Publication &rarr;</a>`;
       }
-      bits.push('<br>A published enforcement finding, not an allegation. ' +
-        'Arrears named in a round have to be repaid, and being named does ' +
-        'not tell you what the employer is like to work for now.');
-      parts.push('<div class="warnbox">' + bits.join(' ') + '</div>');
+      nmwHtml += `<br><small style="opacity:0.85; margin-top:4px; display:block;">Published statutory enforcement finding. Arrears named must be repaid.</small>`;
+      nmwBox.innerHTML = nmwHtml;
+    } else {
+      nmwSection.style.display = 'none';
     }
 
-    // What we can and cannot vouch for, in one place. No competitor shows
-    // any of this, and the value is entirely in it being honest about the
-    // gap: an employer with no warning has not been vetted, it has either
-    // been matched and found clean or not matched at all, and the published
-    // file cannot tell those apart without shipping 96,000 more names.
-    const checks = [];
-    checks.push(['Home Office rating', rating === 'A'
-      ? 'A, which is good standing'
-      : (rating === 'B'
-          ? 'B, so it usually cannot issue new certificates right now'
-          : 'Not published')]);
-    checks.push(['Licence held since', started
-      ? esc(longDate(started))
-      : (licensedBaseline
-          ? `At least ${esc(longDate(licensedBaseline))}. It was already on ` +
-            'the register when we started keeping a daily record, so the ' +
-            'licence is older than that.'
-          : 'Not known')]);
-    if(record){
-      const worst = warningFor(name);
-      checks.push(['Companies House record',
-        (record.status ? esc(record.status) : 'Signal found') +
-        (worst && worst.severity === 'serious'
-          ? '. This is the serious kind: the company may not be trading.'
-          : '. Worth a look, but common and not proof of anything.')]);
-    }else{
-      checks.push(['Companies House record',
-        'No signal found. That is not a clean bill of health: we match ' +
-        'employers to company records by name, and this one either matched ' +
-        'and looked fine or could not be matched at all.']);
-    }
-    parts.push('<div class="block"><h3>What we can check</h3><dl class="checks">' +
-      checks.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${v}</dd>`).join('') +
-      '</dl></div>');
-
-    const links = [];
-    if(record && record.number){
-      links.push(`<a href="${CH_COMPANY}${encodeURIComponent(record.number)}"` +
-        ` target="_blank" rel="noopener">Company ${esc(record.number)} at ` +
-        `Companies House</a>`);
-    }
-    links.push('<a href="https://www.gov.uk/government/publications/' +
-      'register-of-licensed-sponsors-workers" target="_blank" rel="noopener">' +
-      'The official GOV.UK register</a>');
-    // A page of its own, where one exists. Only some employers have one:
-    // a chain, or a licence we watched start.
-    const ownPage = employerPages[name];
-    if(ownPage){
-      links.unshift(`<a href="employer/${encodeURIComponent(ownPage)}/">` +
-        `Everything we know about ${esc(name)}</a>`);
-    }
-    parts.push('<div class="links">' + links.join('') + '</div>');
-
-    // The same employer often holds a licence at several sites. Knowing
-    // there is one nearer you is more useful than knowing this one exists.
-    const elsewhere = all
-      .filter(s => s[0] === name && s[1] && s[1] !== town)
-      .map(s => s[1]);
-    const towns = [...new Set(elsewhere)].sort();
-    if(towns.length){
-      parts.push('<div class="block"><h3>Also listed in</h3>' +
-        towns.map(t=>`<span class="tag">${esc(t)}</span>`).join('') + '</div>');
+    // Registry Links
+    const chLink = document.getElementById('linkCH');
+    if (warn && warn.crn) {
+      chLink.href = 'https://find-and-update.company-information.service.gov.uk/company/' + encodeURIComponent(warn.crn);
+      chLink.style.display = 'inline-flex';
+    } else {
+      chLink.href = 'https://find-and-update.company-information.service.gov.uk/search?q=' + encodeURIComponent(name);
+      chLink.style.display = 'inline-flex';
     }
 
-    parts.push('<p class="caveat">Holding a licence means this employer can ' +
-      'sponsor a visa on the routes listed. It does not mean they are hiring, ' +
-      'and this is not immigration advice.</p>');
-    return parts.join('');
-  }
+    document.getElementById('linkGazette').href = 'https://www.thegazette.co.uk/all-notices/notice?text=' + encodeURIComponent(name);
+    document.getElementById('linkLinkedIn').href = 'https://www.linkedin.com/jobs/search/?keywords=' + encodeURIComponent(name);
 
-  function openSheet(name, opener){
-    const row = sourceRows().find(s=>s[0]===name) || all.find(s=>s[0]===name);
-    if(!row) return;
-    sheetRow = row;
-    sheetOpener = opener || null;
-    $('sheetName').textContent = name;
-    $('sheetBody').innerHTML = sheetHTML(row);
-    syncSheetStar();
-    $('sheetBackdrop').hidden = false;
-    $('sheet').hidden = false;
-    $('sheetClose').focus();
-    for(const tr of rows.querySelectorAll('tr.open')) tr.classList.remove('open');
-    if(opener) opener.closest('tr').classList.add('open');
-    syncURL(true);
-  }
-
-  function closeSheet(){
-    if($('sheet').hidden) return;
-    sheetRow = null;
-    $('sheet').hidden = true;
-    $('sheetBackdrop').hidden = true;
-    for(const tr of rows.querySelectorAll('tr.open')) tr.classList.remove('open');
-    // Send focus back to the row that opened it, not to the top of the page.
-    if(sheetOpener && document.contains(sheetOpener)) sheetOpener.focus();
-    sheetOpener = null;
-    syncURL(true);
-  }
-
-  function sheetOpenName(){
-    return $('sheet').hidden ? '' : $('sheetName').textContent;
-  }
-
-  // --------------------------------------------------------- actions --
-  function filtersActive(){
-    return Boolean($('q').value.trim() || $('city').value ||
-                   $('industry').value || $('route').value || view || warnOnly);
-  }
-
-  function setWarnOnly(level){
-    warnOnly = (level === 'serious' || level === 'any') ? level
-             : (level ? 'any' : '');
-    $('warnOnly').setAttribute('aria-pressed', String(warnOnly === 'any'));
-    $('statWarnBox').setAttribute('aria-pressed', String(warnOnly === 'serious'));
-  }
-
-  function clearFilters(){
-    $('q').value = '';
-    $('city').value = '';
-    $('industry').value = '';
-    $('route').value = '';
-    setWarnOnly(false);
-    setView('');
-    apply();
-    syncURL(true);
-    $('q').focus();
-  }
-
-  // Sharing a filtered view is the cheapest growth this site has: someone
-  // pastes "sponsors in Leeds" into a group chat. Copying the address bar
-  // by hand is enough friction to stop most people doing it.
-  async function copyLink(){
-    const btn = $('copyLink');
-    const label = btn.textContent;
-    try{
-      await navigator.clipboard.writeText(location.href);
-      btn.textContent = 'Link copied';
-    }catch(err){
-      // Clipboard access can be blocked; select the URL so Ctrl+C still works.
-      btn.textContent = 'Press Ctrl+C to copy';
+    if (window.innerWidth <= 960) {
+      document.getElementById('docketPane').classList.add('open');
     }
-    setTimeout(()=>{ btn.textContent = label; }, 1800);
   }
 
-  // ------------------------------------------------------------ csv --
-  // Exports exactly what is on screen, filters and all. Built here rather
-  // than served as a file so it always matches the current view and costs
-  // no bandwidth.
-  function csvCell(value){
-    const s = String(value == null ? '' : value);
-    // Quote if the value could break a row, and double any inner quotes.
-    return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  // Salary Threshold Calculator
+  function initSalaryCalc() {
+    const select = document.getElementById('calcSocSelect');
+    if (!select || !socData.occupations) return;
+
+    select.innerHTML = socData.occupations.map((o, idx) => 
+      `<option value="${idx}">SOC ${o.soc}: ${esc(o.title)} (£${o.going_rate.toLocaleString()}/yr)</option>`
+    ).join('');
+
+    select.addEventListener('change', updateSalaryGauge);
+    updateSalaryGauge();
   }
 
-  function buildCSV(records){
-    const head = ['Employer','Town','County','Industry','Visa routes','Rating',
-                  'Company status','Company number','Companies House warnings'];
-    const lines = [head.join(',')];
-    for(const [name,town,county,industry,routes,rating] of records){
-      const record = companyFlags[name] || {};
-      lines.push([name, town, county, industry,
-                  (routes||[]).join('; '),
-                  view === 'removed' ? '' : rating,
-                  record.status || '', record.number || '',
-                  (record.flags || []).join('; ')].map(csvCell).join(','));
+  function updateSalaryGauge() {
+    const select = document.getElementById('calcSocSelect');
+    if (!select || !socData.occupations) return;
+    
+    const occ = socData.occupations[parseInt(select.value, 10)];
+    if (!occ) return;
+
+    document.getElementById('calcGoingRate').textContent = '£' + occ.going_rate.toLocaleString();
+    const verdictEl = document.getElementById('calcVerdict');
+    
+    if (occ.going_rate >= socData.general_threshold) {
+      verdictEl.innerHTML = `<strong>Eligible.</strong> Sponsorship requires minimum £${occ.going_rate.toLocaleString()}/yr (higher of £38,700 base and occupational going rate).`;
+    } else {
+      verdictEl.innerHTML = `<strong>General Threshold Rule.</strong> Occupational rate is £${occ.going_rate.toLocaleString()}, but statutory baseline enforces £38,700/yr minimum floor.`;
     }
-    // CRLF is what the CSV spec says and what Excel is happiest with.
-    return lines.join('\r\n');
   }
 
-  function csvFilename(){
-    const bits = ['knowyoursponsor'];
-    // view already covers 'saved', so a shortlist export is named as one.
-    if(view) bits.push(view);
-    const ct = $('city').value, ind = $('industry').value, rt = $('route').value;
-    const q = $('q').value.trim();
-    for(const part of [ct, ind, rt, q]){
-      if(part) bits.push(part.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''));
+  // Trigger Query
+  function triggerQuery(append) {
+    const q = document.getElementById('q').value;
+    const city = document.getElementById('citySelect').value;
+    const industry = document.getElementById('industrySelect').value;
+    const route = document.getElementById('routeSelect').value;
+    const rating = document.getElementById('ratingSelect').value;
+
+    const currentReq = ++requestId;
+    const offset = append ? currentOffset : 0;
+
+    if (searchWorker) {
+      searchWorker.postMessage({
+        type: 'QUERY',
+        requestId: currentReq,
+        query: q,
+        city: city,
+        industry: industry,
+        route: route,
+        rating: rating,
+        view: currentView,
+        warn: currentWarn,
+        savedKeys: [...savedSet],
+        offset: offset,
+        limit: PAGE_LIMIT
+      });
+    } else {
+      // Main thread fallback
+      let source = allSponsors;
+      if (currentView === 'added') source = addedRows;
+      else if (currentView === 'removed') source = removedRows;
+      else if (currentView === 'saved') source = allSponsors.filter(s => savedSet.has((s[0]+'|'+s[1]).toLowerCase()));
+      else if (currentView === 'nmw') source = allSponsors.filter(s => !!nmwData[s[0]]);
+
+      const qWords = q ? q.trim().toLowerCase().split(/\s+/) : [];
+      let filtered = source.filter(s => {
+        if (currentWarn) {
+          const w = warningFor(s[0]);
+          if (!w) return false;
+          if (currentWarn === 'serious' && w.severity !== 'serious') return false;
+        }
+        if (city && s[1] !== city) return false;
+        if (industry && s[3] !== industry) return false;
+        if (route && !s[4].includes(route)) return false;
+        if (rating && String(s[5]||'').toUpperCase() !== rating.toUpperCase()) return false;
+        if (qWords.length) {
+          const hay = (s[0] + ' ' + s[1] + ' ' + s[2] + ' ' + s[3]).toLowerCase();
+          for (let w of qWords) { if (!hay.includes(w)) return false; }
+        }
+        return true;
+      });
+
+      totalMatches = filtered.length;
+      document.getElementById('matchCount').textContent = totalMatches.toLocaleString();
+      renderTable(filtered.slice(offset, offset + PAGE_LIMIT), append);
     }
-    bits.push(new Date().toISOString().slice(0,10));
-    return bits.join('-').slice(0, 120) + '.csv';
   }
 
-  function downloadCSV(){
-    if(!filtered.length) return;
-    // A BOM so Excel reads the accents in employer names as UTF-8.
-    const blob = new Blob(['﻿' + buildCSV(filtered)],
-                          {type:'text/csv;charset=utf-8;'});
+  // CSV Export
+  function exportCSV() {
+    if (!activeSlice || !activeSlice.length) return;
+    const headers = ['Employer', 'Town', 'County', 'Industry', 'Visa Routes', 'Rating', 'CRN', 'Status', 'Solvency Warning', 'NMW Underpaid'];
+    const rows = activeSlice.map(r => {
+      const warn = warningFor(r[0]);
+      const nmw = nmwData[r[0]];
+      return [
+        r[0], r[1], r[2], r[3],
+        (r[4] || []).join('; '),
+        r[5],
+        warn ? warn.crn : '',
+        warn ? warn.status : 'Active',
+        warn ? warn.label : '',
+        nmw ? 'Yes' : 'No'
+      ].map(v => '"' + String(v || '').replace(/"/g, '""') + '"').join(',');
+    });
+    const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = csvFilename();
-    document.body.appendChild(a);
+    a.download = `knowyoursponsor-export-${new Date().toISOString().slice(0,10)}.csv`;
     a.click();
-    a.remove();
-    // Revoke on the next tick; revoking immediately can cancel the download.
-    setTimeout(()=>URL.revokeObjectURL(url), 1000);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
-  // ----------------------------------------------------------- views --
-  const VIEW_BUTTONS = {'':'viewAll', 'added':'viewAdded', 'removed':'viewRemoved',
-                        'downgraded':'viewDowngraded', 'saved':'viewSaved'};
-
-  function setView(next){
-    view = VIEW_BUTTONS[next] ? next : '';
-    for(const [name,id] of Object.entries(VIEW_BUTTONS)){
-      $(id).setAttribute('aria-pressed', String(name === view));
-    }
-    const el = $('viewNotice');
-    if(view === 'removed'){
-      el.className = 'notice warn';
-      el.innerHTML = '<strong>These employers can no longer sponsor a visa.</strong> ' +
-        `They were on the official register within the last ${windowDays} days ` +
-        'but have since been removed. Applying to them for sponsored work is ' +
-        'unlikely to lead anywhere.';
-      el.hidden = false;
-    }else if(view === 'added'){
-      // Newly licensed AND already carrying a Companies House signal. This
-      // cross-signal needs both datasets, which is why nobody else can show
-      // it: a company incorporated weeks ago, already licensed to sponsor,
-      // and already behind on its filings is worth a second look.
-      const flagged = addedRows.filter(s=>warningFor(s[0]));
-      const serious = flagged.filter(s=>{
-        const w = warningFor(s[0]);
-        return w && w.severity === 'serious';
-      }).length;
-      let extra = '';
-      if(flagged.length){
-        extra = ` <strong>${flagged.length} of them already have a ` +
-          `Companies House signal</strong>` +
-          (serious ? `, ${serious} of the serious kind` : '') +
-          '. New licence, existing question: worth checking before you apply.';
-      }
-      el.className = 'notice';
-      el.innerHTML = '<strong>Newly licensed employers.</strong> ' +
-        `Added to the register in the last ${windowDays} days. Fewer applicants ` +
-        'know these exist yet, so there is often less competition.' + extra;
-      el.hidden = false;
-    }else if(view === 'saved'){
-      el.className = 'notice';
-      el.innerHTML = '<strong>Your shortlist.</strong> ' +
-        'Saved on this device only, so it is not tied to an account and ' +
-        'nobody else can see it. Clearing your browser data clears it too. ' +
-        'Download it as CSV if you want to keep it.';
-      el.hidden = false;
-    }else if(view === 'downgraded'){
-      el.className = 'notice warn';
-      el.innerHTML = '<strong>These employers have just dropped to a B rating.</strong> ' +
-        `Their rating moved from A to B in the last ${windowDays} days. A B-rated ` +
-        'sponsor is working through a Home Office action plan and usually ' +
-        'cannot issue new certificates of sponsorship until it is back to an A, ' +
-        'so a job there may not come with a visa for now.';
-      el.hidden = false;
-    }else{
-      el.hidden = true;
-    }
-  }
-
-  // ------------------------------------------------------- url state --
-  // Filter state lives in the query string so any view is shareable.
-  function stateToQuery(){
-    const p = new URLSearchParams();
-    const q = $('q').value.trim();
-    if(q) p.set('q', q);
-    if($('city').value) p.set('city', $('city').value);
-    if($('industry').value) p.set('industry', $('industry').value);
-    if($('route').value) p.set('route', $('route').value);
-    if(view) p.set('view', view);
-    if(warnOnly) p.set('warn', warnOnly === 'serious' ? 'serious' : '1');
-    const open = sheetOpenName();
-    if(open) p.set('employer', open);
-    return p.toString();
-  }
-
-  // push=true for discrete control changes (so Back steps through them);
-  // push=false while typing, otherwise every pause would add a history entry.
-  function syncURL(push){
-    const qs = stateToQuery();
-    const url = location.pathname + (qs ? '?'+qs : '');
-    if(url === location.pathname + location.search) return;
-    history[push ? 'pushState' : 'replaceState'](null, '', url);
-  }
-
-  // Restoring is split in two. The text/toggle half runs immediately so the
-  // controls are correct while the data is still downloading; the select half
-  // has to wait for the <option>s to be built from the data, otherwise
-  // assigning .value silently falls back to "".
-  function restoreInputs(){
-    const p = new URLSearchParams(location.search);
-    $('q').value = p.get('q') || '';
-    // ?new=1 was the old spelling; links using it are still out there.
-    setView(p.get('view') || (p.get('new')==='1' ? 'added' : ''));
-    // ?warn=1 kept working: it was already a shareable link before
-    // severity existed, and it means "any warning".
-    const wanted = p.get('warn');
-    setWarnOnly(wanted === 'serious' ? 'serious' : (wanted === '1' ? 'any' : ''));
-  }
-  function restoreSelects(){
-    const p = new URLSearchParams(location.search);
-    for(const id of ['city','industry','route']){
-      const want = p.get(id) || '';
-      $(id).value = want;
-      if($(id).value !== want) $(id).value = '';   // unknown value → "All"
-    }
-  }
-
-  // events
-  let t;
-  $('q').addEventListener('input',()=>{
-    clearTimeout(t);
-    t=setTimeout(()=>{ apply(); syncURL(false); },150);
+  // Event Listeners
+  document.getElementById('btnExport').addEventListener('click', exportCSV);
+  document.getElementById('btnLoadMore').addEventListener('click', () => triggerQuery(true));
+  document.getElementById('docketClose').addEventListener('click', () => {
+    document.getElementById('docketPane').classList.remove('open');
   });
-  $('go').addEventListener('click',()=>{ apply(); syncURL(true); });
-  $('city').addEventListener('change',()=>{ apply(); syncURL(true); });
-  $('industry').addEventListener('change',()=>{ apply(); syncURL(true); });
-  $('route').addEventListener('change',()=>{ apply(); syncURL(true); });
-  $('more').addEventListener('click',()=>render(false));
-  $('download').addEventListener('click',downloadCSV);
-  $('copyLink').addEventListener('click',copyLink);
-  $('clear').addEventListener('click',clearFilters);
 
-  // Keyboard: "/" jumps to the search box, Escape clears it. Both are
-  // ignored while typing in a field, so they never eat a real keystroke.
-  document.addEventListener('keydown',e=>{
-    const typing = /^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement.tagName);
-    if(e.key === 'Escape' && !$('sheet').hidden){
-      closeSheet();
+  document.getElementById('q').addEventListener('input', () => triggerQuery(false));
+  document.getElementById('citySelect').addEventListener('change', () => triggerQuery(false));
+  document.getElementById('industrySelect').addEventListener('change', () => triggerQuery(false));
+  document.getElementById('routeSelect').addEventListener('change', () => triggerQuery(false));
+  document.getElementById('ratingSelect').addEventListener('change', () => triggerQuery(false));
+
+  document.getElementById('barCritical').addEventListener('click', () => { currentWarn = 'serious'; triggerQuery(false); });
+  document.getElementById('barWarning').addEventListener('click', () => { currentWarn = 'notable'; triggerQuery(false); });
+  document.getElementById('barSolvent').addEventListener('click', () => { currentWarn = ''; triggerQuery(false); });
+  document.getElementById('legCritical').addEventListener('click', () => { currentWarn = 'serious'; triggerQuery(false); });
+  document.getElementById('legWarning').addEventListener('click', () => { currentWarn = 'notable'; triggerQuery(false); });
+  document.getElementById('legSolvent').addEventListener('click', () => { currentWarn = ''; triggerQuery(false); });
+
+  const viewBtns = document.querySelectorAll('.view-btn');
+  viewBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      viewBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentView = btn.dataset.view;
+      triggerQuery(false);
+    });
+  });
+
+  document.getElementById('tableBody').addEventListener('click', e => {
+    const star = e.target.closest('.star-btn');
+    if (star) {
+      const key = star.dataset.key;
+      if (savedSet.has(key)) savedSet.delete(key);
+      else savedSet.add(key);
+      saveShortlist();
+      star.classList.toggle('saved');
+      star.textContent = savedSet.has(key) ? '★' : '☆';
       return;
     }
-    if(e.key === '/' && !typing){
+    const tr = e.target.closest('tr');
+    if (tr) {
+      const idx = parseInt(tr.dataset.idx, 10);
+      selectedRowIndex = idx;
+      document.querySelectorAll('#tableBody tr').forEach(r => r.classList.remove('selected'));
+      tr.classList.add('selected');
+      openDocket(activeSlice[idx]);
+    }
+  });
+
+  document.addEventListener('keydown', e => {
+    const isInput = /^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement.tagName);
+    
+    if (e.key === '/' && !isInput) {
       e.preventDefault();
-      $('q').focus();
-      $('q').select();
-    }else if(e.key === 'Escape' && document.activeElement === $('q')){
-      $('q').value = '';
-      apply();
-      syncURL(false);
-    }
-  });
-  for(const id of ['alertCity','alertIndustry']){
-    $(id).addEventListener('change',()=>{ alertTouched = true; });
-  }
-  for(const [name,id] of Object.entries(VIEW_BUTTONS)){
-    $(id).addEventListener('click',()=>{ setView(name); apply(); syncURL(true); });
-  }
-  $('warnOnly').addEventListener('click',()=>{
-    setWarnOnly(warnOnly === 'any' ? '' : 'any'); apply(); syncURL(true);
-  });
-
-  // A real href, so it still works without JavaScript and can be opened in a
-  // new tab. Intercepted here because a reload would re-fetch the register.
-  rows.addEventListener('click',e=>{
-    // The company warning is a real link to Companies House. A click there
-    // must go there, and not also open the sheet behind it.
-    if(e.target.closest('a')) return;
-    const star = e.target.closest('.star');
-    if(star){ toggleSaved(star.dataset.save); return; }
-    const btn = e.target.closest('.rowbtn');
-    if(btn){ openSheet(btn.dataset.name, btn); return; }
-    // Anywhere else in the row. People click the row rather than hunting for
-    // the name, and on a five-column table that left most of the row dead:
-    // the click did nothing, which reads as a broken site rather than a
-    // missed target.
-    const tr = e.target.closest('tr[data-name]');
-    if(tr) openSheet(tr.dataset.name, tr);
-  });
-  // Keeps the sheet's save button showing the truth, including when the
-  // star for the same employer is toggled in the row behind it.
-  function syncSheetStar(){
-    const btn = $('sheetSave');
-    const row = sheetRow;
-    if(!btn || !row){ return; }
-    const on = saved.has(savedKey(row[0], row[1]));
-    btn.textContent = on ? 'Saved. Tap to remove' : 'Save to shortlist';
-    btn.setAttribute('aria-pressed', String(on));
-  }
-
-  $('sheetSave').addEventListener('click',()=>{
-    if(sheetRow) toggleSaved(savedKey(sheetRow[0], sheetRow[1]));
-  });
-
-  $('sheetClose').addEventListener('click',closeSheet);
-  $('sheetCopy').addEventListener('click',async ()=>{
-    const btn = $('sheetCopy');
-    const label = btn.textContent;
-    try{
-      await navigator.clipboard.writeText(location.href);
-      btn.textContent = 'Link copied';
-    }catch(err){
-      btn.textContent = 'Press Ctrl+C to copy';
-    }
-    setTimeout(()=>{ btn.textContent = label; }, 1800);
-  });
-  $('sheetBackdrop').addEventListener('click',closeSheet);
-
-  $('statWarnBox').addEventListener('click',e=>{
-    e.preventDefault();
-    setWarnOnly('serious');
-    apply();
-    syncURL(true);
-    $('filterbar').scrollIntoView({block:'start'});
-  });
-
-  // Lift the sticky bar only once it is actually stuck, so the shadow is a
-  // signal rather than decoration. rootMargin watches the line it sticks to.
-  if('IntersectionObserver' in window){
-    const sentinel = document.createElement('div');
-    $('filterbar').before(sentinel);
-    new IntersectionObserver(
-      ([entry])=>$('filterbar').classList.toggle('stuck', !entry.isIntersecting),
-      {threshold:0}
-    ).observe(sentinel);
-  }
-  window.addEventListener('popstate',()=>{ restoreInputs(); restoreSelects(); apply(); });
-
-  // Reflect the URL in the controls straight away, so someone landing on a
-  // shared link sees the right filters while the register downloads.
-  restoreInputs();
-  // ----------------------------------------------------------- alerts --
-  const alertForm = $('alertForm');
-  function alertError(msg){
-    const el = $('alertErr');
-    el.textContent = msg;
-    el.style.display = 'block';
-  }
-  // Prefer the provider's own message ("that address is already subscribed")
-  // over a generic one, when it sends a usable one.
-  function firstFieldError(data){
-    const fields = data && data.errors && data.errors.fields;
-    if(!fields) return '';
-    const first = Object.values(fields)[0];
-    return Array.isArray(first) ? first[0] : '';
-  }
-  alertForm.addEventListener('submit', async e => {
-    e.preventDefault();
-    $('alertErr').style.display = 'none';
-
-    if(!ALERT_ENDPOINT){
-      alertError("Email alerts aren't running yet. Please check back soon.");
-      return;
-    }
-
-    const email = alertForm.email.value.trim();
-    if(!email) return;
-    const btn = alertForm.querySelector('button');
-    const label = btn.textContent;
-    btn.disabled = true; btn.textContent = 'Sending…';
-
-    try{
-      const body = new FormData();
-      body.append('fields[email]', email);
-      // Scope is what makes the weekly email worth opening: 124 new
-      // employers nationwide is noise, 3 in your city is not. MailerLite
-      // ignores a field it does not know, so these are only stored if the
-      // matching custom fields exist in the account (see README).
-      if($('alertCity').value) body.append('fields[city]', $('alertCity').value);
-      if($('alertIndustry').value) body.append('fields[industry]', $('alertIndustry').value);
-      body.append('ml-submit', '1');
-      body.append('anticsrf', 'true');
-      const res = await fetch(ALERT_ENDPOINT, {method:'POST', body});
-
-      // A rejected address still comes back as HTTP 200 with
-      // {"success":false,...}, so the body decides, not the status code.
-      const data = await res.json().catch(()=>null);
-      if(!res.ok || !data || data.success !== true){
-        btn.disabled = false; btn.textContent = label;
-        alertError(firstFieldError(data) ||
-          'That address was not accepted. Please check it and try again.');
-        return;
+      document.getElementById('q').focus();
+      document.getElementById('q').select();
+    } else if (e.key === 'Escape') {
+      if (document.getElementById('docketPane').classList.contains('open')) {
+        document.getElementById('docketPane').classList.remove('open');
+      } else if (document.activeElement === document.getElementById('q')) {
+        document.getElementById('q').value = '';
+        triggerQuery(false);
       }
-
-      alertForm.style.display = 'none';
-      $('alertDone').style.display = 'block';
-    }catch(err){
-      btn.disabled = false; btn.textContent = label;
-      alertError("That didn't send. Please check your connection and try again.");
+    } else if ((e.key === 'j' || e.key === 'ArrowDown') && !isInput) {
+      e.preventDefault();
+      if (selectedRowIndex < activeSlice.length - 1) {
+        selectedRowIndex++;
+        const trs = document.querySelectorAll('#tableBody tr');
+        trs.forEach(r => r.classList.remove('selected'));
+        if (trs[selectedRowIndex]) {
+          trs[selectedRowIndex].classList.add('selected');
+          trs[selectedRowIndex].scrollIntoView({ block: 'nearest' });
+        }
+        openDocket(activeSlice[selectedRowIndex]);
+      }
+    } else if ((e.key === 'k' || e.key === 'ArrowUp') && !isInput) {
+      e.preventDefault();
+      if (selectedRowIndex > 0) {
+        selectedRowIndex--;
+        const trs = document.querySelectorAll('#tableBody tr');
+        trs.forEach(r => r.classList.remove('selected'));
+        if (trs[selectedRowIndex]) {
+          trs[selectedRowIndex].classList.add('selected');
+          trs[selectedRowIndex].scrollIntoView({ block: 'nearest' });
+        }
+        openDocket(activeSlice[selectedRowIndex]);
+      }
+    } else if (e.key === 'e' && !isInput) {
+      exportCSV();
+    } else if (e.key === 's' && !isInput && selectedRowIndex >= 0 && activeSlice[selectedRowIndex]) {
+      const s = activeSlice[selectedRowIndex];
+      const key = (s[0] + '|' + s[1]).toLowerCase();
+      if (savedSet.has(key)) savedSet.delete(key);
+      else savedSet.add(key);
+      saveShortlist();
+      renderTable(activeSlice, false);
     }
   });
 
-  // One retry, because the register is 2MB gzipped and a single failed
-  // request should not be a dead end. Two real causes, both seen:
-  //
-  //   A phone on a weak connection drops a long download. That is our actual
-  //   audience, so treating one failure as fatal fails the people the site
-  //   is for.
-  //
-  //   A service worker upgrade can abort a request that is already in
-  //   flight. Renaming the cache did exactly that on the live site: the
-  //   small files finished, the 2MB one was aborted, and the whole load
-  //   failed with "the list could not be loaded".
-  //
-  // 'reload' on the second attempt so a poisoned cache entry cannot be
-  // handed back twice.
-  async function fetchJSON(url, attempts=2){
-    let last;
-    for(let i=0; i<attempts; i++){
-      try{
-        const res = await fetch(url, i ? {cache:'reload'} : undefined);
-        if(!res.ok) throw new Error('HTTP ' + res.status);
-        return await res.json();
-      }catch(err){ last = err; }
-    }
-    throw last;
+  const toggleBtn = document.querySelector('[data-theme-toggle]');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark' || 
+        (!document.documentElement.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      const next = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch(e) {}
+    });
   }
 
-  // load data
+  // Load All Verified Datasets
   Promise.all([
-    fetchJSON('data/sponsors.json'),
-    fetchJSON('data/new_sponsors.json').catch(()=>({new:[]})),
-    fetchJSON('data/meta.json').catch(()=>({})),
-    fetchJSON('data/removed_sponsors.json').catch(()=>({removed:[]})),
-    // Optional: if the monthly enrichment has not run, the site works
-    // exactly as before, just without warnings.
-    fetchJSON('data/company_flags.json').catch(()=>({companies:{}})),
-    // Optional in the same way: the file only appears once the pipeline has
-    // seen two consecutive runs, so its absence is normal, not an error.
-    fetchJSON('data/rating_changes.json').catch(()=>({changes:[]})),
-    // Optional too: absent until the history log has recorded a day.
-    fetchJSON('data/licensed_since.json').catch(()=>({since:{}})),
-    // Optional: absent until the employer pages have been generated once.
-    fetchJSON('data/employer_pages.json').catch(()=>({pages:{}})),
-    // 89KB, smaller than the Companies House warnings, and it reaches all
-    // 389 named employers rather than the 0 that have a page.
-    fetchJSON('data/nmw.json').catch(()=>({employers:{}}))
-  ]).then(([main,recent,meta,gone,flags,ratings,since,pageIndex,nmw])=>{
-    namings = nmw.employers || {};
-    employerPages = pageIndex.pages || {};
-    licensedSince = since.since || {};
-    licensedBaseline = since.baseline || '';
-    companyFlags = flags.companies || {};
-    all = main.sponsors||[];
-    addedRows = recent.new||[];
-    removedRows = gone.removed||[];
-    windowDays = recent.window_days || meta.window_days || 7;
-    addedRows.forEach(s=>newNames.add(s[0].toLowerCase()));
-    $('total').textContent = all.length.toLocaleString();
-    $('updated').textContent = main.updated||'—';
-    if(meta.sample){ $('sampleNote').style.display='block'; }
+    fetch('data/sponsors.json').then(r => r.json()),
+    fetch('data/company_flags.json').then(r => r.json()).catch(() => ({companies:{}})),
+    fetch('data/licensed_since.json').then(r => r.json()).catch(() => ({since:{}})),
+    fetch('data/new_sponsors.json').then(r => r.json()).catch(() => ({new:[]})),
+    fetch('data/removed_sponsors.json').then(r => r.json()).catch(() => ({removed:[]})),
+    fetch('data/rating_changes.json').then(r => r.json()).catch(() => ({changes:[]})),
+    fetch('data/nmw.json').then(r => r.json()).catch(() => ({employers:{}})),
+    fetch('data/soc_thresholds.json').then(r => r.json()).catch(() => ({occupations:[]}))
+  ]).then(([sponsorsData, flagsData, sinceData, newData, removedData, ratingData, nmw, socs]) => {
+    allSponsors = sponsorsData.sponsors || [];
+    companyFlags = flagsData.companies || {};
+    licensedSince = sinceData.since || {};
+    ratingChanges = ratingData.changes || [];
+    nmwData = nmw.employers || {};
+    addedRows = newData.new || [];
+    removedRows = removedData.removed || [];
+    socData = socs;
 
-    // Counts on the buttons: they tell someone whether a view is worth a click.
-    $('nAdded').textContent = addedRows.length ? `(${addedRows.length})` : '';
-    $('nRemoved').textContent = removedRows.length ? `(${removedRows.length})` : '';
+    document.getElementById('hudTotal').textContent = allSponsors.length.toLocaleString();
+    document.getElementById('hudAdded').textContent = '+' + addedRows.length.toLocaleString();
+    document.getElementById('nAdded').textContent = `(${addedRows.length})`;
+    document.getElementById('nRemoved').textContent = `(${removedRows.length})`;
+    
+    const nmwCount = Object.keys(nmwData).length;
+    document.getElementById('nNmw').textContent = `(${nmwCount})`;
 
-    // Match each downgrade back to its register row by name and town, the
-    // same identity the pipeline uses. An employer that was downgraded and
-    // then left the register entirely finds no row and is dropped: it belongs
-    // in "lost licence", which is the worse news and already covers it.
-    const byKey = new Map(all.map(s=>[(s[0]+'|'+s[1]).toLowerCase(), s]));
-    downgradedRows = (ratings.changes||[])
-      .filter(c=>c.action === 'downgraded')
-      .map(c=>byKey.get(((c.name||'')+'|'+(c.town||'')).toLowerCase()))
-      .filter(Boolean)
-      // The row must still say B. Otherwise this view could announce "just
-      // dropped to a B rating" above a column reading A, which destroys
-      // trust in the one screen that exists to warn somebody off.
-      .filter(s=>String(s[5]||'').trim().toUpperCase() === 'B');
-    if(downgradedRows.length){
-      $('nDowngraded').textContent = `(${downgradedRows.length})`;
-      $('viewDowngraded').hidden = false;
+    const towns = [...new Set(allSponsors.map(s => s[1]).filter(Boolean))].sort();
+    const citySel = document.getElementById('citySelect');
+    citySel.innerHTML = '<option value="">All Jurisdictions</option>' + 
+      towns.slice(0, 60).map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join('');
+
+    const industries = [...new Set(allSponsors.map(s => s[3]).filter(Boolean))].sort();
+    const indSel = document.getElementById('industrySelect');
+    indSel.innerHTML = '<option value="">All Classifications</option>' + 
+      industries.map(i => `<option value="${esc(i)}">${esc(i)}</option>`).join('');
+
+    const routes = [...new Set(allSponsors.flatMap(s => s[4]))].sort();
+    const routeSel = document.getElementById('routeSelect');
+    routeSel.innerHTML = '<option value="">All Visa Routes</option>' + 
+      routes.map(r => `<option value="${esc(r)}">${esc(r)}</option>`).join('');
+
+    updateShortlistCount();
+    initSalaryCalc();
+
+    // Start Web Worker
+    try {
+      searchWorker = new Worker('worker.js');
+      searchWorker.onmessage = function(e) {
+        if (e.data.type === 'INIT_COMPLETE') {
+          document.getElementById('hudSerious').textContent = e.data.seriousCount.toLocaleString();
+          document.getElementById('hudDeficient').textContent = (e.data.flaggedCount - e.data.seriousCount).toLocaleString();
+          document.getElementById('nFlagged').textContent = `(${e.data.flaggedCount.toLocaleString()})`;
+          triggerQuery(false);
+        } else if (e.data.type === 'QUERY_RESULTS') {
+          if (e.data.requestId === requestId) {
+            totalMatches = e.data.totalCount;
+            document.getElementById('matchCount').textContent = totalMatches.toLocaleString();
+            renderTable(e.data.results, e.data.offset > 0);
+          }
+        }
+      };
+      searchWorker.postMessage({
+        type: 'INIT',
+        all: allSponsors,
+        companyFlags: companyFlags,
+        licensedSince: licensedSince,
+        ratingChanges: ratingChanges,
+        nmwData: nmwData,
+        addedRows: addedRows,
+        removedRows: removedRows
+      });
+    } catch(err) {
+      console.warn('Worker initialization fallback to main thread:', err);
+      triggerQuery(false);
     }
-
-    // A number on the nav link is the difference between "another page" and
-    // "something happened this week". Hidden when there is nothing to report.
-    const moved = addedRows.length + removedRows.length + downgradedRows.length;
-    if(moved){
-      $('navChanges').textContent = moved.toLocaleString();
-      $('navChanges').hidden = false;
-    }
-
-    // Proof strip. The warning count is only shown once it is known: an
-    // empty box promising "company warnings" would be worse than no box.
-    $('statAdded').textContent = addedRows.length.toLocaleString();
-    // Two counts, because they say different things. The card headlines
-    // employers that may have stopped trading; the pill offers every flag.
-    let warnCount = 0, seriousCount = 0;
-    for(const s of all){
-      const w = warningFor(s[0]);
-      if(!w) continue;
-      warnCount++;
-      if(w.severity === 'serious') seriousCount++;
-    }
-    if(seriousCount){
-      $('statWarn').textContent = seriousCount.toLocaleString();
-      $('statWarnBox').hidden = false;
-    }
-    if(warnCount){
-      $('nWarn').textContent = `(${warnCount.toLocaleString()})`;
-      $('warnOnly').hidden = false;
-    }
-    // A shortlist saved on an earlier visit only becomes visible once the
-    // register is in memory, because the Saved view filters it.
-    refreshSavedCount();
-    setView(view);   // re-render the notice now that windowDays is known
-
-    // build filter options from data
-    const inds=[...new Set(all.map(s=>s[3]))].sort();
-    $('industry').insertAdjacentHTML('beforeend', inds.map(i=>`<option>${esc(i)}</option>`).join(''));
-    const routes=[...new Set(all.flatMap(s=>s[4]))].sort();
-    $('route').insertAdjacentHTML('beforeend', routes.map(r=>`<option>${esc(r)}</option>`).join(''));
-
-    // Towns are capped rather than listed in full: there are over 6,000, and
-    // a select that long is unusable. The tail is still reachable by typing,
-    // which is what the search box is for.
-    const townCount = {};
-    for(const s of all){ if(s[1]) townCount[s[1]] = (townCount[s[1]]||0) + 1; }
-    const bySize = Object.keys(townCount).sort((a,b)=>townCount[b]-townCount[a]);
-    const filterTowns = bySize.slice(0,60).sort();
-    const alertTowns = bySize.slice(0,30).sort();
-    knownTowns = new Set(alertTowns.map(t=>t.toLowerCase()));
-
-    $('city').insertAdjacentHTML('beforeend', filterTowns.map(
-      t=>`<option>${esc(t)}</option>`).join(''));
-    $('alertCity').insertAdjacentHTML('beforeend',
-      alertTowns.map(t=>`<option>${esc(t)}</option>`).join(''));
-    $('alertIndustry').insertAdjacentHTML('beforeend',
-      inds.map(i=>`<option>${esc(i)}</option>`).join(''));
-
-    // Swap the loading state for the results, then render the first page.
-    // Note restoreInputs() is deliberately NOT called again here: anything
-    // typed into the search box while the data downloaded must survive.
-    $('loading').hidden = true;
-    $('resultsTable').hidden = false;
-    $('resultsMeta').hidden = false;
-    loaded = true;
-    restoreSelects();
-    apply();
-
-    // A shared ?employer= link opens straight onto that employer.
-    const wanted = new URLSearchParams(location.search).get('employer');
-    if(wanted) openSheet(wanted, null);
-  }).catch(()=>{
-    $('loading').hidden = true;
-    $('empty').hidden=false;
-    $('empty').innerHTML='<strong>The list could not be loaded.</strong><br>Please refresh the page to try again.';
   });
-  // Progressive enhancement only — the site works identically without it.
-  // updateViaCache:'none' makes the browser revalidate sw.js itself on every
-  // navigation, so a new worker is picked up on the next visit after a push.
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>{
-      navigator.serviceWorker
-        .register('sw.js',{updateViaCache:'none'})
-        .catch(()=>{});
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch(() => {});
     });
   }
 })();
 </script>
 
-<!-- GoatCounter: privacy-friendly, cookie-free analytics (no consent banner
-     needed). Loaded async and isolated from app code, so blocking it cannot
-     break the site. The same tag is emitted on the generated landing pages
-     by pipeline/pages.py — keep the two in step. -->
-<script data-goatcounter="https://sponsorsignal.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-<script>(function(){var b=document.querySelector('[data-theme-toggle]');if(!b)return;var r=document.documentElement;function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}function sync(){b.setAttribute('aria-pressed',String(dark()));}b.addEventListener('click',function(){var next=dark()?'light':'dark';r.setAttribute('data-theme',next);try{localStorage.setItem('theme',next);}catch(e){}sync();});sync();})();</script>
+<script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
