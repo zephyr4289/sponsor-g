@@ -1,1 +1,11 @@
-{"updated": "2026-09-09 18:14 UTC", "total": 127716, "added_since_last_run": 0, "removed_since_last_run": 0, "added_recently": 302, "removed_recently": 242, "downgraded_recently": 3, "window_days": 7, "sample": false}
+{
+  "updated": "2026-09-09 19:54 UTC",
+  "total": 127716,
+  "added_since_last_run": 17,
+  "removed_since_last_run": 17,
+  "added_recently": 17,
+  "removed_recently": 17,
+  "downgraded_recently": 4,
+  "window_days": 7,
+  "sample": false
+}

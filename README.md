@@ -148,7 +148,11 @@ All 781 pages across the site adhere to a unified editorial design system built 
 ├── feed.xml                    # Master RSS 2.0 feed of daily sponsor register changes
 ├── .nojekyll                   # Disables Jekyll processing for raw static file hosting
 │
+├── scripts/                    # Ingestion & Diff Automation
+│   └── daily_ingest.py         # Autonomous UKVI CSV scraper, diff engine & validator
+│
 ├── data/                       # Static Columnar Payloads
+│   ├── deltas/                 # Daily micro-delta immutable audit logs (~18KB)
 │   ├── sponsors.json           # Active sponsor register (~1.4MB gzipped tuples)
 │   ├── company_flags.json      # Companies House insolvency and filing flags
 │   ├── nmw.json                # DBT National Minimum Wage Section 19A records
