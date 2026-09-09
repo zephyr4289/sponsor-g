@@ -769,6 +769,7 @@
     <p><a href="insights/">UK visa sponsorship in numbers</a>. Where the sponsors are and which routes they hold.</p>
     <p><a href="data-api/">Use the data yourself</a>. Everything here as JSON, plus an <a href="feed.xml">RSS feed</a> of the weekly changes.</p>
     <p><a href="methodology/">How this data is built</a>. Where it comes from, and which parts are guesses that can be wrong.</p>
+    <p><a href="employer/">Employers with their own page</a>. Chains, and the ones whose licence we watched start.</p>
     <p><a href="watchlist/">How watchlist monitoring works</a>. What is checked, how often, and what would slip through.</p>
     <p><a href="pricing/">What costs money, and what never will</a>. Search stays free; watchlist monitoring is the paid part.</p>
     <p><a href="about/">About KnowYourSponsor</a>. Who built it, and what it will never do.</p>
@@ -806,6 +807,10 @@
   // watched arrive; `licensedBaseline` is the day we started looking, which
   // is all that can honestly be said about everyone else.
   let licensedSince = {}, licensedBaseline = '';
+  // Which employers have a static page of their own. Lets the sheet link to
+  // one, which also gives those pages a path in from the rest of the site
+  // rather than leaving them reachable only from their index.
+  let employerPages = {};
 
   // A shortlist, kept on the device. Deliberately not an account: this is a
   // search tool over public data, and a login would cost the SEO that brings
@@ -1234,6 +1239,13 @@
     links.push('<a href="https://www.gov.uk/government/publications/' +
       'register-of-licensed-sponsors-workers" target="_blank" rel="noopener">' +
       'The official GOV.UK register</a>');
+    // A page of its own, where one exists. Only some employers have one:
+    // a chain, or a licence we watched start.
+    const ownPage = employerPages[name];
+    if(ownPage){
+      links.unshift(`<a href="employer/${encodeURIComponent(ownPage)}/">` +
+        `Everything we know about ${esc(name)}</a>`);
+    }
     parts.push('<div class="links">' + links.join('') + '</div>');
 
     // The same employer often holds a licence at several sites. Knowing
@@ -1700,8 +1712,11 @@
     // seen two consecutive runs, so its absence is normal, not an error.
     fetchJSON('data/rating_changes.json').catch(()=>({changes:[]})),
     // Optional too: absent until the history log has recorded a day.
-    fetchJSON('data/licensed_since.json').catch(()=>({since:{}}))
-  ]).then(([main,recent,meta,gone,flags,ratings,since])=>{
+    fetchJSON('data/licensed_since.json').catch(()=>({since:{}})),
+    // Optional: absent until the employer pages have been generated once.
+    fetchJSON('data/employer_pages.json').catch(()=>({pages:{}}))
+  ]).then(([main,recent,meta,gone,flags,ratings,since,pageIndex])=>{
+    employerPages = pageIndex.pages || {};
     licensedSince = since.since || {};
     licensedBaseline = since.baseline || '';
     companyFlags = flags.companies || {};
