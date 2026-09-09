@@ -1,14 +1,14 @@
 {
-  "name": "KnowYourSponsor — UK visa sponsor check",
+  "name": "KnowYourSponsor — UK Visa Sponsor Register & Corporate Solvency Ledger",
   "short_name": "KnowYourSponsor",
-  "description": "Search every organisation on the official UK Home Office register of licensed sponsors. Updated daily from GOV.UK.",
+  "description": "Every organisation on the official UK Home Office register of licensed sponsors cross-referenced with Companies House insolvency filings and DBT minimum wage enforcement.",
   "lang": "en-GB",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#FFFFFF",
-  "theme_color": "#17233B",
+  "background_color": "#F4F1EA",
+  "theme_color": "#141311",
   "icons": [
     {
       "src": "icons/icon-192.png",
