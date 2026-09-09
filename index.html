@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Ledger</title>
-<meta name="description" content="Every UK employer licensed to sponsor a work visa, cross-referenced against Companies House corporate insolvency filings. Search 127,000+ sponsors, check salary thresholds, and identify corporate distress.">
+<meta name="description" content="Every UK employer licensed to sponsor a work visa, cross-referenced against Companies House insolvency filings and National Minimum Wage enforcement. Search 127,000+ sponsors, check salary thresholds, and identify corporate distress.">
 <link rel="canonical" href="https://roshan1208.github.io/sponsorsignal/">
 <meta name="google-site-verification" content="ZNbGBoW8FlnVr5MM5wrTNaQqzvFz_Pgcde_K1t5RHF8">
 
@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="KnowYourSponsor">
 <meta property="og:url" content="https://roshan1208.github.io/sponsorsignal/">
 <meta property="og:title" content="KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Ledger">
-<meta property="og:description" content="Searchable UK Home Office sponsor register cross-referenced against Companies House corporate insolvency filings. Rebuilt daily.">
+<meta property="og:description" content="Searchable UK Home Office sponsor register cross-referenced against Companies House corporate insolvency filings and minimum wage enforcement. Rebuilt daily.">
 <meta property="og:image" content="https://roshan1208.github.io/sponsorsignal/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Ledger">
@@ -433,7 +433,7 @@
   /* Workspace Layout (Split-Plane) */
   .workspace {
     display: grid;
-    grid-template-columns: 1fr 420px;
+    grid-template-columns: 1fr 440px;
     min-height: calc(100vh - 350px);
     border-bottom: 1px solid var(--rule-master);
   }
@@ -441,7 +441,9 @@
   .ledger-pane {
     border-right: 1px solid var(--rule-master);
     background: var(--surface-ground);
-    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 85vh;
+    position: relative;
   }
 
   /* Virtualized Data Table */
@@ -516,6 +518,12 @@
     background: var(--status-regular-wash);
     border-color: var(--status-regular-rule);
   }
+  .status-badge.nmw {
+    color: #92400E;
+    background: #FEF3C7;
+    border-color: #FCD34D;
+  }
+
   .tag-route {
     font-family: var(--font-mono);
     font-size: 0.7rem;
@@ -607,6 +615,11 @@
     background: var(--status-warning-wash);
     border-color: var(--status-warning-rule);
     color: var(--status-warning-ink);
+  }
+  .docket-advisory.nmw-box {
+    background: #FFFBEB;
+    border-color: #FCD34D;
+    color: #92400E;
   }
 
   /* Salary Calculator Component */
@@ -802,7 +815,7 @@
 <div class="telemetry-band">
   <div class="wrap telemetry-inner">
     <div><span class="telemetry-tag">THE REGISTER OF LICENSED SPONSORS</span> · VOL. 2026 · ISSUE W37</div>
-    <div>SOURCE: UK HOME OFFICE &amp; COMPANIES HOUSE · SNAPSHOT: <span id="telemetryDate">2026-09-09 13:49 UTC</span></div>
+    <div>SOURCE: UK HOME OFFICE &amp; COMPANIES HOUSE · SNAPSHOT: <span id="telemetryDate">2026-09-09 18:14 UTC</span></div>
   </div>
 </div>
 
@@ -886,6 +899,7 @@
         <button class="view-btn" id="viewRemoved" data-view="removed">Revoked <span id="nRemoved"></span></button>
         <button class="view-btn" id="viewDowngraded" data-view="downgraded" style="display:none">Downgraded</button>
         <button class="view-btn" id="viewFlagged" data-view="flagged">Flagged <span id="nFlagged"></span></button>
+        <button class="view-btn" id="viewNmw" data-view="nmw">NMW Underpaid <span id="nNmw"></span></button>
         <button class="view-btn" id="viewSaved" data-view="saved">★ Shortlist <span id="nSaved"></span></button>
       </div>
 
@@ -905,11 +919,12 @@
 
 <!-- Split-Plane Workspace -->
 <main class="wrap workspace" id="workspace">
-  <!-- Left Pane: High-Density Table Ledger -->
-  <div class="ledger-pane">
-    <div id="tableStatus" style="padding:10px; font-family:var(--font-mono); font-size:0.75rem; color:var(--ink-faint); border-bottom:1px solid var(--rule-hairline);">
+  <!-- Left Pane: Virtualized Table Ledger -->
+  <div class="ledger-pane" id="ledgerPane">
+    <div id="tableStatus" style="position:sticky; top:0; z-index:15; background:var(--surface-recessed); padding:8px 10px; font-family:var(--font-mono); font-size:0.75rem; color:var(--ink-graphite); border-bottom:1px solid var(--rule-hairline);">
       Showing <strong id="matchCount">127,716</strong> verified organisations · Use <kbd>J</kbd>/<kbd>K</kbd> to navigate, <kbd>Enter</kbd> to inspect docket
     </div>
+    
     <table class="gazette-table" id="ledgerTable">
       <thead>
         <tr>
@@ -922,11 +937,14 @@
         </tr>
       </thead>
       <tbody id="tableBody">
-        <!-- Rendered by Web Worker / Engine -->
+        <!-- Recycled virtual rows -->
       </tbody>
     </table>
     <div id="tableEmpty" style="display:none; padding:40px; text-align:center; color:var(--ink-graphite); font-family:var(--font-mono); font-size:0.85rem;">
       No corporate records match the active query facets.
+    </div>
+    <div id="loadMoreTrigger" style="padding:16px; text-align:center;">
+      <button id="btnLoadMore" style="font-family:var(--font-mono); font-size:0.8rem; padding:8px 16px; background:var(--surface-panel); border:1px solid var(--rule-prominent); cursor:pointer;">Load More Records</button>
     </div>
   </div>
 
@@ -935,7 +953,7 @@
     <div class="docket-empty" id="docketEmpty">
       <div style="font-size:1.8rem; margin-bottom:10px; opacity:0.4;">&#9878;</div>
       <strong>SELECT AN ORGANISATION</strong><br>
-      Click any row or press <kbd>J</kbd>/<kbd>K</kbd> + <kbd>Enter</kbd> to inspect official Home Office lineage, Companies House solvency autopsy, and salary thresholds.
+      Click any row or press <kbd>J</kbd>/<kbd>K</kbd> + <kbd>Enter</kbd> to inspect official Home Office lineage, Companies House solvency autopsy, NMW underpayment findings, and statutory salary thresholds.
     </div>
 
     <div id="docketContent" style="display:none;">
@@ -972,6 +990,12 @@
           <dd id="docketAccounts">—</dd>
         </dl>
         <div id="docketAdvisoryBox" class="docket-advisory" style="display:none;"></div>
+      </div>
+
+      <!-- Section 2.5: National Minimum Wage Underpayment Enforcement -->
+      <div class="docket-section" id="docketNmwSection" style="display:none;">
+        <div class="docket-heading" style="color:#92400E;">2.5. National Minimum Wage Enforcement Finding</div>
+        <div id="docketNmwBox" class="docket-advisory nmw-box"></div>
       </div>
 
       <!-- Section 3: Skilled Worker Salary Threshold Calculator -->
@@ -1087,19 +1111,18 @@
       <a href="pricing/">Compliance Monitoring (B2B)</a>
       <a href="privacy/">Privacy Statement</a>
     </div>
-    <p>KnowYourSponsor is an independent intelligence terminal built on statutory public registers (UK Home Office &amp; Companies House). Not immigration advice.</p>
+    <p>KnowYourSponsor is an independent intelligence terminal built on statutory public registers (UK Home Office, Companies House, and DBT NMW Naming Rounds). Not immigration advice.</p>
     <p style="margin-top:6px;">Contact: <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a></p>
   </div>
 </footer>
 
 <script>
 (function(){
-  const ALERT_ENDPOINT = 'https://assets.mailerlite.com/jsonp/2607953/forms/197356360586757575/subscribe';
-  
   let allSponsors = [];
   let companyFlags = {};
   let licensedSince = {};
   let ratingChanges = [];
+  let nmwData = {};
   let addedRows = [];
   let removedRows = [];
   let socData = [];
@@ -1108,6 +1131,10 @@
   let currentWarn = '';
   let selectedRowIndex = -1;
   let activeSlice = [];
+  let totalMatches = 0;
+  let currentOffset = 0;
+  const PAGE_LIMIT = 150;
+  
   let searchWorker = null;
   let requestId = 0;
 
@@ -1129,7 +1156,6 @@
     if (el) el.textContent = savedSet.size ? `(${savedSet.size})` : '';
   }
 
-  // Escape HTML
   function esc(s) {
     if (!s) return '';
     const d = document.createElement('span');
@@ -1137,7 +1163,6 @@
     return d.innerHTML;
   }
 
-  // Warning Lookup
   const WARNINGS = [
     ['not_active', null, 'serious', 'Companies House records this company as no longer active (Liquidation, Strike-off, Dissolved).'],
     ['dormant', 'Dormant', 'notable', 'This company files accounts as dormant, reporting no significant trading.'],
@@ -1166,24 +1191,35 @@
     return null;
   }
 
-  // Table Render
-  function renderTable(rows) {
-    activeSlice = rows;
+  // Fast Table Rendering
+  function renderTable(rows, append) {
+    if (!append) {
+      activeSlice = rows;
+      currentOffset = rows.length;
+    } else {
+      activeSlice = activeSlice.concat(rows);
+      currentOffset += rows.length;
+    }
+
     const tbody = document.getElementById('tableBody');
     const emptyEl = document.getElementById('tableEmpty');
+    const loadMoreEl = document.getElementById('loadMoreTrigger');
     
-    if (!rows || rows.length === 0) {
+    if (!activeSlice || activeSlice.length === 0) {
       tbody.innerHTML = '';
       emptyEl.style.display = 'block';
+      loadMoreEl.style.display = 'none';
       return;
     }
     emptyEl.style.display = 'none';
+    loadMoreEl.style.display = currentOffset < totalMatches ? 'block' : 'none';
 
-    tbody.innerHTML = rows.map((r, idx) => {
+    const html = activeSlice.map((r, idx) => {
       const [name, town, county, industry, routes, rating] = r;
       const key = (name + '|' + town).toLowerCase();
       const isSaved = savedSet.has(key);
       const warn = warningFor(name);
+      const nmw = nmwData[name];
       
       const loc = [town, county].filter(Boolean)
         .filter((v,i,a) => a.findIndex(x=>x.toLowerCase()===v.toLowerCase())===i)
@@ -1198,6 +1234,10 @@
         statusBadge = `<span class="status-badge critical">B-Action Plan</span>`;
       } else {
         statusBadge = `<span class="status-badge regular">${esc(rating || 'Active')}</span>`;
+      }
+
+      if (nmw && nmw.length) {
+        statusBadge += ` <span class="status-badge nmw" title="Named by government for NMW underpayment">NMW Underpaid</span>`;
       }
 
       const crnInfo = warn && warn.crn ? `CRN: ${warn.crn} · ${warn.incorporated ? warn.incorporated.slice(0,4) : ''}` : '';
@@ -1220,6 +1260,8 @@
         <td>${statusBadge}</td>
       </tr>`;
     }).join('');
+
+    tbody.innerHTML = html;
   }
 
   // Forensic Inspection Docket
@@ -1227,6 +1269,7 @@
     if (!row) return;
     const [name, town, county, industry, routes, rating] = row;
     const warn = warningFor(name);
+    const nmw = nmwData[name];
     const key = (name + '|' + town).toLowerCase();
     const sinceDate = licensedSince[key] || 'Historical baseline';
 
@@ -1248,6 +1291,7 @@
     document.getElementById('docketIncorp').textContent = warn && warn.incorporated ? warn.incorporated : 'Not specified in registry';
     document.getElementById('docketAccounts').textContent = warn && warn.accounts ? warn.accounts : 'Standard Private Company';
 
+    // Solvency warning box
     const advBox = document.getElementById('docketAdvisoryBox');
     if (warn && (warn.severity === 'serious' || warn.severity === 'notable')) {
       advBox.style.display = 'block';
@@ -1257,7 +1301,29 @@
       advBox.style.display = 'none';
     }
 
-    // Links
+    // NMW enforcement box
+    const nmwSection = document.getElementById('docketNmwSection');
+    const nmwBox = document.getElementById('docketNmwBox');
+    if (nmw && nmw.length) {
+      nmwSection.style.display = 'block';
+      const latest = nmw[0];
+      const year = String(latest.round || '').slice(0, 4);
+      const money = typeof latest.arrears === 'number' ? '£' + latest.arrears.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : '';
+      const workers = latest.workers ? latest.workers.toLocaleString() + (latest.workers === 1 ? ' worker' : ' workers') : '';
+      
+      let nmwHtml = `<strong>Named for underpaying the statutory minimum wage${year ? ' in ' + esc(year) : ''}.</strong> `;
+      if (money && workers) nmwHtml += `${money} was owed to ${workers}. `;
+      if (nmw.length > 1) nmwHtml += `Named in ${nmw.length} separate enforcement rounds. `;
+      if (latest.source && latest.source.startsWith('https://www.gov.uk/')) {
+        nmwHtml += `<br><a href="${esc(latest.source)}" target="_blank" rel="noopener">Official Government Publication &rarr;</a>`;
+      }
+      nmwHtml += `<br><small style="opacity:0.85; margin-top:4px; display:block;">Published statutory enforcement finding. Arrears named must be repaid.</small>`;
+      nmwBox.innerHTML = nmwHtml;
+    } else {
+      nmwSection.style.display = 'none';
+    }
+
+    // Registry Links
     const chLink = document.getElementById('linkCH');
     if (warn && warn.crn) {
       chLink.href = 'https://find-and-update.company-information.service.gov.uk/company/' + encodeURIComponent(warn.crn);
@@ -1275,7 +1341,7 @@
     }
   }
 
-  // Salary Calculator Logic
+  // Salary Threshold Calculator
   function initSalaryCalc() {
     const select = document.getElementById('calcSocSelect');
     if (!select || !socData.occupations) return;
@@ -1305,8 +1371,8 @@
     }
   }
 
-  // Filter Trigger
-  function triggerQuery() {
+  // Trigger Query
+  function triggerQuery(append) {
     const q = document.getElementById('q').value;
     const city = document.getElementById('citySelect').value;
     const industry = document.getElementById('industrySelect').value;
@@ -1314,6 +1380,7 @@
     const rating = document.getElementById('ratingSelect').value;
 
     const currentReq = ++requestId;
+    const offset = append ? currentOffset : 0;
 
     if (searchWorker) {
       searchWorker.postMessage({
@@ -1326,14 +1393,17 @@
         rating: rating,
         view: currentView,
         warn: currentWarn,
-        savedKeys: [...savedSet]
+        savedKeys: [...savedSet],
+        offset: offset,
+        limit: PAGE_LIMIT
       });
     } else {
-      // Synchronous fallback
+      // Main thread fallback
       let source = allSponsors;
       if (currentView === 'added') source = addedRows;
       else if (currentView === 'removed') source = removedRows;
       else if (currentView === 'saved') source = allSponsors.filter(s => savedSet.has((s[0]+'|'+s[1]).toLowerCase()));
+      else if (currentView === 'nmw') source = allSponsors.filter(s => !!nmwData[s[0]]);
 
       const qWords = q ? q.trim().toLowerCase().split(/\s+/) : [];
       let filtered = source.filter(s => {
@@ -1353,24 +1423,27 @@
         return true;
       });
 
-      document.getElementById('matchCount').textContent = filtered.length.toLocaleString();
-      renderTable(filtered.slice(0, 100));
+      totalMatches = filtered.length;
+      document.getElementById('matchCount').textContent = totalMatches.toLocaleString();
+      renderTable(filtered.slice(offset, offset + PAGE_LIMIT), append);
     }
   }
 
   // CSV Export
   function exportCSV() {
     if (!activeSlice || !activeSlice.length) return;
-    const headers = ['Employer', 'Town', 'County', 'Industry', 'Visa Routes', 'Rating', 'CRN', 'Status', 'Solvency Warning'];
+    const headers = ['Employer', 'Town', 'County', 'Industry', 'Visa Routes', 'Rating', 'CRN', 'Status', 'Solvency Warning', 'NMW Underpaid'];
     const rows = activeSlice.map(r => {
       const warn = warningFor(r[0]);
+      const nmw = nmwData[r[0]];
       return [
         r[0], r[1], r[2], r[3],
         (r[4] || []).join('; '),
         r[5],
         warn ? warn.crn : '',
         warn ? warn.status : 'Active',
-        warn ? warn.label : ''
+        warn ? warn.label : '',
+        nmw ? 'Yes' : 'No'
       ].map(v => '"' + String(v || '').replace(/"/g, '""') + '"').join(',');
     });
     const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\r\n');
@@ -1383,38 +1456,36 @@
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
-  // Event Listeners & Keyboard
+  // Event Listeners
   document.getElementById('btnExport').addEventListener('click', exportCSV);
+  document.getElementById('btnLoadMore').addEventListener('click', () => triggerQuery(true));
   document.getElementById('docketClose').addEventListener('click', () => {
     document.getElementById('docketPane').classList.remove('open');
   });
 
-  document.getElementById('q').addEventListener('input', triggerQuery);
-  document.getElementById('citySelect').addEventListener('change', triggerQuery);
-  document.getElementById('industrySelect').addEventListener('change', triggerQuery);
-  document.getElementById('routeSelect').addEventListener('change', triggerQuery);
-  document.getElementById('ratingSelect').addEventListener('change', triggerQuery);
+  document.getElementById('q').addEventListener('input', () => triggerQuery(false));
+  document.getElementById('citySelect').addEventListener('change', () => triggerQuery(false));
+  document.getElementById('industrySelect').addEventListener('change', () => triggerQuery(false));
+  document.getElementById('routeSelect').addEventListener('change', () => triggerQuery(false));
+  document.getElementById('ratingSelect').addEventListener('change', () => triggerQuery(false));
 
-  // Solvency Segment Clicks
-  document.getElementById('barCritical').addEventListener('click', () => { currentWarn = 'serious'; triggerQuery(); });
-  document.getElementById('barWarning').addEventListener('click', () => { currentWarn = 'notable'; triggerQuery(); });
-  document.getElementById('barSolvent').addEventListener('click', () => { currentWarn = ''; triggerQuery(); });
-  document.getElementById('legCritical').addEventListener('click', () => { currentWarn = 'serious'; triggerQuery(); });
-  document.getElementById('legWarning').addEventListener('click', () => { currentWarn = 'notable'; triggerQuery(); });
-  document.getElementById('legSolvent').addEventListener('click', () => { currentWarn = ''; triggerQuery(); });
+  document.getElementById('barCritical').addEventListener('click', () => { currentWarn = 'serious'; triggerQuery(false); });
+  document.getElementById('barWarning').addEventListener('click', () => { currentWarn = 'notable'; triggerQuery(false); });
+  document.getElementById('barSolvent').addEventListener('click', () => { currentWarn = ''; triggerQuery(false); });
+  document.getElementById('legCritical').addEventListener('click', () => { currentWarn = 'serious'; triggerQuery(false); });
+  document.getElementById('legWarning').addEventListener('click', () => { currentWarn = 'notable'; triggerQuery(false); });
+  document.getElementById('legSolvent').addEventListener('click', () => { currentWarn = ''; triggerQuery(false); });
 
-  // View Switchers
   const viewBtns = document.querySelectorAll('.view-btn');
   viewBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       viewBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentView = btn.dataset.view;
-      triggerQuery();
+      triggerQuery(false);
     });
   });
 
-  // Table Row Clicks
   document.getElementById('tableBody').addEventListener('click', e => {
     const star = e.target.closest('.star-btn');
     if (star) {
@@ -1436,7 +1507,6 @@
     }
   });
 
-  // Keyboard Shortcuts Grammar
   document.addEventListener('keydown', e => {
     const isInput = /^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement.tagName);
     
@@ -1449,7 +1519,7 @@
         document.getElementById('docketPane').classList.remove('open');
       } else if (document.activeElement === document.getElementById('q')) {
         document.getElementById('q').value = '';
-        triggerQuery();
+        triggerQuery(false);
       }
     } else if ((e.key === 'j' || e.key === 'ArrowDown') && !isInput) {
       e.preventDefault();
@@ -1457,7 +1527,10 @@
         selectedRowIndex++;
         const trs = document.querySelectorAll('#tableBody tr');
         trs.forEach(r => r.classList.remove('selected'));
-        if (trs[selectedRowIndex]) trs[selectedRowIndex].classList.add('selected');
+        if (trs[selectedRowIndex]) {
+          trs[selectedRowIndex].classList.add('selected');
+          trs[selectedRowIndex].scrollIntoView({ block: 'nearest' });
+        }
         openDocket(activeSlice[selectedRowIndex]);
       }
     } else if ((e.key === 'k' || e.key === 'ArrowUp') && !isInput) {
@@ -1466,7 +1539,10 @@
         selectedRowIndex--;
         const trs = document.querySelectorAll('#tableBody tr');
         trs.forEach(r => r.classList.remove('selected'));
-        if (trs[selectedRowIndex]) trs[selectedRowIndex].classList.add('selected');
+        if (trs[selectedRowIndex]) {
+          trs[selectedRowIndex].classList.add('selected');
+          trs[selectedRowIndex].scrollIntoView({ block: 'nearest' });
+        }
         openDocket(activeSlice[selectedRowIndex]);
       }
     } else if (e.key === 'e' && !isInput) {
@@ -1477,11 +1553,10 @@
       if (savedSet.has(key)) savedSet.delete(key);
       else savedSet.add(key);
       saveShortlist();
-      renderTable(activeSlice);
+      renderTable(activeSlice, false);
     }
   });
 
-  // Theme Toggle
   const toggleBtn = document.querySelector('[data-theme-toggle]');
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
@@ -1493,7 +1568,7 @@
     });
   }
 
-  // Load Everything
+  // Load All Verified Datasets
   Promise.all([
     fetch('data/sponsors.json').then(r => r.json()),
     fetch('data/company_flags.json').then(r => r.json()).catch(() => ({companies:{}})),
@@ -1501,12 +1576,14 @@
     fetch('data/new_sponsors.json').then(r => r.json()).catch(() => ({new:[]})),
     fetch('data/removed_sponsors.json').then(r => r.json()).catch(() => ({removed:[]})),
     fetch('data/rating_changes.json').then(r => r.json()).catch(() => ({changes:[]})),
+    fetch('data/nmw.json').then(r => r.json()).catch(() => ({employers:{}})),
     fetch('data/soc_thresholds.json').then(r => r.json()).catch(() => ({occupations:[]}))
-  ]).then(([sponsorsData, flagsData, sinceData, newData, removedData, ratingData, socs]) => {
+  ]).then(([sponsorsData, flagsData, sinceData, newData, removedData, ratingData, nmw, socs]) => {
     allSponsors = sponsorsData.sponsors || [];
     companyFlags = flagsData.companies || {};
     licensedSince = sinceData.since || {};
     ratingChanges = ratingData.changes || [];
+    nmwData = nmw.employers || {};
     addedRows = newData.new || [];
     removedRows = removedData.removed || [];
     socData = socs;
@@ -1515,8 +1592,10 @@
     document.getElementById('hudAdded').textContent = '+' + addedRows.length.toLocaleString();
     document.getElementById('nAdded').textContent = `(${addedRows.length})`;
     document.getElementById('nRemoved').textContent = `(${removedRows.length})`;
+    
+    const nmwCount = Object.keys(nmwData).length;
+    document.getElementById('nNmw').textContent = `(${nmwCount})`;
 
-    // Populate Filters
     const towns = [...new Set(allSponsors.map(s => s[1]).filter(Boolean))].sort();
     const citySel = document.getElementById('citySelect');
     citySel.innerHTML = '<option value="">All Jurisdictions</option>' + 
@@ -1543,11 +1622,12 @@
           document.getElementById('hudSerious').textContent = e.data.seriousCount.toLocaleString();
           document.getElementById('hudDeficient').textContent = (e.data.flaggedCount - e.data.seriousCount).toLocaleString();
           document.getElementById('nFlagged').textContent = `(${e.data.flaggedCount.toLocaleString()})`;
-          triggerQuery();
+          triggerQuery(false);
         } else if (e.data.type === 'QUERY_RESULTS') {
           if (e.data.requestId === requestId) {
-            document.getElementById('matchCount').textContent = e.data.totalCount.toLocaleString();
-            renderTable(e.data.results);
+            totalMatches = e.data.totalCount;
+            document.getElementById('matchCount').textContent = totalMatches.toLocaleString();
+            renderTable(e.data.results, e.data.offset > 0);
           }
         }
       };
@@ -1557,16 +1637,16 @@
         companyFlags: companyFlags,
         licensedSince: licensedSince,
         ratingChanges: ratingChanges,
+        nmwData: nmwData,
         addedRows: addedRows,
         removedRows: removedRows
       });
     } catch(err) {
       console.warn('Worker initialization fallback to main thread:', err);
-      triggerQuery();
+      triggerQuery(false);
     }
   });
 
-  // PWA Service Worker
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch(() => {});
