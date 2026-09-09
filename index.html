@@ -218,7 +218,7 @@
     flex-wrap: wrap;
     gap: 16px;
   }
-  .brand-block { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .brand-block { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px 16px; }
   .brand-title {
     font-family: var(--font-serif);
     font-size: 2.1rem;
@@ -226,41 +226,20 @@
     letter-spacing: 0.04em;
     color: var(--ink-carbon);
     text-transform: uppercase;
-  }
-  .brand-badge-cycle {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 3px 10px 3px 8px;
-    background: var(--surface-panel);
-    border: 1px solid var(--rule-prominent);
-    border-radius: 4px;
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: var(--status-regular-ink);
-    vertical-align: middle;
-  }
-  .brand-badge-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--status-regular-ink);
-    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2);
-    display: inline-block;
-    animation: badgePulse 2.4s ease-in-out infinite;
-  }
-  @keyframes badgePulse {
-    0%, 100% { transform: scale(1); opacity: 0.85; }
-    50% { transform: scale(1.25); opacity: 1; }
+    line-height: 1;
   }
   .brand-handwriting {
     display: inline-flex;
-    align-items: center;
-    min-width: 68px;
-    height: 1.25em;
+    align-items: baseline;
     color: var(--status-regular-ink);
+    font-size: 1.65rem;
+    line-height: 1;
+    vertical-align: baseline;
+    font-weight: normal;
+  }
+  .brand-handwriting svg {
+    display: inline-block;
+    vertical-align: baseline;
   }
   .brand-subtitle {
     font-family: var(--font-mono);
@@ -1166,10 +1145,7 @@
   <div class="wrap masthead-inner">
     <div class="brand-block">
       <a href="./" class="brand-title">KnowYourSponsor<span style="color:var(--cobalt)">.</span></a>
-      <div class="brand-badge-cycle" id="brandCycleBadge" title="Continuous statutory verification">
-        <span class="brand-badge-dot"></span>
-        <span class="brand-handwriting" id="brandHandwriting">Verified.</span>
-      </div>
+      <span class="brand-handwriting" id="brandHandwriting">Verified.</span>
       <span class="brand-subtitle">UK Visa Sponsor Register &amp; Solvency Tracker</span>
     </div>
     <nav class="topnav">

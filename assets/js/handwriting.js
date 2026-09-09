@@ -73,9 +73,9 @@
     const fontUrl = opts.fontUrl || DEFAULT_FONT_URL;
     const duration = opts.duration || 1.35;
     const delay = opts.delay || 0.05;
-    const strokeWidth = opts.strokeWidth || 1.8;
+    const strokeWidth = opts.strokeWidth || 1.6;
     const fill = opts.fill !== undefined ? opts.fill : true;
-    const height = opts.height || '1.2em';
+    const height = opts.height || '1.45em';
 
     let currentIndex = 0;
     let timerId = null;
@@ -131,7 +131,7 @@
       svg.style.width = `calc(${height} * ${(w / h).toFixed(4)})`;
       svg.style.overflow = 'visible';
       svg.style.display = 'inline-block';
-      svg.style.verticalAlign = 'middle';
+      svg.style.verticalAlign = 'baseline';
 
       let fillPath = null;
       if (fill) {
@@ -213,7 +213,8 @@
           words: ['Verified.', 'Solvent.', 'Monitored.', 'Audit-Ready.'],
           interval: 3500,
           duration: 1.35,
-          height: '1.25em'
+          height: '1.45em',
+          strokeWidth: 1.6
         });
       }
     };
