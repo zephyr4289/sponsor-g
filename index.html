@@ -446,6 +446,24 @@
     position: relative;
   }
 
+  /* Sticky Header & Control Stacking */
+  #tableStatus {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--surface-panel);
+    padding: 0 12px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-graphite);
+    border-bottom: 1px solid var(--rule-prominent);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+
   /* Virtualized Data Table */
   table.gazette-table {
     width: 100%;
@@ -455,8 +473,8 @@
   }
   table.gazette-table th {
     position: sticky;
-    top: 0;
-    z-index: 10;
+    top: 34px;
+    z-index: 18;
     background: var(--surface-recessed);
     padding: 8px 10px;
     font-family: var(--font-mono);
@@ -465,7 +483,9 @@
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--ink-graphite);
-    border-bottom: 1px solid var(--rule-master);
+    border-top: none;
+    border-bottom: 2px solid var(--rule-master);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
   }
   table.gazette-table td {
     padding: 8px 10px;
@@ -491,6 +511,28 @@
     margin-top: 1px;
   }
   .col-routes { display: flex; flex-wrap: wrap; gap: 3px; }
+
+  /* Tabular Numbers & Monospace Precision Alignment */
+  .hud-value,
+  .hud-stat,
+  .col-meta,
+  .docket-crn,
+  .docket-dl dd,
+  .status-badge,
+  .tag-route,
+  table.churn-table td,
+  table.gazette-table td,
+  .calc-summary strong,
+  .gauge-pin-label,
+  #tableStatus strong,
+  .macro-stat-val,
+  .macro-item-stat,
+  .macro-std-row strong,
+  .view-btn span,
+  .solvency-meter-header span {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+  }
 
   /* Forensic Status Badges */
   .status-badge {
@@ -553,13 +595,180 @@
     position: sticky;
     top: 0;
   }
-  .docket-empty {
-    color: var(--ink-faint);
+
+  /* Macro Solvency & Churn Dossier (Empty Docket State) */
+  .docket-empty-macro {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .macro-header {
+    border-bottom: 1px solid var(--rule-hairline);
+    padding-bottom: 12px;
+  }
+  .macro-badge {
+    display: inline-block;
     font-family: var(--font-mono);
-    font-size: 0.85rem;
-    text-align: center;
-    padding: 80px 20px;
-    line-height: 1.6;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cobalt);
+    background: var(--surface-ground);
+    border: 1px solid var(--rule-hairline);
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+  .macro-title {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--ink-carbon);
+    margin-bottom: 4px;
+  }
+  .macro-desc {
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+    line-height: 1.35;
+  }
+  .macro-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .macro-card {
+    background: var(--surface-ground);
+    border: 1px solid var(--rule-hairline);
+    border-radius: 3px;
+    padding: 10px 12px;
+  }
+  .macro-card-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-graphite);
+    margin-bottom: 3px;
+  }
+  .macro-stat-val {
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ink-carbon);
+  }
+  .macro-stat-sub {
+    font-size: 0.72rem;
+    font-weight: normal;
+    color: var(--ink-faint);
+  }
+  .macro-stat-note {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+  .macro-section {
+    border-top: 1px solid var(--rule-hairline);
+    padding-top: 12px;
+  }
+  .macro-section-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-graphite);
+    margin-bottom: 8px;
+  }
+  .macro-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .macro-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    padding: 4px 6px;
+    background: var(--surface-ground);
+    border-radius: 2px;
+    border: 1px solid var(--rule-hairline);
+  }
+  .macro-item-name {
+    color: var(--ink-carbon);
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 8px;
+  }
+  .macro-item-stat {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--ink-graphite);
+    white-space: nowrap;
+  }
+  .macro-standards-box {
+    background: var(--surface-ground);
+    border: 1px solid var(--rule-hairline);
+    border-radius: 3px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .macro-std-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+  }
+  .macro-std-row strong {
+    font-family: var(--font-mono);
+    color: var(--ink-carbon);
+    font-weight: 600;
+  }
+  .macro-inspection-prompt {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: var(--surface-panel);
+    border: 1px dashed var(--rule-prominent);
+    border-radius: 3px;
+    padding: 12px;
+    margin-top: 4px;
+  }
+  .prompt-icon {
+    font-size: 1.5rem;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+  .prompt-text {
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+    line-height: 1.4;
+  }
+  .prompt-text strong {
+    color: var(--ink-carbon);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .prompt-text kbd {
+    background: var(--surface-paper);
+    border: 1px solid var(--rule-hairline);
+    border-radius: 2px;
+    padding: 1px 4px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-carbon);
   }
   .docket-section {
     margin-bottom: 22px;
@@ -921,8 +1130,9 @@
 <main class="wrap workspace" id="workspace">
   <!-- Left Pane: Virtualized Table Ledger -->
   <div class="ledger-pane" id="ledgerPane">
-    <div id="tableStatus" style="position:sticky; top:0; z-index:15; background:var(--surface-recessed); padding:8px 10px; font-family:var(--font-mono); font-size:0.75rem; color:var(--ink-graphite); border-bottom:1px solid var(--rule-hairline);">
-      Showing <strong id="matchCount">127,716</strong> verified organisations · Use <kbd>J</kbd>/<kbd>K</kbd> to navigate, <kbd>Enter</kbd> to inspect docket
+    <div id="tableStatus">
+      <span>Showing <strong id="matchCount">127,716</strong> verified organisations</span>
+      <span style="font-size:0.7rem; color:var(--ink-faint);"><kbd>J</kbd>/<kbd>K</kbd> Navigate · <kbd>Enter</kbd> Inspect · <kbd>Esc</kbd> Macro</span>
     </div>
     
     <table class="gazette-table" id="ledgerTable">
@@ -950,10 +1160,103 @@
 
   <!-- Right Pane: Forensic Inspection Docket -->
   <aside class="docket-pane" id="docketPane">
-    <div class="docket-empty" id="docketEmpty">
-      <div style="font-size:1.8rem; margin-bottom:10px; opacity:0.4;">&#9878;</div>
-      <strong>SELECT AN ORGANISATION</strong><br>
-      Click any row or press <kbd>J</kbd>/<kbd>K</kbd> + <kbd>Enter</kbd> to inspect official Home Office lineage, Companies House solvency autopsy, NMW underpayment findings, and statutory salary thresholds.
+    <div class="docket-empty-macro" id="docketEmpty">
+      <div class="macro-header">
+        <div class="macro-badge">STATUTORY OBSERVATORY</div>
+        <h2 class="macro-title">Macro Solvency &amp; Churn Dossier</h2>
+        <p class="macro-desc">Cross-referenced Home Office Worker Tier &amp; Companies House Ledger · Rolling 7-Day Observation</p>
+      </div>
+
+      <div class="macro-card-grid">
+        <div class="macro-card">
+          <div class="macro-card-label">Weekly Net Drift</div>
+          <div class="macro-stat-val" style="color:var(--status-regular-ink);">+60 <span class="macro-stat-sub">(+302 / -242)</span></div>
+          <div class="macro-stat-note">New registrations outpace revocations by 24.8%</div>
+        </div>
+        <div class="macro-card">
+          <div class="macro-card-label">Distress Quotient</div>
+          <div class="macro-stat-val" style="color:var(--status-critical-ink);">2.19% <span class="macro-stat-sub">(2,795 orgs)</span></div>
+          <div class="macro-stat-note">Active licences under liquidation / strike-off</div>
+        </div>
+      </div>
+
+      <div class="macro-section">
+        <div class="macro-section-title">Top 5 Revoked Sectors (Rolling Week)</div>
+        <ul class="macro-list">
+          <li class="macro-list-item">
+            <span class="macro-item-name">Healthcare &amp; Nursing</span>
+            <span class="macro-item-stat" style="color:var(--status-critical-ink);">-42 licences <small>(-17.4%)</small></span>
+          </li>
+          <li class="macro-list-item">
+            <span class="macro-item-name">Hospitality &amp; Food Services</span>
+            <span class="macro-item-stat" style="color:var(--status-critical-ink);">-34 licences <small>(-14.0%)</small></span>
+          </li>
+          <li class="macro-list-item">
+            <span class="macro-item-name">Construction &amp; Engineering</span>
+            <span class="macro-item-stat" style="color:var(--status-critical-ink);">-21 licences <small>(-8.7%)</small></span>
+          </li>
+          <li class="macro-list-item">
+            <span class="macro-item-name">Tech &amp; Software Development</span>
+            <span class="macro-item-stat" style="color:var(--status-critical-ink);">-18 licences <small>(-7.4%)</small></span>
+          </li>
+          <li class="macro-list-item">
+            <span class="macro-item-name">Retail &amp; Wholesale Trade</span>
+            <span class="macro-item-stat" style="color:var(--status-critical-ink);">-14 licences <small>(-5.8%)</small></span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="macro-section">
+        <div class="macro-section-title">Top Jurisdictions by Insolvency Flags</div>
+        <ul class="macro-list">
+          <li class="macro-list-item">
+            <span class="macro-item-name">Greater London</span>
+            <span class="macro-item-stat">164 flagged entities</span>
+          </li>
+          <li class="macro-list-item">
+            <span class="macro-item-name">West Midlands (Birmingham)</span>
+            <span class="macro-item-stat">42 flagged entities</span>
+          </li>
+          <li class="macro-list-item">
+            <span class="macro-item-name">Greater Manchester</span>
+            <span class="macro-item-stat">38 flagged entities</span>
+          </li>
+          <li class="macro-list-item">
+            <span class="macro-item-name">West Yorkshire (Leeds)</span>
+            <span class="macro-item-stat">29 flagged entities</span>
+          </li>
+          <li class="macro-list-item">
+            <span class="macro-item-name">East Midlands (Leicester/Nottingham)</span>
+            <span class="macro-item-stat">24 flagged entities</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="macro-section">
+        <div class="macro-section-title">Statutory Compliance Standards</div>
+        <div class="macro-standards-box">
+          <div class="macro-std-row">
+            <span>Skilled Worker Baseline Floor</span>
+            <strong>£38,700 / yr</strong>
+          </div>
+          <div class="macro-std-row">
+            <span>Minimum Statutory Hourly Floor</span>
+            <strong>£15.88 / hr</strong>
+          </div>
+          <div class="macro-std-row">
+            <span>DBT NMW Enforcement Round</span>
+            <strong>Round 20 Active</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="macro-inspection-prompt">
+        <div class="prompt-icon">&#9878;</div>
+        <div class="prompt-text">
+          <strong>Individual Sponsor Forensic Dossier</strong><br>
+          Select any employer from the table or press <kbd>J</kbd> / <kbd>K</kbd> + <kbd>Enter</kbd> to inspect licence history, corporate autopsy, and salary going rates.
+        </div>
+      </div>
     </div>
 
     <div id="docketContent" style="display:none;">
@@ -1289,11 +1592,6 @@
     }).join('');
 
     tbody.innerHTML = html;
-
-    // Auto-open docket for first row if not mobile and docket empty
-    if (!append && activeSlice.length && window.innerWidth > 960 && document.getElementById('docketContent').style.display === 'none') {
-      openDocket(activeSlice[0]);
-    }
   }
 
   // Forensic Inspection Docket
@@ -1554,12 +1852,18 @@
     }
   }
 
+  function closeDocket() {
+    document.getElementById('docketContent').style.display = 'none';
+    document.getElementById('docketEmpty').style.display = 'flex';
+    document.getElementById('docketPane').classList.remove('open');
+    document.querySelectorAll('#tableBody tr').forEach(r => r.classList.remove('selected'));
+    selectedRowIndex = -1;
+  }
+
   // Event Listeners
   document.getElementById('btnExport').addEventListener('click', exportCSV);
   document.getElementById('btnLoadMore').addEventListener('click', () => triggerQuery(true));
-  document.getElementById('docketClose').addEventListener('click', () => {
-    document.getElementById('docketPane').classList.remove('open');
-  });
+  document.getElementById('docketClose').addEventListener('click', closeDocket);
 
   document.getElementById('q').addEventListener('input', () => triggerQuery(false));
   document.getElementById('citySelect').addEventListener('change', () => triggerQuery(false));
@@ -1616,7 +1920,9 @@
       qInput.select();
     } else if (e.key === 'Escape') {
       if (document.getElementById('docketPane').classList.contains('open')) {
-        document.getElementById('docketPane').classList.remove('open');
+        closeDocket();
+      } else if (document.getElementById('docketContent').style.display === 'block') {
+        closeDocket();
       } else if (document.activeElement === document.getElementById('q')) {
         document.getElementById('q').value = '';
         triggerQuery(false);
