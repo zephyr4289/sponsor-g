@@ -9,7 +9,7 @@
 
 ## 1. Executive Summary & Product Mission
 
-**KnowYourSponsor** (code repository: `sponsorsignal`, hosted on GitHub Pages at `roshan1208.github.io/sponsorsignal`) is a specialized UK immigration intelligence platform. It solves a critical asymmetry in the UK visa and hiring landscape:
+**KnowYourSponsor** (code repository: `sponsorsignal`, hosted on GitHub Pages at `zephyr4289.github.io/sponsor-g`) is a specialized UK immigration intelligence platform. It solves a critical asymmetry in the UK visa and hiring landscape:
 
 1. **The Problem:** The UK Home Office publishes a daily register of 127,000+ organisations licensed to sponsor foreign workers (`Skilled Worker`, `Global Business Mobility`, `Creative Worker`, etc.). However, the government publication is a raw, flat CSV file. It lacks industry classifications, historical delta tracking (who gained or lost a licence), and company health cross-referencing. Crucially, holding a sponsor licence only proves an entity *can* sponsor; it does not prove the entity is solvent, trading, or in good standing.
 2. **The Solution:** KnowYourSponsor ingests the register daily, normalizes records, runs heuristic industry classifications, tracks longitudinal changes (additions, revocations, A-to-B rating downgrades), and cross-references sponsors against **Companies House** corporate filing data. This immediately flags dissolved, liquidated, strike-off pending, or dormant entities.

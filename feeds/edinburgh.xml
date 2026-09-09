@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>KnowYourSponsor: Visa sponsors added and removed in Edinburgh</title>
-    <link>https://roshan1208.github.io/sponsorsignal/edinburgh/</link>
-    <atom:link href="https://roshan1208.github.io/sponsorsignal/feeds/edinburgh.xml" rel="self" type="application/rss+xml"/>
+    <link>https://zephyr4289.github.io/sponsor-g/edinburgh/</link>
+    <atom:link href="https://zephyr4289.github.io/sponsor-g/feeds/edinburgh.xml" rel="self" type="application/rss+xml"/>
     <description>Employers in Edinburgh that gained or lost a licence to sponsor UK work visas. Rebuilt every day from the official GOV.UK register. Covers the last 7 days.</description>
     <language>en-GB</language>
     <lastBuildDate>Wed, 09 Sep 2026 18:14:12 +0000</lastBuildDate>
     <item>
       <title>4rmtech Consult Limited is no longer a licensed sponsor</title>
-      <link>https://roshan1208.github.io/sponsorsignal/edinburgh/</link>
+      <link>https://zephyr4289.github.io/sponsor-g/edinburgh/</link>
       <guid isPermaLink="false">kys-edinburgh-removed-4rmtech-consult-limited-edinburgh</guid>
       <pubDate>Wed, 09 Sep 2026 18:14:12 +0000</pubDate>
       <category>removed</category>
@@ -17,7 +17,7 @@
     </item>
     <item>
       <title>Omilan Productions Limited is no longer a licensed sponsor</title>
-      <link>https://roshan1208.github.io/sponsorsignal/edinburgh/</link>
+      <link>https://zephyr4289.github.io/sponsor-g/edinburgh/</link>
       <guid isPermaLink="false">kys-edinburgh-removed-omilan-productions-limited-edinburgh</guid>
       <pubDate>Wed, 09 Sep 2026 18:14:12 +0000</pubDate>
       <category>removed</category>
@@ -25,7 +25,7 @@
     </item>
     <item>
       <title>AaruvikA Limited can now sponsor visas</title>
-      <link>https://roshan1208.github.io/sponsorsignal/edinburgh/</link>
+      <link>https://zephyr4289.github.io/sponsor-g/edinburgh/</link>
       <guid isPermaLink="false">kys-edinburgh-added-aaruvika-limited-edinburgh</guid>
       <pubDate>Wed, 09 Sep 2026 18:14:12 +0000</pubDate>
       <category>added</category>
@@ -33,7 +33,7 @@
     </item>
     <item>
       <title>Enercon Wind Energy UK Limited can now sponsor visas</title>
-      <link>https://roshan1208.github.io/sponsorsignal/edinburgh/</link>
+      <link>https://zephyr4289.github.io/sponsor-g/edinburgh/</link>
       <guid isPermaLink="false">kys-edinburgh-added-enercon-wind-energy-uk-limited-edinburgh</guid>
       <pubDate>Wed, 09 Sep 2026 18:14:12 +0000</pubDate>
       <category>added</category>
@@ -41,7 +41,7 @@
     </item>
     <item>
       <title>Parkside Dental Practice can now sponsor visas</title>
-      <link>https://roshan1208.github.io/sponsorsignal/edinburgh/</link>
+      <link>https://zephyr4289.github.io/sponsor-g/edinburgh/</link>
       <guid isPermaLink="false">kys-edinburgh-added-parkside-dental-practice-edinburgh</guid>
       <pubDate>Wed, 09 Sep 2026 18:14:12 +0000</pubDate>
       <category>added</category>
@@ -49,7 +49,7 @@
     </item>
     <item>
       <title>The Capital City Partnership Ltd can now sponsor visas</title>
-      <link>https://roshan1208.github.io/sponsorsignal/edinburgh/</link>
+      <link>https://zephyr4289.github.io/sponsor-g/edinburgh/</link>
       <guid isPermaLink="false">kys-edinburgh-added-the-capital-city-partnership-ltd-edinburgh</guid>
       <pubDate>Wed, 09 Sep 2026 18:14:12 +0000</pubDate>
       <category>added</category>
