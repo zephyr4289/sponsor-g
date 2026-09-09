@@ -841,6 +841,13 @@
   // one, which also gives those pages a path in from the rest of the site
   // rather than leaving them reachable only from their index.
   let employerPages = {};
+  // Employers named by the government for minimum wage underpayment.
+  // Shown for every employer rather than only the 676 with their own page:
+  // none of the 389 named employers happens to be a chain or to have a
+  // known licence start, so page-only would have shown this to nobody. And
+  // generating pages *because* an employer was named is the one thing this
+  // project has consistently refused to do.
+  let namings = {};
 
   // A shortlist, kept on the device. Deliberately not an account: this is a
   // search tool over public data, and a login would cost the SEO that brings
@@ -1223,6 +1230,37 @@
         flags.map(esc).join(' ') +
         '<br>Matched by name, so check the official record before deciding ' +
         'anything.</div>');
+    }
+
+    // Named for minimum wage underpayment. An enforcement finding rather
+    // than a filing signal, so it gets its own box and its own wording:
+    // what was owed, to how many workers, when, and a link to the
+    // government publication. Nothing about what it implies.
+    const named = namings[name];
+    if(named && named.length){
+      const latest = named[0];
+      const year = String(latest.round || '').slice(0,4);
+      const money = typeof latest.arrears === 'number'
+        ? '£' + latest.arrears.toLocaleString('en-GB',
+            {minimumFractionDigits:2, maximumFractionDigits:2}) : '';
+      const workers = latest.workers
+        ? latest.workers.toLocaleString() +
+          (latest.workers === 1 ? ' worker' : ' workers') : '';
+      const bits = ['<strong>Named for underpaying the minimum wage' +
+        (year ? ' in ' + esc(year) : '') + '.</strong>'];
+      if(money && workers) bits.push(money + ' was owed to ' + workers + '.');
+      else if(money) bits.push(money + ' was owed.');
+      if(named.length > 1) bits.push('Named in ' + named.length +
+        ' separate rounds.');
+      const src = String(latest.source || '');
+      if(src.startsWith('https://www.gov.uk/')){
+        bits.push('<a href="' + attr(src) + '" target="_blank" ' +
+          'rel="noopener">The government publication</a>.');
+      }
+      bits.push('<br>A published enforcement finding, not an allegation. ' +
+        'Arrears named in a round have to be repaid, and being named does ' +
+        'not tell you what the employer is like to work for now.');
+      parts.push('<div class="warnbox">' + bits.join(' ') + '</div>');
     }
 
     // What we can and cannot vouch for, in one place. No competitor shows
@@ -1744,8 +1782,12 @@
     // Optional too: absent until the history log has recorded a day.
     fetchJSON('data/licensed_since.json').catch(()=>({since:{}})),
     // Optional: absent until the employer pages have been generated once.
-    fetchJSON('data/employer_pages.json').catch(()=>({pages:{}}))
-  ]).then(([main,recent,meta,gone,flags,ratings,since,pageIndex])=>{
+    fetchJSON('data/employer_pages.json').catch(()=>({pages:{}})),
+    // 89KB, smaller than the Companies House warnings, and it reaches all
+    // 389 named employers rather than the 0 that have a page.
+    fetchJSON('data/nmw.json').catch(()=>({employers:{}}))
+  ]).then(([main,recent,meta,gone,flags,ratings,since,pageIndex,nmw])=>{
+    namings = nmw.employers || {};
     employerPages = pageIndex.pages || {};
     licensedSince = since.since || {};
     licensedBaseline = since.baseline || '';
