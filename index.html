@@ -151,7 +151,12 @@
   .brand .mark{display:block;flex:0 0 auto;border-radius:7px}
   .brand .dot{color:var(--cobalt)}
   .topnav{display:flex;gap:18px;font-size:.9rem;font-weight:600}
-  .topnav a{text-decoration:none}
+  /* "For business" is two words and wrapped at 375px, which pushed the
+     header from 73px to 86px. nowrap keeps it on one line and costs nothing:
+     measured 29px nav either way. .header-inner already wraps, so on a
+     genuinely narrow screen the nav drops to its own line rather than
+     overflowing. */
+  .topnav a{text-decoration:none;white-space:nowrap}
   .topnav a:hover{text-decoration:underline}
   .badge{
     display:inline-block;background:var(--signal);color:var(--on-signal);
@@ -598,6 +603,8 @@
       <a href="changes/">Changes <span class="badge" id="navChanges" hidden></span></a>
       <a href="insights/">Numbers</a>
       <a href="data-api/">Data</a>
+      <!-- Must stay in step with pages.site_header(); a test checks it. -->
+      <a href="pricing/">For business</a>
       <button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button>
     </nav>
   </div>
