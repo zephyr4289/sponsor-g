@@ -139,7 +139,12 @@
   .header-inner{display:flex;align-items:center;justify-content:space-between;
                 gap:16px;flex-wrap:wrap}
   .topnav{display:flex;gap:18px;font-size:.9rem;font-weight:600}
-  .topnav a{text-decoration:none}
+  /* "For business" is two words and wrapped at 375px, which pushed the
+     header from 73px to 86px. nowrap keeps it on one line and costs nothing:
+     measured 29px nav either way. .header-inner already wraps, so on a
+     genuinely narrow screen the nav drops to its own line rather than
+     overflowing. */
+  .topnav a{text-decoration:none;white-space:nowrap}
   .topnav a:hover{text-decoration:underline}
   .topnav [aria-current]{color:var(--ink-soft)}
   @media (max-width:520px){.topnav{gap:14px;font-size:.85rem;width:100%}}
@@ -156,13 +161,13 @@
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
-<header><div class="wrap header-inner"><div class="brand"><a href="../">KnowYourSponsor<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><span aria-current="page">Numbers</span><a href="../data-api/">Data</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
+<header><div class="wrap header-inner"><div class="brand"><a href="../">KnowYourSponsor<span class="dot">.</span></a></div><nav class="topnav" aria-label="Sections"><a href="../changes/">Changes</a><span aria-current="page">Numbers</span><a href="../data-api/">Data</a><a href="../pricing/">For business</a><button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button></nav></div></header>
 
 <main class="wrap">
   <h1>UK visa sponsorship in numbers</h1>
   <p class="lead">Every employer allowed to sponsor a UK work visa is on one
      official register. Here is what is actually in it.</p>
-  <p class="updated">From the GOV.UK Register of Licensed Sponsors, updated 2026-09-09 12:05 UTC.</p>
+  <p class="updated">From the GOV.UK Register of Licensed Sponsors, updated 2026-09-09 13:16 UTC.</p>
 
   <p class="hero">127,716</p>
   <p class="hero-label">employers can sponsor a UK work visa. Every other
