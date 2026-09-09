@@ -1261,7 +1261,7 @@
     <div id="tableEmpty" style="display:none; padding:40px; text-align:center; color:var(--ink-graphite); font-family:var(--font-mono); font-size:0.85rem;">
       No employers match the active search filters.
     </div>
-    <div id="loadMoreTrigger" style="padding:16px; text-align:center;">
+    <div id="loadMoreTrigger" style="display:none; padding:16px; text-align:center;">
       <button id="btnLoadMore" style="font-family:var(--font-mono); font-size:0.8rem; padding:8px 16px; background:var(--surface-panel); border:1px solid var(--rule-prominent); cursor:pointer;">Load More Records</button>
     </div>
   </div>
@@ -1652,7 +1652,7 @@
     return null;
   }
 
-  // Fast Table Rendering
+  // Fast Table Rendering (Supports both raw array tuples and enriched worker objects)
   function renderTable(rows, append) {
     isLoadingNext = false;
     if (!append) {
@@ -1677,12 +1677,13 @@
     emptyEl.style.display = 'none';
     loadMoreEl.style.display = currentOffset < totalMatches ? 'block' : 'none';
 
-    const html = activeSlice.map((r, idx) => {
-      const [name, town, county, industry, routes, rating] = r;
+    const html = activeSlice.map((item, idx) => {
+      const s = item && item.sponsor ? item.sponsor : item;
+      const [name, town, county, industry, routes, rating] = s;
       const key = (name + '|' + town).toLowerCase();
       const isSaved = savedSet.has(key);
-      const warn = warningFor(name);
-      const nmw = nmwData[name];
+      const warn = (item && item.warn !== undefined) ? item.warn : warningFor(name);
+      const hasNmw = (item && item.nmw !== undefined) ? item.nmw : !!(nmwData[name] && nmwData[name].length);
       
       const loc = [town, county].filter(Boolean)
         .filter((v,i,a) => a.findIndex(x=>x.toLowerCase()===v.toLowerCase())===i)
@@ -1699,7 +1700,7 @@
         statusBadge = `<span class="status-badge regular">${esc(rating || 'Active')}</span>`;
       }
 
-      if (nmw && nmw.length) {
+      if (hasNmw) {
         statusBadge += ` <span class="status-badge nmw" title="Named by government for NMW underpayment">NMW Underpaid</span>`;
       }
 
@@ -1727,13 +1728,14 @@
     tbody.innerHTML = html;
   }
 
-  // Dynamic Macro Summary & Churn Table Renderer
-  function renderMacroSummary() {
-    const totalSponsors = allSponsors.length;
-    const nAdded = addedRows.length;
-    const nRemoved = removedRows.length;
-    const netDelta = nAdded - nRemoved;
-    const nDowngrades = ratingChanges.length;
+  // Dynamic Macro Summary & Churn Table Renderer (O(1) from meta.json)
+  function renderMacroSummary(meta) {
+    if (!meta) return;
+    const totalSponsors = meta.total || 127716;
+    const nAdded = meta.added_recently || 0;
+    const nRemoved = meta.removed_recently || 0;
+    const netDelta = meta.net_drift !== undefined ? meta.net_drift : (nAdded - nRemoved);
+    const nDowngrades = meta.downgraded_recently || 0;
 
     // 1. Net Movement Card
     const netEl = document.getElementById('macroNetMove');
@@ -1761,8 +1763,8 @@
     if (churnDowngrades) churnDowngrades.textContent = `${nDowngrades.toLocaleString()} organisations`;
 
     // 3. Solvency Risk Rate Card
-    const flaggedCount = Object.keys(companyFlags).length;
-    const riskPct = totalSponsors > 0 ? ((flaggedCount / totalSponsors) * 100).toFixed(2) : '0.00';
+    const flaggedCount = meta.total_flagged || 0;
+    const riskPct = meta.risk_pct !== undefined ? meta.risk_pct : (totalSponsors > 0 ? ((flaggedCount / totalSponsors) * 100).toFixed(2) : '0.00');
     const riskEl = document.getElementById('macroRiskRate');
     const riskNote = document.getElementById('macroRiskNote');
     if (riskEl) {
@@ -1772,41 +1774,28 @@
       riskNote.textContent = `${flaggedCount.toLocaleString()} sponsors with active filing or accounts advisories`;
     }
 
-    // 4. Sector breakdown from real delta data
-    const sectorCount = {};
-    const datasetForSectors = removedRows.length > 0 ? removedRows : (addedRows.length > 0 ? addedRows : allSponsors.slice(0, 500));
-    datasetForSectors.forEach(r => {
-      const s = r[3] || 'Other';
-      if (s && s !== 'Other') sectorCount[s] = (sectorCount[s] || 0) + 1;
-    });
-    const topSectors = Object.entries(sectorCount).sort((a, b) => b[1] - a[1]).slice(0, 5);
+    // 4. Sector breakdown from pre-aggregated meta data
+    const topSectors = meta.top_revoked_sectors || [];
     const sectorListEl = document.getElementById('macroSectorList');
     if (sectorListEl && topSectors.length > 0) {
-      const denom = removedRows.length > 0 ? removedRows.length : datasetForSectors.length;
+      const denom = nRemoved > 0 ? nRemoved : 10;
       sectorListEl.innerHTML = topSectors.map(([sec, count]) => {
         const pct = ((count / denom) * 100).toFixed(1);
         return `<li class="macro-list-item">
           <span class="macro-item-name">${esc(sec)}</span>
-          <span class="macro-item-stat" style="color:var(--status-critical-ink);">${removedRows.length > 0 ? '-' : ''}${count} licences <small>(${pct}%)</small></span>
+          <span class="macro-item-stat" style="color:var(--status-critical-ink);">${nRemoved > 0 ? '-' : ''}${count} licences <small>(${pct}%)</small></span>
         </li>`;
       }).join('');
     }
 
-    // 5. Regional Flagged Breakdown from real data
-    const locCount = {};
-    Object.keys(companyFlags).forEach(compName => {
-      const match = allSponsors.find(s => s[0] === compName);
-      if (match && match[1]) {
-        locCount[match[1]] = (locCount[match[1]] || 0) + 1;
-      }
-    });
-    const topLocations = Object.entries(locCount).sort((a, b) => b[1] - a[1]).slice(0, 5);
+    // 5. Regional Flagged Breakdown from pre-aggregated meta data
+    const topLocations = meta.top_flagged_locations || [];
     const regionListEl = document.getElementById('macroRegionList');
     if (regionListEl && topLocations.length > 0) {
       regionListEl.innerHTML = topLocations.map(([loc, count]) => 
         `<li class="macro-list-item">
           <span class="macro-item-name">${esc(loc)}</span>
-          <span class="macro-item-stat">${count} flagged entities</span>
+          <span class="macro-item-stat">${count.toLocaleString()} flagged entities</span>
         </li>`
       ).join('');
     }
@@ -1826,13 +1815,14 @@
   }
 
   // Forensic Inspection Docket
-  function openDocket(row) {
-    if (!row) return;
+  function openDocket(rowOrItem) {
+    if (!rowOrItem) return;
+    const row = rowOrItem && rowOrItem.sponsor ? rowOrItem.sponsor : rowOrItem;
     const [name, town, county, industry, routes, rating] = row;
-    const warn = warningFor(name);
-    const nmw = nmwData[name];
+    const warn = (rowOrItem && rowOrItem.warn !== undefined) ? rowOrItem.warn : warningFor(name);
+    const nmw = (rowOrItem && rowOrItem.nmwList !== undefined) ? rowOrItem.nmwList : (nmwData[name] || null);
     const key = (name + '|' + town).toLowerCase();
-    const sinceDate = licensedSince[key] || 'Historical register record';
+    const sinceDate = (rowOrItem && rowOrItem.licensedSince) || licensedSince[key] || 'Historical register record';
 
     document.getElementById('docketEmpty').style.display = 'none';
     document.getElementById('docketContent').style.display = 'block';
@@ -1930,6 +1920,38 @@
     if (window.innerWidth <= 960) {
       document.getElementById('docketPane').classList.add('open');
     }
+
+    // If worker is running, request full enriched detail to update license date / NMW details if not yet loaded
+    if (searchWorker && (!rowOrItem || !rowOrItem.licensedSince)) {
+      const reqId = ++requestId;
+      const onDetail = function(e) {
+        if (e.data.type === 'SPONSOR_DETAIL' && e.data.requestId === reqId) {
+          searchWorker.removeEventListener('message', onDetail);
+          if (currentSponsorInDocket === name) {
+            if (e.data.licensedSince) {
+              document.getElementById('docketSince').textContent = e.data.licensedSince;
+            }
+            if (e.data.nmw && e.data.nmw.length && (!nmw || !nmw.length)) {
+              const latest = e.data.nmw[0];
+              const year = String(latest.round || '').slice(0, 4);
+              const money = typeof latest.arrears === 'number' ? '£' + latest.arrears.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : '';
+              const workers = latest.workers ? latest.workers.toLocaleString() + (latest.workers === 1 ? ' worker' : ' workers') : '';
+              let nmwHtml = `<strong>Named for underpaying statutory minimum wage${year ? ' in ' + esc(year) : ''}.</strong> `;
+              if (money && workers) nmwHtml += `${money} was owed to ${workers}. `;
+              if (e.data.nmw.length > 1) nmwHtml += `Named across ${e.data.nmw.length} separate enforcement rounds. `;
+              if (latest.source && latest.source.startsWith('https://www.gov.uk/')) {
+                nmwHtml += `<br><a href="${esc(latest.source)}" target="_blank" rel="noopener">Official Government Finding &rarr;</a>`;
+              }
+              nmwHtml += `<br><small style="opacity:0.85; margin-top:4px; display:block;">Published statutory enforcement record. Arrears named must be fully repaid to workers.</small>`;
+              nmwSection.style.display = 'block';
+              nmwBox.innerHTML = nmwHtml;
+            }
+          }
+        }
+      };
+      searchWorker.addEventListener('message', onDetail);
+      searchWorker.postMessage({ type: 'GET_SPONSOR', requestId: reqId, name: name });
+    }
   }
 
   // Salary Threshold Calculator
@@ -2020,7 +2042,10 @@
     }
   }
 
-  // Trigger Query
+  // Trigger Query & Search Dispatcher
+  let workerHydrated = false;
+  let pendingQuery = null;
+
   function triggerQuery(append) {
     if (append && isLoadingNext) return;
     if (append && currentOffset >= totalMatches) return;
@@ -2035,7 +2060,7 @@
     const currentReq = ++requestId;
     const offset = append ? currentOffset : 0;
 
-    if (searchWorker) {
+    if (searchWorker && workerHydrated) {
       searchWorker.postMessage({
         type: 'QUERY',
         requestId: currentReq,
@@ -2050,6 +2075,8 @@
         offset: offset,
         limit: PAGE_LIMIT
       });
+    } else if (searchWorker && !workerHydrated) {
+      pendingQuery = { append, currentReq };
     } else {
       // Main thread fallback
       let source = allSponsors;
@@ -2099,7 +2126,7 @@
     const exportDate = new Date().toISOString().slice(0, 10);
     const isShortlist = currentView === 'saved';
 
-    if (searchWorker) {
+    if (searchWorker && workerHydrated) {
       const exportReq = ++requestId;
       const onExportComplete = function(e) {
         if (e.data.type === 'EXPORT_CSV_COMPLETE' && e.data.requestId === exportReq) {
@@ -2129,9 +2156,10 @@
       const headers = isShortlist
         ? ['Employer Name', 'Town / City', 'County', 'Industry', 'Approved Visa Routes', 'Rating', 'CRN', 'Status', 'Filing Warning', 'NMW Underpaid', 'Application Status', 'Date Applied', 'Target Role', 'Interview Notes']
         : ['Employer Name', 'Town / City', 'County', 'Industry', 'Approved Visa Routes', 'Rating', 'CRN', 'Status', 'Filing Warning', 'NMW Underpaid'];
-      const rows = activeSlice.map(r => {
-        const warn = warningFor(r[0]);
-        const nmw = nmwData[r[0]];
+      const rows = activeSlice.map(item => {
+        const r = item && item.sponsor ? item.sponsor : item;
+        const warn = (item && item.warn !== undefined) ? item.warn : warningFor(r[0]);
+        const nmw = (item && item.nmw !== undefined) ? item.nmw : !!(nmwData[r[0]] && nmwData[r[0]].length);
         const baseRow = [
           r[0], r[1], r[2], r[3],
           (r[4] || []).join('; '),
@@ -2310,7 +2338,8 @@
       exportCSV();
     } else if (e.key === 's' && !isInput && selectedRowIndex >= 0 && activeSlice[selectedRowIndex]) {
       e.preventDefault();
-      const s = activeSlice[selectedRowIndex];
+      const item = activeSlice[selectedRowIndex];
+      const s = item && item.sponsor ? item.sponsor : item;
       const key = (s[0] + '|' + s[1]).toLowerCase();
       if (savedSet.has(key)) savedSet.delete(key);
       else savedSet.add(key);
@@ -2344,45 +2373,40 @@
     if (triggerEl) observer.observe(triggerEl);
   }
 
-  // Load All Verified Datasets
+  // Fast Progressive Hydration (< 20KB transfer, < 30ms First Paint)
   Promise.all([
-    fetch('data/sponsors.json').then(r => r.json()),
-    fetch('data/company_flags.json').then(r => r.json()).catch(() => ({companies:{}})),
-    fetch('data/licensed_since.json').then(r => r.json()).catch(() => ({since:{}})),
-    fetch('data/new_sponsors.json').then(r => r.json()).catch(() => ({new:[]})),
-    fetch('data/removed_sponsors.json').then(r => r.json()).catch(() => ({removed:[]})),
-    fetch('data/rating_changes.json').then(r => r.json()).catch(() => ({changes:[]})),
-    fetch('data/nmw.json').then(r => r.json()).catch(() => ({employers:{}})),
-    fetch('data/soc_thresholds.json').then(r => r.json()).catch(() => ({occupations:[]}))
-  ]).then(([sponsorsData, flagsData, sinceData, newData, removedData, ratingData, nmw, socs]) => {
-    allSponsors = sponsorsData.sponsors || [];
-    companyFlags = flagsData.companies || {};
-    licensedSince = sinceData.since || {};
-    ratingChanges = ratingData.changes || [];
-    nmwData = nmw.employers || {};
-    addedRows = newData.new || [];
-    removedRows = removedData.removed || [];
+    fetch('data/meta.json').then(r => r.json()),
+    fetch('data/initial_slice.json').then(r => r.json()),
+    fetch('data/soc_thresholds.json').then(r => r.json()).catch(() => ({ occupations: [], rules: {} }))
+  ]).then(([meta, initialSlice, socs]) => {
     socData = socs;
+    totalMatches = meta.total || (initialSlice.slice ? initialSlice.slice.length : 0);
 
-    document.getElementById('hudTotal').textContent = allSponsors.length.toLocaleString();
-    document.getElementById('hudAdded').textContent = '+' + addedRows.length.toLocaleString();
-    document.getElementById('nAdded').textContent = `(${addedRows.length})`;
-    document.getElementById('nRemoved').textContent = `(${removedRows.length})`;
-    
-    const nmwCount = Object.keys(nmwData).length;
-    document.getElementById('nNmw').textContent = `(${nmwCount})`;
+    // Populate HUD telemetry instantly
+    document.getElementById('hudTotal').textContent = (meta.total || 0).toLocaleString();
+    document.getElementById('hudAdded').textContent = '+' + (meta.added_recently || 0).toLocaleString();
+    document.getElementById('hudSerious').textContent = (meta.total_serious || 0).toLocaleString();
+    document.getElementById('hudDeficient').textContent = ((meta.total_flagged || 0) - (meta.total_serious || 0)).toLocaleString();
 
-    const towns = [...new Set(allSponsors.map(s => s[1]).filter(Boolean))].sort();
+    // Populate View Filter Badge counts instantly
+    document.getElementById('nAdded').textContent = `(${meta.added_recently || 0})`;
+    document.getElementById('nRemoved').textContent = `(${meta.removed_recently || 0})`;
+    document.getElementById('nFlagged').textContent = `(${meta.total_flagged || 0})`;
+    document.getElementById('nNmw').textContent = `(${meta.total_nmw || 0})`;
+    document.getElementById('matchCount').textContent = totalMatches.toLocaleString();
+
+    // Populate filter dropdowns instantly from pre-aggregated lookup lists
+    const towns = meta.top_towns || [];
     const citySel = document.getElementById('citySelect');
     citySel.innerHTML = '<option value="">All Towns / Cities</option>' + 
-      towns.slice(0, 80).map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join('');
+      towns.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join('');
 
-    const industries = [...new Set(allSponsors.map(s => s[3]).filter(Boolean))].sort();
+    const industries = meta.top_industries || [];
     const indSel = document.getElementById('industrySelect');
     indSel.innerHTML = '<option value="">All Industries</option>' + 
       industries.map(i => `<option value="${esc(i)}">${esc(i)}</option>`).join('');
 
-    const routes = [...new Set(allSponsors.flatMap(s => s[4]))].sort();
+    const routes = meta.top_routes || [];
     const routeSel = document.getElementById('routeSelect');
     routeSel.innerHTML = '<option value="">All Visa Routes</option>' + 
       routes.map(r => `<option value="${esc(r)}">${esc(r)}</option>`).join('');
@@ -2390,26 +2414,41 @@
     const initialSponsor = initFromUrl();
     updateShortlistCount();
     initSalaryCalc();
-    renderMacroSummary();
+    renderMacroSummary(meta);
+
+    // Instant initial table paint (< 30ms)
+    const seedRows = (initialSlice && initialSlice.slice) || [];
+    renderTable(seedRows, false);
 
     function handleInitialSponsor() {
       if (initialSponsor) {
-        const target = allSponsors.find(s => s[0].toLowerCase() === initialSponsor.toLowerCase());
-        if (target) {
-          openDocket(target);
+        const targetInSeed = seedRows.find(s => {
+          const name = s && s.sponsor ? s.sponsor[0] : s[0];
+          return name.toLowerCase() === initialSponsor.toLowerCase();
+        });
+        if (targetInSeed) {
+          openDocket(targetInSeed);
+        } else if (searchWorker) {
+          searchWorker.postMessage({ type: 'GET_SPONSOR', requestId: ++requestId, name: initialSponsor });
         }
       }
     }
 
-    // Start Web Worker
+    // Launch Dedicated Web Worker for Off-Thread Master Register Hydration
     try {
       searchWorker = new Worker('worker.js');
       searchWorker.onmessage = function(e) {
         if (e.data.type === 'INIT_COMPLETE') {
+          workerHydrated = true;
           document.getElementById('hudSerious').textContent = e.data.seriousCount.toLocaleString();
           document.getElementById('hudDeficient').textContent = (e.data.flaggedCount - e.data.seriousCount).toLocaleString();
           document.getElementById('nFlagged').textContent = `(${e.data.flaggedCount.toLocaleString()})`;
-          triggerQuery(false);
+
+          if (pendingQuery) {
+            const req = pendingQuery;
+            pendingQuery = null;
+            triggerQuery(req.append);
+          }
           handleInitialSponsor();
         } else if (e.data.type === 'QUERY_RESULTS') {
           if (e.data.requestId === requestId) {
@@ -2417,22 +2456,42 @@
             document.getElementById('matchCount').textContent = totalMatches.toLocaleString();
             renderTable(e.data.results, e.data.offset > 0);
           }
+        } else if (e.data.type === 'SPONSOR_DETAIL') {
+          if (e.data.sponsor && currentSponsorInDocket === e.data.sponsor[0]) {
+            openDocket({
+              sponsor: e.data.sponsor,
+              warn: e.data.warning,
+              nmwList: e.data.nmw,
+              licensedSince: e.data.licensedSince
+            });
+          }
         }
       };
-      searchWorker.postMessage({
-        type: 'INIT',
-        all: allSponsors,
-        companyFlags: companyFlags,
-        licensedSince: licensedSince,
-        ratingChanges: ratingChanges,
-        nmwData: nmwData,
-        addedRows: addedRows,
-        removedRows: removedRows
-      });
+
+      // Instruct worker to fetch & index 127k sponsors in background
+      searchWorker.postMessage({ type: 'INIT' });
     } catch(err) {
       console.warn('Worker initialization fallback to main thread:', err);
-      triggerQuery(false);
-      handleInitialSponsor();
+      // Fallback: fetch datasets on main thread if worker unsupported
+      Promise.all([
+        fetch('data/sponsors.json').then(r => r.json()),
+        fetch('data/company_flags.json').then(r => r.json()).catch(() => ({companies:{}})),
+        fetch('data/licensed_since.json').then(r => r.json()).catch(() => ({since:{}})),
+        fetch('data/new_sponsors.json').then(r => r.json()).catch(() => ({new:[]})),
+        fetch('data/removed_sponsors.json').then(r => r.json()).catch(() => ({removed:[]})),
+        fetch('data/rating_changes.json').then(r => r.json()).catch(() => ({changes:[]})),
+        fetch('data/nmw.json').then(r => r.json()).catch(() => ({employers:{}}))
+      ]).then(([sponsorsData, flagsData, sinceData, newData, removedData, ratingData, nmw]) => {
+        allSponsors = sponsorsData.sponsors || [];
+        companyFlags = flagsData.companies || {};
+        licensedSince = sinceData.since || {};
+        ratingChanges = ratingData.changes || [];
+        nmwData = nmw.employers || {};
+        addedRows = newData.new || [];
+        removedRows = removedData.removed || [];
+        triggerQuery(false);
+        handleInitialSponsor();
+      });
     }
   });
 

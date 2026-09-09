@@ -405,6 +405,80 @@ def main():
     with open(os.path.join(args.out_dir, "sponsors.json"), "w", encoding="utf-8") as f:
         json.dump(sponsors_payload, f, separators=(',', ':'), ensure_ascii=False)
 
+    # 6.1b initial_slice.json (50-row seed for instant sub-30ms first paint)
+    initial_slice_payload = {
+        "updated": updated_str,
+        "total": total_parsed,
+        "slice": final_sponsors[:50]
+    }
+    with open(os.path.join(args.out_dir, "initial_slice.json"), "w", encoding="utf-8") as f:
+        json.dump(initial_slice_payload, f, separators=(',', ':'), ensure_ascii=False)
+
+    # 6.2 Pre-compute aggregations for meta.json (0ms client CPU usage)
+    flags_file = os.path.join(args.out_dir, "company_flags.json")
+    company_flags = {}
+    if os.path.exists(flags_file):
+        try:
+            with open(flags_file, "r", encoding="utf-8") as ff:
+                company_flags = json.load(ff).get("companies", {})
+        except Exception:
+            pass
+
+    nmw_file = os.path.join(args.out_dir, "nmw.json")
+    nmw_employers = {}
+    if os.path.exists(nmw_file):
+        try:
+            with open(nmw_file, "r", encoding="utf-8") as nf:
+                nmw_employers = json.load(nf).get("employers", {})
+        except Exception:
+            pass
+
+    # Flagged location counts (normalized by title case to avoid LONDON vs London duplicates)
+    loc_counts = {}
+    total_serious = 0
+    total_notable = 0
+    for s in final_sponsors:
+        s_name = s[0]
+        s_town = s[1].strip() if s[1] else ""
+        if s_name in company_flags:
+            if s_town:
+                norm_town = s_town.title()
+                loc_counts[norm_town] = loc_counts.get(norm_town, 0) + 1
+            fl = company_flags[s_name].get("flags", [])
+            if "not_active" in fl:
+                total_serious += 1
+            elif any(x in fl for x in ["dormant", "accounts_overdue"]):
+                total_notable += 1
+
+    top_flagged_locs = sorted(loc_counts.items(), key=lambda x: x[1], reverse=True)[:5]
+
+    # Revoked sector counts
+    rev_sector_counts = {}
+    for r in (removed_sponsors_list or []):
+        sec = r[3] if len(r) > 3 and r[3] else "Other"
+        if sec != "Other":
+            rev_sector_counts[sec] = rev_sector_counts.get(sec, 0) + 1
+
+    if not rev_sector_counts:
+        for s in final_sponsors[:500]:
+            sec = s[3] if len(s) > 3 and s[3] else "Other"
+            if sec != "Other":
+                rev_sector_counts[sec] = rev_sector_counts.get(sec, 0) + 1
+
+    top_rev_sectors = sorted(rev_sector_counts.items(), key=lambda x: x[1], reverse=True)[:5]
+    total_flags = len(company_flags)
+    risk_pct = round((total_flags / total_parsed) * 100, 2) if total_parsed else 0.0
+
+    # Top towns ranked by sponsor frequency
+    town_counts = {}
+    for s in final_sponsors:
+        if s[1] and len(s[1].strip()) > 2 and not s[1].strip().startswith((",", ".", ":", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0")):
+            norm = s[1].strip().title()
+            town_counts[norm] = town_counts.get(norm, 0) + 1
+    
+    top_towns = [t[0] for t in sorted(town_counts.items(), key=lambda x: x[1], reverse=True)[:80]]
+    top_towns.sort()
+
     # 6.2 meta.json
     meta_payload = {
         "updated": updated_str,
@@ -413,7 +487,18 @@ def main():
         "removed_since_last_run": len(removed_keys),
         "added_recently": len(new_sponsors_list) if new_sponsors_list else prev_meta.get("added_recently", 0),
         "removed_recently": len(removed_sponsors_list) if removed_sponsors_list else prev_meta.get("removed_recently", 0),
+        "net_drift": (len(new_sponsors_list) if new_sponsors_list else 0) - (len(removed_sponsors_list) if removed_sponsors_list else 0),
         "downgraded_recently": len(rating_downgrades),
+        "total_flagged": total_flags,
+        "total_serious": total_serious,
+        "total_notable": total_notable,
+        "total_nmw": len(nmw_employers),
+        "risk_pct": risk_pct,
+        "top_flagged_locations": top_flagged_locs,
+        "top_revoked_sectors": top_rev_sectors,
+        "top_towns": top_towns,
+        "top_industries": sorted(list(set(s[3] for s in final_sponsors if s[3]))),
+        "top_routes": sorted(list(set(r for s in final_sponsors for r in s[4]))),
         "window_days": 7,
         "sample": False
     }

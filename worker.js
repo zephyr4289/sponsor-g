@@ -18,6 +18,8 @@ let searchIndex = []; // Array of pre-computed search strings: "name town county
 
 // Map of (name + '|' + town).toLowerCase() -> index in `all`
 let keyToIndexMap = new Map();
+// Map of name.toLowerCase() -> index in `all`
+let nameToIndexMap = new Map();
 
 // Severity definitions matching statutory pipeline
 const WARNINGS = [
@@ -170,85 +172,142 @@ function executeFilter(params) {
   return filtered;
 }
 
+async function hydrateWorkerData(msgData) {
+  if (msgData && msgData.all && msgData.all.length) {
+    all = msgData.all;
+    companyFlags = msgData.companyFlags || {};
+    licensedSince = msgData.licensedSince || {};
+    ratingChanges = msgData.ratingChanges || [];
+    nmwData = msgData.nmwData || {};
+    addedRows = msgData.addedRows || [];
+    removedRows = msgData.removedRows || [];
+  } else {
+    try {
+      const [sponsorsData, flagsData, sinceData, newData, removedData, ratingData, nmw] = await Promise.all([
+        fetch('data/sponsors.json').then(r => r.json()),
+        fetch('data/company_flags.json').then(r => r.json()).catch(() => ({companies:{}})),
+        fetch('data/licensed_since.json').then(r => r.json()).catch(() => ({since:{}})),
+        fetch('data/new_sponsors.json').then(r => r.json()).catch(() => ({new:[]})),
+        fetch('data/removed_sponsors.json').then(r => r.json()).catch(() => ({removed:[]})),
+        fetch('data/rating_changes.json').then(r => r.json()).catch(() => ({changes:[]})),
+        fetch('data/nmw.json').then(r => r.json()).catch(() => ({employers:{}}))
+      ]);
+
+      all = sponsorsData.sponsors || [];
+      companyFlags = flagsData.companies || {};
+      licensedSince = sinceData.since || {};
+      ratingChanges = ratingData.changes || [];
+      nmwData = nmw.employers || {};
+      addedRows = newData.new || [];
+      removedRows = removedData.removed || [];
+    } catch (err) {
+      console.error('Worker failed to fetch datasets:', err);
+      return;
+    }
+  }
+
+  // Pre-build search cache and key lookup map
+  searchIndex = new Array(all.length);
+  keyToIndexMap = new Map();
+  nameToIndexMap = new Map();
+  
+  for (let i = 0; i < all.length; i++) {
+    const s = all[i];
+    const name = s[0];
+    const town = s[1];
+    const key = (name + '|' + town).toLowerCase();
+    keyToIndexMap.set(key, i);
+    nameToIndexMap.set(name.toLowerCase(), i);
+
+    const record = companyFlags[name];
+    const crn = record && record.number ? record.number.toLowerCase() : '';
+    searchIndex[i] = (name + ' ' + crn + ' ' + town + ' ' + s[2] + ' ' + s[3]).toLowerCase();
+  }
+
+  // Downgrades to B
+  downgradedRows = (ratingChanges || [])
+    .filter(c => c.action === 'downgraded')
+    .map(c => {
+      const key = ((c.name || '') + '|' + (c.town || '')).toLowerCase();
+      const idx = keyToIndexMap.get(key);
+      return typeof idx === 'number' ? all[idx] : null;
+    })
+    .filter(Boolean)
+    .filter(s => String(s[5] || '').trim().toUpperCase() === 'B');
+
+  // Telemetry and macro solvency stats
+  let totalSerious = 0;
+  let totalNotable = 0;
+  let totalFlagged = 0;
+  let totalNmw = 0;
+
+  for (let i = 0; i < all.length; i++) {
+    const name = all[i][0];
+    const w = warningFor(name);
+    if (w) {
+      totalFlagged++;
+      if (w.severity === 'serious') totalSerious++;
+      else if (w.severity === 'notable') totalNotable++;
+    }
+    if (nmwData[name]) totalNmw++;
+  }
+
+  self.postMessage({
+    type: 'INIT_COMPLETE',
+    total: all.length,
+    addedCount: addedRows.length,
+    removedCount: removedRows.length,
+    downgradedCount: downgradedRows.length,
+    flaggedCount: totalFlagged,
+    seriousCount: totalSerious,
+    notableCount: totalNotable,
+    nmwCount: totalNmw
+  });
+}
+
 self.onmessage = function(e) {
   const msg = e.data;
   if (!msg) return;
   
   if (msg.type === 'INIT') {
-    all = msg.all || [];
-    companyFlags = msg.companyFlags || {};
-    licensedSince = msg.licensedSince || {};
-    ratingChanges = msg.ratingChanges || [];
-    nmwData = msg.nmwData || {};
-    addedRows = msg.addedRows || [];
-    removedRows = msg.removedRows || [];
-
-    // Pre-build search cache and key lookup map
-    searchIndex = new Array(all.length);
-    keyToIndexMap = new Map();
-    
-    for (let i = 0; i < all.length; i++) {
-      const s = all[i];
-      const name = s[0];
-      const town = s[1];
-      const key = (name + '|' + town).toLowerCase();
-      keyToIndexMap.set(key, i);
-
-      const record = companyFlags[name];
-      const crn = record && record.number ? record.number.toLowerCase() : '';
-      searchIndex[i] = (name + ' ' + crn + ' ' + town + ' ' + s[2] + ' ' + s[3]).toLowerCase();
-    }
-
-    // Downgrades to B
-    downgradedRows = (ratingChanges || [])
-      .filter(c => c.action === 'downgraded')
-      .map(c => {
-        const key = ((c.name || '') + '|' + (c.town || '')).toLowerCase();
-        const idx = keyToIndexMap.get(key);
-        return typeof idx === 'number' ? all[idx] : null;
-      })
-      .filter(Boolean)
-      .filter(s => String(s[5] || '').trim().toUpperCase() === 'B');
-
-    // Telemetry and macro solvency stats
-    let totalSerious = 0;
-    let totalNotable = 0;
-    let totalFlagged = 0;
-    let totalNmw = 0;
-
-    for (let i = 0; i < all.length; i++) {
-      const name = all[i][0];
-      const w = warningFor(name);
-      if (w) {
-        totalFlagged++;
-        if (w.severity === 'serious') totalSerious++;
-        else if (w.severity === 'notable') totalNotable++;
-      }
-      if (nmwData[name]) totalNmw++;
-    }
-
+    hydrateWorkerData(msg);
+  } else if (msg.type === 'GET_SPONSOR') {
+    const idx = nameToIndexMap.get((msg.name || '').toLowerCase());
+    const target = typeof idx === 'number' ? all[idx] : all.find(s => s[0].toLowerCase() === (msg.name || '').toLowerCase());
+    const warn = target ? warningFor(target[0]) : null;
+    const nmw = target ? nmwData[target[0]] : null;
+    const key = target ? (target[0] + '|' + target[1]).toLowerCase() : '';
+    const since = licensedSince[key] || '';
     self.postMessage({
-      type: 'INIT_COMPLETE',
-      total: all.length,
-      addedCount: addedRows.length,
-      removedCount: removedRows.length,
-      downgradedCount: downgradedRows.length,
-      flaggedCount: totalFlagged,
-      seriousCount: totalSerious,
-      notableCount: totalNotable,
-      nmwCount: totalNmw
+      type: 'SPONSOR_DETAIL',
+      requestId: msg.requestId,
+      sponsor: target,
+      warning: warn,
+      nmw: nmw,
+      licensedSince: since
     });
   } else if (msg.type === 'QUERY') {
     const filtered = executeFilter(msg);
     const start = typeof msg.offset === 'number' ? msg.offset : 0;
-    const count = typeof msg.limit === 'number' ? msg.limit : 200;
+    const count = typeof msg.limit === 'number' ? msg.limit : 150;
+    const slice = filtered.slice(start, start + count);
+
+    const results = slice.map(s => {
+      const warn = warningFor(s[0]);
+      const nmw = nmwData[s[0]];
+      return {
+        sponsor: s,
+        warn: warn,
+        nmw: !!(nmw && nmw.length)
+      };
+    });
 
     self.postMessage({
       type: 'QUERY_RESULTS',
       requestId: msg.requestId,
       totalCount: filtered.length,
       offset: start,
-      results: filtered.slice(start, start + count)
+      results: results
     });
   } else if (msg.type === 'EXPORT_CSV') {
     const filtered = executeFilter(msg);
