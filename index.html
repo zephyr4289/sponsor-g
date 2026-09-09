@@ -433,6 +433,46 @@
   }
   .facet-selects select:focus { border-color: var(--rule-prominent); }
 
+  .quick-chips-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .quick-chip-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    margin-right: 2px;
+  }
+  .quick-chip {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    padding: 3px 8px;
+    background: var(--surface-panel);
+    border: 1px solid var(--rule-hairline);
+    border-radius: 2px;
+    color: var(--ink-graphite);
+    cursor: pointer;
+    transition: all 0.1s ease;
+    white-space: nowrap;
+  }
+  .quick-chip:hover {
+    background: var(--surface-recessed);
+    border-color: var(--rule-prominent);
+    color: var(--ink-carbon);
+  }
+  .quick-chip.active {
+    background: var(--rule-master);
+    color: var(--surface-ground);
+    border-color: var(--rule-master);
+    font-weight: 600;
+  }
+
   /* Workspace Layout (Split-Plane) */
   .workspace {
     display: grid;
@@ -842,6 +882,35 @@
     border-radius: 3px;
     margin-top: 8px;
   }
+  .salary-rule-toggle {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    margin-bottom: 12px;
+    background: var(--surface-recessed);
+    padding: 3px;
+    border-radius: 3px;
+    border: 1px solid var(--rule-hairline);
+  }
+  .salary-rule-btn {
+    border: none;
+    background: transparent;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    padding: 5px 4px;
+    color: var(--ink-graphite);
+    cursor: pointer;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 1.25;
+    transition: all 0.1s ease;
+  }
+  .salary-rule-btn.active {
+    background: var(--surface-paper);
+    color: var(--ink-carbon);
+    font-weight: 600;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  }
   .calc-select {
     width: 100%;
     font-family: var(--font-sans);
@@ -988,7 +1057,7 @@
   footer .footer-links { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
   footer .footer-links a { color: var(--ink-carbon); font-weight: 500; }
 
-  /* Mobile responsiveness */
+  /* Mobile responsiveness & Bottom-Sheet Docket */
   @media (max-width: 960px) {
     .ledger-hud { grid-template-columns: repeat(2, 1fr); }
     .workspace { grid-template-columns: 1fr; }
@@ -999,13 +1068,33 @@
       left: 0;
       right: 0;
       top: auto;
-      max-height: 80vh;
+      height: 85vh;
+      max-height: 85vh;
+      border-radius: 12px 12px 0 0;
       border-top: 2px solid var(--rule-master);
       box-shadow: 0 -10px 30px rgba(0,0,0,0.25);
       z-index: 100;
-      display: none;
+      transform: translateY(100%);
+      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      display: block !important;
+      visibility: hidden;
+      overscroll-behavior: contain;
     }
-    .docket-pane.open { display: block; }
+    .docket-pane.open {
+      transform: translateY(0);
+      visibility: visible;
+    }
+    .docket-sheet-handle {
+      width: 38px;
+      height: 4px;
+      background: var(--rule-prominent);
+      border-radius: 2px;
+      margin: -10px auto 14px;
+      display: block;
+    }
+  }
+  @media (min-width: 961px) {
+    .docket-sheet-handle { display: none; }
   }
   @media (max-width: 600px) {
     .ledger-hud { grid-template-columns: 1fr; }
@@ -1013,6 +1102,7 @@
     .views-group { width: 100%; }
     .brand-title { font-size: 1.5rem; }
     .topnav { gap: 12px; font-size: 0.8rem; }
+    .quick-chips-row { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
   }
 </style>
 <script>
@@ -1131,6 +1221,15 @@
           <option value="B">B-Rating</option>
         </select>
       </div>
+
+      <div class="quick-chips-row">
+        <span class="quick-chip-label">Presets:</span>
+        <button type="button" class="quick-chip" id="chipAdded" data-preset="added">Newly Added (7D)</button>
+        <button type="button" class="quick-chip" id="chipLondonTech" data-preset="london-tech">London Tech</button>
+        <button type="button" class="quick-chip" id="chipHealthcare" data-preset="healthcare">Healthcare &amp; Care</button>
+        <button type="button" class="quick-chip" id="chipFlagged" data-preset="flagged">Filing Warnings</button>
+        <button type="button" class="quick-chip" id="chipNmw" data-preset="nmw">NMW Underpaid</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1169,6 +1268,7 @@
 
   <!-- Right Pane: Employer Details & Overview -->
   <aside class="docket-pane" id="docketPane">
+    <div class="docket-sheet-handle"></div>
     <div class="docket-empty-macro" id="docketEmpty">
       <div class="macro-header">
         <div class="macro-badge">REGISTER SUMMARY</div>
@@ -1290,7 +1390,7 @@
         </dl>
       </div>
 
-      <!-- Section 2: Companies House Solvency Autopsy -->
+      <!-- Section 2: Companies House Solvency Status -->
       <div class="docket-section">
         <div class="docket-heading">2. Companies House Corporate Status</div>
         <dl class="docket-dl">
@@ -1314,6 +1414,11 @@
       <div class="docket-section">
         <div class="docket-heading">3. Skilled Worker Salary Threshold</div>
         <div class="calc-box">
+          <div class="salary-rule-toggle" id="salaryRuleToggle">
+            <button type="button" class="salary-rule-btn active" data-rule="standard">Standard<br><span style="font-size:0.62rem; opacity:0.85;">£38.7k / 100%</span></button>
+            <button type="button" class="salary-rule-btn" data-rule="new_entrant">New Entrant<br><span style="font-size:0.62rem; opacity:0.85;">£30.9k / 70%</span></button>
+            <button type="button" class="salary-rule-btn" data-rule="stem_phd">STEM PhD / ISL<br><span style="font-size:0.62rem; opacity:0.85;">£34.8k / 80%</span></button>
+          </div>
           <label style="font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-graphite); display:block; margin-bottom:4px;">
             Select Standard Occupation Code (SOC 2020):
           </label>
@@ -1321,8 +1426,8 @@
           <div class="gauge-wrap">
             <div class="gauge-track">
               <div class="gauge-bar" id="gaugeBar" style="width:60%;"></div>
-              <div class="gauge-pin" id="gaugeBaselinePin" style="left:48%;" title="Gov Minimum: £38,700">
-                <span class="gauge-pin-label">£38.7k Min</span>
+              <div class="gauge-pin" id="gaugeBaselinePin" style="left:48%;" title="Minimum Threshold">
+                <span class="gauge-pin-label" id="gaugePinLabel">£38.7k Min</span>
               </div>
             </div>
           </div>
@@ -1330,7 +1435,7 @@
             <div>Baseline Floor: <strong id="calcGovMin">£38,700</strong></div>
             <div>Going Rate: <strong id="calcGoingRate">£49,400</strong></div>
           </div>
-          <div style="margin-top:8px; font-size:0.75rem; color:var(--ink-graphite); line-height:1.3;" id="calcVerdict">
+          <div style="margin-top:8px; font-size:0.75rem; color:var(--ink-graphite); line-height:1.35;" id="calcVerdict">
             Sponsorship requires minimum £49,400/yr (50th percentile going rate for this role).
           </div>
         </div>
@@ -1338,18 +1443,26 @@
 
       <!-- Section 4: Actionable External Verifications -->
       <div class="docket-section">
-        <div class="docket-heading">4. Public Register Links</div>
+        <div class="docket-heading">4. Public Register &amp; Vacancy Links</div>
         <div class="docket-actions">
+          <a class="docket-link" id="linkGoogleJobs" href="#" target="_blank" rel="noopener">
+            <span>Search Jobs &amp; Visa Careers on Google</span>
+            <span>&rarr;</span>
+          </a>
+          <a class="docket-link" id="linkIndeed" href="#" target="_blank" rel="noopener">
+            <span>Search Vacancies on Indeed UK</span>
+            <span>&rarr;</span>
+          </a>
+          <a class="docket-link" id="linkLinkedIn" href="#" target="_blank" rel="noopener">
+            <span>Search Jobs on LinkedIn</span>
+            <span>&rarr;</span>
+          </a>
           <a class="docket-link" id="linkCH" href="#" target="_blank" rel="noopener">
             <span>View on Companies House</span>
             <span>&rarr;</span>
           </a>
           <a class="docket-link" id="linkGazette" href="#" target="_blank" rel="noopener">
             <span>Search notices in The Gazette</span>
-            <span>&rarr;</span>
-          </a>
-          <a class="docket-link" id="linkLinkedIn" href="#" target="_blank" rel="noopener">
-            <span>Search jobs on LinkedIn</span>
             <span>&rarr;</span>
           </a>
           <a class="docket-link" id="linkGOV" href="https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers" target="_blank" rel="noopener">
@@ -1441,6 +1554,8 @@
   
   let currentView = '';
   let currentWarn = '';
+  let currentSalaryRule = 'standard';
+  let currentSponsorInDocket = null;
   let selectedRowIndex = -1;
   let activeSlice = [];
   let totalMatches = 0;
@@ -1462,6 +1577,64 @@
     'Media & Creative': '2137',
     'Retail & Commerce': '3543'
   };
+
+  // URL Deep-Linking State Synchronization
+  function syncUrlState(sponsorName) {
+    if (sponsorName !== undefined) {
+      currentSponsorInDocket = sponsorName;
+    }
+    const params = new URLSearchParams();
+    const q = (document.getElementById('q').value || '').trim();
+    const city = document.getElementById('citySelect').value;
+    const industry = document.getElementById('industrySelect').value;
+    const route = document.getElementById('routeSelect').value;
+    const rating = document.getElementById('ratingSelect').value;
+
+    if (q) params.set('q', q);
+    if (city) params.set('city', city);
+    if (industry) params.set('industry', industry);
+    if (route) params.set('route', route);
+    if (rating) params.set('rating', rating);
+    if (currentView) params.set('view', currentView);
+    if (currentWarn) params.set('warn', currentWarn);
+    if (currentSponsorInDocket) params.set('sponsor', currentSponsorInDocket);
+
+    const qs = params.toString();
+    const targetSearch = qs ? '?' + qs : '';
+    if (window.location.search !== targetSearch) {
+      window.history.replaceState(null, '', window.location.pathname + targetSearch);
+    }
+  }
+
+  function initFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q');
+    const city = params.get('city');
+    const industry = params.get('industry');
+    const route = params.get('route');
+    const rating = params.get('rating');
+    const view = params.get('view');
+    const warn = params.get('warn');
+    const sponsor = params.get('sponsor');
+
+    if (q) document.getElementById('q').value = q;
+    if (city) document.getElementById('citySelect').value = city;
+    if (industry) document.getElementById('industrySelect').value = industry;
+    if (route) document.getElementById('routeSelect').value = route;
+    if (rating) document.getElementById('ratingSelect').value = rating;
+
+    if (view) {
+      currentView = view;
+      document.querySelectorAll('.view-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.view === view);
+      });
+    }
+    if (warn) {
+      currentWarn = warn;
+    }
+
+    return sponsor;
+  }
 
   // Shortlist in LocalStorage
   const SAVED_KEY = 'kys.shortlist';
@@ -1673,18 +1846,37 @@
       }
     }
 
-    // Registry Links
-    const chLink = document.getElementById('linkCH');
-    if (warn && warn.crn) {
-      chLink.href = 'https://find-and-update.company-information.service.gov.uk/company/' + encodeURIComponent(warn.crn);
-      chLink.style.display = 'inline-flex';
-    } else {
-      chLink.href = 'https://find-and-update.company-information.service.gov.uk/search?q=' + encodeURIComponent(name);
-      chLink.style.display = 'inline-flex';
+    // External Verification & Vacancy Links
+    const linkGoogle = document.getElementById('linkGoogleJobs');
+    if (linkGoogle) {
+      linkGoogle.href = 'https://www.google.com/search?q=' + encodeURIComponent('"' + name + '" ("careers" OR "jobs" OR "visa sponsorship" OR "skilled worker")');
     }
 
-    document.getElementById('linkGazette').href = 'https://www.thegazette.co.uk/all-notices/notice?text=' + encodeURIComponent(name);
-    document.getElementById('linkLinkedIn').href = 'https://www.linkedin.com/jobs/search/?keywords=' + encodeURIComponent(name);
+    const linkIndeed = document.getElementById('linkIndeed');
+    if (linkIndeed) {
+      linkIndeed.href = 'https://uk.indeed.com/jobs?q=' + encodeURIComponent('"' + name + '"');
+    }
+
+    const linkLinkedIn = document.getElementById('linkLinkedIn');
+    if (linkLinkedIn) {
+      linkLinkedIn.href = 'https://www.linkedin.com/jobs/search/?keywords=' + encodeURIComponent(name);
+    }
+
+    const chLink = document.getElementById('linkCH');
+    if (chLink) {
+      if (warn && warn.crn) {
+        chLink.href = 'https://find-and-update.company-information.service.gov.uk/company/' + encodeURIComponent(warn.crn);
+      } else {
+        chLink.href = 'https://find-and-update.company-information.service.gov.uk/search?q=' + encodeURIComponent(name);
+      }
+    }
+
+    const linkGazette = document.getElementById('linkGazette');
+    if (linkGazette) {
+      linkGazette.href = 'https://www.thegazette.co.uk/all-notices/notice?text=' + encodeURIComponent('"' + name + '"');
+    }
+
+    syncUrlState(name);
 
     if (window.innerWidth <= 960) {
       document.getElementById('docketPane').classList.add('open');
@@ -1701,6 +1893,17 @@
     ).join('');
 
     select.addEventListener('change', updateSalaryGauge);
+
+    const ruleBtns = document.querySelectorAll('#salaryRuleToggle .salary-rule-btn');
+    ruleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        ruleBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentSalaryRule = btn.dataset.rule;
+        updateSalaryGauge();
+      });
+    });
+
     updateSalaryGauge();
   }
 
@@ -1712,17 +1915,32 @@
     if (!occ) return;
 
     const maxScale = 85000;
-    const baselineRate = socData.general_threshold || 38700;
-    const goingRate = occ.going_rate || 38700;
-    
+    let baselineRate = socData.general_threshold || 38700;
+    let goingRate = occ.going_rate || 38700;
+    let pinText = '£38.7k Min';
+
+    if (currentSalaryRule === 'new_entrant') {
+      baselineRate = socData.new_entrant_threshold || 30960;
+      goingRate = Math.round((occ.going_rate || 38700) * 0.70);
+      pinText = '£30.9k Min';
+    } else if (currentSalaryRule === 'stem_phd') {
+      baselineRate = socData.stem_threshold || 34830;
+      goingRate = Math.round((occ.going_rate || 38700) * 0.80);
+      pinText = '£34.8k Min';
+    }
+
+    const effectiveRequired = Math.max(baselineRate, goingRate);
     const basePct = Math.min(95, Math.max(10, (baselineRate / maxScale) * 100));
-    const goingPct = Math.min(98, Math.max(10, (goingRate / maxScale) * 100));
+    const reqPct = Math.min(98, Math.max(10, (effectiveRequired / maxScale) * 100));
 
     const pin = document.getElementById('gaugeBaselinePin');
+    const pinLabel = document.getElementById('gaugePinLabel');
     const bar = document.getElementById('gaugeBar');
+
     if (pin) pin.style.left = `${basePct}%`;
+    if (pinLabel) pinLabel.textContent = pinText;
     if (bar) {
-      bar.style.width = `${goingPct}%`;
+      bar.style.width = `${reqPct}%`;
       bar.style.background = goingRate >= baselineRate ? 'var(--status-regular-ink)' : 'var(--status-warning-ink)';
     }
 
@@ -1730,11 +1948,18 @@
     document.getElementById('calcGoingRate').textContent = '£' + goingRate.toLocaleString('en-GB');
     
     const verdictEl = document.getElementById('calcVerdict');
-    const hourlyStr = occ.hourly_rate ? ` (£${occ.hourly_rate.toFixed(2)}/hr)` : '';
-    if (goingRate >= baselineRate) {
-      verdictEl.innerHTML = `<strong>Eligible standard:</strong> Role requires a minimum of <strong>£${goingRate.toLocaleString('en-GB')}/yr</strong>${hourlyStr} (50th percentile statutory going rate for SOC ${occ.soc}).`;
+    const hourlyRate = (effectiveRequired / (37.5 * 52)).toFixed(2);
+    
+    if (currentSalaryRule === 'new_entrant') {
+      verdictEl.innerHTML = `<strong>New Entrant:</strong> Sponsoring under 26 / Graduate switcher requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr), calculated as max(£30,960 statutory floor, 70% of £${occ.going_rate.toLocaleString('en-GB')}).`;
+    } else if (currentSalaryRule === 'stem_phd') {
+      verdictEl.innerHTML = `<strong>STEM PhD / ISL:</strong> Qualifying role requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr), calculated as max(£34,830 statutory floor, 80% of £${occ.going_rate.toLocaleString('en-GB')}).`;
     } else {
-      verdictEl.innerHTML = `<strong>General threshold floor:</strong> Occupation going rate is £${goingRate.toLocaleString('en-GB')}/yr, but Home Office rules enforce the statutory <strong>£${baselineRate.toLocaleString('en-GB')}/yr</strong> floor (£15.88/hr).`;
+      if (goingRate >= baselineRate) {
+        verdictEl.innerHTML = `<strong>Eligible standard:</strong> Role requires a minimum of <strong>£${goingRate.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr) (50th percentile statutory going rate for SOC ${occ.soc}).`;
+      } else {
+        verdictEl.innerHTML = `<strong>General threshold floor:</strong> Occupation going rate is £${goingRate.toLocaleString('en-GB')}/yr, but Home Office rules enforce the statutory <strong>£${baselineRate.toLocaleString('en-GB')}/yr</strong> floor (£15.88/hr).`;
+      }
     }
   }
 
@@ -1815,13 +2040,17 @@
     const route = document.getElementById('routeSelect').value;
     const rating = document.getElementById('ratingSelect').value;
     const exportDate = new Date().toISOString().slice(0, 10);
+    const isShortlist = currentView === 'saved';
 
     if (searchWorker) {
       const exportReq = ++requestId;
       const onExportComplete = function(e) {
         if (e.data.type === 'EXPORT_CSV_COMPLETE' && e.data.requestId === exportReq) {
           searchWorker.removeEventListener('message', onExportComplete);
-          downloadBlob(e.data.csv, `knowyoursponsor-export-${exportDate}.csv`);
+          const filename = isShortlist
+            ? `knowyoursponsor-shortlist-tracker-${exportDate}.csv`
+            : `knowyoursponsor-export-${exportDate}.csv`;
+          downloadBlob(e.data.csv, filename);
           exportBtn.textContent = originalText;
           exportBtn.disabled = false;
         }
@@ -1840,11 +2069,13 @@
         savedKeys: [...savedSet]
       });
     } else {
-      const headers = ['Employer', 'Town', 'County', 'Industry', 'Visa Routes', 'Rating', 'CRN', 'Status', 'Solvency Warning', 'NMW Underpaid'];
+      const headers = isShortlist
+        ? ['Employer Name', 'Town / City', 'County', 'Industry', 'Approved Visa Routes', 'Rating', 'CRN', 'Status', 'Filing Warning', 'NMW Underpaid', 'Application Status', 'Date Applied', 'Target Role', 'Interview Notes']
+        : ['Employer Name', 'Town / City', 'County', 'Industry', 'Approved Visa Routes', 'Rating', 'CRN', 'Status', 'Filing Warning', 'NMW Underpaid'];
       const rows = activeSlice.map(r => {
         const warn = warningFor(r[0]);
         const nmw = nmwData[r[0]];
-        return [
+        const baseRow = [
           r[0], r[1], r[2], r[3],
           (r[4] || []).join('; '),
           r[5],
@@ -1852,10 +2083,17 @@
           warn ? warn.status : 'Active',
           warn ? warn.label : '',
           nmw ? 'Yes' : 'No'
-        ].map(v => '"' + String(v || '').replace(/"/g, '""') + '"').join(',');
+        ];
+        if (isShortlist) {
+          baseRow.push('Shortlisted', '', '', '');
+        }
+        return baseRow.map(v => '"' + String(v || '').replace(/"/g, '""') + '"').join(',');
       });
       const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\r\n');
-      downloadBlob(csvContent, `knowyoursponsor-export-${exportDate}.csv`);
+      const filename = isShortlist
+        ? `knowyoursponsor-shortlist-tracker-${exportDate}.csv`
+        : `knowyoursponsor-export-${exportDate}.csv`;
+      downloadBlob(csvContent, filename);
       exportBtn.textContent = originalText;
       exportBtn.disabled = false;
     }
@@ -1867,6 +2105,7 @@
     document.getElementById('docketPane').classList.remove('open');
     document.querySelectorAll('#tableBody tr').forEach(r => r.classList.remove('selected'));
     selectedRowIndex = -1;
+    syncUrlState(null);
   }
 
   // Event Listeners
@@ -1874,18 +2113,18 @@
   document.getElementById('btnLoadMore').addEventListener('click', () => triggerQuery(true));
   document.getElementById('docketClose').addEventListener('click', closeDocket);
 
-  document.getElementById('q').addEventListener('input', () => triggerQuery(false));
-  document.getElementById('citySelect').addEventListener('change', () => triggerQuery(false));
-  document.getElementById('industrySelect').addEventListener('change', () => triggerQuery(false));
-  document.getElementById('routeSelect').addEventListener('change', () => triggerQuery(false));
-  document.getElementById('ratingSelect').addEventListener('change', () => triggerQuery(false));
+  document.getElementById('q').addEventListener('input', () => { triggerQuery(false); syncUrlState(); });
+  document.getElementById('citySelect').addEventListener('change', () => { triggerQuery(false); syncUrlState(); });
+  document.getElementById('industrySelect').addEventListener('change', () => { triggerQuery(false); syncUrlState(); });
+  document.getElementById('routeSelect').addEventListener('change', () => { triggerQuery(false); syncUrlState(); });
+  document.getElementById('ratingSelect').addEventListener('change', () => { triggerQuery(false); syncUrlState(); });
 
-  document.getElementById('barCritical').addEventListener('click', () => { currentWarn = 'serious'; triggerQuery(false); });
-  document.getElementById('barWarning').addEventListener('click', () => { currentWarn = 'notable'; triggerQuery(false); });
-  document.getElementById('barSolvent').addEventListener('click', () => { currentWarn = ''; triggerQuery(false); });
-  document.getElementById('legCritical').addEventListener('click', () => { currentWarn = 'serious'; triggerQuery(false); });
-  document.getElementById('legWarning').addEventListener('click', () => { currentWarn = 'notable'; triggerQuery(false); });
-  document.getElementById('legSolvent').addEventListener('click', () => { currentWarn = ''; triggerQuery(false); });
+  document.getElementById('barCritical').addEventListener('click', () => { currentWarn = 'serious'; triggerQuery(false); syncUrlState(); });
+  document.getElementById('barWarning').addEventListener('click', () => { currentWarn = 'notable'; triggerQuery(false); syncUrlState(); });
+  document.getElementById('barSolvent').addEventListener('click', () => { currentWarn = ''; triggerQuery(false); syncUrlState(); });
+  document.getElementById('legCritical').addEventListener('click', () => { currentWarn = 'serious'; triggerQuery(false); syncUrlState(); });
+  document.getElementById('legWarning').addEventListener('click', () => { currentWarn = 'notable'; triggerQuery(false); syncUrlState(); });
+  document.getElementById('legSolvent').addEventListener('click', () => { currentWarn = ''; triggerQuery(false); syncUrlState(); });
 
   const viewBtns = document.querySelectorAll('.view-btn');
   viewBtns.forEach(btn => {
@@ -1894,6 +2133,39 @@
       btn.classList.add('active');
       currentView = btn.dataset.view;
       triggerQuery(false);
+      syncUrlState();
+    });
+  });
+
+  const quickChips = document.querySelectorAll('.quick-chip');
+  quickChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const preset = chip.dataset.preset;
+      document.getElementById('q').value = '';
+      document.getElementById('citySelect').value = '';
+      document.getElementById('industrySelect').value = '';
+      document.getElementById('routeSelect').value = '';
+      document.getElementById('ratingSelect').value = '';
+      currentWarn = '';
+
+      if (preset === 'added') {
+        currentView = 'added';
+      } else if (preset === 'london-tech') {
+        currentView = '';
+        document.getElementById('citySelect').value = 'London';
+        document.getElementById('industrySelect').value = 'Tech & Software';
+      } else if (preset === 'healthcare') {
+        currentView = '';
+        document.getElementById('industrySelect').value = 'Healthcare & Nursing';
+      } else if (preset === 'flagged') {
+        currentView = 'flagged';
+      } else if (preset === 'nmw') {
+        currentView = 'nmw';
+      }
+
+      viewBtns.forEach(b => b.classList.toggle('active', b.dataset.view === currentView));
+      triggerQuery(false);
+      syncUrlState();
     });
   });
 
@@ -1935,6 +2207,7 @@
       } else if (document.activeElement === document.getElementById('q')) {
         document.getElementById('q').value = '';
         triggerQuery(false);
+        syncUrlState();
       }
     } else if (['1', '2', '3', '4', '5', '6'].includes(e.key) && !isInput) {
       const viewMap = { '1': '', '2': 'added', '3': 'removed', '4': 'flagged', '5': 'nmw', '6': 'saved' };
@@ -2000,7 +2273,7 @@
     });
   }
 
-  // IntersectionObserver for zero-lag continuous virtualization
+  // IntersectionObserver for continuous virtualization
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0] && entries[0].isIntersecting && !isLoadingNext) {
@@ -2057,8 +2330,18 @@
     routeSel.innerHTML = '<option value="">All Visa Routes</option>' + 
       routes.map(r => `<option value="${esc(r)}">${esc(r)}</option>`).join('');
 
+    const initialSponsor = initFromUrl();
     updateShortlistCount();
     initSalaryCalc();
+
+    function handleInitialSponsor() {
+      if (initialSponsor) {
+        const target = allSponsors.find(s => s[0].toLowerCase() === initialSponsor.toLowerCase());
+        if (target) {
+          openDocket(target);
+        }
+      }
+    }
 
     // Start Web Worker
     try {
@@ -2069,6 +2352,7 @@
           document.getElementById('hudDeficient').textContent = (e.data.flaggedCount - e.data.seriousCount).toLocaleString();
           document.getElementById('nFlagged').textContent = `(${e.data.flaggedCount.toLocaleString()})`;
           triggerQuery(false);
+          handleInitialSponsor();
         } else if (e.data.type === 'QUERY_RESULTS') {
           if (e.data.requestId === requestId) {
             totalMatches = e.data.totalCount;
@@ -2090,6 +2374,7 @@
     } catch(err) {
       console.warn('Worker initialization fallback to main thread:', err);
       triggerQuery(false);
+      handleInitialSponsor();
     }
   });
 

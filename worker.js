@@ -252,7 +252,10 @@ self.onmessage = function(e) {
     });
   } else if (msg.type === 'EXPORT_CSV') {
     const filtered = executeFilter(msg);
-    const headers = ['Employer', 'Town', 'County', 'Industry', 'Visa Routes', 'Rating', 'CRN', 'Status', 'Solvency Warning', 'NMW Underpaid'];
+    const isShortlist = msg.view === 'saved';
+    const headers = isShortlist
+      ? ['Employer Name', 'Town / City', 'County', 'Industry', 'Approved Visa Routes', 'Rating', 'CRN', 'Status', 'Filing Warning', 'NMW Underpaid', 'Application Status', 'Date Applied', 'Target Role', 'Interview Notes']
+      : ['Employer Name', 'Town / City', 'County', 'Industry', 'Approved Visa Routes', 'Rating', 'CRN', 'Status', 'Filing Warning', 'NMW Underpaid'];
     const maxExport = Math.min(filtered.length, 50000);
     const rows = [];
     
@@ -260,7 +263,7 @@ self.onmessage = function(e) {
       const r = filtered[i];
       const warn = warningFor(r[0]);
       const nmw = nmwData[r[0]];
-      rows.push([
+      const baseRow = [
         r[0], r[1], r[2], r[3],
         (r[4] || []).join('; '),
         r[5],
@@ -268,7 +271,11 @@ self.onmessage = function(e) {
         warn ? warn.status : 'Active',
         warn ? warn.label : '',
         nmw ? 'Yes' : 'No'
-      ].map(v => '"' + String(v || '').replace(/"/g, '""') + '"').join(','));
+      ];
+      if (isShortlist) {
+        baseRow.push('Shortlisted', '', '', '');
+      }
+      rows.push(baseRow.map(v => '"' + String(v || '').replace(/"/g, '""') + '"').join(','));
     }
 
     const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\r\n');
