@@ -96,7 +96,7 @@
     --warn-bg:#FDF1F0; --warn-bg-2:#FBE3E1; --warn-border:#E7B4AE;
     --warn-ink:#8A1E18; --warn-solid:#B3261E;
     --mark-bg:#17233B; --mark-fg:#FFFFFF;
-    --note-bg:#FFF6DC; --note-border:#EAD48A;
+    --note-bg:#FFF6DC; --note-border:#EAD48A; --note-ink:#6B4E00;
     --shadow:rgba(23,35,59,.10);
     color-scheme:light;
   }
@@ -110,7 +110,7 @@
       --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
       --warn-ink:#F5B5AE; --warn-solid:#B3261E;
       --mark-bg:#E8ECF3; --mark-fg:#10151F;
-      --note-bg:#2A2412; --note-border:#5A4A1E;
+      --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
       --shadow:rgba(0,0,0,.45);
       color-scheme:dark;
     }
@@ -124,7 +124,7 @@
     --warn-bg:#2A1A19; --warn-bg-2:#3A1F1D; --warn-border:#6B2B26;
     --warn-ink:#F5B5AE; --warn-solid:#B3261E;
     --mark-bg:#E8ECF3; --mark-fg:#10151F;
-    --note-bg:#2A2412; --note-border:#5A4A1E;
+    --note-bg:#2A2412; --note-border:#5A4A1E; --note-ink:#F0D28A;
     --shadow:rgba(0,0,0,.45);
     color-scheme:dark;
   }
@@ -333,6 +333,19 @@
     font-weight:600;text-decoration:none;
   }
   .tag.warn:hover{background:var(--warn-bg)}
+  /* Red is reserved for "this company may not exist any more". A late
+     filing gets a quiet grey tag, because that is what it is worth. Using
+     the same red for both is what made the loud number untrustworthy. */
+  .tag.warn.sev-notable{
+    background:var(--note-bg);border-color:var(--note-border);
+    color:var(--note-ink);
+  }
+  .tag.warn.sev-notable:hover{border-color:var(--note-ink)}
+  .tag.warn.sev-context{
+    background:var(--paper-dim);border-color:var(--line);color:var(--ink-soft);
+    font-weight:500;
+  }
+  .tag.warn.sev-context:hover{border-color:var(--ink-soft);color:var(--ink)}
   .rating-a{color:var(--good);font-weight:600}
   /* B is the whole point of the downgraded view, so it is not left as
      unstyled text next to a green A. */
@@ -580,9 +593,12 @@
         <span class="v" id="statAdded">&mdash;</span>
         <span class="l">licensed in the last 7 days</span>
       </div>
-      <a class="stat flag" id="statWarnBox" href="?warn=1" hidden>
+      <!-- Headlines the serious count, not every flag. The wider number was
+           dominated by late filings, so the loudest thing on the page was
+           also the least reliable, which is backwards. -->
+      <a class="stat flag" id="statWarnBox" href="?warn=serious" hidden>
         <span class="v" id="statWarn">&mdash;</span>
-        <span class="l">with something worth checking at Companies House</span>
+        <span class="l">whose company may have stopped trading</span>
       </a>
     </div>
     <p class="sourceline">From the GOV.UK Register of Licensed Sponsors, updated <strong id="updated">&mdash;</strong>.</p>
@@ -746,6 +762,10 @@
   // register rows, not as the change records, so filtering, CSV export and
   // the detail sheet all work on them without a special case.
   let downgradedRows = [];
+  // When each employer's current licence started. Only holds employers we
+  // watched arrive; `licensedBaseline` is the day we started looking, which
+  // is all that can honestly be said about everyone else.
+  let licensedSince = {}, licensedBaseline = '';
   // Alert scope mirrors what someone is already looking at, until they set
   // it themselves. Asking again for something they just typed is friction.
   let alertTouched = false, knownTowns = new Set();
@@ -754,22 +774,32 @@
   // register spells it. Loaded separately because it refreshes monthly while
   // the register refreshes daily, and because most employers have no warning.
   let companyFlags = {};
-  let warnOnly = false;
+  // '' | 'any' | 'serious'. Two levels rather than a boolean, because the
+  // hero card headlines the serious count and clicking it must show that
+  // number, not a list four times longer padded out with late filings.
+  let warnOnly = '';
 
   const CH_COMPANY = 'https://find-and-update.company-information.service.gov.uk/company/';
 
   // Most serious first. Only the worst one is shown on a row; the rest are
   // in the title, so a row never turns into a wall of red.
+  //
+  // The fourth column is how much it actually means, and it exists because
+  // treating every flag alike said "9,501 employers with something worth
+  // checking" when 4,905 of those were nothing but a late filing. Somebody
+  // who opens three trivial warnings stops believing the fourth, and the
+  // fourth is a liquidation. Must stay in step with FLAG_SEVERITY in
+  // pipeline/companies.py; a test reads this table and checks that.
   const WARNINGS = [
-    ['not_active', null,
+    ['not_active', null, 'serious',
      'Companies House records this company as no longer active.'],
-    ['dormant', 'Dormant',
+    ['dormant', 'Dormant', 'notable',
      'This company files accounts as dormant, meaning it reports no significant trading.'],
-    ['accounts_overdue', 'Accounts overdue',
+    ['accounts_overdue', 'Accounts overdue', 'notable',
      'This company has not filed its accounts by the due date.'],
-    ['confirmation_statement_overdue', 'Filing overdue',
+    ['confirmation_statement_overdue', 'Filing overdue', 'context',
      'This company has not filed its confirmation statement by the due date.'],
-    ['incorporated_recently', 'New company',
+    ['incorporated_recently', 'New company', 'context',
      'This company was incorporated within the last year.'],
   ];
 
@@ -796,13 +826,14 @@
   function warningFor(name){
     const record = companyFlags[name];
     if(!record || !record.flags || !record.flags.length) return null;
-    for(const [flag, label, explanation] of WARNINGS){
+    for(const [flag, label, severity, explanation] of WARNINGS){
       if(!record.flags.includes(flag)) continue;
       const others = WARNINGS
         .filter(w => w[0] !== flag && record.flags.includes(w[0]))
-        .map(w => w[2]);
+        .map(w => w[3]);
       return {
         label: label || shortStatus(record.status),
+        severity: severity,
         title: [explanation, ...others,
                 'Source: Companies House. Click to check the record.'].join(' '),
         href: record.number ? CH_COMPANY + encodeURIComponent(record.number) : '',
@@ -859,9 +890,9 @@
       const warn = warningFor(name);
       const warnTag = warn
         ? (warn.href
-            ? ` <a class="tag warn" href="${attr(warn.href)}" target="_blank"` +
+            ? ` <a class="tag warn sev-${attr(warn.severity)}" href="${attr(warn.href)}" target="_blank"` +
               ` rel="noopener" title="${attr(warn.title)}">${esc(warn.label)}</a>`
-            : ` <span class="tag warn" title="${attr(warn.title)}">${esc(warn.label)}</span>`)
+            : ` <span class="tag warn sev-${attr(warn.severity)}" title="${attr(warn.title)}">${esc(warn.label)}</span>`)
         : '';
       return `<tr data-name="${attr(name)}">
         <td class="name"><button class="rowbtn" type="button" data-name="${attr(name)}">${esc(name)}</button>${isNew?' <span class="tag new">New</span>':''}${warnTag}</td>
@@ -893,6 +924,11 @@
   // An empty view must explain itself. "No sponsors match" next to an empty
   // "lost licence" list reads as broken, when in fact it is good news.
   function emptyMessage(){
+    if(warnOnly === 'serious'){
+      return '<strong>None of these employers looks like it has stopped trading.</strong>' +
+             '<br>That is the good outcome. Clear the filter to see everything ' +
+             'again.';
+    }
     if(warnOnly){
       return '<strong>No employers here have a company warning.</strong>' +
              '<br>That is the good outcome. Clear the warning filter to see ' +
@@ -971,7 +1007,11 @@
     const ind = $('industry').value;
     const route = $('route').value;
     filtered = sourceRows().filter(s=>{
-      if(warnOnly && !warningFor(s[0])) return false;
+      if(warnOnly){
+        const w = warningFor(s[0]);
+        if(!w) return false;
+        if(warnOnly === 'serious' && w.severity !== 'serious') return false;
+      }
       if(city && s[1]!==city) return false;
       if(ind && s[3]!==ind) return false;
       if(route && !s[4].includes(route)) return false;
@@ -1011,6 +1051,16 @@
   };
   let sheetOpener = null;   // so focus can go back where it came from
 
+  // "2026-09-01" -> "1 September 2026". Built from the parts rather than
+  // through Date(), which would shift the day in western time zones.
+  const MONTHS = ['January','February','March','April','May','June','July',
+                  'August','September','October','November','December'];
+  function longDate(iso){
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || ''));
+    if(!m) return String(iso || '');
+    return `${Number(m[3])} ${MONTHS[Number(m[2]) - 1]} ${m[1]}`;
+  }
+
   function sheetHTML(row){
     const [name, town, county, industry, routes, rating] = row;
     const location = [town, county].filter(Boolean).join(', ');
@@ -1021,6 +1071,18 @@
     if(rating){
       parts.push(`<dt>Rating</dt><dd>${esc(rating)}${
         RATING_NOTE[rating] ? ` &mdash; ${RATING_NOTE[rating]}` : ''}</dd>`);
+    }
+    // Nobody else can answer this. GOV.UK publishes who holds a licence
+    // today and never when it started, so this only exists because the
+    // pipeline has been keeping a dated log.
+    const started = licensedSince[(name + '|' + town).toLowerCase()];
+    if(started){
+      parts.push(`<dt>Licensed since</dt><dd>${esc(longDate(started))}</dd>`);
+    }else if(licensedBaseline){
+      parts.push('<dt>Licensed since</dt><dd>At least ' +
+        `${esc(longDate(licensedBaseline))}. It was already on the register ` +
+        'when we started keeping a daily record, so the licence is older ' +
+        'than that.</dd>');
     }
     parts.push('</dl>');
 
@@ -1104,9 +1166,11 @@
                    $('industry').value || $('route').value || view || warnOnly);
   }
 
-  function setWarnOnly(on){
-    warnOnly = Boolean(on);
-    $('warnOnly').setAttribute('aria-pressed', String(warnOnly));
+  function setWarnOnly(level){
+    warnOnly = (level === 'serious' || level === 'any') ? level
+             : (level ? 'any' : '');
+    $('warnOnly').setAttribute('aria-pressed', String(warnOnly === 'any'));
+    $('statWarnBox').setAttribute('aria-pressed', String(warnOnly === 'serious'));
   }
 
   function clearFilters(){
@@ -1237,7 +1301,7 @@
     if($('industry').value) p.set('industry', $('industry').value);
     if($('route').value) p.set('route', $('route').value);
     if(view) p.set('view', view);
-    if(warnOnly) p.set('warn', '1');
+    if(warnOnly) p.set('warn', warnOnly === 'serious' ? 'serious' : '1');
     const open = sheetOpenName();
     if(open) p.set('employer', open);
     return p.toString();
@@ -1261,7 +1325,10 @@
     $('q').value = p.get('q') || '';
     // ?new=1 was the old spelling; links using it are still out there.
     setView(p.get('view') || (p.get('new')==='1' ? 'added' : ''));
-    setWarnOnly(p.get('warn') === '1');
+    // ?warn=1 kept working: it was already a shareable link before
+    // severity existed, and it means "any warning".
+    const wanted = p.get('warn');
+    setWarnOnly(wanted === 'serious' ? 'serious' : (wanted === '1' ? 'any' : ''));
   }
   function restoreSelects(){
     const p = new URLSearchParams(location.search);
@@ -1312,7 +1379,7 @@
     $(id).addEventListener('click',()=>{ setView(name); apply(); syncURL(true); });
   }
   $('warnOnly').addEventListener('click',()=>{
-    setWarnOnly(!warnOnly); apply(); syncURL(true);
+    setWarnOnly(warnOnly === 'any' ? '' : 'any'); apply(); syncURL(true);
   });
 
   // A real href, so it still works without JavaScript and can be opened in a
@@ -1346,7 +1413,7 @@
 
   $('statWarnBox').addEventListener('click',e=>{
     e.preventDefault();
-    setWarnOnly(true);
+    setWarnOnly('serious');
     apply();
     syncURL(true);
     $('filterbar').scrollIntoView({block:'start'});
@@ -1465,8 +1532,12 @@
     fetchJSON('data/company_flags.json').catch(()=>({companies:{}})),
     // Optional in the same way: the file only appears once the pipeline has
     // seen two consecutive runs, so its absence is normal, not an error.
-    fetchJSON('data/rating_changes.json').catch(()=>({changes:[]}))
-  ]).then(([main,recent,meta,gone,flags,ratings])=>{
+    fetchJSON('data/rating_changes.json').catch(()=>({changes:[]})),
+    // Optional too: absent until the history log has recorded a day.
+    fetchJSON('data/licensed_since.json').catch(()=>({since:{}}))
+  ]).then(([main,recent,meta,gone,flags,ratings,since])=>{
+    licensedSince = since.since || {};
+    licensedBaseline = since.baseline || '';
     companyFlags = flags.companies || {};
     all = main.sponsors||[];
     addedRows = recent.new||[];
@@ -1510,10 +1581,20 @@
     // Proof strip. The warning count is only shown once it is known: an
     // empty box promising "company warnings" would be worse than no box.
     $('statAdded').textContent = addedRows.length.toLocaleString();
-    const warnCount = all.reduce((n,s)=> n + (warningFor(s[0]) ? 1 : 0), 0);
-    if(warnCount){
-      $('statWarn').textContent = warnCount.toLocaleString();
+    // Two counts, because they say different things. The card headlines
+    // employers that may have stopped trading; the pill offers every flag.
+    let warnCount = 0, seriousCount = 0;
+    for(const s of all){
+      const w = warningFor(s[0]);
+      if(!w) continue;
+      warnCount++;
+      if(w.severity === 'serious') seriousCount++;
+    }
+    if(seriousCount){
+      $('statWarn').textContent = seriousCount.toLocaleString();
       $('statWarnBox').hidden = false;
+    }
+    if(warnCount){
       $('nWarn').textContent = `(${warnCount.toLocaleString()})`;
       $('warnOnly').hidden = false;
     }
