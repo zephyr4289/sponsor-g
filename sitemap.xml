@@ -21,6 +21,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://roshan1208.github.io/sponsorsignal/pricing/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://roshan1208.github.io/sponsorsignal/about/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
