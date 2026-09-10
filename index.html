@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://zephyr4289.github.io/sponsor-g/">
 <meta name="google-site-verification" content="ZNbGBoW8FlnVr5MM5wrTNaQqzvFz_Pgcde_K1t5RHF8">
 
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="alternate" type="application/rss+xml" title="UK visa sponsors added and removed" href="feed.xml">
 <link rel="manifest" href="manifest.json">
@@ -308,12 +309,24 @@
   }
   .brand-title {
     font-family: var(--font-serif);
-    font-size: 2.1rem;
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
     font-weight: 600;
-    letter-spacing: 0.02em;
+    letter-spacing: -0.015em;
     color: var(--ink-carbon);
     line-height: 1;
     white-space: nowrap;
+    display: inline-flex;
+    align-items: baseline;
+  }
+  .dot {
+    display: inline-block;
+    width: 0.16em;
+    height: 0.16em;
+    margin-left: 0.05em;
+    border-radius: 50%;
+    background: var(--status-regular-ink);
+    flex-shrink: 0;
+    vertical-align: baseline;
   }
   .brand-handwriting {
     display: inline-flex;
@@ -340,6 +353,25 @@
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
+  .masthead-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .seal {
+    width: 36px;
+    height: 36px;
+    color: var(--ink-carbon);
+    transform: rotate(-6deg);
+    opacity: 0.92;
+    flex-shrink: 0;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    cursor: default;
+  }
+  .seal:hover {
+    transform: rotate(0deg) scale(1.05);
+    opacity: 1;
+  }
   .topnav { display: flex; align-items: center; gap: 20px; font-size: 0.88rem; font-weight: 500; }
   .topnav a { color: var(--ink-graphite); }
   .topnav a:hover { color: var(--ink-carbon); }
@@ -347,6 +379,87 @@
     font: inherit; font-size: 0.95rem; cursor: pointer;
     background: transparent; border: 1px solid var(--rule-prominent);
     border-radius: 4px; color: var(--ink-carbon); padding: 3px 8px;
+  }
+
+  /* Condensing Masthead Scroll-Bar */
+  .condensed-masthead {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: var(--surface-panel);
+    border-bottom: 1px solid var(--rule-master);
+    z-index: 95;
+    display: flex;
+    align-items: center;
+    transform: translateY(-100%);
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    pointer-events: none;
+  }
+  .condensed-masthead.is-visible {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .condensed-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-family: var(--font-mono);
+  }
+  .condensed-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--ink-carbon);
+  }
+  .condensed-brand:hover {
+    text-decoration: none;
+  }
+  .condensed-seal {
+    width: 20px;
+    height: 20px;
+    color: var(--ink-carbon);
+    flex-shrink: 0;
+  }
+  .condensed-title {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    display: inline-flex;
+    align-items: baseline;
+  }
+  .condensed-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.72rem;
+    color: var(--ink-graphite);
+  }
+  .condensed-stat strong {
+    color: var(--ink-carbon);
+    font-weight: 600;
+  }
+  .condensed-search-btn {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 3px 8px;
+    background: var(--surface-paper);
+    border: 1px solid var(--rule-prominent);
+    border-radius: 3px;
+    color: var(--ink-carbon);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 26px;
+  }
+  .condensed-search-btn:hover {
+    background: var(--surface-card);
   }
 
   /* HUD Ledger Grid */
@@ -1445,7 +1558,7 @@
       gap: 6px;
     }
     .brand-title {
-      font-size: 1.45rem;
+      font-size: clamp(1.45rem, 6.5vw, 1.95rem);
     }
     .brand-handwriting {
       font-size: 1.25rem;
@@ -1456,6 +1569,13 @@
     .brand-subtitle {
       width: 100%;
       font-size: 0.68rem;
+    }
+    .masthead-controls {
+      gap: 10px;
+    }
+    .seal {
+      width: 26px;
+      height: 26px;
     }
     .topnav {
       gap: 10px;
@@ -1468,6 +1588,15 @@
     .themebtn {
       padding: 2px 7px;
       font-size: 0.85rem;
+    }
+    .condensed-masthead {
+      height: 36px;
+    }
+    .condensed-title {
+      font-size: 0.95rem;
+    }
+    .condensed-stat {
+      display: none;
     }
 
     /* 2. Compact 2x2 HUD Micro-Grid (< 70px height) */
@@ -1668,20 +1797,46 @@
   <div class="wrap masthead-inner">
     <div class="brand-block">
       <div class="brand-primary">
-        <a href="./" class="brand-title">KnowYourSponsor<span style="color:var(--cobalt)">.</span></a>
+        <a href="./" class="brand-title">KnowYourSponsor<span class="dot" aria-hidden="true"></span></a>
         <span class="brand-handwriting" id="brandHandwriting">Verified.</span>
       </div>
       <span class="brand-subtitle">UK Visa Sponsor Register &amp; Solvency Tracker</span>
     </div>
-    <nav class="topnav">
-      <a href="changes/">Changes</a>
-      <a href="insights/">Numbers</a>
-      <a href="data-api/">Data API</a>
-      <a href="pricing/">For Business</a>
-      <button class="themebtn" type="button" data-theme-toggle aria-label="Toggle theme"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle;display:inline-block;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
-    </nav>
+    <div class="masthead-controls">
+      <svg class="seal" viewBox="0 0 48 48" aria-hidden="true" focusable="false" title="Official Register Ledger Seal">
+        <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2.5"/>
+        <circle cx="24" cy="24" r="7.5" fill="var(--status-regular-ink)"/>
+      </svg>
+      <nav class="topnav">
+        <a href="changes/">Changes</a>
+        <a href="insights/">Numbers</a>
+        <a href="data-api/">Data API</a>
+        <a href="pricing/">For Business</a>
+        <button class="themebtn" type="button" data-theme-toggle aria-label="Toggle theme"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle;display:inline-block;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+      </nav>
+    </div>
   </div>
 </header>
+
+<!-- Condensing Masthead Bar (Scroll Brand Presence) -->
+<div class="condensed-masthead" id="condensedMasthead" aria-hidden="true">
+  <div class="wrap condensed-inner">
+    <a href="./" class="condensed-brand" title="KnowYourSponsor">
+      <svg class="condensed-seal" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="3"/>
+        <circle cx="24" cy="24" r="7.5" fill="var(--status-regular-ink)"/>
+      </svg>
+      <span class="condensed-title">KnowYourSponsor<span class="dot" aria-hidden="true"></span></span>
+    </a>
+    <div class="condensed-meta">
+      <span class="condensed-stat"><strong id="condensedCount">127,716</strong> verified organisations</span>
+      <button class="condensed-search-btn" id="btnFocusSearch" title="Focus search (Press /)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span>Search</span>
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- Continuous Ledger HUD -->
 <section class="ledger-hud">
@@ -3409,6 +3564,29 @@
     handle.addEventListener('pointercancel', onPointerUp);
   }
 
+  // Condensed Masthead Bar Continuous Brand Presence on Scroll (FT/Bloomberg pattern)
+  function initCondensedMasthead() {
+    const masthead = document.querySelector('header.masthead');
+    const condensed = document.getElementById('condensedMasthead');
+    const searchInput = document.getElementById('q');
+    const btnFocus = document.getElementById('btnFocusSearch');
+    
+    if (btnFocus && searchInput) {
+      btnFocus.addEventListener('click', () => {
+        searchInput.focus();
+        searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    }
+
+    if ('IntersectionObserver' in window && masthead && condensed) {
+      const obs = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        condensed.classList.toggle('is-visible', !entry.isIntersecting);
+      }, { threshold: 0.05 });
+      obs.observe(masthead);
+    }
+  }
+
   // Fast Progressive Hydration (< 20KB transfer, < 30ms First Paint)
   Promise.all([
     fetch('data/meta.json').then(r => r.json()),
@@ -3430,6 +3608,8 @@
     document.getElementById('nFlagged').textContent = `(${meta.total_flagged || 0})`;
     document.getElementById('nNmw').textContent = `(${meta.total_nmw || 0})`;
     document.getElementById('matchCount').textContent = totalMatches.toLocaleString();
+    const condensedCountEl = document.getElementById('condensedCount');
+    if (condensedCountEl) condensedCountEl.textContent = totalMatches.toLocaleString();
 
     // Populate filter dropdowns instantly from pre-aggregated lookup lists
     const towns = meta.top_towns || [];
@@ -3452,6 +3632,7 @@
     initSalaryCalc();
     initRails();
     initBottomSheetGestures();
+    initCondensedMasthead();
     renderMacroSummary(meta);
 
     // Instant initial table paint (< 30ms)
@@ -3492,6 +3673,8 @@
           if (e.data.requestId === requestId) {
             totalMatches = e.data.totalCount;
             document.getElementById('matchCount').textContent = totalMatches.toLocaleString();
+            const cCount = document.getElementById('condensedCount');
+            if (cCount) cCount.textContent = totalMatches.toLocaleString();
             renderTable(e.data.results, e.data.offset > 0);
           }
         } else if (e.data.type === 'SPONSOR_DETAIL') {

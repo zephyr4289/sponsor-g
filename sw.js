@@ -15,7 +15,7 @@
  *
  * Bump CACHE when the shell changes to evict the old one.
  */
-const CACHE = 'knowyoursponsor-v10';
+const CACHE = 'knowyoursponsor-v11';
 
 const SHELL = [
   './',
@@ -25,6 +25,7 @@ const SHELL = [
   './assets/js/opentype.min.js',
   './assets/fonts/handwriting.ttf',
   './manifest.json',
+  './favicon.svg',
   './favicon.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
