@@ -736,6 +736,12 @@
     border: 1px solid var(--rule-hairline);
     border-radius: 3px;
     padding: 10px 12px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .macro-card:hover {
+    background: var(--surface-panel);
+    border-color: var(--rule-prominent);
   }
   .macro-card-label {
     font-family: var(--font-mono);
@@ -790,6 +796,12 @@
     background: var(--surface-ground);
     border-radius: 2px;
     border: 1px solid var(--rule-hairline);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .macro-list-item:hover {
+    background: var(--surface-panel);
+    border-color: var(--rule-prominent);
   }
   .macro-item-name {
     color: var(--ink-carbon);
@@ -924,6 +936,86 @@
     color: #92400E;
   }
 
+  .row-status-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 7px;
+    vertical-align: 1px;
+    flex-shrink: 0;
+  }
+  .row-status-dot.active { background: var(--status-regular-ink); }
+  .row-status-dot.warning { background: var(--status-warning-ink); }
+  .row-status-dot.critical { background: var(--status-critical-ink); }
+  .row-status-dot.unresolved { background: var(--rule-prominent); }
+
+  /* 2-Second Docket Synthesis Strip */
+  .docket-synthesis {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 12px;
+    border-radius: 3px;
+    margin-bottom: 16px;
+    border: 1px solid;
+    font-family: var(--font-mono);
+  }
+  .docket-synthesis.status-active {
+    background: var(--status-regular-wash);
+    border-color: var(--status-regular-rule);
+    color: var(--status-regular-ink);
+  }
+  .docket-synthesis.status-warning {
+    background: var(--status-warning-wash);
+    border-color: var(--status-warning-rule);
+    color: var(--status-warning-ink);
+  }
+  .docket-synthesis.status-critical {
+    background: var(--status-critical-wash);
+    border-color: var(--status-critical-rule);
+    color: var(--status-critical-ink);
+  }
+  .synthesis-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .synthesis-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: middle;
+    background: currentColor;
+  }
+  .synthesis-summary {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: var(--ink-carbon);
+  }
+  .synthesis-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 2px;
+  }
+  .synthesis-chip {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    padding: 1px 5px;
+    border-radius: 2px;
+    border: 1px solid currentColor;
+    opacity: 0.92;
+    text-transform: uppercase;
+  }
+
   /* Salary Calculator Component */
   .calc-box {
     background: var(--surface-panel);
@@ -931,6 +1023,22 @@
     padding: 12px 14px;
     border-radius: 3px;
     margin-top: 8px;
+  }
+  .calc-job-input {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    padding: 7px 9px;
+    margin-bottom: 8px;
+    border: 1px solid var(--rule-prominent);
+    border-radius: 3px;
+    background: var(--surface-paper);
+    color: var(--ink-carbon);
+    outline: none;
+  }
+  .calc-job-input:focus {
+    border-color: var(--rule-master);
+    outline: 2px solid var(--cobalt);
   }
   .salary-rule-toggle {
     display: grid;
@@ -1360,7 +1468,7 @@
       <a href="insights/">Numbers</a>
       <a href="data-api/">Data API</a>
       <a href="pricing/">For Business</a>
-      <button class="themebtn" type="button" data-theme-toggle aria-label="Toggle theme">&#9789;</button>
+      <button class="themebtn" type="button" data-theme-toggle aria-label="Toggle theme"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle;display:inline-block;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
     </nav>
   </div>
 </header>
@@ -1434,7 +1542,7 @@
         <button class="view-btn" id="viewDowngraded" data-view="downgraded" style="display:none">Downgraded</button>
         <button class="view-btn" id="viewFlagged" data-view="flagged">Flagged <span id="nFlagged"></span></button>
         <button class="view-btn" id="viewNmw" data-view="nmw">NMW Underpaid <span id="nNmw"></span></button>
-        <button class="view-btn" id="viewSaved" data-view="saved">★ Shortlist <span id="nSaved"></span></button>
+        <button class="view-btn" id="viewSaved" data-view="saved"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px; margin-right:3px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>Shortlist <span id="nSaved"></span></button>
       </div>
 
       <div class="facet-selects">
@@ -1472,7 +1580,7 @@
     <table class="gazette-table" id="ledgerTable">
       <thead>
         <tr>
-          <th style="width:36px;">★</th>
+          <th style="width:36px;" title="Shortlist"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></th>
           <th>Employer Name</th>
           <th>Town / City</th>
           <th>Industry</th>
@@ -1503,12 +1611,12 @@
       </div>
 
       <div class="macro-card-grid">
-        <div class="macro-card">
+        <div class="macro-card" id="macroCardMovement" title="Click to view weekly licence additions">
           <div class="macro-card-label">Net Licence Movement</div>
           <div class="macro-stat-val" style="color:var(--status-regular-ink);" id="macroNetMove">—</div>
           <div class="macro-stat-note" id="macroNetNote">Calculating weekly delta...</div>
         </div>
-        <div class="macro-card">
+        <div class="macro-card" id="macroCardRisk" title="Click to view statutory insolvency warnings">
           <div class="macro-card-label">Corporate Solvency Watch</div>
           <div class="macro-stat-val" style="color:var(--status-critical-ink);" id="macroRiskRate">—</div>
           <div class="macro-stat-note" id="macroRiskNote">Calculating filing risk rate...</div>
@@ -1548,7 +1656,9 @@
       </div>
 
       <div class="macro-inspection-prompt">
-        <div class="prompt-icon">&#9878;</div>
+        <div class="prompt-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle;"><path d="M12 3v18"></path><path d="M4 7h16"></path><path d="M4 7l4 8H0z"></path><path d="M20 7l4 8h-8z"></path><circle cx="12" cy="21" r="2"></circle></svg>
+        </div>
         <div class="prompt-text">
           <strong>Employer Details &amp; Licence History</strong><br>
           Select an employer from the table or press <kbd>J</kbd> / <kbd>K</kbd> + <kbd>Enter</kbd> to view licence rating, Companies House filing status, National Minimum Wage findings, and salary going rates.
@@ -1563,6 +1673,22 @@
           <button id="docketClose" style="background:none; border:none; font-size:1.4rem; cursor:pointer; color:var(--ink-faint);">&times;</button>
         </div>
         <div class="docket-crn" id="docketSubtitle">—</div>
+      </div>
+
+      <!-- 2-Second Synthesis Verdict Strip (Zero Emojis, Bespoke Archival Typography) -->
+      <div id="docketSynthesisStrip" class="docket-synthesis status-active">
+        <div class="synthesis-header">
+          <span><span class="synthesis-dot" id="synthesisDot"></span><span id="synthesisTitle">VERIFIED &amp; ACTIVE STANDING</span></span>
+          <span id="synthesisRatingBadge" class="synthesis-chip">A-RATING</span>
+        </div>
+        <div class="synthesis-summary" id="synthesisSummary">
+          Active UK Home Office sponsor licence with regular Companies House filing standing.
+        </div>
+        <div class="synthesis-chips" id="synthesisChips">
+          <span class="synthesis-chip">LICENCE: A-RATING</span>
+          <span class="synthesis-chip">STATUS: ACTIVE</span>
+          <span class="synthesis-chip">NMW: NO SANCTIONS</span>
+        </div>
       </div>
 
       <!-- Section 1: Home Office Immigration Profile -->
@@ -1610,8 +1736,9 @@
             <button type="button" class="salary-rule-btn" data-rule="new_entrant">New Entrant (E)<br><span style="font-size:0.62rem; opacity:0.85;">£31.0k / 70%</span></button>
           </div>
           <label style="font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-graphite); display:block; margin-bottom:4px;">
-            Select Standard Occupation Code (SOC 2020):
+            Search Job Title / Standard Occupation (SOC 2020):
           </label>
+          <input type="text" id="calcJobSearch" class="calc-job-input" placeholder="Type job title (e.g. Software, Nurse, Accountant, Chef)..." aria-label="Search job title for salary going rate">
           <select class="calc-select" id="calcSocSelect"></select>
           <div class="gauge-wrap">
             <div class="gauge-track">
@@ -1927,6 +2054,22 @@
       const warn = (item && item.warn !== undefined) ? item.warn : warningFor(name);
       const hasNmw = (item && item.nmw !== undefined) ? item.nmw : !!(nmwData[name] && nmwData[name].length);
       
+      let dotClass = 'active';
+      let dotTitle = 'Verified Active Sponsor (A-Rating)';
+      if (warn && warn.severity === 'serious') {
+        dotClass = 'critical';
+        dotTitle = 'Statutory Solvency Advisory: ' + (warn.label || 'Flagged');
+      } else if (warn && (warn.severity === 'notable' || warn.severity === 'context')) {
+        dotClass = 'warning';
+        dotTitle = 'Statutory Filing Advisory: ' + (warn.label || 'Accounts Overdue / Dormant');
+      } else if (hasNmw) {
+        dotClass = 'warning';
+        dotTitle = 'DBT National Minimum Wage Enforcement Finding';
+      } else if (rating === 'B') {
+        dotClass = 'critical';
+        dotTitle = 'Home Office B-Rating (Action Plan Required)';
+      }
+
       const loc = [town, county].filter(Boolean)
         .filter((v,i,a) => a.findIndex(x=>x.toLowerCase()===v.toLowerCase())===i)
         .join(', ');
@@ -1950,10 +2093,12 @@
 
       return `<tr data-idx="${idx}" class="${idx === selectedRowIndex ? 'selected' : ''}">
         <td>
-          <button class="star-btn ${isSaved ? 'saved' : ''}" data-key="${esc(key)}" aria-label="Shortlist">${isSaved ? '★' : '☆'}</button>
+          <button class="star-btn ${isSaved ? 'saved' : ''}" data-key="${esc(key)}" aria-label="Shortlist">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </button>
         </td>
         <td>
-          <span class="col-company">${esc(name)}</span>
+          <span class="col-company"><span class="row-status-dot ${dotClass}" title="${esc(dotTitle)}"></span>${esc(name)}</span>
           ${crnInfo ? `<span class="col-meta">${esc(crnInfo)}</span>` : ''}
         </td>
         <td>${esc(loc)}</td>
@@ -2073,9 +2218,9 @@
     document.getElementById('docketSubtitle').textContent = 
       (warn && warn.crn ? `CRN: ${warn.crn} · ` : '') + [town, county].filter(Boolean).join(', ');
 
-    document.getElementById('docketRating').innerHTML = rating === 'A' 
-      ? '<span class="status-badge regular">A-Rating (Approved Standard)</span>' 
-      : (rating === 'B' ? '<span class="status-badge critical">B-Rating (Action Plan Required)</span>' : esc(rating));
+    document.getElementById('docketRating').innerHTML = rating === 'B' 
+      ? '<span class="status-badge critical">B-Rating (Action Plan Required)</span>' 
+      : '<span class="status-badge regular">A-Rating (Approved Standard)</span>';
       
     document.getElementById('docketSince').textContent = sinceDate;
     document.getElementById('docketRoutes').textContent = (routes || []).join(', ');
@@ -2083,6 +2228,67 @@
     document.getElementById('docketStatus').textContent = warn && warn.status ? warn.status : 'Active (No filing warnings)';
     document.getElementById('docketIncorp').textContent = warn && warn.incorporated ? warn.incorporated : 'Not specified in registry';
     document.getElementById('docketAccounts').textContent = warn && warn.accounts ? warn.accounts : 'Standard Private Company';
+
+    // 2-Second Docket Synthesis Verdict Computation
+    const synthStrip = document.getElementById('docketSynthesisStrip');
+    const synthTitle = document.getElementById('synthesisTitle');
+    const synthBadge = document.getElementById('synthesisRatingBadge');
+    const synthSummary = document.getElementById('synthesisSummary');
+    const synthChips = document.getElementById('synthesisChips');
+
+    if (synthStrip && synthTitle && synthSummary && synthChips) {
+      let synthClass = 'status-active';
+      let titleText = 'VERIFIED & ACTIVE STANDING';
+      let summaryText = 'Active UK Home Office sponsor licence with regular Companies House filing standing.';
+      let chipList = [];
+
+      const ratingText = rating === 'B' ? 'B-ACTION PLAN' : (rating ? `${rating}-RATING` : 'A-RATING');
+      chipList.push(`LICENCE: ${ratingText}`);
+
+      if (warn && warn.severity === 'serious') {
+        synthClass = 'status-critical';
+        titleText = 'STATUTORY SOLVENCY ADVISORY';
+        summaryText = `Companies House records indicate ${warn.label || 'formal insolvency or liquidation proceedings'}. Home Office sponsor licence eligibility may be critically impaired.`;
+        chipList.push(`STATUS: ${warn.label.toUpperCase()}`);
+      } else if (rating === 'B') {
+        synthClass = 'status-critical';
+        titleText = 'HOME OFFICE ACTION PLAN (B-RATING)';
+        summaryText = 'Employer has been downgraded by UK Visas and Immigration to B-rating and must complete a time-limited compliance action plan to retain sponsor eligibility.';
+        chipList.push('STATUS: COMPLIANCE PLAN');
+      } else if (warn && (warn.severity === 'notable' || warn.severity === 'context')) {
+        synthClass = 'status-warning';
+        titleText = 'STATUTORY FILING ADVISORY';
+        summaryText = `Companies House filings note ${warn.label.toLowerCase()} (${warn.explanation || 'statutory reporting overdue'}). Sponsor licence remains active.`;
+        chipList.push(`STATUS: ${warn.label.toUpperCase()}`);
+      } else if (nmw && nmw.length) {
+        synthClass = 'status-warning';
+        titleText = 'STATUTORY NMW ENFORCEMENT RECORD';
+        summaryText = `Employer has historical DBT National Minimum Wage underpayment findings (${nmw.length} enforcement notice${nmw.length > 1 ? 's' : ''}). Sponsor licence is currently active.`;
+        chipList.push('STATUS: ACTIVE');
+      } else {
+        synthClass = 'status-active';
+        titleText = 'VERIFIED & ACTIVE STANDING';
+        summaryText = 'Active UK Home Office sponsor licence with regular Companies House filing standing. No statutory insolvency or NMW sanctions recorded.';
+        chipList.push('STATUS: ACTIVE');
+      }
+
+      if (nmw && nmw.length) {
+        chipList.push(`NMW: ${nmw.length} ENFORCEMENT NOTICE${nmw.length > 1 ? 'S' : ''}`);
+      } else {
+        chipList.push('NMW: NO SANCTIONS');
+      }
+
+      const sinceYear = sinceDate && String(sinceDate).match(/\d{4}/) ? String(sinceDate).match(/\d{4}/)[0] : '';
+      if (sinceYear) {
+        chipList.push(`SINCE: ${sinceYear}`);
+      }
+
+      synthStrip.className = `docket-synthesis ${synthClass}`;
+      synthTitle.textContent = titleText;
+      if (synthBadge) synthBadge.textContent = ratingText;
+      synthSummary.textContent = summaryText;
+      synthChips.innerHTML = chipList.map(c => `<span class="synthesis-chip">${esc(c)}</span>`).join('');
+    }
 
     // Solvency warning box
     const advBox = document.getElementById('docketAdvisoryBox');
@@ -2150,6 +2356,11 @@
     // Contextual SOC preselection for salary calculator
     if (socData && socData.occupations && socData.occupations.length) {
       const defaultSoc = getDefaultSocForSector(industry);
+      const jobInput = document.getElementById('calcJobSearch');
+      if (jobInput && jobInput.value) {
+        jobInput.value = '';
+        renderSocOptions('');
+      }
       const occIdx = socData.occupations.findIndex(o => o.soc === defaultSoc);
       const select = document.getElementById('calcSocSelect');
       if (select && occIdx >= 0) {
@@ -2203,6 +2414,15 @@
           if (currentSponsorInDocket === name) {
             if (e.data.licensedSince) {
               document.getElementById('docketSince').textContent = e.data.licensedSince;
+              if (synthChips && e.data.licensedSince) {
+                const yr = String(e.data.licensedSince).match(/\d{4}/);
+                if (yr && !synthChips.textContent.includes('SINCE:')) {
+                  const sChip = document.createElement('span');
+                  sChip.className = 'synthesis-chip';
+                  sChip.textContent = `SINCE: ${yr[0]}`;
+                  synthChips.appendChild(sChip);
+                }
+              }
             }
             if (e.data.nmw && e.data.nmw.length && (!nmw || !nmw.length)) {
               const latest = e.data.nmw[0];
@@ -2227,14 +2447,50 @@
     }
   }
 
-  // Salary Threshold Calculator
-  function initSalaryCalc() {
+  // Salary Threshold Calculator with Job Title Search / Typeahead
+  let filteredOccupations = [];
+
+  function renderSocOptions(query) {
     const select = document.getElementById('calcSocSelect');
     if (!select || !socData || !socData.occupations) return;
+    
+    const q = (query || '').trim().toLowerCase();
+    filteredOccupations = socData.occupations.map((o, idx) => ({ ...o, origIndex: idx }));
 
-    select.innerHTML = socData.occupations.map((o, idx) => 
-      `<option value="${idx}">SOC ${o.soc}: ${esc(o.title)} (£${o.going_rate.toLocaleString('en-GB')}/yr)</option>`
+    if (q) {
+      filteredOccupations = filteredOccupations.filter(o => {
+        return (o.title && o.title.toLowerCase().includes(q)) ||
+               (o.soc && String(o.soc).toLowerCase().includes(q)) ||
+               (o.description && o.description.toLowerCase().includes(q));
+      });
+    }
+
+    if (filteredOccupations.length === 0) {
+      select.innerHTML = '<option value="-1">No matching occupation found</option>';
+      const verdictEl = document.getElementById('calcVerdict');
+      if (verdictEl) verdictEl.innerHTML = 'No occupation matches the search query. Try searching "Software", "Nurse", "Chef", "Accountant", or a 4-digit SOC code.';
+      return;
+    }
+
+    select.innerHTML = filteredOccupations.map(o => 
+      `<option value="${o.origIndex}">SOC ${o.soc}: ${esc(o.title)} (£${o.going_rate.toLocaleString('en-GB')}/yr)</option>`
     ).join('');
+
+    updateSalaryGauge();
+  }
+
+  function initSalaryCalc() {
+    const select = document.getElementById('calcSocSelect');
+    const jobInput = document.getElementById('calcJobSearch');
+    if (!select || !socData || !socData.occupations) return;
+
+    renderSocOptions('');
+
+    if (jobInput) {
+      jobInput.addEventListener('input', () => {
+        renderSocOptions(jobInput.value);
+      });
+    }
 
     select.addEventListener('change', updateSalaryGauge);
 
@@ -2490,6 +2746,96 @@
   document.getElementById('legWarning').addEventListener('click', () => { currentWarn = 'notable'; triggerQuery(false); syncUrlState(); });
   document.getElementById('legSolvent').addEventListener('click', () => { currentWarn = ''; triggerQuery(false); syncUrlState(); });
 
+  // Interactive HUD Doors & Macro Filter Jumpers
+  document.querySelectorAll('.hud-stat').forEach(card => {
+    card.addEventListener('click', () => {
+      const filter = card.dataset.filter;
+      if (filter === 'all') {
+        currentView = '';
+        currentWarn = '';
+      } else if (filter === 'added') {
+        currentView = 'added';
+        currentWarn = '';
+      } else if (filter === 'serious') {
+        currentView = '';
+        currentWarn = 'serious';
+      } else if (filter === 'warning') {
+        currentView = '';
+        currentWarn = 'notable';
+      }
+      viewBtns.forEach(b => b.classList.toggle('active', b.dataset.view === currentView));
+      triggerQuery(false);
+      syncUrlState();
+    });
+  });
+
+  const cardMove = document.getElementById('macroCardMovement');
+  if (cardMove) {
+    cardMove.addEventListener('click', () => {
+      currentView = 'added';
+      currentWarn = '';
+      viewBtns.forEach(b => b.classList.toggle('active', b.dataset.view === 'added'));
+      triggerQuery(false);
+      syncUrlState();
+    });
+  }
+
+  const cardRisk = document.getElementById('macroCardRisk');
+  if (cardRisk) {
+    cardRisk.addEventListener('click', () => {
+      currentView = '';
+      currentWarn = 'serious';
+      viewBtns.forEach(b => b.classList.toggle('active', b.dataset.view === ''));
+      triggerQuery(false);
+      syncUrlState();
+    });
+  }
+
+  // Delegated clicks for macro lists (sectors & regions)
+  const sectorListEl = document.getElementById('macroSectorList');
+  if (sectorListEl) {
+    sectorListEl.addEventListener('click', e => {
+      const item = e.target.closest('.macro-list-item');
+      if (!item) return;
+      const nameEl = item.querySelector('.macro-item-name');
+      if (!nameEl) return;
+      const sectorName = nameEl.textContent.trim();
+      const indSel = document.getElementById('industrySelect');
+      if (indSel) {
+        for (let opt of indSel.options) {
+          if (opt.value && (opt.value.toLowerCase() === sectorName.toLowerCase() || opt.value.includes(sectorName) || sectorName.includes(opt.value))) {
+            indSel.value = opt.value;
+            triggerQuery(false);
+            syncUrlState();
+            break;
+          }
+        }
+      }
+    });
+  }
+
+  const regionListEl = document.getElementById('macroRegionList');
+  if (regionListEl) {
+    regionListEl.addEventListener('click', e => {
+      const item = e.target.closest('.macro-list-item');
+      if (!item) return;
+      const nameEl = item.querySelector('.macro-item-name');
+      if (!nameEl) return;
+      const locName = nameEl.textContent.trim();
+      const citySel = document.getElementById('citySelect');
+      if (citySel) {
+        for (let opt of citySel.options) {
+          if (opt.value && (opt.value.toLowerCase() === locName.toLowerCase() || opt.value.includes(locName) || locName.includes(opt.value))) {
+            citySel.value = opt.value;
+            triggerQuery(false);
+            syncUrlState();
+            break;
+          }
+        }
+      }
+    });
+  }
+
   const viewBtns = document.querySelectorAll('.view-btn');
   viewBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -2537,11 +2883,13 @@
     const star = e.target.closest('.star-btn');
     if (star) {
       const key = star.dataset.key;
-      if (savedSet.has(key)) savedSet.delete(key);
+      const isSaved = savedSet.has(key);
+      if (isSaved) savedSet.delete(key);
       else savedSet.add(key);
       saveShortlist();
-      star.classList.toggle('saved');
-      star.textContent = savedSet.has(key) ? '★' : '☆';
+      const nextSaved = !isSaved;
+      star.classList.toggle('saved', nextSaved);
+      star.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="${nextSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
       return;
     }
     const tr = e.target.closest('tr');
