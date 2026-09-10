@@ -296,6 +296,11 @@
     flex-wrap: wrap;
     gap: 12px;
   }
+  .masthead-brand-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
   .brand-block {
     display: flex;
     flex-direction: column;
@@ -303,9 +308,9 @@
   }
   .brand-primary {
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px 12px;
+    align-items: baseline;
+    flex-wrap: nowrap;
+    gap: 10px;
   }
   .brand-title {
     font-family: var(--font-serif);
@@ -327,6 +332,7 @@
     background: var(--status-regular-ink);
     flex-shrink: 0;
     vertical-align: baseline;
+    align-self: baseline;
     transition: box-shadow 0.3s ease;
   }
   .dot.pulse {
@@ -1600,12 +1606,15 @@
       width: 100%;
       font-size: 0.68rem;
     }
-    .masthead-controls {
+    .masthead-brand-group {
       gap: 10px;
+      width: 100%;
+      justify-content: space-between;
     }
     .seal {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
+      margin-top: 2px;
     }
     .topnav {
       gap: 10px;
@@ -1825,27 +1834,29 @@
 <!-- Archival Masthead -->
 <header class="masthead">
   <div class="wrap masthead-inner">
-    <div class="brand-block">
-      <div class="brand-primary">
-        <a href="./" class="brand-title">KnowYourSponsor<span class="dot" aria-hidden="true"></span></a>
-        <span class="brand-handwriting" id="brandHandwriting">Verified.</span>
-        <svg class="seal" viewBox="0 0 48 48" aria-hidden="true" focusable="false" title="Official Register Ledger Seal">
-          <defs>
-            <filter id="ink" x="-20%" y="-20%" width="140%" height="140%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/>
-              <feDisplacementMap in="SourceGraphic" scale="1.8"/>
-            </filter>
-          </defs>
-          <g filter="url(#ink)">
-            <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2.5"/>
-            <circle cx="24" cy="24" r="7.5" fill="var(--status-regular-ink)"/>
-          </g>
+    <div class="masthead-brand-group">
+      <div class="brand-block">
+        <div class="brand-primary">
+          <a href="./" class="brand-title">KnowYourSponsor<span class="dot" aria-hidden="true"></span></a>
+          <span class="brand-handwriting" id="brandHandwriting">Verified.</span>
+        </div>
+        <svg class="rule" viewBox="0 0 300 8" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M2 6 C 80 3.5, 220 3.5, 296 5" pathLength="1" fill="none" stroke="var(--status-regular-ink)" stroke-width="1.5"/>
         </svg>
+        <span class="brand-subtitle">UK Visa Sponsor Register &amp; Solvency Tracker</span>
       </div>
-      <svg class="rule" viewBox="0 0 300 8" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M2 6 C 80 3.5, 220 3.5, 296 5" pathLength="1" fill="none" stroke="var(--status-regular-ink)" stroke-width="1.5"/>
+      <svg class="seal" viewBox="0 0 48 48" aria-hidden="true" focusable="false" title="Official Register Ledger Seal">
+        <defs>
+          <filter id="ink" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/>
+            <feDisplacementMap in="SourceGraphic" scale="1.8"/>
+          </filter>
+        </defs>
+        <g filter="url(#ink)">
+          <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <circle cx="24" cy="24" r="7.5" fill="var(--status-regular-ink)"/>
+        </g>
       </svg>
-      <span class="brand-subtitle">UK Visa Sponsor Register &amp; Solvency Tracker</span>
     </div>
     <nav class="topnav">
       <a href="changes/">Changes</a>
