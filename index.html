@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
 <title>KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Tracker</title>
 <meta name="description" content="Every UK employer licensed to sponsor a work visa, cross-referenced against Companies House insolvency filings and National Minimum Wage enforcement. Search 127,000+ sponsors, check salary thresholds, and identify corporate distress.">
 <link rel="canonical" href="https://zephyr4289.github.io/sponsor-g/">
@@ -11,7 +11,8 @@
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="alternate" type="application/rss+xml" title="UK visa sponsors added and removed" href="feed.xml">
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#141311">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F4F1EA">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141311">
 
 <!-- Open Graph / Twitter -->
 <meta property="og:type" content="website">
@@ -108,6 +109,11 @@
                         radial-gradient(circle at 85% 85%, rgba(31, 56, 136, 0.035) 0%, transparent 50%);
     --grain-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E");
     
+    --tap: 44px;            /* minimum interactive touch target */
+    --rail-fade: 28px;      /* scroll-rail edge fade */
+    --bp: 720px;            /* stacked-layout breakpoint */
+    --sheet-radius: 14px;
+    
     color-scheme: light;
   }
 
@@ -146,6 +152,11 @@
                           radial-gradient(circle at 18% 82%, rgba(35, 39, 46, 0.45) 0%, transparent 60%),
                           radial-gradient(circle at 85% 85%, rgba(107, 147, 245, 0.04) 0%, transparent 50%);
       --grain-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.10'/%3E%3C/svg%3E");
+      
+      --tap: 44px;
+      --rail-fade: 28px;
+      --bp: 720px;
+      --sheet-radius: 14px;
       
       color-scheme: dark;
     }
@@ -186,12 +197,23 @@
                         radial-gradient(circle at 85% 85%, rgba(107, 147, 245, 0.04) 0%, transparent 50%);
     --grain-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.10'/%3E%3C/svg%3E");
     
+    --tap: 44px;
+    --rail-fade: 28px;
+    --bp: 720px;
+    --sheet-radius: 14px;
+    
     color-scheme: dark;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; font-size: 15px; }
+  html {
+    scroll-behavior: smooth;
+    font-size: 15px;
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+  }
   body {
+    overflow-x: clip;
     font-family: var(--font-sans);
     color: var(--ink-carbon);
     background-color: var(--surface-ground);
@@ -202,6 +224,41 @@
     background-repeat: repeat, no-repeat;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* Flex/grid children min-width guard — eliminates flex clipping bugs across all viewports */
+  .docket-quick-actions, .docket-synthesis, .views-group, .quick-chips-row,
+  .omnibar-row, .facet-selects, .salary-rule-toggle, .hud-stat, .solvency-seg,
+  .macro-card, .synthesis-chips, .macro-list-item, .search-cavity {
+    min-width: 0;
+  }
+
+  /* Long titles wrap gracefully */
+  .docket-title, .synthesis-summary, .synthesis-header, .brand-title, .docket-crn {
+    overflow-wrap: anywhere;
+  }
+
+  /* Momentum Scroll-Rail with Adaptive Edge Fade */
+  .rail {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+    mask-image: linear-gradient(to right, #000 0, #000 calc(100% - var(--rail-fade)), transparent);
+    -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - var(--rail-fade)), transparent);
+  }
+  .rail::-webkit-scrollbar { display: none; }
+  .rail.is-end {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+  .rail > * {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    min-height: var(--tap);
   }
   a { color: var(--cobalt); text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -603,6 +660,7 @@
     display: block;
     margin-top: 1px;
   }
+  .col-meta-mobile { display: none; }
   .col-routes { display: flex; flex-wrap: wrap; gap: 3px; }
 
   /* Tabular Numbers & Monospace Precision Alignment */
@@ -1294,53 +1352,85 @@
   footer .footer-links { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
   footer .footer-links a { color: var(--ink-carbon); font-weight: 500; }
 
-  /* Mobile responsiveness & Bottom-Sheet Docket */
+  /* ==========================================================================
+     RESPONSIVE ARCHITECTURE: DESKTOP (≥1024px) · TABLET (721-1023px) · MOBILE (<720px)
+     ========================================================================== */
+
+  /* Touch ergonomics & desktop keyboard hints removal */
+  @media (pointer: coarse) {
+    .search-keyhint { display: none !important; }
+    #tableStatus span:last-child { display: none !important; }
+  }
+
+  /* Mid-viewports / Tablets (max-width: 960px) */
   @media (max-width: 960px) {
     .ledger-hud { grid-template-columns: repeat(2, 1fr); }
     .workspace { grid-template-columns: 1fr; }
     .facet-selects { grid-template-columns: repeat(2, 1fr); }
     .docket-pane {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      top: auto;
-      height: 85vh;
-      max-height: 85vh;
-      border-radius: 12px 12px 0 0;
+      inset: auto 0 0 0;
+      height: 94dvh;
+      max-height: 94dvh;
+      border-radius: var(--sheet-radius) var(--sheet-radius) 0 0;
       border-top: 2px solid var(--rule-master);
-      box-shadow: 0 -10px 30px rgba(0,0,0,0.25);
+      box-shadow: 0 -12px 36px rgba(0,0,0,0.30);
       z-index: 100;
-      transform: translateY(100%);
-      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-      display: block !important;
+      transform: translateY(100dvh);
+      transition: transform 0.34s cubic-bezier(0.32, 0.72, 0.24, 1);
+      display: flex !important;
+      flex-direction: column;
       visibility: hidden;
       overscroll-behavior: contain;
+      background: var(--surface-panel);
     }
     .docket-pane.open {
       transform: translateY(0);
       visibility: visible;
     }
+    .docket-pane.open.peek {
+      transform: translateY(58dvh);
+    }
     .docket-sheet-handle {
-      width: 38px;
-      height: 4px;
+      width: 44px;
+      height: 5px;
       background: var(--rule-prominent);
-      border-radius: 2px;
-      margin: -10px auto 14px;
+      border-radius: 3px;
+      margin: 10px auto 8px;
       display: block;
+      cursor: grab;
+      touch-action: none;
+      flex-shrink: 0;
+    }
+    .docket-quick-actions {
+      position: sticky;
+      bottom: 0;
+      margin: 12px -16px -16px -16px;
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 12px));
+      background: linear-gradient(to top, var(--surface-panel) 88%, transparent);
+      z-index: 10;
+      border-top: 1px solid var(--rule-hairline);
     }
   }
+
   @media (min-width: 961px) {
     .docket-sheet-handle { display: none; }
   }
-  @media (max-width: 640px) {
+
+  /* Mobile Dossier Card Layout & Screen Composition (< 720px) */
+  @media (max-width: 720px) {
     /* 1. Micro-grid telemetry & masthead */
     .telemetry-band {
       font-size: 0.65rem;
       padding: 4px 0;
+      white-space: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
     }
+    .telemetry-band::-webkit-scrollbar { display: none; }
     .telemetry-inner {
-      gap: 2px 6px;
+      gap: 2px 8px;
+      flex-wrap: nowrap;
     }
     header.masthead {
       padding: 8px 0 6px;
@@ -1390,6 +1480,7 @@
       padding: 8px 12px !important;
       border-right: 1px solid var(--rule-hairline) !important;
       border-bottom: 1px solid var(--rule-hairline) !important;
+      min-height: var(--tap);
     }
     .hud-stat:nth-child(2n) {
       border-right: none !important;
@@ -1408,10 +1499,10 @@
       line-height: 1.15 !important;
     }
     .hud-note {
-      display: none !important; /* Hide verbose 3-line note to eliminate dead space */
+      display: none !important;
     }
 
-    /* 3. Solvency Macro Ratio Bar */
+    /* 3. Solvency Macro Ratio Bar & 2x2 Legend */
     .solvency-meter-wrap {
       padding: 6px 0 !important;
     }
@@ -1420,13 +1511,14 @@
       margin-bottom: 3px !important;
     }
     .solvency-bar {
-      height: 5px !important;
+      height: 6px !important;
     }
     .solvency-legend {
-      gap: 10px !important;
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 6px 12px !important;
       font-size: 0.68rem !important;
-      justify-content: space-between !important;
-      margin-top: 4px !important;
+      margin-top: 6px !important;
     }
 
     /* 4. Full-Width Omnibar & Input Standards */
@@ -1438,37 +1530,25 @@
     }
     .search-cavity {
       padding: 0 10px !important;
+      min-height: var(--tap);
     }
     .search-cavity input {
-      font-size: 16px !important; /* Prevents iOS Safari viewport zoom on focus */
+      font-size: 16px !important; /* Prevents iOS Safari viewport auto-zoom on focus */
       padding: 8px 4px !important;
-    }
-    .search-keyhint {
-      display: none !important; /* Hide desktop [/] shortcut badge on touchscreens */
     }
     .btn-export {
       padding: 8px 12px !important;
       font-size: 0.74rem !important;
+      min-height: var(--tap);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* 5. Horizontal Scrolling Filter Tabs & Quick Chips */
+    /* 5. Horizontal Momentum Rail Filter Tabs & Quick Chips */
     .facets-row {
       margin-top: 8px !important;
       gap: 8px !important;
-    }
-    .views-group {
-      width: 100% !important;
-      overflow-x: auto !important;
-      white-space: nowrap !important;
-      -webkit-overflow-scrolling: touch !important;
-      scrollbar-width: none !important;
-      display: flex !important;
-    }
-    .views-group::-webkit-scrollbar { display: none !important; }
-    .view-btn {
-      flex: 0 0 auto !important;
-      padding: 6px 10px !important;
-      font-size: 0.74rem !important;
     }
     .facet-selects {
       grid-template-columns: 1fr 1fr !important;
@@ -1477,39 +1557,90 @@
     .facet-selects select {
       font-size: 0.76rem !important;
       padding: 6px 8px !important;
+      min-height: var(--tap);
     }
-    .quick-chips-row {
-      overflow-x: auto !important;
-      flex-wrap: nowrap !important;
-      -webkit-overflow-scrolling: touch !important;
-      scrollbar-width: none !important;
-      padding-bottom: 2px !important;
-    }
-    .quick-chips-row::-webkit-scrollbar { display: none !important; }
     .quick-chip {
-      flex: 0 0 auto !important;
       font-size: 0.72rem !important;
-      padding: 3px 8px !important;
+      padding: 4px 10px !important;
     }
 
-    /* 6. Dense Ledger Table & Above-The-Fold Visibility */
+    /* 6. Classified Dossier Cards (Replaces horizontal table scrolling) */
     .ledger-pane {
-      padding: 0 8px 60px !important;
+      padding: 0 4px 60px !important;
     }
-    .ledger-table th, .ledger-table td {
-      padding: 8px 6px !important;
-      font-size: 0.78rem !important;
+    table.gazette-table thead {
+      display: none !important; /* Cards are self-labelling */
+    }
+    table.gazette-table,
+    table.gazette-table tbody {
+      display: block !important;
+      width: 100% !important;
+    }
+    table.gazette-table tr {
+      display: grid !important;
+      grid-template-columns: 36px minmax(0, 1fr) auto !important;
+      grid-template-areas:
+        "star name   status"
+        ".... meta   meta"
+        ".... routes routes" !important;
+      gap: 3px 8px !important;
+      padding: 10px 12px !important;
+      margin-bottom: 8px !important;
+      background: var(--surface-paper) !important;
+      border: 1px solid var(--rule-prominent) !important;
+      border-radius: 4px !important;
+      touch-action: manipulation !important;
+    }
+    table.gazette-table tr.selected {
+      outline: 2px solid var(--cobalt) !important;
+      background: var(--surface-panel) !important;
+    }
+    table.gazette-table td {
+      display: block !important;
+      padding: 0 !important;
+      border-bottom: none !important;
+    }
+    table.gazette-table td:nth-child(1) {
+      grid-area: star !important;
+      align-self: start !important;
+    }
+    table.gazette-table td:nth-child(2) {
+      grid-area: name !important;
+      min-width: 0 !important;
+    }
+    table.gazette-table td:nth-child(3),
+    table.gazette-table td:nth-child(4) {
+      display: none !important; /* Merged into self-labelling meta line */
+    }
+    table.gazette-table td:nth-child(5) {
+      grid-area: routes !important;
+      margin-top: 3px !important;
+    }
+    table.gazette-table td:nth-child(6) {
+      grid-area: status !important;
+      justify-self: end !important;
+      align-self: start !important;
     }
     .col-company {
-      font-size: 0.82rem !important;
+      font-size: 0.88rem !important;
+      line-height: 1.3 !important;
+      display: block !important;
     }
+    .col-meta {
+      font-size: 0.72rem !important;
+      color: var(--ink-faint) !important;
+      margin-top: 1px !important;
+      line-height: 1.35 !important;
+    }
+    .col-meta-desktop { display: none !important; }
+    .col-meta-mobile { display: block !important; }
     .status-badge {
       font-size: 0.68rem !important;
-      padding: 2px 5px !important;
+      padding: 2px 6px !important;
     }
     .tag-route {
       font-size: 0.65rem !important;
-      padding: 1px 4px !important;
+      padding: 1px 5px !important;
     }
   }
 </style>
@@ -1614,7 +1745,7 @@
     </div>
 
     <div class="facets-row">
-      <div class="views-group">
+      <div class="views-group rail">
         <button class="view-btn active" id="viewAll" data-view="">All Sponsors</button>
         <button class="view-btn" id="viewAdded" data-view="added">Additions <span id="nAdded"></span></button>
         <button class="view-btn" id="viewRemoved" data-view="removed">Revoked <span id="nRemoved"></span></button>
@@ -1635,7 +1766,7 @@
         </select>
       </div>
 
-      <div class="quick-chips-row">
+      <div class="quick-chips-row rail">
         <span class="quick-chip-label">Presets:</span>
         <button type="button" class="quick-chip" id="chipAdded" data-preset="added">Newly Added (7D)</button>
         <button type="button" class="quick-chip" id="chipLondonTech" data-preset="london-tech">London Tech</button>
@@ -1680,7 +1811,7 @@
   </div>
 
   <!-- Right Pane: Employer Details & Overview -->
-  <aside class="docket-pane" id="docketPane">
+  <aside class="docket-pane" id="docketPane" role="dialog" aria-modal="true" aria-label="Employer compliance docket">
     <div class="docket-sheet-handle"></div>
     <div class="docket-empty-macro" id="docketEmpty">
       <div class="macro-header">
@@ -1826,7 +1957,7 @@
       <div class="docket-section">
         <div class="docket-heading">3. Skilled Worker Salary Threshold</div>
         <div class="calc-box">
-          <div class="salary-rule-toggle" id="salaryRuleToggle">
+          <div class="salary-rule-toggle rail" id="salaryRuleToggle">
             <button type="button" class="salary-rule-btn active" data-rule="standard">Standard (A)<br><span style="font-size:0.62rem; opacity:0.85;">£41.7k / 100%</span></button>
             <button type="button" class="salary-rule-btn" data-rule="stem_phd">STEM PhD (B)<br><span style="font-size:0.62rem; opacity:0.85;">£37.5k / 80%</span></button>
             <button type="button" class="salary-rule-btn" data-rule="non_stem_phd">Non-STEM (C)<br><span style="font-size:0.62rem; opacity:0.85;">£37.5k / 90%</span></button>
@@ -2191,7 +2322,9 @@
         statusBadge += ` <span class="status-badge nmw" title="Named by government for NMW underpayment">NMW Underpaid</span>`;
       }
 
-      const crnInfo = warn && warn.crn ? `CRN: ${warn.crn} · ${warn.incorporated ? warn.incorporated.slice(0,4) : ''}` : '';
+      const crnInfo = warn && warn.crn ? `CRN: ${warn.crn}${warn.incorporated ? ' · ' + warn.incorporated.slice(0,4) : ''}` : '';
+      const metaMobile = [loc, industry, crnInfo].filter(Boolean).join(' · ');
+      const cleanName = (name || '').replace(/^[.\s·-]+/, '').trim() || name;
 
       return `<tr data-idx="${idx}" class="${idx === selectedRowIndex ? 'selected' : ''}">
         <td>
@@ -2200,8 +2333,9 @@
           </button>
         </td>
         <td>
-          <span class="col-company"><span class="row-status-dot ${dotClass}" title="${esc(dotTitle)}"></span>${esc(name)}</span>
-          ${crnInfo ? `<span class="col-meta">${esc(crnInfo)}</span>` : ''}
+          <span class="col-company"><span class="row-status-dot ${dotClass}" title="${esc(dotTitle)}"></span>${esc(cleanName)}</span>
+          ${crnInfo ? `<span class="col-meta col-meta-desktop">${esc(crnInfo)}</span>` : ''}
+          ${metaMobile ? `<span class="col-meta col-meta-mobile">${esc(metaMobile)}</span>` : ''}
         </td>
         <td>${esc(loc)}</td>
         <td>${esc(industry)}</td>
@@ -2312,11 +2446,12 @@
     const nmw = (rowOrItem && rowOrItem.nmwList !== undefined) ? rowOrItem.nmwList : (nmwData[name] || null);
     const key = (name + '|' + town).toLowerCase();
     const sinceDate = (rowOrItem && rowOrItem.licensedSince) || licensedSince[key] || 'Historical register record';
+    const cleanName = (name || '').replace(/^[.\s·-]+/, '').trim() || name;
 
     document.getElementById('docketEmpty').style.display = 'none';
     document.getElementById('docketContent').style.display = 'block';
 
-    document.getElementById('docketName').textContent = name;
+    document.getElementById('docketName').textContent = cleanName;
     document.getElementById('docketSubtitle').textContent = 
       (warn && warn.crn ? `CRN: ${warn.crn} · ` : '') + [town, county].filter(Boolean).join(', ');
 
@@ -2531,7 +2666,11 @@
     syncUrlState(name);
 
     if (window.innerWidth <= 960) {
-      document.getElementById('docketPane').classList.add('open');
+      const pane = document.getElementById('docketPane');
+      pane.classList.add('open');
+      pane.classList.remove('peek');
+      pane.style.transform = '';
+      pane.style.transition = '';
     }
 
     // If worker is running, request full enriched detail to update license date / NMW details if not yet loaded
@@ -2867,7 +3006,11 @@
   function closeDocket() {
     document.getElementById('docketContent').style.display = 'none';
     document.getElementById('docketEmpty').style.display = 'flex';
-    document.getElementById('docketPane').classList.remove('open');
+    const pane = document.getElementById('docketPane');
+    pane.classList.remove('open');
+    pane.classList.remove('peek');
+    pane.style.transform = '';
+    pane.style.transition = '';
     document.querySelectorAll('#tableBody tr').forEach(r => r.classList.remove('selected'));
     selectedRowIndex = -1;
     syncUrlState(null);
@@ -3145,6 +3288,127 @@
     if (triggerEl) observer.observe(triggerEl);
   }
 
+  // Momentum Scroll-Rail Indicator Engine
+  function initRails() {
+    const rails = document.querySelectorAll('.rail');
+    rails.forEach(rail => {
+      const update = () => {
+        const atEnd = (rail.scrollWidth - rail.scrollLeft - rail.clientWidth) <= 8;
+        rail.classList.toggle('is-end', atEnd);
+      };
+      rail.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+      setTimeout(update, 50);
+    });
+  }
+
+  // Forensic Docket Dual-Snap Bottom Sheet Gestures (Mobile/Tablet <= 960px)
+  function initBottomSheetGestures() {
+    const pane = document.getElementById('docketPane');
+    if (!pane) return;
+    const handle = pane.querySelector('.docket-sheet-handle');
+    if (!handle) return;
+
+    let isDragging = false;
+    let startY = 0;
+    let startTime = 0;
+    let startTransformY = 0;
+
+    function getSnapPoints() {
+      const h = window.innerHeight;
+      return {
+        full: 0,
+        peek: Math.round(h * 0.52),
+        close: h
+      };
+    }
+
+    function onPointerDown(e) {
+      if (window.innerWidth > 960) return;
+      isDragging = true;
+      startY = e.clientY;
+      startTime = performance.now();
+      
+      const snaps = getSnapPoints();
+      startTransformY = pane.classList.contains('peek') ? snaps.peek : snaps.full;
+      
+      pane.style.transition = 'none';
+      if (handle.setPointerCapture) {
+        try { handle.setPointerCapture(e.pointerId); } catch(err) {}
+      }
+    }
+
+    function onPointerMove(e) {
+      if (!isDragging) return;
+      const deltaY = e.clientY - startY;
+      let targetY = startTransformY + deltaY;
+      if (targetY < 0) {
+        targetY = targetY * 0.2; // Top pull resistance
+      }
+      pane.style.transform = `translateY(${targetY}px)`;
+    }
+
+    function onPointerUp(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      if (handle.releasePointerCapture && handle.hasPointerCapture && handle.hasPointerCapture(e.pointerId)) {
+        try { handle.releasePointerCapture(e.pointerId); } catch(err) {}
+      }
+
+      const deltaY = e.clientY - startY;
+      const dt = Math.max(1, performance.now() - startTime);
+      const vy = deltaY / dt; // px/ms
+      const snaps = getSnapPoints();
+      const currentY = startTransformY + deltaY;
+
+      pane.style.transition = 'transform 0.3s cubic-bezier(0.32, 0.72, 0.24, 1)';
+
+      // Handle gentle tap on handle (toggle peek / full)
+      if (Math.abs(deltaY) < 6 && dt < 300) {
+        if (pane.classList.contains('peek')) {
+          pane.classList.remove('peek');
+          pane.style.transform = '';
+        } else {
+          pane.classList.add('peek');
+          pane.style.transform = '';
+        }
+        return;
+      }
+
+      // High velocity gesture
+      if (vy > 0.5) {
+        if (startTransformY === snaps.full && currentY < snaps.peek) {
+          pane.classList.add('peek');
+          pane.style.transform = '';
+        } else {
+          closeDocket();
+        }
+      } else if (vy < -0.5) {
+        pane.classList.remove('peek');
+        pane.style.transform = '';
+      } else {
+        // Position threshold snapping
+        const midPeek = snaps.peek / 2;
+        const midClose = (snaps.peek + snaps.close) / 2;
+        if (currentY < midPeek) {
+          pane.classList.remove('peek');
+          pane.style.transform = '';
+        } else if (currentY < midClose) {
+          pane.classList.add('peek');
+          pane.style.transform = '';
+        } else {
+          closeDocket();
+        }
+      }
+    }
+
+    handle.addEventListener('pointerdown', onPointerDown);
+    handle.addEventListener('pointermove', onPointerMove);
+    handle.addEventListener('pointerup', onPointerUp);
+    handle.addEventListener('pointercancel', onPointerUp);
+  }
+
   // Fast Progressive Hydration (< 20KB transfer, < 30ms First Paint)
   Promise.all([
     fetch('data/meta.json').then(r => r.json()),
@@ -3186,6 +3450,8 @@
     const initialSponsor = initFromUrl();
     updateShortlistCount();
     initSalaryCalc();
+    initRails();
+    initBottomSheetGestures();
     renderMacroSummary(meta);
 
     // Instant initial table paint (< 30ms)

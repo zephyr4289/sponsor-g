@@ -15,7 +15,7 @@
  *
  * Bump CACHE when the shell changes to evict the old one.
  */
-const CACHE = 'knowyoursponsor-v9';
+const CACHE = 'knowyoursponsor-v10';
 
 const SHELL = [
   './',
