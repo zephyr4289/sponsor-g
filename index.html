@@ -303,9 +303,9 @@
   }
   .brand-primary {
     display: flex;
-    align-items: baseline;
-    flex-wrap: nowrap;
-    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 12px;
   }
   .brand-title {
     font-family: var(--font-serif);
@@ -327,6 +327,15 @@
     background: var(--status-regular-ink);
     flex-shrink: 0;
     vertical-align: baseline;
+    transition: box-shadow 0.3s ease;
+  }
+  .dot.pulse {
+    animation: dotPulse 0.9s ease-out 2;
+  }
+  @keyframes dotPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(29, 88, 55, 0.65); }
+    70%  { box-shadow: 0 0 0 9px rgba(29, 88, 55, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(29, 88, 55, 0); }
   }
   .brand-handwriting {
     display: inline-flex;
@@ -346,31 +355,52 @@
     display: inline-block;
     vertical-align: baseline;
   }
+  .seal {
+    width: clamp(32px, 8vw, 42px);
+    height: clamp(32px, 8vw, 42px);
+    color: var(--ink-carbon);
+    transform: rotate(-8deg);
+    opacity: 0.92;
+    flex-shrink: 0;
+    animation: stamp 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) 0.35s both;
+    cursor: default;
+  }
+  @keyframes stamp {
+    0%   { transform: rotate(-8deg) scale(1.6); opacity: 0; }
+    65%  { transform: rotate(-8deg) scale(0.95); opacity: 1; }
+    100% { transform: rotate(-8deg) scale(1); opacity: 0.92; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .seal { animation: none; opacity: 0.92; }
+  }
+
+  /* Ledger Rule (Hand-Drawn Inked Hairline) */
+  .rule {
+    display: block;
+    width: min(100%, 380px);
+    height: 6px;
+    margin-top: 2px;
+    margin-bottom: 3px;
+    opacity: 0.85;
+  }
+  .rule path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: drawRule 0.7s ease-out 0.5s forwards;
+  }
+  @keyframes drawRule {
+    to { stroke-dashoffset: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rule path { stroke-dashoffset: 0; animation: none; }
+  }
+
   .brand-subtitle {
     font-family: var(--font-mono);
     font-size: 0.78rem;
     color: var(--ink-graphite);
     text-transform: uppercase;
     letter-spacing: 0.06em;
-  }
-  .masthead-controls {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .seal {
-    width: 36px;
-    height: 36px;
-    color: var(--ink-carbon);
-    transform: rotate(-6deg);
-    opacity: 0.92;
-    flex-shrink: 0;
-    transition: transform 0.25s ease, opacity 0.25s ease;
-    cursor: default;
-  }
-  .seal:hover {
-    transform: rotate(0deg) scale(1.05);
-    opacity: 1;
   }
   .topnav { display: flex; align-items: center; gap: 20px; font-size: 0.88rem; font-weight: 500; }
   .topnav a { color: var(--ink-graphite); }
@@ -1799,22 +1829,31 @@
       <div class="brand-primary">
         <a href="./" class="brand-title">KnowYourSponsor<span class="dot" aria-hidden="true"></span></a>
         <span class="brand-handwriting" id="brandHandwriting">Verified.</span>
+        <svg class="seal" viewBox="0 0 48 48" aria-hidden="true" focusable="false" title="Official Register Ledger Seal">
+          <defs>
+            <filter id="ink" x="-20%" y="-20%" width="140%" height="140%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/>
+              <feDisplacementMap in="SourceGraphic" scale="1.8"/>
+            </filter>
+          </defs>
+          <g filter="url(#ink)">
+            <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="24" cy="24" r="7.5" fill="var(--status-regular-ink)"/>
+          </g>
+        </svg>
       </div>
+      <svg class="rule" viewBox="0 0 300 8" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M2 6 C 80 3.5, 220 3.5, 296 5" pathLength="1" fill="none" stroke="var(--status-regular-ink)" stroke-width="1.5"/>
+      </svg>
       <span class="brand-subtitle">UK Visa Sponsor Register &amp; Solvency Tracker</span>
     </div>
-    <div class="masthead-controls">
-      <svg class="seal" viewBox="0 0 48 48" aria-hidden="true" focusable="false" title="Official Register Ledger Seal">
-        <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2.5"/>
-        <circle cx="24" cy="24" r="7.5" fill="var(--status-regular-ink)"/>
-      </svg>
-      <nav class="topnav">
-        <a href="changes/">Changes</a>
-        <a href="insights/">Numbers</a>
-        <a href="data-api/">Data API</a>
-        <a href="pricing/">For Business</a>
-        <button class="themebtn" type="button" data-theme-toggle aria-label="Toggle theme"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle;display:inline-block;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
-      </nav>
-    </div>
+    <nav class="topnav">
+      <a href="changes/">Changes</a>
+      <a href="insights/">Numbers</a>
+      <a href="data-api/">Data API</a>
+      <a href="pricing/">For Business</a>
+      <button class="themebtn" type="button" data-theme-toggle aria-label="Toggle theme"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle;display:inline-block;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+    </nav>
   </div>
 </header>
 
@@ -3587,6 +3626,17 @@
     }
   }
 
+  // Living Dot Pulse Indicator (Brand freshness & sync telemetry)
+  function triggerDotPulse() {
+    const dots = document.querySelectorAll('.masthead .dot, .condensed-masthead .dot');
+    dots.forEach(dot => {
+      dot.classList.remove('pulse');
+      void dot.offsetWidth;
+      dot.classList.add('pulse');
+      dot.addEventListener('animationend', () => dot.classList.remove('pulse'), { once: true });
+    });
+  }
+
   // Fast Progressive Hydration (< 20KB transfer, < 30ms First Paint)
   Promise.all([
     fetch('data/meta.json').then(r => r.json()),
@@ -3634,6 +3684,7 @@
     initBottomSheetGestures();
     initCondensedMasthead();
     renderMacroSummary(meta);
+    triggerDotPulse();
 
     // Instant initial table paint (< 30ms)
     const seedRows = (initialSlice && initialSlice.slice) || [];
@@ -3662,6 +3713,7 @@
           document.getElementById('hudSerious').textContent = e.data.seriousCount.toLocaleString();
           document.getElementById('hudDeficient').textContent = (e.data.flaggedCount - e.data.seriousCount).toLocaleString();
           document.getElementById('nFlagged').textContent = `(${e.data.flaggedCount.toLocaleString()})`;
+          triggerDotPulse();
 
           if (pendingQuery) {
             const req = pendingQuery;
