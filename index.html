@@ -980,19 +980,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.76rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    gap: 8px;
+    margin-bottom: 2px;
   }
-  .synthesis-dot {
-    width: 8px;
-    height: 8px;
+  .synthesis-stamp {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .synthesis-stamp-dot {
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    display: inline-block;
-    margin-right: 6px;
-    vertical-align: middle;
     background: currentColor;
+    display: inline-block;
+    flex-shrink: 0;
   }
   .synthesis-summary {
     font-family: var(--font-sans);
@@ -1016,6 +1023,53 @@
     text-transform: uppercase;
   }
 
+  /* Docket Quick Action Pathways (Efficacy / Protection Motivation) */
+  .docket-quick-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .docket-act-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 7px 4px;
+    font-family: var(--font-mono);
+    font-size: 0.70rem;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 2px;
+    border: 1px solid var(--rule-prominent);
+    background: var(--surface-paper);
+    color: var(--ink-carbon);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.12s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .docket-act-btn:hover {
+    background: var(--surface-panel);
+    border-color: var(--rule-master);
+    text-decoration: none;
+  }
+  .docket-act-btn.primary {
+    background: var(--cobalt);
+    color: #FFFFFF;
+    border-color: var(--cobalt);
+  }
+  .docket-act-btn.primary:hover {
+    filter: brightness(1.1);
+  }
+  .docket-act-btn.saved {
+    background: var(--surface-panel);
+    border-color: var(--status-regular-ink);
+    color: var(--status-regular-ink);
+  }
+
   /* Salary Calculator Component */
   .calc-box {
     background: var(--surface-panel);
@@ -1023,6 +1077,31 @@
     padding: 12px 14px;
     border-radius: 3px;
     margin-top: 8px;
+  }
+  .calc-delta-row {
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--rule-hairline);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+  .calc-delta-badge {
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+  .calc-delta-badge.positive {
+    background: var(--status-regular-wash);
+    color: var(--status-regular-ink);
+    border: 1px solid var(--status-regular-rule);
+  }
+  .calc-delta-badge.floor {
+    background: var(--status-warning-wash);
+    color: var(--status-warning-ink);
+    border: 1px solid var(--status-warning-rule);
   }
   .calc-job-input {
     width: 100%;
@@ -1678,7 +1757,10 @@
       <!-- 2-Second Synthesis Verdict Strip (Zero Emojis, Bespoke Archival Typography) -->
       <div id="docketSynthesisStrip" class="docket-synthesis status-active">
         <div class="synthesis-header">
-          <span><span class="synthesis-dot" id="synthesisDot"></span><span id="synthesisTitle">VERIFIED &amp; ACTIVE STANDING</span></span>
+          <div class="synthesis-stamp" id="synthesisStamp">
+            <span class="synthesis-stamp-dot"></span>
+            <span id="synthesisTitle">ON REGISTER — NO ADVERSE RECORDS LOCATED</span>
+          </div>
           <span id="synthesisRatingBadge" class="synthesis-chip">A-RATING</span>
         </div>
         <div class="synthesis-summary" id="synthesisSummary">
@@ -1689,6 +1771,22 @@
           <span class="synthesis-chip">STATUS: ACTIVE</span>
           <span class="synthesis-chip">NMW: NO SANCTIONS</span>
         </div>
+      </div>
+
+      <!-- Action Path: Verify on GOV.UK, Companies House, Shortlist -->
+      <div class="docket-quick-actions" id="docketQuickActions">
+        <a class="docket-act-btn primary" id="actVerifyGov" href="https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers" target="_blank" rel="noopener">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          <span>Verify on GOV.UK</span>
+        </a>
+        <a class="docket-act-btn" id="actViewCH" href="#" target="_blank" rel="noopener">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span>Companies House</span>
+        </a>
+        <button type="button" class="docket-act-btn" id="actSaveShortlist">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <span id="actSaveLabel">Shortlist</span>
+        </button>
       </div>
 
       <!-- Section 1: Home Office Immigration Profile -->
@@ -1751,6 +1849,10 @@
           <div class="calc-summary">
             <div>Baseline Floor: <strong id="calcGovMin">£41,700</strong></div>
             <div>Going Rate: <strong id="calcGoingRate">£49,400</strong></div>
+          </div>
+          <div class="calc-delta-row" id="calcDeltaRow">
+            <span style="color:var(--ink-graphite);">Statutory Spread:</span>
+            <span id="calcDeltaBadge" class="calc-delta-badge positive">+£7,700 above baseline</span>
           </div>
           <div style="margin-top:8px; font-size:0.75rem; color:var(--ink-graphite); line-height:1.35;" id="calcVerdict">
             Sponsorship requires minimum £49,400/yr (50th percentile going rate for this role).
@@ -2238,8 +2340,8 @@
 
     if (synthStrip && synthTitle && synthSummary && synthChips) {
       let synthClass = 'status-active';
-      let titleText = 'VERIFIED & ACTIVE STANDING';
-      let summaryText = 'Active UK Home Office sponsor licence with regular Companies House filing standing.';
+      let titleText = 'ON REGISTER — NO ADVERSE RECORDS LOCATED';
+      let summaryText = 'Active UK Home Office sponsor licence with regular Companies House filing standing. No statutory insolvency or NMW sanctions recorded.';
       let chipList = [];
 
       const ratingText = rating === 'B' ? 'B-ACTION PLAN' : (rating ? `${rating}-RATING` : 'A-RATING');
@@ -2252,7 +2354,7 @@
         chipList.push(`STATUS: ${warn.label.toUpperCase()}`);
       } else if (rating === 'B') {
         synthClass = 'status-critical';
-        titleText = 'HOME OFFICE ACTION PLAN (B-RATING)';
+        titleText = 'HOME OFFICE COMPLIANCE ACTION PLAN';
         summaryText = 'Employer has been downgraded by UK Visas and Immigration to B-rating and must complete a time-limited compliance action plan to retain sponsor eligibility.';
         chipList.push('STATUS: COMPLIANCE PLAN');
       } else if (warn && (warn.severity === 'notable' || warn.severity === 'context')) {
@@ -2262,12 +2364,12 @@
         chipList.push(`STATUS: ${warn.label.toUpperCase()}`);
       } else if (nmw && nmw.length) {
         synthClass = 'status-warning';
-        titleText = 'STATUTORY NMW ENFORCEMENT RECORD';
+        titleText = 'DBT NMW ENFORCEMENT RECORD';
         summaryText = `Employer has historical DBT National Minimum Wage underpayment findings (${nmw.length} enforcement notice${nmw.length > 1 ? 's' : ''}). Sponsor licence is currently active.`;
         chipList.push('STATUS: ACTIVE');
       } else {
         synthClass = 'status-active';
-        titleText = 'VERIFIED & ACTIVE STANDING';
+        titleText = 'ON REGISTER — NO ADVERSE RECORDS LOCATED';
         summaryText = 'Active UK Home Office sponsor licence with regular Companies House filing standing. No statutory insolvency or NMW sanctions recorded.';
         chipList.push('STATUS: ACTIVE');
       }
@@ -2288,6 +2390,33 @@
       if (synthBadge) synthBadge.textContent = ratingText;
       synthSummary.textContent = summaryText;
       synthChips.innerHTML = chipList.map(c => `<span class="synthesis-chip">${esc(c)}</span>`).join('');
+    }
+
+    // Quick Action Pathways (Efficacy / Protection Motivation)
+    const actCH = document.getElementById('actViewCH');
+    if (actCH) {
+      if (warn && warn.crn) {
+        actCH.href = 'https://find-and-update.company-information.service.gov.uk/company/' + encodeURIComponent(warn.crn);
+      } else {
+        actCH.href = 'https://find-and-update.company-information.service.gov.uk/search?q=' + encodeURIComponent(name);
+      }
+    }
+
+    const actSave = document.getElementById('actSaveShortlist');
+    const actSaveLabel = document.getElementById('actSaveLabel');
+    if (actSave && actSaveLabel) {
+      const isSaved = savedSet.has(key);
+      actSave.classList.toggle('saved', isSaved);
+      actSaveLabel.textContent = isSaved ? 'Saved' : 'Shortlist';
+      actSave.onclick = function() {
+        const nextSaved = !savedSet.has(key);
+        if (nextSaved) savedSet.add(key);
+        else savedSet.delete(key);
+        saveShortlist();
+        actSave.classList.toggle('saved', nextSaved);
+        actSaveLabel.textContent = nextSaved ? 'Saved' : 'Shortlist';
+        renderTable(activeSlice, false);
+      };
     }
 
     // Solvency warning box
@@ -2554,6 +2683,22 @@
 
     document.getElementById('calcGovMin').textContent = '£' + baselineRate.toLocaleString('en-GB');
     document.getElementById('calcGoingRate').textContent = '£' + goingRate.toLocaleString('en-GB');
+
+    // Delta Framing: Surplus / Floor spread anchor
+    const delta = goingRate - baselineRate;
+    const deltaBadge = document.getElementById('calcDeltaBadge');
+    if (deltaBadge) {
+      if (delta > 0) {
+        deltaBadge.className = 'calc-delta-badge positive';
+        deltaBadge.textContent = `+£${delta.toLocaleString('en-GB')} above baseline floor`;
+      } else if (delta < 0) {
+        deltaBadge.className = 'calc-delta-badge floor';
+        deltaBadge.textContent = `Statutory £${(baselineRate/1000).toFixed(1)}k floor applies (+£${Math.abs(delta).toLocaleString('en-GB')} over going rate)`;
+      } else {
+        deltaBadge.className = 'calc-delta-badge positive';
+        deltaBadge.textContent = `Matches statutory £${(baselineRate/1000).toFixed(1)}k floor exactly`;
+      }
+    }
     
     const verdictEl = document.getElementById('calcVerdict');
     const hourlyRate = (effectiveRequired / (37.5 * 52)).toFixed(2);
