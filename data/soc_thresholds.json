@@ -1,41 +1,59 @@
 {
-  "updated": "2026-09-09",
-  "source": "UK Home Office Immigration Rules (Appendix Skilled Occupations) & ONS SOC 2020",
-  "general_threshold": 38700,
-  "hourly_minimum": 15.88,
+  "updated": "2026-09-10",
+  "source": "UK Home Office Statement of Changes in Immigration Rules (HC 590 / 2024-2026 Update) & ONS SOC 2020",
+  "general_threshold": 41700,
+  "hourly_minimum": 17.11,
   "new_entrant_threshold": 30960,
   "new_entrant_hourly_minimum": 12.72,
   "new_entrant_rate_pct": 0.7,
-  "stem_threshold": 34830,
-  "stem_hourly_minimum": 14.29,
+  "stem_threshold": 37530,
+  "stem_hourly_minimum": 15.39,
   "stem_rate_pct": 0.8,
   "rules": {
     "standard": {
-      "name": "Standard",
-      "floor": 38700,
-      "hourly": 15.88,
+      "name": "Standard (Option A)",
+      "floor": 41700,
+      "hourly": 17.11,
       "multiplier": 1.0,
-      "label": "Standard Skilled Worker",
-      "button_text": "Standard",
-      "button_sub": "£38.7k / 100%"
-    },
-    "new_entrant": {
-      "name": "New Entrant",
-      "floor": 30960,
-      "hourly": 12.72,
-      "multiplier": 0.7,
-      "label": "New Entrant (70% Discount)",
-      "button_text": "New Entrant",
-      "button_sub": "£30.9k / 70%"
+      "label": "Standard Skilled Worker (Option A)",
+      "button_text": "Standard (A)",
+      "button_sub": "£41.7k / 100%"
     },
     "stem_phd": {
-      "name": "STEM PhD / ISL",
-      "floor": 34830,
-      "hourly": 14.29,
-      "multiplier": 0.8,
-      "label": "STEM PhD / ISL (80% Rate)",
-      "button_text": "STEM PhD / ISL",
-      "button_sub": "£34.8k / 80%"
+      "name": "STEM PhD (Option B)",
+      "floor": 37530,
+      "hourly": 15.39,
+      "multiplier": 0.80,
+      "label": "STEM PhD Relevant to Job (Option B)",
+      "button_text": "STEM PhD (B)",
+      "button_sub": "£37.5k / 80%"
+    },
+    "non_stem_phd": {
+      "name": "Non-STEM PhD (Option C)",
+      "floor": 37530,
+      "hourly": 15.39,
+      "multiplier": 0.90,
+      "label": "Non-STEM Relevant PhD (Option C)",
+      "button_text": "Non-STEM (C)",
+      "button_sub": "£37.5k / 90%"
+    },
+    "isl_shortage": {
+      "name": "ISL Shortage (Option D)",
+      "floor": 30960,
+      "hourly": 12.72,
+      "multiplier": 1.0,
+      "label": "Immigration Salary List (Option D)",
+      "button_text": "ISL List (D)",
+      "button_sub": "£31.0k / 100%"
+    },
+    "new_entrant": {
+      "name": "New Entrant (Option E)",
+      "floor": 30960,
+      "hourly": 12.72,
+      "multiplier": 0.70,
+      "label": "New Entrant / Graduate (Option E)",
+      "button_text": "New Entrant (E)",
+      "button_sub": "£31.0k / 70%"
     }
   },
   "sector_to_soc": {

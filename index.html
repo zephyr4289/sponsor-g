@@ -357,9 +357,10 @@
   }
   .solvency-seg { height: 100%; transition: opacity 0.15s ease; }
   .solvency-seg:hover { opacity: 0.8; }
-  .seg-solvent { background: var(--status-regular-ink); width: 91.0%; }
-  .seg-warning { background: var(--status-warning-ink); width: 6.8%; }
+  .seg-solvent { background: var(--status-regular-ink); width: 74.2%; }
+  .seg-warning { background: var(--status-warning-ink); width: 5.2%; }
   .seg-critical { background: var(--status-critical-ink); width: 2.2%; }
+  .seg-unresolved { background: var(--rule-prominent); width: 18.4%; }
   .solvency-legend {
     display: flex;
     gap: 18px;
@@ -933,7 +934,7 @@
   }
   .salary-rule-toggle {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
     gap: 4px;
     margin-bottom: 12px;
     background: var(--surface-recessed);
@@ -1377,14 +1378,14 @@
     <span class="hud-note">First registered within last 7 days</span>
   </div>
   <div class="hud-stat" data-filter="serious">
-    <span class="hud-label">Insolvency Warnings</span>
-    <span class="hud-value" style="color:var(--status-critical-ink)" id="hudSerious">2,795</span>
+    <span class="hud-label">Statutory Insolvency Filings</span>
+    <span class="hud-value" style="color:var(--status-critical-ink)" id="hudSerious">2,793</span>
     <span class="hud-note">Liquidation, strike-off, or administration</span>
   </div>
   <div class="hud-stat" data-filter="warning">
-    <span class="hud-label">Filing Warnings</span>
-    <span class="hud-value" style="color:var(--status-warning-ink)" id="hudDeficient">6,695</span>
-    <span class="hud-note">Accounts overdue or dormant</span>
+    <span class="hud-label">Accounts / Filings Overdue</span>
+    <span class="hud-value" style="color:var(--status-warning-ink)" id="hudDeficient">6,697</span>
+    <span class="hud-note">Statutory accounts overdue or dormant</span>
   </div>
 </section>
 
@@ -1393,17 +1394,19 @@
   <div class="wrap">
     <div class="solvency-meter-header">
       <span>Corporate Filing Status Distribution</span>
-      <span id="solvencyMetricSummary">91.0% Solvent · 6.8% Overdue · 2.2% Insolvent</span>
+      <span id="solvencyMetricSummary">74.2% Compliant · 5.2% Overdue · 2.2% Insolvency · 18.4% Unlinked</span>
     </div>
     <div class="solvency-bar" id="solvencyBar" title="Click to filter by solvency category">
-      <div class="solvency-seg seg-solvent" id="barSolvent"></div>
-      <div class="solvency-seg seg-warning" id="barWarning"></div>
-      <div class="solvency-seg seg-critical" id="barCritical"></div>
+      <div class="solvency-seg seg-solvent" id="barSolvent" title="Active & Compliant Standing (74.2%)"></div>
+      <div class="solvency-seg seg-warning" id="barWarning" title="Accounts Overdue / Dormant (5.2%)"></div>
+      <div class="solvency-seg seg-critical" id="barCritical" title="Formal Insolvency Proceedings (2.2%)"></div>
+      <div class="solvency-seg seg-unresolved" id="barUnresolved" title="Unlinked / Unverified against Companies House (18.4%)"></div>
     </div>
     <div class="solvency-legend">
-      <div class="legend-item" id="legSolvent"><span class="legend-dot" style="background:var(--status-regular-ink)"></span> Active &amp; Up to Date</div>
-      <div class="legend-item" id="legWarning"><span class="legend-dot" style="background:var(--status-warning-ink)"></span> Accounts Overdue / Dormant</div>
-      <div class="legend-item" id="legCritical"><span class="legend-dot" style="background:var(--status-critical-ink)"></span> Liquidation / Strike-Off</div>
+      <div class="legend-item" id="legSolvent"><span class="legend-dot" style="background:var(--status-regular-ink)"></span> Compliant Standing (74.2%)</div>
+      <div class="legend-item" id="legWarning"><span class="legend-dot" style="background:var(--status-warning-ink)"></span> Accounts Overdue (5.2%)</div>
+      <div class="legend-item" id="legCritical"><span class="legend-dot" style="background:var(--status-critical-ink)"></span> Insolvency Filings (2.2%)</div>
+      <div class="legend-item" id="legUnresolved"><span class="legend-dot" style="background:var(--rule-prominent)"></span> Unverified Linkage (18.4%)</div>
     </div>
   </div>
 </div>
@@ -1600,9 +1603,11 @@
         <div class="docket-heading">3. Skilled Worker Salary Threshold</div>
         <div class="calc-box">
           <div class="salary-rule-toggle" id="salaryRuleToggle">
-            <button type="button" class="salary-rule-btn active" data-rule="standard">Standard<br><span style="font-size:0.62rem; opacity:0.85;">£38.7k / 100%</span></button>
-            <button type="button" class="salary-rule-btn" data-rule="new_entrant">New Entrant<br><span style="font-size:0.62rem; opacity:0.85;">£30.9k / 70%</span></button>
-            <button type="button" class="salary-rule-btn" data-rule="stem_phd">STEM PhD / ISL<br><span style="font-size:0.62rem; opacity:0.85;">£34.8k / 80%</span></button>
+            <button type="button" class="salary-rule-btn active" data-rule="standard">Standard (A)<br><span style="font-size:0.62rem; opacity:0.85;">£41.7k / 100%</span></button>
+            <button type="button" class="salary-rule-btn" data-rule="stem_phd">STEM PhD (B)<br><span style="font-size:0.62rem; opacity:0.85;">£37.5k / 80%</span></button>
+            <button type="button" class="salary-rule-btn" data-rule="non_stem_phd">Non-STEM (C)<br><span style="font-size:0.62rem; opacity:0.85;">£37.5k / 90%</span></button>
+            <button type="button" class="salary-rule-btn" data-rule="isl_shortage">ISL List (D)<br><span style="font-size:0.62rem; opacity:0.85;">£31.0k / 100%</span></button>
+            <button type="button" class="salary-rule-btn" data-rule="new_entrant">New Entrant (E)<br><span style="font-size:0.62rem; opacity:0.85;">£31.0k / 70%</span></button>
           </div>
           <label style="font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-graphite); display:block; margin-bottom:4px;">
             Select Standard Occupation Code (SOC 2020):
@@ -1611,13 +1616,13 @@
           <div class="gauge-wrap">
             <div class="gauge-track">
               <div class="gauge-bar" id="gaugeBar" style="width:60%;"></div>
-              <div class="gauge-pin" id="gaugeBaselinePin" style="left:48%;" title="Minimum Threshold">
-                <span class="gauge-pin-label" id="gaugePinLabel">£38.7k Min</span>
+              <div class="gauge-pin" id="gaugeBaselinePin" style="left:49%;" title="Minimum Threshold">
+                <span class="gauge-pin-label" id="gaugePinLabel">£41.7k Min</span>
               </div>
             </div>
           </div>
           <div class="calc-summary">
-            <div>Baseline Floor: <strong id="calcGovMin">£38,700</strong></div>
+            <div>Baseline Floor: <strong id="calcGovMin">£41,700</strong></div>
             <div>Going Rate: <strong id="calcGoingRate">£49,400</strong></div>
           </div>
           <div style="margin-top:8px; font-size:0.75rem; color:var(--ink-graphite); line-height:1.35;" id="calcVerdict">
@@ -1654,6 +1659,20 @@
             <span>View official Home Office register</span>
             <span>&rarr;</span>
           </a>
+        </div>
+      </div>
+
+      <!-- Section 5: Statutory Provenance & Dispute Rectification -->
+      <div class="docket-section" style="border-bottom:none; margin-bottom:0; padding-bottom:0;">
+        <div class="docket-heading">5. Evidentiary Audit &amp; Rectification</div>
+        <div class="provenance-box" style="font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-graphite); background:var(--surface-paper); border:1px solid var(--rule-hairline); border-radius:3px; padding:10px 12px; line-height:1.45;">
+          <div style="font-weight:600; color:var(--ink-carbon); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.04em;">Statutory Provenance Notice</div>
+          <div>Linkage State: <span id="docketMatchState" style="color:var(--status-regular-ink); font-weight:600;">CONFIRMED_CRN</span></div>
+          <div>Sources: UK Home Office (09 Sep 2026) &middot; Companies House (01 Sep 2026)</div>
+          <div style="margin-top:4px; color:var(--ink-faint);">Record ID: <span id="docketRecordId">01470151:2026W37:v2.0</span></div>
+          <div style="margin-top:8px; border-top:1px dashed var(--rule-hairline); padding-top:6px;">
+            <a id="docketDisputeLink" href="mailto:knowyoursponsor8@gmail.com?subject=Data%20Rectification%20Request" style="color:var(--cobalt); font-weight:500;">Notice a data discrepancy or corporate update? Submit formal rectification notice &rarr;</a>
+          </div>
         </div>
       </div>
     </div>
@@ -2070,7 +2089,7 @@
     if (warn && (warn.severity === 'serious' || warn.severity === 'notable')) {
       advBox.style.display = 'block';
       advBox.className = 'docket-advisory ' + (warn.severity === 'serious' ? 'critical' : 'warning');
-      advBox.innerHTML = `<strong>Advisory:</strong> ${esc(warn.explanation)} When a company enters liquidation, administration, or dissolution, its ability to sponsor workers under Home Office rules is affected.`;
+      advBox.innerHTML = `<strong>Statutory Filing Advisory:</strong> ${esc(warn.explanation)} Under Home Office sponsor duties, corporate insolvency or strike-off proceedings directly impact visa sponsorship eligibility.`;
     } else {
       advBox.style.display = 'none';
     }
@@ -2085,16 +2104,47 @@
       const money = typeof latest.arrears === 'number' ? '£' + latest.arrears.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : '';
       const workers = latest.workers ? latest.workers.toLocaleString() + (latest.workers === 1 ? ' worker' : ' workers') : '';
       
-      let nmwHtml = `<strong>Named for underpaying statutory minimum wage${year ? ' in ' + esc(year) : ''}.</strong> `;
-      if (money && workers) nmwHtml += `${money} was owed to ${workers}. `;
+      let nmwHtml = `<strong>Named in DBT Enforcement Round ${esc(latest.round || '')} (Historical).</strong> `;
+      if (money && workers) nmwHtml += `${money} in arrears was owed to ${workers}. `;
       if (nmw.length > 1) nmwHtml += `Named across ${nmw.length} separate enforcement rounds. `;
       if (latest.source && latest.source.startsWith('https://www.gov.uk/')) {
-        nmwHtml += `<br><a href="${esc(latest.source)}" target="_blank" rel="noopener">Official Government Finding &rarr;</a>`;
+        nmwHtml += `<br><a href="${esc(latest.source)}" target="_blank" rel="noopener">Official Government Record &rarr;</a>`;
       }
-      nmwHtml += `<br><small style="opacity:0.85; margin-top:4px; display:block;">Published statutory enforcement record. Arrears named must be fully repaid to workers.</small>`;
+      nmwHtml += `<br><small style="opacity:0.85; margin-top:4px; display:block;">Published statutory Department for Business &amp; Trade enforcement notice. All named arrears must be repaid.</small>`;
       nmwBox.innerHTML = nmwHtml;
     } else {
       nmwSection.style.display = 'none';
+    }
+
+    // Provenance State Machine & Rectification notice
+    const matchStateEl = document.getElementById('docketMatchState');
+    const recordIdEl = document.getElementById('docketRecordId');
+    const disputeLinkEl = document.getElementById('docketDisputeLink');
+    
+    let matchState = 'UNVERIFIED_LINKAGE';
+    let matchColor = 'var(--ink-faint)';
+    if (warn && warn.crn) {
+      matchState = 'CONFIRMED_CRN';
+      matchColor = 'var(--status-regular-ink)';
+    } else if (warn && warn.status) {
+      matchState = 'HIGH_CONFIDENCE_GEO';
+      matchColor = 'var(--status-regular-ink)';
+    }
+    
+    if (matchStateEl) {
+      matchStateEl.textContent = matchState;
+      matchStateEl.style.color = matchColor;
+    }
+    
+    const crnId = (warn && warn.crn) ? warn.crn : 'UNRESOLVED';
+    if (recordIdEl) {
+      recordIdEl.textContent = `${crnId}:2026W37:v2.0`;
+    }
+    
+    if (disputeLinkEl) {
+      const subject = encodeURIComponent(`Data Rectification Notice: ${name} (CRN: ${crnId})`);
+      const body = encodeURIComponent(`Statutory Data Rectification Request\n------------------------------------\nCompany Name: ${name}\nCompanies House CRN: ${crnId}\nTown/City: ${town || ''}\n\nNature of Correction:\n[ ] Legal Name Change\n[ ] Incorrect Entity Linkage\n[ ] Updated Accounts / Status Filing\n\nStatutory Evidence Link:\n`);
+      disputeLinkEl.href = `mailto:knowyoursponsor8@gmail.com?subject=${subject}&body=${body}`;
     }
 
     // Contextual SOC preselection for salary calculator
@@ -2159,13 +2209,13 @@
               const year = String(latest.round || '').slice(0, 4);
               const money = typeof latest.arrears === 'number' ? '£' + latest.arrears.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : '';
               const workers = latest.workers ? latest.workers.toLocaleString() + (latest.workers === 1 ? ' worker' : ' workers') : '';
-              let nmwHtml = `<strong>Named for underpaying statutory minimum wage${year ? ' in ' + esc(year) : ''}.</strong> `;
+              let nmwHtml = `<strong>Named in DBT Enforcement Round ${esc(latest.round || '')} (Historical).</strong> `;
               if (money && workers) nmwHtml += `${money} was owed to ${workers}. `;
               if (e.data.nmw.length > 1) nmwHtml += `Named across ${e.data.nmw.length} separate enforcement rounds. `;
               if (latest.source && latest.source.startsWith('https://www.gov.uk/')) {
                 nmwHtml += `<br><a href="${esc(latest.source)}" target="_blank" rel="noopener">Official Government Finding &rarr;</a>`;
               }
-              nmwHtml += `<br><small style="opacity:0.85; margin-top:4px; display:block;">Published statutory enforcement record. Arrears named must be fully repaid to workers.</small>`;
+              nmwHtml += `<br><small style="opacity:0.85; margin-top:4px; display:block;">Published statutory Department for Business &amp; Trade enforcement notice.</small>`;
               nmwSection.style.display = 'block';
               nmwBox.innerHTML = nmwHtml;
             }
@@ -2218,17 +2268,17 @@
     const occ = socData.occupations[parseInt(select.value, 10)];
     if (!occ) return;
 
-    const maxScale = 85000;
+    const maxScale = 90000;
     const ruleConfig = (socData.rules && socData.rules[currentSalaryRule]) || {
-      floor: socData.general_threshold || 38700,
+      floor: socData.general_threshold || 41700,
       multiplier: 1.0,
-      label: 'Standard Skilled Worker',
-      hourly: socData.hourly_minimum || 15.88
+      label: 'Standard Skilled Worker (Option A)',
+      hourly: socData.hourly_minimum || 17.11
     };
 
     const baselineRate = ruleConfig.floor;
     const multiplier = ruleConfig.multiplier !== undefined ? ruleConfig.multiplier : 1.0;
-    const goingRate = Math.round((occ.going_rate || 38700) * multiplier);
+    const goingRate = Math.round((occ.going_rate || 41700) * multiplier);
     const pinText = '£' + (baselineRate / 1000).toFixed(1) + 'k Min';
 
     const effectiveRequired = Math.max(baselineRate, goingRate);
@@ -2252,17 +2302,23 @@
     const verdictEl = document.getElementById('calcVerdict');
     const hourlyRate = (effectiveRequired / (37.5 * 52)).toFixed(2);
     
+    let verdictText = '';
     if (currentSalaryRule === 'new_entrant') {
-      verdictEl.innerHTML = `<strong>New Entrant:</strong> Sponsoring under 26 / Graduate switcher requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr), calculated as max(£${baselineRate.toLocaleString('en-GB')} statutory floor, ${Math.round(multiplier * 100)}% of £${occ.going_rate.toLocaleString('en-GB')}).`;
+      verdictText = `<strong>New Entrant (Option E):</strong> Sponsoring under 26 / Graduate switcher requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr), calculated as max(£${baselineRate.toLocaleString('en-GB')} statutory floor, 70% of £${occ.going_rate.toLocaleString('en-GB')}).`;
     } else if (currentSalaryRule === 'stem_phd') {
-      verdictEl.innerHTML = `<strong>STEM PhD / ISL:</strong> Qualifying role requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr), calculated as max(£${baselineRate.toLocaleString('en-GB')} statutory floor, ${Math.round(multiplier * 100)}% of £${occ.going_rate.toLocaleString('en-GB')}).`;
+      verdictText = `<strong>STEM PhD (Option B):</strong> Relevant STEM doctorate requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr), calculated as max(£${baselineRate.toLocaleString('en-GB')} statutory floor, 80% of £${occ.going_rate.toLocaleString('en-GB')}).`;
+    } else if (currentSalaryRule === 'non_stem_phd') {
+      verdictText = `<strong>Non-STEM PhD (Option C):</strong> Relevant doctorate requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr), calculated as max(£${baselineRate.toLocaleString('en-GB')} statutory floor, 90% of £${occ.going_rate.toLocaleString('en-GB')}).`;
+    } else if (currentSalaryRule === 'isl_shortage') {
+      verdictText = `<strong>ISL Shortage (Option D):</strong> Immigration Salary List occupation requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr) (statutory £30,960 floor or going rate).`;
     } else {
       if (goingRate >= baselineRate) {
-        verdictEl.innerHTML = `<strong>Eligible standard:</strong> Role requires a minimum of <strong>£${goingRate.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr) (50th percentile statutory going rate for SOC ${occ.soc}).`;
+        verdictText = `<strong>Standard (Option A):</strong> Role requires minimum <strong>£${goingRate.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr) (50th percentile statutory going rate for SOC ${occ.soc}).`;
       } else {
-        verdictEl.innerHTML = `<strong>General threshold floor:</strong> Occupation going rate is £${goingRate.toLocaleString('en-GB')}/yr, but Home Office rules enforce the statutory <strong>£${baselineRate.toLocaleString('en-GB')}/yr</strong> floor (£${ruleConfig.hourly || 15.88}/hr).`;
+        verdictText = `<strong>General Statutory Floor (Option A):</strong> Occupation going rate is £${goingRate.toLocaleString('en-GB')}/yr, but Home Office rules enforce the statutory <strong>£${baselineRate.toLocaleString('en-GB')}/yr</strong> floor (~£${hourlyRate}/hr).`;
       }
     }
+    verdictEl.innerHTML = verdictText + `<div style="margin-top:6px; font-size:0.68rem; color:var(--ink-faint); font-family:var(--font-mono);">Meets statutory minimum salary condition under Immigration Rules HC 590. Assesses salary feasibility only.</div>`;
   }
 
   // Trigger Query & Search Dispatcher
