@@ -14,13 +14,11 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
-  sync-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  sync:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -48,18 +46,12 @@ jobs:
 
       - name: Run Daily Ingestion & Diff Engine
         id: ingest
-        # Run diff engine on scheduled cron or manual dispatch; on regular push, check if manual force is needed
         run: |
-          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            python3 scripts/daily_ingest.py \
-              --prev /tmp/state/previous_state.json \
-              --out-state /tmp/state/current_state.json \
-              --out-dir ./data \
-              --out-delta ./data/deltas
-          else
-            echo "Code push detected: Skipping upstream CSV ingest, deploying static site."
-            echo "changed=false" >> $GITHUB_OUTPUT
-          fi
+          python3 scripts/daily_ingest.py \
+            --prev /tmp/state/previous_state.json \
+            --out-state /tmp/state/current_state.json \
+            --out-dir ./data \
+            --out-delta ./data/deltas
 
       - name: Update State Anchor in GitHub Releases (Zero Git Bloat)
         if: steps.ingest.outputs.changed == 'true'
@@ -69,14 +61,24 @@ jobs:
           gh release upload state-anchor /tmp/state/current_state.json#previous_state.json --clobber 2>/dev/null || \
           gh release create state-anchor /tmp/state/current_state.json#previous_state.json --title "State Anchor" --notes "Rolling internal state anchor for daily diffing" --prerelease || true
 
-      - name: Commit Updated Data Payloads & Micro-Delta
+      - name: Commit & Push Updated Data Payloads
         if: steps.ingest.outputs.changed == 'true'
         run: |
           git config user.name "knowyoursponsor-bot"
           git config user.email "bot@users.noreply.github.com"
           git add data/
-          git commit -m "chore(data): sync sponsor register $(date -u +'%Y-%m-%d %H:%M UTC') [skip ci]" || echo "No changes to commit"
-          git push origin main || true
+          git commit -m "chore(data): sync sponsor register $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push origin main
+
+  deploy:
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && !always())
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
