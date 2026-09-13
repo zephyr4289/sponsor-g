@@ -1990,10 +1990,115 @@
     border-radius: 14px !important; box-shadow: 0 4px 12px rgba(15,23,42,.08) !important;
     position: sticky !important; top: 76px !important;
   }
+
+  /* ============ SAAS APP SHELL (sidebar + topbar) ============ */
+  .topnav::after { content: none !important; }
+  .saas-side {
+    position: fixed; top: 0; left: 0; bottom: 0; width: 232px; z-index: 120;
+    background: #0F172A; color: #CBD5E1;
+    display: flex; flex-direction: column; gap: 4px;
+    padding: 16px 12px;
+    font-family: var(--font-sans);
+  }
+  .saas-side-brand {
+    display: flex; align-items: center; gap: 9px;
+    color: #fff; font-weight: 800; font-size: 14.5px; letter-spacing: -0.01em;
+    padding: 6px 10px 14px; text-decoration: none;
+  }
+  .saas-side-brand:hover { text-decoration: none; }
+  .saas-mark {
+    width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+    background: linear-gradient(135deg,#4F46E5,#7C3AED);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 15px;
+  }
+  .saas-ws {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px; padding: 8px 10px; margin: 0 2px 10px;
+    font-size: 12.5px; font-weight: 600; color: #E2E8F0;
+  }
+  .saas-ws small { display: block; font-weight: 500; color: #94A3B8; font-size: 11px; }
+  .saas-nav-label {
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: #64748B; padding: 8px 10px 4px;
+  }
+  .saas-link {
+    display: flex; align-items: center; gap: 10px;
+    color: #CBD5E1; font-size: 13.5px; font-weight: 600;
+    padding: 8px 10px; border-radius: 9px; text-decoration: none;
+  }
+  .saas-link svg { flex-shrink: 0; opacity: .8; }
+  .saas-link:hover { background: rgba(255,255,255,.07); color: #fff; text-decoration: none; }
+  .saas-link[aria-current="page"] { background: rgba(255,255,255,.1); color: #fff; }
+  .saas-link .saas-badge {
+    margin-left: auto; font-size: 10.5px; font-weight: 800;
+    background: #4F46E5; color: #fff; border-radius: 999px; padding: 1px 7px;
+  }
+  .saas-side-foot { margin-top: auto; display: flex; flex-direction: column; gap: 8px; }
+  .saas-upgrade {
+    background: linear-gradient(135deg,#4F46E5,#7C3AED); color: #fff;
+    border-radius: 12px; padding: 12px; font-size: 12.5px; font-weight: 600; line-height: 1.45;
+  }
+  .saas-upgrade a {
+    display: block; text-align: center; margin-top: 8px;
+    background: #fff; color: #4F46E5; font-weight: 800; font-size: 12.5px;
+    border-radius: 8px; padding: 7px; text-decoration: none;
+  }
+  .saas-user {
+    display: flex; align-items: center; gap: 9px;
+    padding: 8px 10px; border-radius: 10px; font-size: 12.5px; font-weight: 600; color: #E2E8F0;
+  }
+  .saas-avatar {
+    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg,#38BDF8,#818CF8);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 12px; font-weight: 800;
+  }
+  .saas-user small { display: block; color: #94A3B8; font-weight: 500; font-size: 11px; }
+  body { padding-left: 232px; }
+  .condensed-masthead { left: 232px; }
+  .topnav-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-upgrade {
+    background: var(--saas-primary); color: #fff !important;
+    font-size: 13px !important; font-weight: 700 !important;
+    padding: 8px 14px !important; border-radius: 9px !important;
+    box-shadow: 0 1px 2px rgba(79,70,229,.4);
+  }
+  .btn-upgrade:hover { background: var(--saas-primary-hover) !important; text-decoration: none !important; }
+  .ws-pill {
+    font-size: 12px !important; font-weight: 700 !important;
+    border: 1px solid var(--rule-hairline) !important; border-radius: 999px !important;
+    padding: 6px 12px !important; color: var(--ink-graphite) !important;
+    background: #F8FAFC !important; white-space: nowrap;
+  }
+  #toasts {
+    position: fixed; bottom: 20px; right: 20px; z-index: 300;
+    display: flex; flex-direction: column; gap: 8px; max-width: 340px;
+  }
+  .toast {
+    background: #0F172A; color: #fff; font-size: 13px; font-weight: 600;
+    border-radius: 12px; padding: 11px 14px;
+    box-shadow: 0 8px 24px rgba(15,23,42,.3);
+    display: flex; align-items: center; gap: 9px;
+  }
+  .toast .toast-dot { width: 8px; height: 8px; border-radius: 50%; background: #34D399; flex-shrink: 0; }
   @media (max-width: 1024px) {
     .ledger-hud { grid-template-columns: repeat(2, 1fr) !important; }
     .workspace { grid-template-columns: 1fr !important; }
     .docket-pane { position: fixed !important; top: auto !important; }
+    body { padding-left: 0; padding-bottom: 64px; }
+    .condensed-masthead { left: 0; }
+    .saas-side {
+      top: auto; right: 0; width: auto; height: 64px;
+      flex-direction: row; align-items: center; justify-content: space-around;
+      padding: 6px 8px; border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .saas-side-brand, .saas-ws, .saas-nav-label, .saas-side-foot { display: none; }
+    .saas-link { flex-direction: column; gap: 3px; font-size: 10.5px; padding: 6px 10px; }
+    .saas-link .saas-badge { display: none; }
   }
 </style>
 <script>
@@ -2007,11 +2112,29 @@
 </head>
 <body>
 
-<!-- Telemetry Top Band -->
+<!-- SaaS app sidebar -->
+<aside class="saas-side" aria-label="Product navigation">
+  <a class="saas-side-brand" href="./"><span class="saas-mark">✓</span> KnowYourSponsor</a>
+  <div class="saas-ws"><span class="saas-avatar" style="width:26px;height:26px;font-size:11px">K</span><span>KnowYourSponsor<small>Free workspace</small></span></div>
+  <div class="saas-nav-label">Workspace</div>
+  <a class="saas-link" href="./" aria-current="page"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Search</a>
+  <a class="saas-link" href="watchlist/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Watchlists</a>
+  <a class="saas-link" href="changes/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>Alerts<span class="saas-badge">3</span></a>
+  <a class="saas-link" href="employer/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>Lists</a>
+  <div class="saas-nav-label">Build</div>
+  <a class="saas-link" href="data-api/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>API</a>
+  <a class="saas-link" href="pricing/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Pricing</a>
+  <div class="saas-side-foot">
+    <div class="saas-upgrade">Pro unlocks alerts, API + bulk export.<a href="pricing/">View plans</a></div>
+    <div class="saas-user"><span class="saas-avatar">G</span><span>Guest<small>Free plan</small></span></div>
+  </div>
+</aside>
+
+<!-- Live status band -->
 <div class="telemetry-band">
   <div class="wrap telemetry-inner">
-    <div><span class="telemetry-tag">UK REGISTER OF LICENSED SPONSORS</span> · 2026 ISSUE W37</div>
-    <div>SOURCE: UK HOME OFFICE &amp; COMPANIES HOUSE · SNAPSHOT: <span id="telemetryDate">2026-09-09 18:14 UTC</span></div>
+    <div><span class="telemetry-tag">● Live</span> · 127,717 sponsors · updated <span id="telemetryDate">2026-09-09 18:14 UTC</span></div>
+    <div>HOME OFFICE + COMPANIES HOUSE · REFRESHES DAILY</div>
   </div>
 </div>
 
@@ -2043,10 +2166,12 @@
       </svg>
     </div>
     <nav class="topnav">
+      <span class="ws-pill">Free workspace ▾</span>
       <a href="changes/">Changes</a>
       <a href="insights/">Numbers</a>
       <a href="data-api/">Data API</a>
       <a href="pricing/">For Business</a>
+      <span class="topnav-cta"><a href="pricing/" class="btn-upgrade">Upgrade</a></span>
       <button class="themebtn" type="button" data-theme-toggle aria-label="Toggle theme"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle;display:inline-block;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
     </nav>
   </div>
@@ -3983,5 +4108,6 @@
 </script>
 <script src="assets/js/handwriting.js" defer></script>
 <script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<div id="toasts" aria-live="polite"></div>
 </body>
 </html>
