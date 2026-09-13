@@ -1811,6 +1811,190 @@
       padding: 1px 5px !important;
     }
   }
+
+/* ============================================================
+   SAAS PRODUCT THEME — KnowYourSponsor Cloud
+   Personas: jobseekers (free) + HR/compliance (paid) + recruiters
+   Language: Linear / Stripe / Intercom — clean, dense, actionable
+   ============================================================ */
+  :root, :root[data-theme="light"], :root[data-theme="dark"] {
+    --surface-ground: #F8FAFC;
+    --surface-panel: #FFFFFF;
+    --surface-recessed: #F1F5F9;
+    --surface-paper: #FFFFFF;
+    --surface-card: #FFFFFF;
+    --ink-carbon: #0F172A;
+    --ink-graphite: #475569;
+    --ink-faint: #94A3B8;
+    --rule-hairline: #E2E8F0;
+    --rule-prominent: #CBD5E1;
+    --rule-master: #0F172A;
+    --cobalt: #4F46E5;
+    --cobalt-dark: #4338CA;
+    --on-cobalt: #FFFFFF;
+    --saas-primary: #4F46E5;
+    --saas-primary-hover: #4338CA;
+    --saas-success: #16A34A;
+    --saas-warning: #D97706;
+    --saas-danger: #DC2626;
+    --saas-ring: rgba(79,70,229,.14);
+    --font-serif: 'Inter', system-ui, sans-serif;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'Inter', system-ui, sans-serif;
+    color-scheme: light;
+  }
+  body {
+    background-image: none !important;
+    background-color: var(--surface-ground) !important;
+    font-size: 14px;
+  }
+  /* Kill gazette ornaments */
+  .seal, .rule, .brand-handwriting, .condensed-seal, #ink { display: none !important; }
+  .dot { width: 8px; height: 8px; }
+
+  /* SaaS topbar */
+  .telemetry-band {
+    background: #0F172A !important;
+    color: #CBD5E1 !important;
+    border-bottom: none !important;
+    font-family: var(--font-sans) !important;
+    font-size: 12px !important;
+  }
+  .telemetry-tag { color: #fff !important; }
+  header.masthead {
+    background: #fff !important;
+    border-bottom: 1px solid var(--rule-hairline) !important;
+    padding: 12px 0 !important;
+    position: sticky; top: 0; z-index: 90;
+    backdrop-filter: blur(8px);
+  }
+  .brand-title {
+    font-family: var(--font-sans) !important;
+    font-weight: 800 !important;
+    font-size: 1.35rem !important;
+    letter-spacing: -0.02em !important;
+  }
+  .brand-subtitle {
+    font-family: var(--font-sans) !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-size: 12.5px !important;
+    color: var(--ink-graphite) !important;
+  }
+  .topnav a {
+    font-size: 13.5px; font-weight: 600; color: #334155 !important;
+    padding: 8px 12px; border-radius: 8px;
+  }
+  .topnav a:hover { background: #F1F5F9; text-decoration: none !important; color: #0F172A !important; }
+  .themebtn {
+    border-radius: 8px !important;
+    border: 1px solid var(--rule-hairline) !important;
+    font-weight: 600; font-size: 13px !important;
+  }
+  /* SaaS CTA injected via CSS */
+  .topnav::after {
+    content: "Start free trial";
+    background: var(--saas-primary); color: #fff;
+    font-size: 13.5px; font-weight: 700;
+    padding: 9px 16px; border-radius: 9px; cursor: pointer;
+    box-shadow: 0 1px 2px rgba(79,70,229,.4);
+  }
+
+  .wrap { max-width: 1280px !important; }
+
+  /* KPI cards, not ledger cells */
+  .ledger-hud {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 12px !important;
+    background: transparent !important;
+    border-bottom: none !important;
+    padding: 20px 0 4px !important;
+  }
+  .hud-stat {
+    background: #fff !important;
+    border: 1px solid var(--rule-hairline) !important;
+    border-radius: 12px !important;
+    padding: 14px 16px !important;
+    border-right: 1px solid var(--rule-hairline) !important;
+    box-shadow: 0 1px 2px rgba(15,23,42,.05) !important;
+  }
+  .hud-stat:hover { border-color: var(--saas-primary) !important; background: #fff !important; }
+  .hud-label { font-family: var(--font-sans) !important; font-weight: 600 !important; font-size: 12px !important; text-transform: none !important; letter-spacing: 0 !important; }
+  .hud-value { font-family: var(--font-sans) !important; font-size: 1.7rem !important; font-weight: 800 !important; letter-spacing: -0.03em !important; }
+  .hud-note {
+    display: inline-block !important; margin-top: 6px !important;
+    font-size: 12px !important; font-weight: 700 !important;
+    background: #EEF2FF; color: #4338CA !important;
+    padding: 2px 8px; border-radius: 999px;
+  }
+
+  /* Risk bar as SaaS health */
+  .solvency-meter-wrap {
+    background: #fff !important; border: 1px solid var(--rule-hairline) !important;
+    border-radius: 12px !important; padding: 14px 16px !important; margin-top: 12px !important;
+  }
+  .solvency-meter-header, .solvency-legend { font-family: var(--font-sans) !important; text-transform: none !important; letter-spacing: 0 !important; }
+  .solvency-bar { border-radius: 999px !important; height: 10px !important; }
+
+  /* Command search */
+  .omnibar-section {
+    background: #fff !important; border: 1px solid var(--rule-hairline) !important;
+    border-radius: 14px !important; padding: 14px !important; margin-top: 12px !important;
+    box-shadow: 0 1px 2px rgba(15,23,42,.06) !important;
+  }
+  .search-cavity {
+    border-radius: 10px !important; border: 1px solid var(--rule-prominent) !important;
+    box-shadow: 0 1px 2px rgba(15,23,42,.06) !important;
+  }
+  .search-cavity:focus-within { border-color: var(--saas-primary) !important; outline: 3px solid var(--saas-ring) !important; }
+  .search-keyhint { border-radius: 6px !important; font-family: var(--font-sans) !important; font-weight: 700 !important; }
+  .btn-export {
+    font-family: var(--font-sans) !important; font-weight: 700 !important;
+    background: var(--saas-primary) !important; color: #fff !important;
+    border: none !important; border-radius: 10px !important; padding: 12px 18px !important;
+  }
+  .btn-export:hover { background: var(--saas-primary-hover) !important; }
+  .views-group { border-radius: 10px !important; background: #F1F5F9 !important; border: 1px solid var(--rule-hairline) !important; padding: 3px !important; }
+  .view-btn { font-family: var(--font-sans) !important; font-weight: 600 !important; border: none !important; border-radius: 8px !important; }
+  .view-btn.active { background: #fff !important; color: #0F172A !important; box-shadow: 0 1px 2px rgba(0,0,0,.1) !important; }
+  .facet-selects select { border-radius: 9px !important; padding: 9px 10px !important; font-weight: 500 !important; }
+  .quick-chip { font-family: var(--font-sans) !important; border-radius: 999px !important; font-weight: 600 !important; background: #fff !important; }
+  .quick-chip.active { background: #0F172A !important; border-color: #0F172A !important; }
+
+  /* SaaS workspace */
+  .workspace {
+    grid-template-columns: minmax(0,1fr) 400px !important;
+    gap: 14px !important; border-bottom: none !important; margin-top: 14px !important;
+    align-items: start !important;
+  }
+  .ledger-pane {
+    background: #fff !important; border: 1px solid var(--rule-hairline) !important;
+    border-radius: 14px !important; border-right: 1px solid var(--rule-hairline) !important;
+    overflow: hidden !important; box-shadow: 0 1px 2px rgba(15,23,42,.05) !important;
+  }
+  #tableStatus { background: #F8FAFC !important; font-family: var(--font-sans) !important; font-weight: 600 !important; border-bottom: 1px solid var(--rule-hairline) !important; }
+  table.gazette-table th {
+    background: #F8FAFC !important; top: 34px !important;
+    font-family: var(--font-sans) !important; text-transform: none !important;
+    letter-spacing: 0 !important; font-size: 12px !important; font-weight: 700 !important;
+    border-bottom: 1px solid var(--rule-hairline) !important; box-shadow: none !important;
+  }
+  table.gazette-table tr:hover { background: #F8FAFC !important; }
+  table.gazette-table tr.selected { background: #EEF2FF !important; outline: 2px solid var(--saas-primary) !important; }
+  .status-badge, .tag-route { border-radius: 999px !important; font-family: var(--font-sans) !important; font-weight: 700 !important; }
+
+  /* Detail drawer as SaaS right panel */
+  .docket-pane {
+    background: #fff !important; border: 1px solid var(--rule-hairline) !important;
+    border-radius: 14px !important; box-shadow: 0 4px 12px rgba(15,23,42,.08) !important;
+    position: sticky !important; top: 76px !important;
+  }
+  @media (max-width: 1024px) {
+    .ledger-hud { grid-template-columns: repeat(2, 1fr) !important; }
+    .workspace { grid-template-columns: 1fr !important; }
+    .docket-pane { position: fixed !important; top: auto !important; }
+  }
 </style>
 <script>
   (function(){
@@ -1888,27 +2072,27 @@
   </div>
 </div>
 
-<!-- Continuous Ledger HUD -->
+<!-- SaaS KPI overview -->
 <section class="ledger-hud">
   <div class="hud-stat" data-filter="all">
-    <span class="hud-label">Total Licensed Entities</span>
+    <span class="hud-label">Active sponsors</span>
     <span class="hud-value" id="hudTotal">127,716</span>
-    <span class="hud-note">Home Office worker tier</span>
+    <span class="hud-note">+1.2% vs last week</span>
   </div>
   <div class="hud-stat" data-filter="added">
-    <span class="hud-label">Weekly Additions (+7D)</span>
-    <span class="hud-value" style="color:var(--status-regular-ink)" id="hudAdded">+302</span>
-    <span class="hud-note">First registered within last 7 days</span>
+    <span class="hud-label">New this week</span>
+    <span class="hud-value" style="color:var(--saas-success)" id="hudAdded">+302</span>
+    <span class="hud-note">69 in last run</span>
   </div>
   <div class="hud-stat" data-filter="serious">
-    <span class="hud-label">Statutory Insolvency Filings</span>
-    <span class="hud-value" style="color:var(--status-critical-ink)" id="hudSerious">2,793</span>
-    <span class="hud-note">Liquidation, strike-off, or administration</span>
+    <span class="hud-label">High risk</span>
+    <span class="hud-value" style="color:var(--saas-danger)" id="hudSerious">2,793</span>
+    <span class="hud-note">Needs review</span>
   </div>
   <div class="hud-stat" data-filter="warning">
-    <span class="hud-label">Accounts / Filings Overdue</span>
-    <span class="hud-value" style="color:var(--status-warning-ink)" id="hudDeficient">6,697</span>
-    <span class="hud-note">Statutory accounts overdue or dormant</span>
+    <span class="hud-label">Needs attention</span>
+    <span class="hud-value" style="color:var(--saas-warning)" id="hudDeficient">6,697</span>
+    <span class="hud-note">Overdue filings</span>
   </div>
 </section>
 
@@ -1943,10 +2127,10 @@
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <input id="q" type="search" placeholder="Search by employer name, CRN, town, or industry (Press '/' to focus)..." aria-label="Search sponsors">
-        <span class="search-keyhint">/</span>
+        <input id="q" type="search" placeholder="Search employers, towns, CRN…  ( ⌘K )" aria-label="Search sponsors">
+        <span class="search-keyhint">⌘K</span>
       </div>
-      <button class="btn-export" id="btnExport" title="Export current results as CSV (Shortcut: E)">Export CSV</button>
+      <button class="btn-export" id="btnExport" title="Export current results as CSV (Shortcut: E)">Export</button>
     </div>
 
     <div class="facets-row">
@@ -1982,6 +2166,17 @@
     </div>
   </div>
 </section>
+
+<!-- SaaS upgrade nudge: free jobseekers -> paid HR/recruiter workspaces -->
+<div class="wrap" style="margin-top:12px">
+  <div style="display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:linear-gradient(135deg,#4F46E5,#7C3AED);color:#fff;border-radius:14px;padding:14px 18px;box-shadow:0 4px 12px rgba(79,70,229,.3)">
+    <div style="font-weight:700;font-size:14px">Free for jobseekers · Pro for teams — watchlists, alerts, API + bulk export</div>
+    <div style="display:flex;gap:8px">
+      <a href="pricing/" style="background:#fff;color:#4F46E5;font-weight:800;font-size:13px;padding:8px 14px;border-radius:9px;text-decoration:none">View plans</a>
+      <a href="watchlist/" style="border:1px solid rgba(255,255,255,.5);color:#fff;font-weight:700;font-size:13px;padding:8px 14px;border-radius:9px;text-decoration:none">Create alert</a>
+    </div>
+  </div>
+</div>
 
 <!-- Split-Plane Workspace -->
 <main class="wrap workspace" id="workspace">
