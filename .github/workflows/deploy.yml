@@ -28,7 +28,9 @@ jobs:
           ref: V1
           path: _v1
 
-      - name: Assemble multi-branch site
+      - name: Assemble multi-branch site & hydrate datasets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p site/v1
           # Copy main to site root
@@ -37,9 +39,29 @@ jobs:
           # Copy V1 to site/v1
           cp -a _v1/. site/v1/
           rm -rf site/v1/.git site/v1/.github
-          # Ensure .nojekyll everywhere
+
+          # Ensure .nojekyll markers
           touch site/.nojekyll
           touch site/v1/.nojekyll
+
+          # Hydrate sponsors.json if not present in checkout
+          if [ ! -f "site/data/sponsors.json" ] || [ ! -s "site/data/sponsors.json" ]; then
+            echo "Hydrating sponsors.json..."
+            mkdir -p site/data
+            gh release download state-anchor -p "sponsors.json" --dir site/data/ 2>/dev/null ||             gh release download state-anchor -p "current_state.json" --dir site/data/ 2>/dev/null && mv site/data/current_state.json site/data/sponsors.json 2>/dev/null ||             curl -s -L "https://zephyr4289.github.io/sponsor-g/data/sponsors.json" -o site/data/sponsors.json || true
+          fi
+
+          # Hydrate company_flags.json if not present in checkout
+          if [ ! -f "site/data/company_flags.json" ] || [ ! -s "site/data/company_flags.json" ]; then
+            echo "Hydrating company_flags.json..."
+            mkdir -p site/data
+            gh release download state-anchor -p "company_flags.json" --dir site/data/ 2>/dev/null ||             curl -s -L "https://zephyr4289.github.io/sponsor-g/data/company_flags.json" -o site/data/company_flags.json || true
+          fi
+
+          # Mirror complete data payloads into v1 preview
+          mkdir -p site/v1/data
+          cp -f site/data/sponsors.json site/v1/data/sponsors.json || true
+          cp -f site/data/company_flags.json site/v1/data/company_flags.json || true
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4

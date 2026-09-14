@@ -31,8 +31,8 @@ jobs:
           if gh release download state-anchor -p "previous_state.json" --dir /tmp/state 2>/dev/null; then
             echo "Loaded previous state from release asset."
           else
-            echo "Release asset not found. Bootstrapping state from repository."
-            cp data/sponsors.json /tmp/state/previous_state.json || touch /tmp/state/previous_state.json
+            echo "Bootstrapping previous state from live CDN..."
+            curl -s -L "https://zephyr4289.github.io/sponsor-g/data/sponsors.json" -o /tmp/state/previous_state.json || touch /tmp/state/previous_state.json
           fi
 
       - name: Run Daily Ingestion & Diff Engine
@@ -44,15 +44,25 @@ jobs:
             --out-dir ./data \
             --out-delta ./data/deltas
 
-      - name: Update State Anchor in GitHub Releases (Zero Git Bloat)
+      - name: Update State Anchor & Data Assets in GitHub Releases (Zero Git Bloat)
         if: steps.ingest.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload state-anchor /tmp/state/current_state.json#previous_state.json --clobber 2>/dev/null || \
-          gh release create state-anchor /tmp/state/current_state.json#previous_state.json --title "State Anchor" --notes "Rolling internal state anchor for daily diffing" --prerelease || true
+          gh release upload state-anchor \
+            data/sponsors.json#sponsors.json \
+            data/company_flags.json#company_flags.json \
+            /tmp/state/current_state.json#previous_state.json \
+            /tmp/state/current_state.json#current_state.json \
+            --clobber 2>/dev/null || \
+          gh release create state-anchor \
+            data/sponsors.json#sponsors.json \
+            data/company_flags.json#company_flags.json \
+            /tmp/state/current_state.json#previous_state.json \
+            /tmp/state/current_state.json#current_state.json \
+            --title "State Anchor" --notes "Rolling internal state anchor for daily diffing" --prerelease || true
 
-      - name: Commit & Push Updated Data Payloads
+      - name: Commit & Push Lightweight Audit Trails (Deltas & Meta Only)
         if: steps.ingest.outputs.changed == 'true'
         run: |
           git config user.name "knowyoursponsor-bot"
