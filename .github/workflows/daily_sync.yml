@@ -22,17 +22,29 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Prepare Ingestion State
+      - name: Prepare Ingestion State & Bootstrap Reference Datasets
         id: state_prep
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mkdir -p /tmp/state
-          if gh release download state-anchor -p "previous_state.json" --dir /tmp/state 2>/dev/null; then
-            echo "Loaded previous state from release asset."
+          mkdir -p /tmp/state data
+
+          # 1. Download previous state for delta diffing
+          if gh release download state-anchor -p "sponsors.json" --dir /tmp/state 2>/dev/null; then
+            mv /tmp/state/sponsors.json /tmp/state/previous_state.json
+            echo "Loaded previous state from release asset (sponsors.json)."
+          elif gh release download state-anchor -p "current_state.json" --dir /tmp/state 2>/dev/null; then
+            mv /tmp/state/current_state.json /tmp/state/previous_state.json
+            echo "Loaded previous state from release asset (current_state.json)."
           else
             echo "Bootstrapping previous state from live CDN..."
             curl -s -L "https://zephyr4289.github.io/sponsor-g/data/sponsors.json" -o /tmp/state/previous_state.json || touch /tmp/state/previous_state.json
+          fi
+
+          # 2. Bootstrap company_flags.json for solvency metric calculation
+          if [ ! -s "data/company_flags.json" ]; then
+            echo "Bootstrapping company_flags.json..."
+            gh release download state-anchor -p "company_flags.json" --dir data/ 2>/dev/null ||             curl -s -L "https://zephyr4289.github.io/sponsor-g/data/company_flags.json" -o data/company_flags.json || touch data/company_flags.json
           fi
 
       - name: Run Daily Ingestion & Diff Engine
@@ -52,14 +64,10 @@ jobs:
           gh release upload state-anchor \
             data/sponsors.json#sponsors.json \
             data/company_flags.json#company_flags.json \
-            /tmp/state/current_state.json#previous_state.json \
-            /tmp/state/current_state.json#current_state.json \
             --clobber 2>/dev/null || \
           gh release create state-anchor \
             data/sponsors.json#sponsors.json \
             data/company_flags.json#company_flags.json \
-            /tmp/state/current_state.json#previous_state.json \
-            /tmp/state/current_state.json#current_state.json \
             --title "State Anchor" --notes "Rolling internal state anchor for daily diffing" --prerelease || true
 
       - name: Commit & Push Lightweight Audit Trails (Deltas & Meta Only)

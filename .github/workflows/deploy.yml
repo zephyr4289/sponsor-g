@@ -49,24 +49,28 @@ jobs:
           # Fetch sponsors.json if missing
           if [ ! -s "site/data/sponsors.json" ]; then
             echo "Hydrating sponsors.json..."
-            (gh release download state-anchor -p "current_state.json" --dir /tmp 2>/dev/null && cp -f /tmp/current_state.json site/data/sponsors.json) ||             curl -f -s -L "https://zephyr4289.github.io/sponsor-g/data/sponsors.json" -o site/data/sponsors.json || true
+            (gh release download state-anchor -p "sponsors.json" --dir site/data/ 2>/dev/null) ||             (gh release download state-anchor -p "current_state.json" --dir /tmp 2>/dev/null && cp -f /tmp/current_state.json site/data/sponsors.json) ||             curl -f -s -L "https://zephyr4289.github.io/sponsor-g/data/sponsors.json" -o site/data/sponsors.json || true
           fi
 
           # Fetch company_flags.json if missing
           if [ ! -s "site/data/company_flags.json" ]; then
             echo "Hydrating company_flags.json..."
-            (gh release download state-anchor -p "company_flags.json" --dir /tmp 2>/dev/null && cp -f /tmp/company_flags.json site/data/company_flags.json) ||             curl -f -s -L "https://zephyr4289.github.io/sponsor-g/data/company_flags.json" -o site/data/company_flags.json || true
+            (gh release download state-anchor -p "company_flags.json" --dir site/data/ 2>/dev/null) ||             curl -f -s -L "https://zephyr4289.github.io/sponsor-g/data/company_flags.json" -o site/data/company_flags.json || true
           fi
 
-          # Copy full data payloads to v1 preview
-          cp -f site/data/sponsors.json site/v1/data/sponsors.json
-          cp -f site/data/company_flags.json site/v1/data/company_flags.json
+          # Copy full data payloads to v1 preview with guards
+          if [ -s "site/data/sponsors.json" ]; then
+            cp -f site/data/sponsors.json site/v1/data/sponsors.json || true
+          fi
+          if [ -s "site/data/company_flags.json" ]; then
+            cp -f site/data/company_flags.json site/v1/data/company_flags.json || true
+          fi
 
           # Crucial: Delete .gitignore inside publish directories so actions-gh-pages stages the hydrated JSON files
           rm -f site/.gitignore site/v1/.gitignore
 
           # Verify sizes
-          ls -lh site/data/sponsors.json site/v1/data/sponsors.json
+          ls -lh site/data/sponsors.json site/v1/data/sponsors.json 2>/dev/null || true
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
