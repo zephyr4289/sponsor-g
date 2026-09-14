@@ -2100,6 +2100,65 @@
     .saas-link { flex-direction: column; gap: 3px; font-size: 10.5px; padding: 6px 10px; }
     .saas-link .saas-badge { display: none; }
   }
+
+  /* ============ SAAS DATA GRID POLISH ============ */
+  #tableBody tr { animation: rowIn .18s ease-out; }
+  @keyframes rowIn {
+    from { opacity: 0; transform: translateY(3px); }
+    to { opacity: 1; transform: none; }
+  }
+  table.gazette-table td.col-status { white-space: nowrap; }
+  .row-go {
+    display: inline-block; margin-left: 8px;
+    color: var(--saas-primary); font-weight: 800; font-size: 15px; line-height: 1;
+    opacity: 0; transform: translateX(-4px); transition: opacity .12s ease, transform .12s ease;
+    vertical-align: middle;
+  }
+  table.gazette-table tr:hover .row-go, table.gazette-table tr.selected .row-go { opacity: 1; transform: none; }
+  .star-btn {
+    border: none; background: transparent; cursor: pointer;
+    width: 28px; height: 28px; border-radius: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--ink-faint);
+  }
+  .star-btn:hover { background: #EEF2FF; color: var(--saas-primary); }
+  .star-btn.saved { color: #D97706; }
+  #tableEmpty {
+    font-family: var(--font-sans) !important; padding: 56px 24px !important;
+  }
+  .empty-icon {
+    width: 48px; height: 48px; border-radius: 14px; margin: 0 auto 14px;
+    background: #EEF2FF; color: var(--saas-primary);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .empty-title { font-size: 16px; font-weight: 800; color: #0F172A; letter-spacing: -0.01em; }
+  .empty-sub { font-size: 13.5px; color: var(--ink-graphite); margin-top: 6px; }
+  .empty-actions { display: flex; gap: 8px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+  .btn-primary-sm {
+    background: var(--saas-primary); color: #fff; font-weight: 700; font-size: 13px;
+    border: none; border-radius: 9px; padding: 9px 16px; cursor: pointer;
+  }
+  .btn-primary-sm:hover { background: var(--saas-primary-hover); }
+  .btn-ghost-sm {
+    background: #fff; color: #0F172A; font-weight: 700; font-size: 13px;
+    border: 1px solid var(--rule-prominent); border-radius: 9px; padding: 9px 16px;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-ghost-sm:hover { background: #F8FAFC; text-decoration: none; }
+  #btnLoadMore {
+    font-family: var(--font-sans) !important; font-weight: 700 !important; font-size: 13px !important;
+    background: #fff !important; border: 1px solid var(--rule-prominent) !important;
+    border-radius: 10px !important; padding: 10px 20px !important; cursor: pointer;
+    box-shadow: 0 1px 2px rgba(15,23,42,.06);
+  }
+  #btnLoadMore:hover { border-color: var(--saas-primary) !important; color: var(--saas-primary) !important; }
+  /* Skeleton utility (wired in a later phase) */
+  .skel {
+    border-radius: 6px;
+    background: linear-gradient(90deg,#F1F5F9 25%,#E2E8F0 50%,#F1F5F9 75%);
+    background-size: 200% 100%; animation: skelShimmer 1.2s infinite;
+  }
+  @keyframes skelShimmer { to { background-position: -200% 0; } }
 </style>
 <script>
   (function(){
@@ -2327,8 +2386,14 @@
         <!-- Recycled virtual rows -->
       </tbody>
     </table>
-    <div id="tableEmpty" style="display:none; padding:40px; text-align:center; color:var(--ink-graphite); font-family:var(--font-mono); font-size:0.85rem;">
-      No employers match the active search filters.
+    <div id="tableEmpty" style="display:none;">
+      <div class="empty-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+      <div class="empty-title">No employers match these filters</div>
+      <div class="empty-sub">Try a broader search, or get notified when a matching sponsor appears.</div>
+      <div class="empty-actions">
+        <button type="button" class="btn-primary-sm" id="btnClearFilters">Clear filters</button>
+        <a class="btn-ghost-sm" href="watchlist/">Create alert</a>
+      </div>
     </div>
     <div id="loadMoreTrigger" style="display:none; padding:16px; text-align:center;">
       <button id="btnLoadMore" style="font-family:var(--font-mono); font-size:0.8rem; padding:8px 16px; background:var(--surface-panel); border:1px solid var(--rule-prominent); cursor:pointer;">Load More Records</button>
@@ -2739,6 +2804,21 @@
     return d.innerHTML;
   }
 
+  // SaaS toast feedback (uses #toasts root; no-op if absent)
+  function saasToast(msg) {
+    try {
+      const root = document.getElementById('toasts');
+      if (!root) return;
+      const el = document.createElement('div');
+      el.className = 'toast';
+      el.innerHTML = '<span class="toast-dot"></span><span></span>';
+      el.lastChild.textContent = msg;
+      root.appendChild(el);
+      setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity .3s'; }, 2300);
+      setTimeout(() => { el.remove(); }, 2700);
+    } catch(e) {}
+  }
+
   function downloadBlob(content, filename) {
     const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
@@ -2869,7 +2949,7 @@
             ${(routes || []).map(rt => `<span class="tag-route">${esc(rt.replace('Global Business Mobility:', 'GBM:'))}</span>`).join('')}
           </div>
         </td>
-        <td>${statusBadge}</td>
+        <td class="col-status">${statusBadge}<span class="row-go" aria-hidden="true">›</span></td>
       </tr>`;
     }).join('');
 
@@ -3692,6 +3772,24 @@
     });
   });
 
+  // SaaS empty-state: one-click filter reset
+  const btnClearFilters = document.getElementById('btnClearFilters');
+  if (btnClearFilters) {
+    btnClearFilters.addEventListener('click', () => {
+      document.getElementById('q').value = '';
+      ['citySelect', 'industrySelect', 'routeSelect', 'ratingSelect'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      currentView = '';
+      currentWarn = '';
+      viewBtns.forEach(b => b.classList.toggle('active', b.dataset.view === ''));
+      quickChips.forEach(c => c.classList.remove('active'));
+      triggerQuery(false);
+      syncUrlState();
+      saasToast('Filters cleared');
+    });
+  }
+
   document.getElementById('tableBody').addEventListener('click', e => {
     const star = e.target.closest('.star-btn');
     if (star) {
@@ -3703,6 +3801,7 @@
       const nextSaved = !isSaved;
       star.classList.toggle('saved', nextSaved);
       star.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="${nextSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
+      saasToast(nextSaved ? 'Saved to shortlist' : 'Removed from shortlist');
       return;
     }
     const tr = e.target.closest('tr');
