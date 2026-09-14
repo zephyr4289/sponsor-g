@@ -1,24 +1,15 @@
-name: Daily Sponsor Ledger Sync & Deployment
+name: Daily Sponsor Ledger Sync
 
 on:
   schedule:
     - cron: '0 6 * * 1-5'  # Mon-Fri 06:00 UTC
-  push:
-    branches: ["main", "V1"]
   workflow_dispatch:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   sync:
-    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -69,40 +60,3 @@ jobs:
           git add data/
           git commit -m "chore(data): sync sponsor register $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push origin main
-
-  deploy:
-    needs: [sync]
-    if: always() && (needs.sync.result == 'success' || needs.sync.result == 'skipped')
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout main branch (Production Root)
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          path: site
-
-      - name: Checkout V1 branch (Preview /v1)
-        uses: actions/checkout@v4
-        with:
-          ref: V1
-          path: site/v1
-
-      - name: Ensure .nojekyll in site root and v1
-        run: |
-          touch site/.nojekyll
-          touch site/v1/.nojekyll
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4

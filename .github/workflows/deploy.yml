@@ -1,0 +1,59 @@
+name: Deploy Multi-Branch to GitHub Pages
+
+on:
+  push:
+    branches: ["main", "V1"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: _main
+
+      - name: Checkout V1 branch
+        uses: actions/checkout@v4
+        with:
+          ref: V1
+          path: _v1
+
+      - name: Assemble multi-branch site
+        run: |
+          mkdir -p site/v1
+          # Copy main to site root
+          cp -a _main/. site/
+          rm -rf site/.git site/.github
+          # Copy V1 to site/v1
+          cp -a _v1/. site/v1/
+          rm -rf site/v1/.git site/v1/.github
+          # Ensure .nojekyll everywhere
+          touch site/.nojekyll
+          touch site/v1/.nojekyll
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
