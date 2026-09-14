@@ -1403,12 +1403,21 @@
   .status-badge {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     padding: 2px 8px;
     border-radius: var(--radius-full);
     font-size: 11px;
     font-weight: 600;
     white-space: nowrap;
+  }
+  .status-badge::before {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: currentColor;
+    flex-shrink: 0;
   }
 
   .status-badge.active-status {
@@ -2178,7 +2187,7 @@
           </div>
           <div class="kpi-value-row">
             <span class="kpi-value" id="hudTotal">127,716</span>
-            <span class="delta-pill positive">▲ +1.2%</span>
+            <span class="delta-pill positive">+1.2%</span>
           </div>
           <div id="sparklineTotal"></div>
         </div>
@@ -2320,11 +2329,11 @@
 
         <!-- Preset Chips -->
         <div class="preset-chips-row">
-          <button class="preset-chip" data-preset="added">⚡ Newly Added</button>
-          <button class="preset-chip" data-preset="flagged">⚠️ Filing Warnings</button>
-          <button class="preset-chip" data-preset="nmw">⚖️ NMW Underpaid</button>
-          <button class="preset-chip" data-preset="london-tech">🏙️ London Tech</button>
-          <button class="preset-chip" data-preset="healthcare">🏥 Healthcare</button>
+          <button class="preset-chip" data-preset="added">Newly Added</button>
+          <button class="preset-chip" data-preset="flagged">Filing Warnings</button>
+          <button class="preset-chip" data-preset="nmw">NMW Underpaid</button>
+          <button class="preset-chip" data-preset="london-tech">London Tech</button>
+          <button class="preset-chip" data-preset="healthcare">Healthcare</button>
         </div>
 
         <!-- Active Filter Summary Bar -->
@@ -2359,7 +2368,7 @@
           <table class="data-grid-table">
             <thead>
               <tr>
-                <th style="width:44px; text-align:center;">★</th>
+                <th style="width:44px; text-align:center;" aria-label="Shortlist"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></th>
                 <th style="min-width:260px;">Employer</th>
                 <th style="width:160px;">Town / City</th>
                 <th style="width:160px;">Industry</th>
@@ -3018,23 +3027,23 @@
       const loc = [town, county].filter(Boolean).join(', ');
 
       let statusBadgeClass = 'active-status';
-      let statusLabel = '● Active';
+      let statusLabel = 'Active';
 
       if (warn && warn.severity === 'serious') {
         statusBadgeClass = 'critical-status';
-        statusLabel = `● ${warn.label || 'Insolvency'}`;
+        statusLabel = warn.label || 'Insolvency';
       } else if (warn) {
         statusBadgeClass = 'warning-status';
-        statusLabel = `● ${warn.label || 'Overdue'}`;
+        statusLabel = warn.label || 'Overdue';
       } else if (hasNmw) {
         statusBadgeClass = 'warning-status';
-        statusLabel = '● NMW Sanction';
+        statusLabel = 'NMW Sanction';
       } else if (rating === 'B') {
         statusBadgeClass = 'critical-status';
-        statusLabel = '● B-Action Plan';
+        statusLabel = 'B-Action Plan';
       } else if (rating === 'A') {
         statusBadgeClass = 'active-status';
-        statusLabel = '● A-Rating';
+        statusLabel = 'A-Rating';
       }
 
       const routeList = (routes || []).slice(0, 2);
@@ -3068,7 +3077,7 @@
             <span class="status-badge ${statusBadgeClass}">${esc(statusLabel)}</span>
           </td>
           <td>
-            <span class="row-chevron">›</span>
+            <span class="row-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
           </td>
         </tr>
       `;
