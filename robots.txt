@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zephyr4289.github.io/sponsor-g/sitemap.xml

@@ -1,0 +1,32 @@
+{
+  "name": "KnowYourSponsor — UK Visa Sponsor Register & Corporate Solvency Ledger",
+  "short_name": "KnowYourSponsor",
+  "description": "Every organisation on the official UK Home Office register of licensed sponsors cross-referenced with Companies House insolvency filings and DBT minimum wage enforcement.",
+  "lang": "en-GB",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F4F1EA",
+  "theme_color": "#141311",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

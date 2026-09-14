@@ -1,0 +1,4013 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
+<title>KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Tracker</title>
+<meta name="description" content="Every UK employer licensed to sponsor a work visa, cross-referenced against Companies House insolvency filings, National Minimum Wage enforcement, and SOC 2020 salary thresholds.">
+<link rel="canonical" href="https://zephyr4289.github.io/sponsor-g/">
+<meta name="google-site-verification" content="ZNbGBoW8FlnVr5MM5wrTNaQqzvFz_Pgcde_K1t5RHF8">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="alternate" type="application/rss+xml" title="UK visa sponsors added and removed" href="feed.xml">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F8FAFC">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#09090B">
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="KnowYourSponsor">
+<meta property="og:url" content="https://zephyr4289.github.io/sponsor-g/">
+<meta property="og:title" content="KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Tracker">
+<meta property="og:description" content="Searchable UK Home Office sponsor register cross-referenced against Companies House corporate insolvency filings and minimum wage enforcement. Rebuilt daily.">
+<meta property="og:image" content="https://zephyr4289.github.io/sponsor-g/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Tracker">
+<meta name="twitter:description" content="Searchable UK Home Office sponsor register cross-referenced against Companies House corporate insolvency filings.">
+<meta name="twitter:image" content="https://zephyr4289.github.io/sponsor-g/og-image.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;650;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- No-FOUC Theme Bootstrap (Synchronous execution before paint) -->
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('kys-theme');
+      if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    } catch(e) {}
+  })();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://zephyr4289.github.io/sponsor-g/#website",
+      "url": "https://zephyr4289.github.io/sponsor-g/",
+      "name": "KnowYourSponsor",
+      "description": "Searchable copy of the official UK Home Office register of licensed sponsors with Companies House cross-referencing.",
+      "inLanguage": "en-GB",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://zephyr4289.github.io/sponsor-g/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Dataset",
+      "@id": "https://zephyr4289.github.io/sponsor-g/#dataset",
+      "name": "UK Register of Licensed Sponsors (Workers) — Searchable Register with Solvency Tracker",
+      "description": "Every organisation holding a UK Home Office worker sponsor licence cross-referenced with Companies House corporate filing and insolvency status. Rebuilt daily.",
+      "url": "https://zephyr4289.github.io/sponsor-g/",
+      "inLanguage": "en-GB",
+      "isAccessibleForFree": true,
+      "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "creator": {
+        "@type": "Person",
+        "name": "Roshan Yadav",
+        "url": "https://zephyr4289.github.io/sponsor-g/about/"
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+/* ============================================================
+   KNOWYOURSPONSOR V2 — COMPLETE DESIGN SYSTEM & TOKEN ENGINE
+   Layer Order: tokens -> base -> layout -> components -> overlays -> utilities
+   ============================================================ */
+
+@layer tokens, base, layout, components, overlays, utilities;
+
+@layer tokens {
+  :root {
+    /* Primitive Scales */
+    --slate-50: #F8FAFC; --slate-100: #F1F5F9; --slate-200: #E2E8F0;
+    --slate-300: #CBD5E1; --slate-400: #94A3B8; --slate-500: #64748B;
+    --slate-600: #475569; --slate-700: #334155; --slate-800: #1E293B; --slate-900: #0F172A;
+
+    --zinc-100: #F4F4F5; --zinc-200: #E4E4E7; --zinc-300: #D4D4D8;
+    --zinc-400: #A1A1AA; --zinc-500: #71717A; --zinc-600: #52525B;
+    --zinc-700: #3F3F46; --zinc-800: #27272A; --zinc-850: #1F1F23;
+    --zinc-900: #18181B; --zinc-950: #09090B;
+
+    --indigo-50: #EEF2FF; --indigo-100: #E0E7FF; --indigo-200: #C7D2FE;
+    --indigo-300: #A5B4FC; --indigo-400: #818CF8; --indigo-500: #6366F1;
+    --indigo-600: #4F46E5; --indigo-700: #4338CA; --indigo-900: #312E81;
+
+    --emerald-50: #ECFDF5; --emerald-200: #A7F3D0; --emerald-400: #34D399;
+    --emerald-500: #10B981; --emerald-600: #059669; --emerald-700: #047857;
+
+    --amber-50: #FFFBEB; --amber-200: #FDE68A; --amber-400: #FBBF24;
+    --amber-500: #F59E0B; --amber-600: #D97706; --amber-700: #B45309;
+
+    --rose-50: #FFF1F2; --rose-200: #FECDD3; --rose-400: #FB7185;
+    --rose-500: #F43F5E; --rose-600: #E11D48; --rose-700: #BE123C;
+
+    --sky-50: #F0F9FF; --sky-200: #BAE6FD; --sky-400: #38BDF8;
+    --sky-500: #0EA5E9; --sky-600: #0284C7; --sky-700: #0369A1;
+
+    /* Semantic Tokens (Light Default) */
+    --bg-canvas: #F8FAFC;
+    --bg-surface: #FFFFFF;
+    --bg-raised: #FFFFFF;
+    --bg-sunken: #F1F5F9;
+    --bg-inset: rgba(15, 23, 42, 0.04);
+    --bg-glass: rgba(248, 250, 252, 0.85);
+    --glass-blur: 12px;
+    --glass-saturate: 1.4;
+
+    --border-subtle: rgba(15, 23, 42, 0.06);
+    --border-default: #E2E8F0;
+    --border-strong: #CBD5E1;
+
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-tertiary: #94A3B8;
+    --text-inverse: #FFFFFF;
+
+    --brand: #4F46E5;
+    --brand-hover: #4338CA;
+    --brand-subtle: #EEF2FF;
+    --brand-border: #C7D2FE;
+
+    --success-solid: #059669;
+    --success-text: #047857;
+    --success-subtle: #ECFDF5;
+
+    --warning-solid: #D97706;
+    --warning-text: #B45309;
+    --warning-subtle: #FFFBEB;
+
+    --danger-solid: #E11D48;
+    --danger-text: #BE123C;
+    --danger-subtle: #FFF1F2;
+
+    --info-solid: #0284C7;
+    --info-text: #0369A1;
+    --info-subtle: #F0F9FF;
+
+    --overlay-backdrop: rgba(15, 23, 42, 0.44);
+    --focus-ring: #6366F1;
+    --scrollbar-thumb: rgba(15, 23, 42, 0.18);
+
+    /* Elevation */
+    --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
+    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.05);
+    --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08), 0 2px 4px rgba(15, 23, 42, 0.04);
+    --shadow-pop: 0 4px 12px rgba(15, 23, 42, 0.08), 0 2px 4px rgba(15, 23, 42, 0.04);
+    --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12), 0 4px 8px rgba(15, 23, 42, 0.06);
+    --shadow-xl: 0 24px 64px rgba(15, 23, 42, 0.18), 0 8px 16px rgba(15, 23, 42, 0.08);
+    --shadow-modal: 0 24px 64px rgba(15, 23, 42, 0.18), 0 8px 16px rgba(15, 23, 42, 0.08);
+    --ring-inset: inset 0 0 0 1px var(--border-default);
+
+    /* Dimensions */
+    --sidebar-w: 240px;
+    --sidebar-w-compact: 64px;
+    --topbar-h: 56px;
+    --telemetry-h: 32px;
+    --docket-w: 480px;
+    --docket-w-md: 420px;
+    --content-max: 1440px;
+    --page-gutter: 24px;
+
+    /* Radii */
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 999px;
+
+    /* Motion */
+    --dur-1: 80ms;
+    --dur-2: 150ms;
+    --dur-3: 200ms;
+    --dur-4: 320ms;
+    --dur-5: 480ms;
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    --ease-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+    --ease-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+    --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+
+    /* Typography */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, "SF Mono", Menlo, monospace;
+
+    /* Z-Index Hierarchy */
+    --z-base: 0;
+    --z-raised: 10;
+    --z-topbar: 100;
+    --z-drawer: 200;
+    --z-palette: 300;
+    --z-toast: 400;
+    --z-tooltip: 500;
+  }
+
+  [data-theme="dark"] {
+    --bg-canvas: #09090B;
+    --bg-surface: #18181B;
+    --bg-raised: #1F1F23;
+    --bg-sunken: #0C0C0E;
+    --bg-inset: rgba(255, 255, 255, 0.04);
+    --bg-glass: rgba(9, 9, 11, 0.82);
+
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-default: #27272A;
+    --border-strong: #3F3F46;
+
+    --text-primary: #FAFAFA;
+    --text-secondary: #D4D4D8;
+    --text-tertiary: #A1A1AA;
+    --text-inverse: #FFFFFF;
+
+    --brand: #6366F1;
+    --brand-hover: #818CF8;
+    --brand-subtle: rgba(99, 102, 241, 0.14);
+    --brand-border: rgba(99, 102, 241, 0.40);
+
+    --success-solid: #10B981;
+    --success-text: #34D399;
+    --success-subtle: rgba(52, 211, 153, 0.12);
+
+    --warning-solid: #F59E0B;
+    --warning-text: #FBBF24;
+    --warning-subtle: rgba(251, 191, 36, 0.12);
+
+    --danger-solid: #F43F5E;
+    --danger-text: #FB7185;
+    --danger-subtle: rgba(251, 113, 133, 0.12);
+
+    --info-solid: #0EA5E9;
+    --info-text: #38BDF8;
+    --info-subtle: rgba(56, 189, 248, 0.12);
+
+    --overlay-backdrop: rgba(0, 0, 0, 0.56);
+    --focus-ring: #818CF8;
+    --scrollbar-thumb: rgba(255, 255, 255, 0.16);
+
+    --shadow-xs: 0 0 0 1px #27272A;
+    --shadow-sm: 0 0 0 1px #27272A, 0 2px 4px rgba(0,0,0,0.3);
+    --shadow-card: 0 0 0 1px #27272A;
+    --shadow-md: 0 0 0 1px #27272A, 0 8px 24px rgba(0,0,0,0.40);
+    --shadow-pop: 0 0 0 1px #27272A, 0 8px 24px rgba(0,0,0,0.40);
+    --shadow-lg: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 16px 48px rgba(0,0,0,0.50);
+    --shadow-xl: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 24px 64px rgba(0,0,0,0.65);
+    --shadow-modal: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 24px 64px rgba(0,0,0,0.65);
+    --ring-inset: inset 0 0 0 1px var(--border-default);
+  }
+}
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--text-primary);
+    background-color: var(--bg-canvas);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    height: 100%;
+  }
+
+  body {
+    min-height: 100%;
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    overflow-x: hidden;
+  }
+
+  input, select, button, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    line-height: inherit;
+    border: none;
+    background: none;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: var(--radius-full);
+  }
+}
+
+@layer layout {
+  .app-shell {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+    min-height: 100vh;
+    background-color: var(--bg-canvas);
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background-color: var(--bg-surface);
+    border-right: 1px solid var(--border-default);
+    display: flex;
+    flex-direction: column;
+    padding: 12px 10px;
+    gap: 16px;
+    overflow-y: auto;
+    z-index: 50;
+  }
+
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px;
+    text-decoration: none;
+  }
+
+  .brand-logo-mark {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, #6366F1, #8B5CF6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.35);
+  }
+
+  .brand-title {
+    font-size: 14px;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+  }
+
+  .workspace-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background-color: var(--bg-sunken);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color var(--dur-1) ease;
+  }
+  .workspace-selector:hover {
+    background-color: var(--bg-inset);
+  }
+
+  .ws-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ws-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    background: #6366F1;
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ws-name {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .nav-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .nav-section-title {
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+    padding: 6px 8px 4px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 36px;
+    padding: 0 10px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all var(--dur-1) ease;
+    cursor: pointer;
+  }
+
+  .nav-item:hover {
+    background-color: var(--bg-inset);
+    color: var(--text-primary);
+  }
+
+  .nav-item.active {
+    background-color: var(--brand-subtle);
+    color: var(--brand);
+    border: 1px solid var(--brand-border);
+    font-weight: 600;
+  }
+
+  .nav-item-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-item-badge {
+    padding: 1px 6px;
+    font-size: 11px;
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+    border-radius: var(--radius-full);
+    background-color: var(--bg-sunken);
+    color: var(--text-secondary);
+  }
+
+  .nav-item-badge.alert-count {
+    background-color: var(--danger-solid);
+    color: #FFFFFF;
+  }
+
+  .sidebar-bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .plan-card {
+    padding: 12px;
+    border-radius: var(--radius-lg);
+    background-color: var(--brand-subtle);
+    border: 1px solid var(--brand-border);
+  }
+
+  .plan-card-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .plan-card-desc {
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+
+  .btn-upgrade-mini {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 28px;
+    background: linear-gradient(135deg, #6366F1, #8B5CF6);
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+
+  .user-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 8px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+  }
+  .user-row:hover {
+    background-color: var(--bg-inset);
+  }
+
+  .user-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+    background: var(--slate-300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .user-name {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  /* Main Column */
+  .main-column {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background-color: var(--bg-canvas);
+  }
+
+  /* Topbar (56px) */
+  .topbar {
+    position: sticky;
+    top: 0;
+    height: var(--topbar-h);
+    background-color: var(--bg-glass);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--page-gutter);
+    z-index: var(--z-topbar);
+  }
+
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .breadcrumb-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13.5px;
+    font-weight: 500;
+  }
+
+  .breadcrumb-root {
+    color: var(--text-tertiary);
+  }
+  .breadcrumb-current {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .search-trigger-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 240px;
+    height: 34px;
+    padding: 0 12px;
+    background-color: var(--bg-sunken);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-full);
+    font-size: 12.5px;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    transition: all var(--dur-1) ease;
+  }
+  .search-trigger-pill:hover {
+    border-color: var(--border-strong);
+    background-color: var(--bg-surface);
+  }
+
+  .kbd-chip {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    background-color: var(--bg-raised);
+    border: 1px solid var(--border-default);
+    padding: 1px 4px;
+    border-radius: 4px;
+  }
+
+  .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    cursor: pointer;
+    border: 1px solid var(--border-default);
+    background-color: var(--bg-surface);
+    transition: all var(--dur-1) ease;
+  }
+  .btn-icon:hover {
+    background-color: var(--bg-inset);
+    color: var(--text-primary);
+  }
+
+  .btn-primary-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 34px;
+    padding: 0 14px;
+    background: linear-gradient(135deg, #6366F1, #8B5CF6);
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.25);
+    transition: transform var(--dur-1) ease;
+  }
+  .btn-primary-cta:hover {
+    transform: translateY(-0.5px);
+  }
+
+  /* Telemetry Band (32px) */
+  .telemetry-strip {
+    position: sticky;
+    top: var(--topbar-h);
+    height: var(--telemetry-h);
+    background-color: var(--bg-glass);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--page-gutter);
+    font-size: 12px;
+    color: var(--text-tertiary);
+    z-index: calc(var(--z-topbar) - 1);
+  }
+
+  .telemetry-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .live-dot-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .pulse-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--success-solid);
+    box-shadow: 0 0 0 2px var(--success-subtle);
+    animation: pulse-ring 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.2); }
+  }
+
+  .telemetry-status-chip {
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    background-color: var(--success-subtle);
+    color: var(--success-text);
+  }
+
+  /* Main Content Container */
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px var(--page-gutter) 40px;
+    max-width: var(--content-max);
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Page Head Band */
+  .page-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .page-title {
+    font-size: 24px;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .page-subtitle {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    max-width: 680px;
+  }
+
+  .page-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 34px;
+    padding: 0 12px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    box-shadow: var(--shadow-xs);
+    transition: all var(--dur-1) ease;
+  }
+  .btn-secondary:hover {
+    background-color: var(--bg-inset);
+    border-color: var(--border-strong);
+  }
+
+  /* Macro Level 1: KPI Cards Grid */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .kpi-card {
+    position: relative;
+    padding: 16px 18px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    transition: all var(--dur-2) var(--ease-standard);
+    overflow: hidden;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .kpi-card:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .kpi-card.selected {
+    border-color: var(--brand);
+    background-color: var(--brand-subtle);
+    box-shadow: 0 0 0 1px var(--brand);
+  }
+
+  .kpi-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .kpi-label-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .kpi-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .kpi-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+  }
+
+  .kpi-info-icon {
+    color: var(--text-tertiary);
+    cursor: help;
+  }
+
+  .kpi-value-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .kpi-value {
+    font-size: 26px;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-primary);
+  }
+
+  .delta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 6px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .delta-pill.positive {
+    background-color: var(--success-subtle);
+    color: var(--success-text);
+  }
+  .delta-pill.neutral {
+    background-color: var(--info-subtle);
+    color: var(--info-text);
+  }
+  .delta-pill.negative {
+    background-color: var(--danger-subtle);
+    color: var(--danger-text);
+  }
+  .delta-pill.warning {
+    background-color: var(--warning-subtle);
+    color: var(--warning-text);
+  }
+
+  .kpi-sparkline-svg {
+    width: 100%;
+    height: 28px;
+    margin-top: 8px;
+    overflow: visible;
+  }
+
+  /* Solvency Composition Progress Bar */
+  .solvency-meter-card {
+    padding: 14px 18px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+  }
+
+  .solvency-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .solvency-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+  }
+
+  .solvency-track {
+    display: flex;
+    height: 10px;
+    border-radius: var(--radius-full);
+    background-color: var(--bg-sunken);
+    overflow: hidden;
+    gap: 2px;
+  }
+
+  .solvency-segment {
+    height: 100%;
+    transition: width var(--dur-5) var(--ease-decelerate);
+    cursor: pointer;
+  }
+  .solvency-segment.active-compliant { background-color: #10B981; }
+  .solvency-segment.active-overdue { background-color: #F59E0B; }
+  .solvency-segment.active-insolvent { background-color: #F43F5E; }
+  .solvency-segment.active-unverified {
+    background: repeating-linear-gradient(45deg, var(--text-tertiary) 0 3px, transparent 3px 6px);
+    opacity: 0.4;
+  }
+
+  .solvency-legend {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .solvency-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+  .solvency-legend-item:hover {
+    background-color: var(--bg-inset);
+  }
+
+  .legend-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  /* Upgrade Banner */
+  .upgrade-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, #4F46E5, #7C3AED);
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+    transition: all var(--dur-3) var(--ease-standard);
+  }
+
+  .upgrade-banner.dismissed {
+    display: none;
+  }
+
+  .banner-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13.5px;
+    font-weight: 500;
+  }
+
+  .banner-btn-pill {
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.18);
+    color: #FFFFFF;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+  }
+
+  .banner-close-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  /* Filter Band Level 2 */
+  .filter-band {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .omnibar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 12px 4px 16px;
+    height: 44px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-card);
+    transition: all var(--dur-1) ease;
+  }
+  .omnibar-row:focus-within {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px var(--brand-subtle);
+  }
+
+  .omnibar-input {
+    flex: 1;
+    font-size: 13.5px;
+    color: var(--text-primary);
+  }
+  .omnibar-input::placeholder {
+    color: var(--text-tertiary);
+  }
+
+  /* Segmented View Tabs */
+  .view-tabs-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .view-tabs-track {
+    display: inline-flex;
+    padding: 3px;
+    background-color: var(--bg-sunken);
+    border-radius: var(--radius-full);
+    gap: 2px;
+  }
+
+  .view-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 28px;
+    padding: 0 12px;
+    border-radius: var(--radius-full);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--dur-2) ease;
+  }
+
+  .view-tab-btn:hover {
+    color: var(--text-primary);
+  }
+
+  .view-tab-btn.active {
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 600;
+    box-shadow: var(--shadow-xs);
+  }
+
+  /* Facet Controls Row */
+  .facet-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .facet-select {
+    height: 34px;
+    padding: 0 28px 0 10px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    box-shadow: var(--shadow-xs);
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%226%22%20viewBox%3D%220%200%2010%206%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M1%201L5%205L9%201%22%20stroke%3D%22%2394A3B8%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+  .facet-select:focus {
+    border-color: var(--brand);
+  }
+
+  /* Preset Chips */
+  .preset-chips-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .preset-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 28px;
+    padding: 0 10px;
+    border-radius: var(--radius-full);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--dur-1) ease;
+  }
+  .preset-chip:hover {
+    background-color: var(--bg-inset);
+    color: var(--text-primary);
+  }
+  .preset-chip.active {
+    background-color: var(--brand-subtle);
+    border-color: var(--brand-border);
+    color: var(--brand);
+    font-weight: 600;
+  }
+
+  /* Active Filter Summary Bar */
+  .active-filter-summary {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    padding: 4px 0;
+  }
+
+  .active-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    background-color: var(--bg-sunken);
+    border: 1px solid var(--border-default);
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .active-tag-remove {
+    cursor: pointer;
+    color: var(--text-tertiary);
+  }
+  .active-tag-remove:hover {
+    color: var(--danger-solid);
+  }
+
+  /* Flagship Data Grid Level 3 */
+  .grid-card-wrapper {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .grid-header-bar {
+    height: 44px;
+    padding: 0 16px;
+    border-bottom: 1px solid var(--border-default);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--bg-surface);
+  }
+
+  .grid-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-primary);
+  }
+
+  .grid-header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .density-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 28px;
+    padding: 0 8px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-default);
+    cursor: pointer;
+  }
+
+  /* Data Table */
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .data-grid-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
+  .data-grid-table thead th {
+    height: 36px;
+    padding: 0 16px;
+    background-color: var(--bg-sunken);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+    border-bottom: 1px solid var(--border-default);
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: var(--z-raised);
+  }
+
+  .data-grid-table tbody tr {
+    height: 52px;
+    border-bottom: 1px solid var(--border-subtle);
+    cursor: pointer;
+    transition: background-color var(--dur-1) ease;
+  }
+
+  .table-container.compact .data-grid-table tbody tr {
+    height: 44px;
+  }
+
+  .data-grid-table tbody tr:hover {
+    background-color: var(--bg-inset);
+  }
+
+  .data-grid-table tbody tr.selected {
+    background-color: var(--brand-subtle);
+    box-shadow: inset 2px 0 0 var(--brand);
+  }
+
+  .data-grid-table tbody td {
+    padding: 0 16px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    vertical-align: middle;
+  }
+
+  .star-cell {
+    width: 44px;
+    text-align: center;
+    padding: 0 6px 0 14px;
+  }
+
+  .star-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    color: var(--text-tertiary);
+    cursor: pointer;
+    transition: all var(--dur-2) ease;
+  }
+  .star-btn:hover {
+    color: var(--text-secondary);
+  }
+  .star-btn.saved {
+    color: #F59E0B;
+    transform: scale(1.15);
+  }
+
+  .employer-cell-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .employer-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 650;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .table-container.compact .employer-avatar {
+    width: 24px;
+    height: 24px;
+    font-size: 10px;
+  }
+
+  .employer-name-stack {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .employer-legal-name {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 340px;
+  }
+
+  .employer-crn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-tertiary);
+  }
+
+  .table-container.compact .employer-crn {
+    display: none;
+  }
+
+  .route-pills-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: nowrap;
+  }
+
+  .route-pill {
+    padding: 1px 6px;
+    border-radius: var(--radius-sm);
+    font-size: 10.5px;
+    font-weight: 600;
+    background-color: var(--info-subtle);
+    color: var(--info-text);
+    white-space: nowrap;
+  }
+
+  .route-pill.more-chip {
+    background-color: var(--bg-sunken);
+    color: var(--text-secondary);
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .status-badge::before {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: currentColor;
+    flex-shrink: 0;
+  }
+
+  .status-badge.active-status {
+    background-color: var(--success-subtle);
+    color: var(--success-text);
+  }
+  .status-badge.warning-status {
+    background-color: var(--warning-subtle);
+    color: var(--warning-text);
+  }
+  .status-badge.critical-status {
+    background-color: var(--danger-subtle);
+    color: var(--danger-text);
+  }
+
+  .row-chevron {
+    color: var(--text-tertiary);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all var(--dur-2) ease;
+  }
+  .data-grid-table tbody tr:hover .row-chevron,
+  .data-grid-table tbody tr.selected .row-chevron {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Empty State & Sentinel */
+  .grid-empty-state {
+    padding: 48px 20px;
+    text-align: center;
+    display: none;
+  }
+
+  .grid-empty-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--bg-sunken);
+    color: var(--text-tertiary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .grid-empty-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .grid-empty-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    max-width: 320px;
+    margin: 0 auto 16px;
+  }
+
+  .sentinel-loader {
+    padding: 16px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    display: none;
+  }
+
+  /* Mobile App Bar (64px) */
+  .mobile-bottom-bar {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: var(--bg-surface);
+    border-top: 1px solid var(--border-default);
+    padding-bottom: env(safe-area-inset-bottom);
+    z-index: 100;
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-size: 10.5px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+  }
+  .mobile-nav-item.active {
+    color: var(--brand);
+    font-weight: 600;
+  }
+}
+
+@layer overlays {
+  /* Detail Drawer Level 4 (480px) */
+  .drawer-scrim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--overlay-backdrop);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-3) ease;
+    z-index: var(--z-drawer);
+  }
+
+  .drawer-scrim.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .slide-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: var(--docket-w);
+    max-width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-surface);
+    border-left: 1px solid var(--border-default);
+    box-shadow: var(--shadow-xl);
+    transform: translateX(100%);
+    transition: transform var(--dur-4) var(--ease-spring);
+    z-index: calc(var(--z-drawer) + 1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .slide-drawer.open {
+    transform: translateX(0);
+  }
+
+  .drawer-header {
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--border-default);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .drawer-header-row1 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .drawer-employer-lead {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .drawer-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 650;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .drawer-title {
+    font-size: 16px;
+    font-weight: 650;
+    color: var(--text-primary);
+    line-height: 1.25;
+  }
+
+  .docket-close-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    color: var(--text-tertiary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .docket-close-btn:hover {
+    background-color: var(--bg-inset);
+    color: var(--text-primary);
+  }
+
+  .drawer-meta-chips {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .meta-crn-chip {
+    font-family: var(--font-mono);
+    padding: 1px 6px;
+    border-radius: 4px;
+    background-color: var(--bg-sunken);
+    border: 1px solid var(--border-default);
+    cursor: pointer;
+  }
+
+  /* 2-Second Verdict Strip */
+  .verdict-strip {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .verdict-strip.active-clean {
+    background-color: var(--success-subtle);
+    color: var(--success-text);
+  }
+  .verdict-strip.warning-flags {
+    background-color: var(--warning-subtle);
+    color: var(--warning-text);
+  }
+  .verdict-strip.critical-insolvency {
+    background-color: var(--danger-subtle);
+    color: var(--danger-text);
+  }
+
+  /* Drawer Quick Action Bar */
+  .drawer-action-bar {
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .drawer-act-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 28px;
+    padding: 0 8px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-default);
+    cursor: pointer;
+  }
+  .drawer-act-btn:hover {
+    background-color: var(--bg-inset);
+    color: var(--text-primary);
+  }
+
+  /* Drawer Tabs & Body */
+  .drawer-tabs-nav {
+    display: flex;
+    border-bottom: 1px solid var(--border-default);
+    padding: 0 20px;
+    gap: 16px;
+  }
+
+  .drawer-tab-btn {
+    padding: 10px 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: all var(--dur-2) ease;
+  }
+  .drawer-tab-btn.active {
+    color: var(--brand);
+    border-bottom-color: var(--brand);
+    font-weight: 600;
+  }
+
+  .drawer-content-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .drawer-panel {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .drawer-panel.active {
+    display: flex;
+  }
+
+  .docket-section-card {
+    padding: 16px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .docket-sec-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+    margin-bottom: 12px;
+  }
+
+  .docket-grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .docket-field-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+  }
+
+  .docket-field-val {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-top: 2px;
+  }
+
+  /* Interactive Salary Threshold Gauge */
+  .gauge-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
+  }
+
+  .salary-gauge-svg {
+    width: 200px;
+    height: 112px;
+  }
+
+  .gauge-readout-val {
+    font-size: 22px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-primary);
+    margin-top: 4px;
+  }
+
+  .gauge-readout-label {
+    font-size: 11.5px;
+    color: var(--text-secondary);
+  }
+
+  .bar-comparison-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 10px;
+  }
+
+  .bar-comp-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .bar-comp-track {
+    height: 8px;
+    border-radius: var(--radius-full);
+    background-color: var(--bg-sunken);
+    overflow: hidden;
+  }
+
+  .bar-comp-fill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    transition: width var(--dur-4) var(--ease-spring);
+  }
+  .bar-comp-fill.baseline { background-color: var(--slate-400); }
+  .bar-comp-fill.going-rate { background-color: var(--brand); }
+
+  /* Command Palette Modal (⌘K) */
+  .palette-scrim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--overlay-backdrop);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-3) ease;
+    z-index: var(--z-palette);
+    display: flex;
+    justify-content: center;
+    padding-top: 12vh;
+  }
+
+  .palette-scrim.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .palette-modal {
+    width: 640px;
+    max-width: 90vw;
+    background-color: var(--bg-raised);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-modal);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: max-content;
+    max-height: 480px;
+  }
+
+  .palette-input-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+    height: 48px;
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .palette-input-row input {
+    flex: 1;
+    font-size: 15px;
+    color: var(--text-primary);
+  }
+  .palette-input-row input::placeholder {
+    color: var(--text-tertiary);
+  }
+
+  .palette-results-list {
+    padding: 8px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .palette-group-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+    padding: 6px 10px 4px;
+  }
+
+  .palette-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 36px;
+    padding: 0 10px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+  .palette-item:hover, .palette-item.selected {
+    background-color: var(--bg-inset);
+    color: var(--text-primary);
+  }
+
+  .palette-footer {
+    height: 32px;
+    padding: 0 16px;
+    border-top: 1px solid var(--border-default);
+    background-color: var(--bg-sunken);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 11px;
+    color: var(--text-tertiary);
+  }
+
+  /* Toasts */
+  #toasts {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: var(--z-toast);
+  }
+
+  .toast-item {
+    min-width: 320px;
+    padding: 10px 14px;
+    background-color: var(--bg-raised);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-primary);
+    animation: toast-in var(--dur-3) var(--ease-decelerate);
+  }
+
+  @keyframes toast-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .toast-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .toast-dot-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--brand);
+  }
+
+  .toast-undo-btn {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--brand);
+    cursor: pointer;
+  }
+}
+
+@layer utilities {
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Reduced Motion Contract */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Responsive Rules */
+  @media (max-width: 1023px) {
+    .app-shell {
+      grid-template-columns: 1fr;
+    }
+    .sidebar {
+      display: none;
+    }
+    .mobile-bottom-bar {
+      display: grid;
+    }
+    .slide-drawer {
+      width: 100vw;
+    }
+    .kpi-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 639px) {
+    .kpi-grid {
+      grid-template-columns: 1fr;
+    }
+    .search-trigger-pill {
+      width: 140px;
+    }
+    .topbar-left .breadcrumb-wrap {
+      font-size: 12px;
+    }
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+  <!-- Left Navigation Sidebar (240px) -->
+  <aside class="sidebar" aria-label="Main Navigation">
+    <a href="./" class="brand-row" aria-label="KnowYourSponsor Home">
+      <div class="brand-logo-mark">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <span class="brand-title">KnowYourSponsor</span>
+    </a>
+
+    <div class="workspace-selector" role="button" tabindex="0" aria-label="Workspace switcher">
+      <div class="ws-left">
+        <div class="ws-avatar">F</div>
+        <span class="ws-name">Free Workspace</span>
+      </div>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+
+    <!-- Primary Nav -->
+    <nav class="nav-section" aria-label="Registry Navigation">
+      <div class="nav-section-title">Registry</div>
+      <a href="./" class="nav-item active">
+        <div class="nav-item-left">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Search</span>
+        </div>
+      </a>
+      <a href="watchlist/" class="nav-item">
+        <div class="nav-item-left">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>Watchlists</span>
+        </div>
+        <span class="nav-item-badge" id="nSaved"></span>
+      </a>
+      <a href="changes/" class="nav-item">
+        <div class="nav-item-left">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span>Alerts</span>
+        </div>
+        <span class="nav-item-badge alert-count">3</span>
+      </a>
+      <a href="insights/" class="nav-item">
+        <div class="nav-item-left">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          <span>Market Lists</span>
+        </div>
+      </a>
+    </nav>
+
+    <!-- Secondary Nav -->
+    <nav class="nav-section" aria-label="Platform">
+      <div class="nav-section-title">Platform</div>
+      <a href="data-api/" class="nav-item">
+        <div class="nav-item-left">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <span>Developer API</span>
+        </div>
+      </a>
+      <a href="pricing/" class="nav-item">
+        <div class="nav-item-left">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          <span>Pricing &amp; Plans</span>
+        </div>
+      </a>
+    </nav>
+
+    <!-- Sidebar Bottom Pro & User Card -->
+    <div class="sidebar-bottom">
+      <div class="plan-card">
+        <div class="plan-card-title">Pro Compliance Engine</div>
+        <div class="plan-card-desc">Unlock unlimited exports, Companies House audit feeds, and webhook alerts.</div>
+        <a href="pricing/" class="btn-upgrade-mini">Upgrade Plan</a>
+      </div>
+
+      <div class="user-row" role="button" tabindex="0">
+        <div class="user-left">
+          <div class="user-avatar">KY</div>
+          <span class="user-name">Guest User</span>
+        </div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Column -->
+  <div class="main-column">
+    <!-- Topbar (56px) Glass -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <span class="breadcrumb-root">Registry</span>
+        <span class="breadcrumb-root">/</span>
+        <span class="breadcrumb-current">UK Register Terminal</span>
+      </div>
+
+      <div class="topbar-right">
+        <div class="search-trigger-pill" id="topbarSearchTrigger" role="button" tabindex="0" aria-label="Open command palette">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Search sponsors…</span>
+          <span class="kbd-chip">⌘K</span>
+        </div>
+
+        <button class="btn-icon" type="button" id="btnShortcutsHelp" aria-label="Keyboard shortcuts" title="Keyboard shortcuts (Shortcut: ?)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </button>
+
+        <button class="btn-icon" type="button" id="btnThemeToggle" aria-label="Toggle theme" title="Toggle theme (Shortcut: T)">
+          <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+
+        <a href="pricing/" class="btn-primary-cta">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <span>Upgrade</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Live Telemetry Band (32px) -->
+    <div class="telemetry-strip">
+      <div class="telemetry-left">
+        <span class="live-dot-wrap">
+          <span class="pulse-dot"></span>
+          <span id="telemetryCount">127,716</span> active sponsors
+        </span>
+        <span>·</span>
+        <span>Updated <span id="telemetryDate">Today</span></span>
+        <span>·</span>
+        <span>Home Office · Companies House · DBT</span>
+      </div>
+      <div>
+        <span class="telemetry-status-chip">All Systems Nominal</span>
+      </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="main-content">
+      <!-- Page Header -->
+      <section class="page-head">
+        <div>
+          <h1 class="page-title">UK Sponsor Register &amp; Compliance Directory</h1>
+          <p class="page-subtitle">Every licensed UK employer cross-referenced daily against Companies House insolvency filings, DBT National Minimum Wage enforcements, and statutory salary thresholds.</p>
+        </div>
+        <div class="page-actions">
+          <button class="btn-secondary" id="btnExportTop" aria-label="Export dataset as CSV">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Export CSV</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Macro Level 1: 4 KPI Cards Grid -->
+      <section class="kpi-grid" aria-label="Register Vital Statistics">
+        <!-- KPI 1 -->
+        <div class="kpi-card" data-view="" id="kpiTotal" role="button" tabindex="0">
+          <div class="kpi-card-header">
+            <div class="kpi-label-group">
+              <span class="kpi-dot" style="background:#10B981"></span>
+              <span class="kpi-label">Active Sponsors</span>
+            </div>
+            <svg class="kpi-info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </div>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="hudTotal">127,716</span>
+            <span class="delta-pill positive">+1.2%</span>
+          </div>
+          <div id="sparklineTotal"></div>
+        </div>
+
+        <!-- KPI 2 -->
+        <div class="kpi-card" data-view="added" id="kpiAdded" role="button" tabindex="0">
+          <div class="kpi-card-header">
+            <div class="kpi-label-group">
+              <span class="kpi-dot" style="background:#0EA5E9"></span>
+              <span class="kpi-label">New This Week</span>
+            </div>
+            <svg class="kpi-info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </div>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="hudAdded">+302</span>
+            <span class="delta-pill neutral">Weekly Ingest</span>
+          </div>
+          <div id="sparklineAdded"></div>
+        </div>
+
+        <!-- KPI 3 -->
+        <div class="kpi-card" data-warn="serious" id="kpiSerious" role="button" tabindex="0">
+          <div class="kpi-card-header">
+            <div class="kpi-label-group">
+              <span class="kpi-dot" style="background:#F43F5E"></span>
+              <span class="kpi-label">Insolvency Risk</span>
+            </div>
+            <svg class="kpi-info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </div>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="hudSerious">2,793</span>
+            <span class="delta-pill negative">High Risk</span>
+          </div>
+          <div id="sparklineSerious"></div>
+        </div>
+
+        <!-- KPI 4 -->
+        <div class="kpi-card" data-warn="notable" id="kpiDeficient" role="button" tabindex="0">
+          <div class="kpi-card-header">
+            <div class="kpi-label-group">
+              <span class="kpi-dot" style="background:#F59E0B"></span>
+              <span class="kpi-label">Deficient Filings</span>
+            </div>
+            <svg class="kpi-info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </div>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="hudDeficient">6,697</span>
+            <span class="delta-pill warning">Late / Overdue</span>
+          </div>
+          <div id="sparklineWarning"></div>
+        </div>
+      </section>
+
+      <!-- Solvency Composition Meter -->
+      <section class="solvency-meter-card" aria-label="Register Composition">
+        <div class="solvency-header">
+          <span class="solvency-title">Corporate Solvency &amp; Statutory Filing Health</span>
+          <span style="font-size:12px; color:var(--text-tertiary);">Companies House Records</span>
+        </div>
+        <div class="solvency-track">
+          <div class="solvency-segment active-compliant" style="width: 74.2%;" title="Compliant: 74.2% · Click to filter" data-filter="compliant"></div>
+          <div class="solvency-segment active-overdue" style="width: 5.2%;" title="Overdue / Dormant: 5.2% · Click to filter" data-filter="notable"></div>
+          <div class="solvency-segment active-insolvent" style="width: 2.2%;" title="Insolvency / Strike-off: 2.2% · Click to filter" data-filter="serious"></div>
+          <div class="solvency-segment active-unverified" style="width: 18.4%;" title="Unmatched / Non-corporate: 18.4%" data-filter="unverified"></div>
+        </div>
+        <div class="solvency-legend">
+          <button type="button" class="solvency-legend-item" data-filter="compliant">
+            <span class="legend-dot" style="background:#10B981"></span>
+            <span>Compliant (74.2%)</span>
+          </button>
+          <button type="button" class="solvency-legend-item" data-filter="notable">
+            <span class="legend-dot" style="background:#F59E0B"></span>
+            <span>Overdue Accounts (5.2%)</span>
+          </button>
+          <button type="button" class="solvency-legend-item" data-filter="serious">
+            <span class="legend-dot" style="background:#F43F5E"></span>
+            <span>Insolvency Proceedings (2.2%)</span>
+          </button>
+          <button type="button" class="solvency-legend-item" data-filter="unverified">
+            <span class="legend-dot" style="background:#94A3B8"></span>
+            <span>Unverified / Non-corporate (18.4%)</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Dismissible Pro Upgrade Banner -->
+      <div class="upgrade-banner" id="upgradeBanner">
+        <div class="banner-left">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <span>Track sponsor revocations, new license grants, and daily Companies House alerts in real-time with Pro.</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <a href="pricing/" class="banner-btn-pill">See Pro Plans</a>
+          <button class="banner-close-btn" id="btnDismissBanner" aria-label="Dismiss banner">&times;</button>
+        </div>
+      </div>
+
+      <!-- Filter Band Level 2 -->
+      <section class="filter-band" aria-label="Search and Filter Controls">
+        <!-- Omnibar Row -->
+        <div class="omnibar-row">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-tertiary);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="search" id="q" class="omnibar-input" placeholder="Search by employer name, company number (CRN), town, or industry… (Press '/' to focus)" autocomplete="off">
+          <span class="kbd-chip">⌘K</span>
+          <button class="btn-secondary" id="btnExport" style="height:32px; border-radius:var(--radius-full);" aria-label="Export filtered results as CSV">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Export</span>
+          </button>
+        </div>
+
+        <!-- Segmented View Tabs & Facets -->
+        <div class="view-tabs-row">
+          <div class="view-tabs-track" role="tablist">
+            <button class="view-tab-btn active" data-view="" role="tab" aria-selected="true">All Sponsors</button>
+            <button class="view-tab-btn" data-view="added" role="tab" aria-selected="false">New Additions <span id="nAdded"></span></button>
+            <button class="view-tab-btn" data-view="removed" role="tab" aria-selected="false">Revoked <span id="nRemoved"></span></button>
+            <button class="view-tab-btn" data-view="flagged" role="tab" aria-selected="false">Flagged <span id="nFlagged"></span></button>
+            <button class="view-tab-btn" data-view="nmw" role="tab" aria-selected="false">NMW Sanctions <span id="nNmw"></span></button>
+            <button class="view-tab-btn" data-view="saved" role="tab" aria-selected="false">Shortlist</button>
+          </div>
+
+          <div class="facet-row">
+            <select id="citySelect" class="facet-select" aria-label="Filter by city">
+              <option value="">All Towns / Cities</option>
+            </select>
+            <select id="industrySelect" class="facet-select" aria-label="Filter by industry">
+              <option value="">All Industries</option>
+            </select>
+            <select id="routeSelect" class="facet-select" aria-label="Filter by visa route">
+              <option value="">All Visa Routes</option>
+            </select>
+            <select id="ratingSelect" class="facet-select" aria-label="Filter by license rating">
+              <option value="">All Ratings</option>
+              <option value="A">A-Rating</option>
+              <option value="B">B-Rating</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Preset Chips -->
+        <div class="preset-chips-row">
+          <button class="preset-chip" data-preset="added">Newly Added</button>
+          <button class="preset-chip" data-preset="flagged">Filing Warnings</button>
+          <button class="preset-chip" data-preset="nmw">NMW Underpaid</button>
+          <button class="preset-chip" data-preset="london-tech">London Tech</button>
+          <button class="preset-chip" data-preset="healthcare">Healthcare</button>
+        </div>
+
+        <!-- Active Filter Summary Bar -->
+        <div class="active-filter-summary" id="activeFilterSummary">
+          <span>Active Filters:</span>
+          <div id="activeTagsContainer" style="display:inline-flex; gap:6px; flex-wrap:wrap;"></div>
+          <button class="btn-secondary" id="btnClearAllFilters" style="height:24px; font-size:11px; padding:0 8px; border-radius:var(--radius-full);">Clear all</button>
+        </div>
+      </section>
+
+      <!-- Flagship Data Grid Level 3 -->
+      <section class="grid-card-wrapper" id="gridContainer" aria-label="Sponsor Data Grid">
+        <!-- Grid Header -->
+        <div class="grid-header-bar">
+          <div class="grid-header-left">
+            <span id="matchCount">127,716</span>
+            <span style="font-weight:450; color:var(--text-secondary);">sponsors matched</span>
+          </div>
+          <div class="grid-header-right">
+            <button class="density-toggle-btn" id="btnDensityToggle" aria-label="Toggle compact density">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+              <span id="densityLabel">Comfortable</span>
+            </button>
+            <button class="btn-secondary" id="btnMarketPulseToggle" style="height:28px; font-size:12px; padding:0 8px;">
+              <span>Market Pulse</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Table Body -->
+        <div class="table-container">
+          <table class="data-grid-table">
+            <thead>
+              <tr>
+                <th style="width:44px; text-align:center;" aria-label="Shortlist"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></th>
+                <th style="min-width:260px;">Employer</th>
+                <th style="width:160px;">Town / City</th>
+                <th style="width:160px;">Industry</th>
+                <th style="min-width:180px;">Visa Routes</th>
+                <th style="width:130px;">Status / Rating</th>
+                <th style="width:40px; text-align:center;"></th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Rendered dynamically by JS -->
+            </tbody>
+          </table>
+
+          <!-- Empty State -->
+          <div class="grid-empty-state" id="tableEmpty">
+            <div class="grid-empty-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <div class="grid-empty-title">No sponsors match your active filters</div>
+            <p class="grid-empty-desc">Try clearing selected facets, removing search keywords, or switching back to the All Sponsors view.</p>
+            <button class="btn-secondary" id="btnClearFiltersEmpty" style="margin: 0 auto;">Clear All Filters</button>
+          </div>
+
+          <!-- Progressive Pagination Sentinel -->
+          <div class="sentinel-loader" id="sentinelLoader">
+            <span>Loading more sponsors…</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- Mobile Bottom App Bar (64px) -->
+<nav class="mobile-bottom-bar" aria-label="Mobile Navigation">
+  <a href="./" class="mobile-nav-item active">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <span>Search</span>
+  </a>
+  <a href="watchlist/" class="mobile-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    <span>Saved</span>
+  </a>
+  <a href="changes/" class="mobile-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    <span>Alerts</span>
+  </a>
+  <a href="insights/" class="mobile-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg>
+    <span>Lists</span>
+  </a>
+  <a href="pricing/" class="mobile-nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+    <span>More</span>
+  </a>
+</nav>
+
+<!-- ================= OVERLAYS LEVEL 4 ================= -->
+
+<!-- Slide-Over Detail Drawer (480px) -->
+<div class="drawer-scrim" id="drawerScrim"></div>
+<aside class="slide-drawer" id="docketPane" role="dialog" aria-modal="true" aria-label="Employer verification details">
+  <div class="drawer-header">
+    <div class="drawer-header-row1">
+      <div class="drawer-employer-lead">
+        <div class="drawer-avatar" id="drawerAvatar">KS</div>
+        <div>
+          <h2 class="drawer-title" id="docketName">Employer Name</h2>
+        </div>
+      </div>
+      <button class="docket-close-btn" id="docketClose" aria-label="Close docket">&times;</button>
+    </div>
+
+    <div class="drawer-meta-chips">
+      <span class="meta-crn-chip" id="docketCrnChip" title="Click to copy CRN">
+        <span id="docketCrnVal">CRN —</span>
+      </span>
+      <span>·</span>
+      <span id="docketTownVal">Town</span>
+      <span>·</span>
+      <span id="docketIndustryVal">Industry</span>
+    </div>
+  </div>
+
+  <!-- 2-Second Verdict Strip -->
+  <div class="verdict-strip active-clean" id="docketVerdictStrip">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <span id="verdictText">Active Sponsor Licence · Clean Companies House Filings</span>
+  </div>
+
+  <!-- Action Bar -->
+  <div class="drawer-action-bar">
+    <a href="#" target="_blank" rel="noopener" class="drawer-act-btn" id="actCH">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+      <span>Companies House</span>
+    </a>
+    <button class="drawer-act-btn" id="actShare">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+      <span>Share</span>
+    </button>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="drawer-tabs-nav">
+    <button class="drawer-tab-btn active" data-tab="tabOverview">Overview</button>
+    <button class="drawer-tab-btn" data-tab="tabFilings">Filings</button>
+    <button class="drawer-tab-btn" data-tab="tabSalary">Salary Calc</button>
+    <button class="drawer-tab-btn" data-tab="tabAudit">Audit</button>
+  </div>
+
+  <!-- Drawer Scrollable Content Panels -->
+  <div class="drawer-content-scroll">
+    <!-- Tab 1: Overview -->
+    <div class="drawer-panel active" id="tabOverview">
+      <div class="docket-section-card">
+        <div class="docket-sec-title">Home Office Licence Details</div>
+        <div class="docket-grid-2col">
+          <div>
+            <div class="docket-field-label">Licence Rating</div>
+            <div class="docket-field-val" id="docketRatingVal">A-Rating</div>
+          </div>
+          <div>
+            <div class="docket-field-label">Licence Since</div>
+            <div class="docket-field-val" id="docketSinceVal">Verified Active</div>
+          </div>
+          <div>
+            <div class="docket-field-label">Primary Region</div>
+            <div class="docket-field-val" id="docketLocationVal">London, UK</div>
+          </div>
+          <div>
+            <div class="docket-field-label">Visa Routes</div>
+            <div class="docket-field-val" id="docketRoutesVal">Skilled Worker</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="docket-section-card" id="docketNmwCard" style="display:none; border-color:var(--warning-solid);">
+        <div class="docket-sec-title" style="color:var(--warning-text);">National Minimum Wage Enforcement</div>
+        <p style="font-size:13px; color:var(--text-secondary);" id="docketNmwDetails">This company was named in a Department for Business and Trade NMW underpayment enforcement round.</p>
+      </div>
+    </div>
+
+    <!-- Tab 2: Filings (Companies House) -->
+    <div class="drawer-panel" id="tabFilings">
+      <div class="docket-section-card">
+        <div class="docket-sec-title">Corporate Filing Status</div>
+        <div class="docket-grid-2col">
+          <div>
+            <div class="docket-field-label">Company Status</div>
+            <div class="docket-field-val" id="docketStatusVal">Active</div>
+          </div>
+          <div>
+            <div class="docket-field-label">Incorporation</div>
+            <div class="docket-field-val" id="docketIncorpVal">2016-04-12</div>
+          </div>
+          <div>
+            <div class="docket-field-label">Accounts Type</div>
+            <div class="docket-field-val" id="docketAccountsVal">Total Exemption Full</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="docket-section-card" id="docketAdvisoryBox" style="display:none;">
+        <div class="docket-sec-title">Advisory Note</div>
+        <p style="font-size:13px; color:var(--text-secondary);" id="docketAdvisoryText"></p>
+      </div>
+    </div>
+
+    <!-- Tab 3: Salary Calculator (Interactive 200x112 SVG Gauge) -->
+    <div class="drawer-panel" id="tabSalary">
+      <div class="docket-section-card">
+        <div class="docket-sec-title">Occupation &amp; Route Selection</div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div>
+            <label style="font-size:11px; font-weight:600; color:var(--text-tertiary); text-transform:uppercase;">Visa Rule Track</label>
+            <div class="view-tabs-track" style="margin-top:4px; width:100%; display:flex;" id="salaryRuleToggle">
+              <button class="view-tab-btn active" data-rule="standard" style="flex:1;">Standard (£41.7k)</button>
+              <button class="view-tab-btn" data-rule="transitional" style="flex:1;">Transitional (£31.3k)</button>
+              <button class="view-tab-btn" data-rule="new_entrant" style="flex:1;">New Entrant (70%)</button>
+            </div>
+          </div>
+
+          <div>
+            <label style="font-size:11px; font-weight:600; color:var(--text-tertiary); text-transform:uppercase;">Occupation Code (SOC 2020)</label>
+            <input type="text" id="calcJobSearch" placeholder="Search occupation e.g. Software, Nurse…" style="width:100%; height:34px; padding:0 10px; background:var(--bg-sunken); border:1px solid var(--border-default); border-radius:var(--radius-md); font-size:12.5px; margin-top:4px;">
+            <select id="calcSocSelect" style="width:100%; height:34px; padding:0 10px; background:var(--bg-sunken); border:1px solid var(--border-default); border-radius:var(--radius-md); font-size:12.5px; margin-top:6px;"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Semicircle SVG Gauge Card -->
+      <div class="docket-section-card">
+        <div class="docket-sec-title">Statutory Going Rate vs Legal Floor</div>
+        <div class="gauge-wrap">
+          <svg class="salary-gauge-svg" viewBox="0 0 200 112">
+            <!-- Track Arc -->
+            <path d="M 24 100 A 76 76 0 0 1 176 100" fill="none" stroke="var(--border-default)" stroke-width="12" stroke-linecap="round"/>
+            <!-- Active Color Arc -->
+            <path d="M 24 100 A 76 76 0 0 1 176 100" fill="none" stroke="url(#gaugeGrad)" stroke-width="12" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#F43F5E"/>
+                <stop offset="50%" stop-color="#F59E0B"/>
+                <stop offset="100%" stop-color="#10B981"/>
+              </linearGradient>
+            </defs>
+            <!-- Needle -->
+            <line id="gaugeNeedle" x1="100" y1="100" x2="100" y2="24" stroke="var(--text-primary)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="100" cy="100" r="5" fill="var(--text-primary)"/>
+          </svg>
+          <div class="gauge-readout-val" id="calcGoingRate">£49,400</div>
+          <div class="gauge-readout-label">Effective Statutory Salary Minimum</div>
+        </div>
+
+        <div class="bar-comparison-row">
+          <div class="bar-comp-labels">
+            <span>Home Office Legal Floor</span>
+            <span id="calcGovMin">£41,700</span>
+          </div>
+          <div class="bar-comp-track">
+            <div class="bar-comp-fill baseline" id="barBaselineFill" style="width: 60%;"></div>
+          </div>
+        </div>
+
+        <div class="bar-comparison-row" style="margin-top:8px;">
+          <div class="bar-comp-labels">
+            <span>Occupation 50th Percentile Going Rate</span>
+            <span id="calcGoingRateBar">£49,400</span>
+          </div>
+          <div class="bar-comp-track">
+            <div class="bar-comp-fill going-rate" id="barGoingRateFill" style="width: 78%;"></div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px; padding:10px; border-radius:var(--radius-md); background:var(--brand-subtle); font-size:12px; color:var(--text-secondary);" id="calcVerdict">
+          <strong>Higher of Two Applies:</strong> Sponsoring this role requires paying at least the going rate of £49,400/yr as it exceeds the £41,700 standard floor.
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Audit -->
+    <div class="drawer-panel" id="tabAudit">
+      <div class="docket-section-card">
+        <div class="docket-sec-title">Provenance &amp; Data Pipeline</div>
+        <div style="display:flex; flex-direction:column; gap:12px; font-size:12.5px; color:var(--text-secondary);">
+          <div>
+            <strong>Home Office Sponsor Register:</strong> Ingested from GOV.UK Open Document Format (ODS).
+          </div>
+          <div>
+            <strong>Companies House Live API:</strong> Linked via fuzzy token matching and verified CRN company profiles.
+          </div>
+          <div>
+            <strong>Department for Business and Trade:</strong> National Minimum Wage naming scheme rounds 1 to 20.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ================= COMMAND PALETTE MODAL (⌘K) ================= -->
+<div class="palette-scrim" id="paletteScrim" role="dialog" aria-modal="true" aria-label="Command palette">
+  <div class="palette-modal">
+    <div class="palette-input-row">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" id="paletteInput" placeholder="Search 127k sponsors, cities, actions… (Press Esc to close)" autocomplete="off">
+      <span class="kbd-chip">ESC</span>
+    </div>
+    <div class="palette-results-list" id="paletteResults">
+      <div class="palette-group-title">Suggested Quick Actions</div>
+      <div class="palette-item" data-action="filter-added">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>View Newly Added Sponsors (+7D)</span>
+      </div>
+      <div class="palette-item" data-action="filter-flagged">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>View Filing Warnings &amp; Insolvencies</span>
+      </div>
+      <div class="palette-item" data-action="toggle-theme">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <span>Toggle Light / Dark Theme</span>
+      </div>
+      <div class="palette-item" data-action="export-csv">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span>Export Current Results as CSV</span>
+      </div>
+    </div>
+    <div class="palette-footer">
+      <span><kbd class="kbd-chip">↑↓</kbd> Navigate</span>
+      <span><kbd class="kbd-chip">↵</kbd> Select</span>
+      <span><kbd class="kbd-chip">Esc</kbd> Close</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= KEYBOARD SHORTCUTS MODAL (?) ================= -->
+<div class="palette-scrim" id="shortcutsModal" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
+  <div class="palette-modal" style="max-width: 520px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid var(--border-default);">
+      <h3 style="margin:0; font-size:15px; font-weight:600; color:var(--text-primary); display:flex; align-items:center; gap:8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.001M10 8h.001M14 8h.001M18 8h.001M8 12h.001M12 12h.001M16 12h.001M7 16h10"/></svg>
+        Keyboard Shortcuts
+      </h3>
+      <button class="docket-close-btn" id="closeShortcutsBtn" aria-label="Close shortcuts">&times;</button>
+    </div>
+    <div style="padding:16px 20px; display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+      <div>
+        <div style="font-size:11px; font-weight:600; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:10px;">Global Actions</div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:13px; color:var(--text-secondary);">
+          <span>Command Palette</span>
+          <kbd class="kbd-chip">⌘K</kbd>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:13px; color:var(--text-secondary);">
+          <span>Focus Search</span>
+          <kbd class="kbd-chip">/</kbd>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:13px; color:var(--text-secondary);">
+          <span>Toggle Theme</span>
+          <kbd class="kbd-chip">T</kbd>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:13px; color:var(--text-secondary);">
+          <span>Export CSV</span>
+          <kbd class="kbd-chip">E</kbd>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--text-secondary);">
+          <span>Help Cheat-sheet</span>
+          <kbd class="kbd-chip">?</kbd>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px; font-weight:600; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:10px;">Data Grid Navigation</div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:13px; color:var(--text-secondary);">
+          <span>Next Row</span>
+          <kbd class="kbd-chip">J / ↓</kbd>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:13px; color:var(--text-secondary);">
+          <span>Previous Row</span>
+          <kbd class="kbd-chip">K / ↑</kbd>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:13px; color:var(--text-secondary);">
+          <span>Open Dossier</span>
+          <kbd class="kbd-chip">↵ Enter</kbd>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:13px; color:var(--text-secondary);">
+          <span>Shortlist Star</span>
+          <kbd class="kbd-chip">S</kbd>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--text-secondary);">
+          <span>Close Overlay</span>
+          <kbd class="kbd-chip">Esc</kbd>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toasts" aria-live="polite"></div>
+
+<!-- ================= JAVASCRIPT STATE ENGINE ================= -->
+<script>
+(function(){
+  // Central Application State
+  const state = {
+    query: '',
+    city: '',
+    industry: '',
+    route: '',
+    rating: '',
+    view: '',
+    warn: '',
+    salaryRule: 'standard',
+    selectedSponsor: null,
+    focusedRowIndex: -1,
+    density: localStorage.getItem('kys-density') || 'comfortable',
+    theme: localStorage.getItem('kys-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
+    activeSlice: [],
+    totalMatches: 0,
+    currentOffset: 0,
+    isLoadingNext: false,
+    PAGE_LIMIT: 150
+  };
+
+  let allSponsors = [];
+  let companyFlags = {};
+  let licensedSince = {};
+  let ratingChanges = [];
+  let nmwData = {};
+  let addedRows = [];
+  let removedRows = [];
+  let socData = [];
+
+  let searchWorker = null;
+  let requestId = 0;
+  let workerHydrated = false;
+  let pendingQuery = null;
+
+  // Shortlist (LocalStorage)
+  const SAVED_KEY = 'kys.shortlist';
+  let savedSet = new Set();
+  try {
+    const raw = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]');
+    if (Array.isArray(raw)) savedSet = new Set(raw);
+  } catch(e) {}
+
+  function saveShortlist() {
+    try { localStorage.setItem(SAVED_KEY, JSON.stringify([...savedSet])); } catch(e) {}
+    updateShortlistCount();
+  }
+
+  function updateShortlistCount() {
+    const el = document.getElementById('nSaved');
+    if (el) el.textContent = savedSet.size ? `(${savedSet.size})` : '';
+  }
+
+  function esc(s) {
+    if (!s) return '';
+    const d = document.createElement('span');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  // Toast System with Undo Action
+  function showToast(msg, undoFn) {
+    try {
+      const root = document.getElementById('toasts');
+      if (!root) return;
+      const el = document.createElement('div');
+      el.className = 'toast-item';
+      el.innerHTML = `
+        <div class="toast-left">
+          <span class="toast-dot-indicator"></span>
+          <span>${esc(msg)}</span>
+        </div>
+        ${undoFn ? '<span class="toast-undo-btn">Undo</span>' : ''}
+      `;
+      if (undoFn) {
+        const undoBtn = el.querySelector('.toast-undo-btn');
+        undoBtn.addEventListener('click', () => {
+          undoFn();
+          el.remove();
+        });
+      }
+      root.appendChild(el);
+      setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transition = 'opacity 0.25s ease';
+        setTimeout(() => el.remove(), 250);
+      }, 3500);
+    } catch(e) {}
+  }
+
+  // Deterministic Avatar Generation (12 Gradient Pairs)
+  const AVATAR_GRADIENTS = [
+    'linear-gradient(135deg, #6366F1, #8B5CF6)',
+    'linear-gradient(135deg, #0EA5E9, #6366F1)',
+    'linear-gradient(135deg, #10B981, #14B8A6)',
+    'linear-gradient(135deg, #F43F5E, #F97316)',
+    'linear-gradient(135deg, #8B5CF6, #6366F1)',
+    'linear-gradient(135deg, #06B6D4, #10B981)',
+    'linear-gradient(135deg, #F59E0B, #F43F5E)',
+    'linear-gradient(135deg, #14B8A6, #0EA5E9)',
+    'linear-gradient(135deg, #8B5CF6, #EC4899)',
+    'linear-gradient(135deg, #3B82F6, #06B6D4)',
+    'linear-gradient(135deg, #22C55E, #84CC16)',
+    'linear-gradient(135deg, #A855F7, #6366F1)'
+  ];
+
+  function getAvatarGradient(name) {
+    const str = String(name || '');
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) hash += str.charCodeAt(i);
+    return AVATAR_GRADIENTS[Math.abs(hash) % AVATAR_GRADIENTS.length];
+  }
+
+  function getInitials(name) {
+    const parts = (name || '').trim().replace(/[^a-zA-Z0-9\s]/g, '').split(/\s+/).filter(Boolean);
+    if (parts.length === 0) return 'KS';
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
+
+  // Sparkline Generator for KPI Cards
+  function renderSparklines() {
+    const makeSvg = (color, pts) => `
+      <svg class="kpi-sparkline-svg" viewBox="0 0 100 28" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="grad-${color.replace('#','')}" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="${color}" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <polygon points="0,28 ${pts} 100,28" fill="url(#grad-${color.replace('#','')})"/>
+        <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="100" cy="${pts.split(' ').pop().split(',')[1] || 14}" r="2.5" fill="${color}"/>
+      </svg>
+    `;
+    const sTotal = document.getElementById('sparklineTotal');
+    const sAdded = document.getElementById('sparklineAdded');
+    const sSerious = document.getElementById('sparklineSerious');
+    const sWarning = document.getElementById('sparklineWarning');
+
+    if (sTotal) sTotal.innerHTML = makeSvg('#10B981', '0,24 16,22 32,20 48,18 64,15 80,10 100,8');
+    if (sAdded) sAdded.innerHTML = makeSvg('#0EA5E9', '0,22 20,18 40,24 60,12 80,16 100,6');
+    if (sSerious) sSerious.innerHTML = makeSvg('#F43F5E', '0,14 20,16 40,12 60,18 80,14 100,10');
+    if (sWarning) sWarning.innerHTML = makeSvg('#F59E0B', '0,18 20,16 40,20 60,15 80,12 100,11');
+  }
+
+  // Warnings resolution
+  const WARNINGS = [
+    ['not_active', null, 'serious', 'Companies House records this company as no longer active (Liquidation, Strike-off, Dissolved).'],
+    ['dormant', 'Dormant', 'notable', 'This company files accounts as dormant, reporting no significant trading.'],
+    ['accounts_overdue', 'Accounts overdue', 'notable', 'This company has not filed its statutory accounts by the due date.'],
+    ['confirmation_statement_overdue', 'Filing overdue', 'context', 'This company has not filed its confirmation statement by the due date.'],
+    ['incorporated_recently', 'New company', 'context', 'This company was incorporated within the last year.']
+  ];
+
+  function warningFor(name) {
+    const record = companyFlags[name];
+    if (!record || !record.flags || !record.flags.length) return null;
+    for (const [flag, label, severity, explanation] of WARNINGS) {
+      if (record.flags.includes(flag)) {
+        return {
+          label: label || (record.status ? record.status.replace(/^Active\s*-\s*/i, '') : 'Flagged'),
+          severity: severity,
+          status: record.status || '',
+          crn: record.number || '',
+          incorporated: record.incorporated || '',
+          accounts: record.accounts || '',
+          flags: record.flags,
+          explanation: explanation
+        };
+      }
+    }
+    return null;
+  }
+
+  // URL Sync
+  function syncUrlState(sponsorName) {
+    if (sponsorName !== undefined) {
+      state.selectedSponsor = sponsorName;
+    }
+    const params = new URLSearchParams();
+    if (state.query) params.set('q', state.query);
+    if (state.city) params.set('city', state.city);
+    if (state.industry) params.set('industry', state.industry);
+    if (state.route) params.set('route', state.route);
+    if (state.rating) params.set('rating', state.rating);
+    if (state.view) params.set('view', state.view);
+    if (state.warn) params.set('warn', state.warn);
+    if (state.selectedSponsor) params.set('sponsor', state.selectedSponsor);
+
+    const qs = params.toString();
+    const targetSearch = qs ? '?' + qs : '';
+    if (window.location.search !== targetSearch) {
+      window.history.replaceState(null, '', window.location.pathname + targetSearch);
+    }
+    updateActiveFilterSummary();
+  }
+
+  function initFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    state.query = params.get('q') || '';
+    state.city = params.get('city') || '';
+    state.industry = params.get('industry') || '';
+    state.route = params.get('route') || '';
+    state.rating = params.get('rating') || '';
+    state.view = params.get('view') || '';
+    state.warn = params.get('warn') || '';
+    const sponsor = params.get('sponsor') || null;
+
+    const qInput = document.getElementById('q');
+    if (qInput && state.query) qInput.value = state.query;
+    if (document.getElementById('citySelect') && state.city) document.getElementById('citySelect').value = state.city;
+    if (document.getElementById('industrySelect') && state.industry) document.getElementById('industrySelect').value = state.industry;
+    if (document.getElementById('routeSelect') && state.route) document.getElementById('routeSelect').value = state.route;
+    if (document.getElementById('ratingSelect') && state.rating) document.getElementById('ratingSelect').value = state.rating;
+
+    document.querySelectorAll('.view-tab-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.view === state.view);
+    });
+
+    return sponsor;
+  }
+
+  function updateActiveFilterSummary() {
+    const container = document.getElementById('activeTagsContainer');
+    const summaryRow = document.getElementById('activeFilterSummary');
+    if (!container || !summaryRow) return;
+
+    const tags = [];
+    if (state.query) tags.push({ label: `Query: ${state.query}`, clear: () => { state.query = ''; document.getElementById('q').value = ''; } });
+    if (state.city) tags.push({ label: `City: ${state.city}`, clear: () => { state.city = ''; document.getElementById('citySelect').value = ''; } });
+    if (state.industry) tags.push({ label: `Industry: ${state.industry}`, clear: () => { state.industry = ''; document.getElementById('industrySelect').value = ''; } });
+    if (state.route) tags.push({ label: `Route: ${state.route}`, clear: () => { state.route = ''; document.getElementById('routeSelect').value = ''; } });
+    if (state.rating) tags.push({ label: `Rating: ${state.rating}`, clear: () => { state.rating = ''; document.getElementById('ratingSelect').value = ''; } });
+    if (state.warn) tags.push({ label: `Status: ${state.warn}`, clear: () => { state.warn = ''; } });
+
+    if (tags.length === 0) {
+      summaryRow.style.display = 'none';
+      return;
+    }
+
+    summaryRow.style.display = 'flex';
+    container.innerHTML = tags.map((t, i) => `
+      <span class="active-tag">${esc(t.label)} <span class="active-tag-remove" data-tag-idx="${i}">&times;</span></span>
+    `).join('');
+
+    container.querySelectorAll('.active-tag-remove').forEach(el => {
+      el.addEventListener('click', (e) => {
+        const idx = parseInt(e.target.dataset.tagIdx, 10);
+        if (tags[idx]) {
+          tags[idx].clear();
+          triggerQuery(false);
+          syncUrlState();
+        }
+      });
+    });
+  }
+
+  // High-Density Data Grid Renderer
+  function renderTable(rows, append) {
+    state.isLoadingNext = false;
+    if (!append) {
+      state.activeSlice = rows;
+      state.currentOffset = rows.length;
+      state.focusedRowIndex = -1;
+    } else {
+      state.activeSlice = state.activeSlice.concat(rows);
+      state.currentOffset += rows.length;
+    }
+
+    const tbody = document.getElementById('tableBody');
+    const emptyEl = document.getElementById('tableEmpty');
+    const loadMoreEl = document.getElementById('sentinelLoader');
+
+    if (!state.activeSlice || state.activeSlice.length === 0) {
+      tbody.innerHTML = '';
+      emptyEl.style.display = 'block';
+      loadMoreEl.style.display = 'none';
+      return;
+    }
+    emptyEl.style.display = 'none';
+    loadMoreEl.style.display = state.currentOffset < state.totalMatches ? 'block' : 'none';
+
+    const html = state.activeSlice.map((item, idx) => {
+      const s = item && item.sponsor ? item.sponsor : item;
+      const [name, town, county, industry, routes, rating] = s;
+      const key = (name + '|' + town).toLowerCase();
+      const isSaved = savedSet.has(key);
+      const warn = (item && item.warn !== undefined) ? item.warn : warningFor(name);
+      const hasNmw = (item && item.nmw !== undefined) ? item.nmw : !!(nmwData[name] && nmwData[name].length);
+
+      const avatarGrad = getAvatarGradient(name);
+      const initials = getInitials(name);
+      const loc = [town, county].filter(Boolean).join(', ');
+
+      let statusBadgeClass = 'active-status';
+      let statusLabel = 'Active';
+
+      if (warn && warn.severity === 'serious') {
+        statusBadgeClass = 'critical-status';
+        statusLabel = warn.label || 'Insolvency';
+      } else if (warn) {
+        statusBadgeClass = 'warning-status';
+        statusLabel = warn.label || 'Overdue';
+      } else if (hasNmw) {
+        statusBadgeClass = 'warning-status';
+        statusLabel = 'NMW Sanction';
+      } else if (rating === 'B') {
+        statusBadgeClass = 'critical-status';
+        statusLabel = 'B-Action Plan';
+      } else if (rating === 'A') {
+        statusBadgeClass = 'active-status';
+        statusLabel = 'A-Rating';
+      }
+
+      const routeList = (routes || []).slice(0, 2);
+      const moreCount = (routes || []).length - routeList.length;
+
+      return `
+        <tr data-idx="${idx}" data-name="${esc(name)}">
+          <td class="star-cell">
+            <button class="star-btn ${isSaved ? 'saved' : ''}" data-key="${esc(key)}" aria-label="Shortlist sponsor">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </button>
+          </td>
+          <td>
+            <div class="employer-cell-wrap">
+              <div class="employer-avatar" style="background:${avatarGrad}">${initials}</div>
+              <div class="employer-name-stack">
+                <span class="employer-legal-name">${esc(name)}</span>
+                ${warn && warn.crn ? `<span class="employer-crn">CRN: ${esc(warn.crn)}</span>` : ''}
+              </div>
+            </div>
+          </td>
+          <td>${esc(loc || '—')}</td>
+          <td>${esc(industry || 'Other')}</td>
+          <td>
+            <div class="route-pills-wrap">
+              ${routeList.map(r => `<span class="route-pill">#${esc(r.replace('Global Business Mobility:', 'GBM:').replace(/\s+/g, ''))}</span>`).join('')}
+              ${moreCount > 0 ? `<span class="route-pill more-chip">+${moreCount}</span>` : ''}
+            </div>
+          </td>
+          <td>
+            <span class="status-badge ${statusBadgeClass}">${esc(statusLabel)}</span>
+          </td>
+          <td>
+            <span class="row-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    tbody.innerHTML = html;
+  }
+
+  // Slide-Over Detail Drawer Controller
+  function openDocket(sponsorName) {
+    if (!sponsorName) return;
+    state.selectedSponsor = sponsorName;
+    syncUrlState(sponsorName);
+
+    const drawer = document.getElementById('docketPane');
+    const scrim = document.getElementById('drawerScrim');
+    if (!drawer || !scrim) return;
+
+    drawer.classList.add('open');
+    scrim.classList.add('open');
+
+    // Populate Drawer Header
+    const avatar = document.getElementById('drawerAvatar');
+    if (avatar) {
+      avatar.style.background = getAvatarGradient(sponsorName);
+      avatar.textContent = getInitials(sponsorName);
+    }
+    const nameEl = document.getElementById('docketName');
+    if (nameEl) nameEl.textContent = sponsorName;
+
+    // Fetch Details via Worker
+    if (searchWorker) {
+      const reqId = ++requestId;
+      const onDetail = function(e) {
+        if (e.data.type === 'SPONSOR_DETAIL' && e.data.requestId === reqId) {
+          searchWorker.removeEventListener('message', onDetail);
+          const s = e.data.sponsor;
+          const warn = e.data.warning;
+          const nmw = e.data.nmw;
+          const since = e.data.licensedSince;
+
+          if (s) {
+            document.getElementById('docketTownVal').textContent = s[1] || '—';
+            document.getElementById('docketIndustryVal').textContent = s[3] || '—';
+            document.getElementById('docketLocationVal').textContent = `${s[1] || ''}, ${s[2] || ''}`;
+            document.getElementById('docketRatingVal').textContent = s[5] ? `${s[5]}-Rating` : 'Standard';
+            document.getElementById('docketRoutesVal').textContent = (s[4] || []).join(', ') || 'Skilled Worker';
+            document.getElementById('docketSinceVal').textContent = since ? `Registered ${since}` : 'Verified Active';
+
+            // CRN Chip
+            const crnVal = warn && warn.crn ? warn.crn : 'Not Linked';
+            document.getElementById('docketCrnVal').textContent = `CRN ${crnVal}`;
+
+            // Companies House Link
+            const chLink = document.getElementById('actCH');
+            if (chLink) chLink.href = warn && warn.crn ? `https://find-and-update.company-information.service.gov.uk/company/${warn.crn}` : `https://find-and-update.company-information.service.gov.uk/search?q=${encodeURIComponent(sponsorName)}`;
+
+            // Verdict Strip
+            const verdictStrip = document.getElementById('docketVerdictStrip');
+            const verdictText = document.getElementById('verdictText');
+            if (verdictStrip && verdictText) {
+              if (warn && warn.severity === 'serious') {
+                verdictStrip.className = 'verdict-strip critical-insolvency';
+                verdictText.textContent = `Critical — ${warn.label || 'Insolvency Proceedings on Record'}`;
+              } else if (warn) {
+                verdictStrip.className = 'verdict-strip warning-flags';
+                verdictText.textContent = `Warning — ${warn.label || 'Overdue Statutory Filings'}`;
+              } else if (nmw && nmw.length) {
+                verdictStrip.className = 'verdict-strip warning-flags';
+                verdictText.textContent = `Warning — National Minimum Wage Underpayment Finding`;
+              } else {
+                verdictStrip.className = 'verdict-strip active-clean';
+                verdictText.textContent = `Active Sponsor Licence · Clean Companies House Filings`;
+              }
+            }
+
+            // Filings tab
+            document.getElementById('docketStatusVal').textContent = warn && warn.status ? warn.status : 'Active (Presumed)';
+            document.getElementById('docketIncorpVal').textContent = warn && warn.incorporated ? warn.incorporated : '—';
+            document.getElementById('docketAccountsVal').textContent = warn && warn.accounts ? warn.accounts : 'Standard / Micro';
+
+            const advBox = document.getElementById('docketAdvisoryBox');
+            if (advBox) {
+              if (warn && warn.explanation) {
+                advBox.style.display = 'block';
+                advBox.textContent = warn.explanation;
+              } else {
+                advBox.style.display = 'none';
+              }
+            }
+
+            // NMW card
+            const nmwCard = document.getElementById('docketNmwCard');
+            const nmwDetails = document.getElementById('docketNmwDetails');
+            if (nmwCard && nmwDetails) {
+              if (nmw && nmw.length) {
+                nmwCard.style.display = 'block';
+                const r = nmw[0];
+                nmwDetails.innerHTML = `Named in DBT Underpayment Round ${esc(r.round || '')}. Arrears: £${(r.arrears||0).toLocaleString('en-GB')} across ${r.workers||1} workers.`;
+              } else {
+                nmwCard.style.display = 'none';
+              }
+            }
+          }
+        }
+      };
+      searchWorker.addEventListener('message', onDetail);
+      searchWorker.postMessage({ type: 'GET_SPONSOR', requestId: reqId, name: sponsorName });
+    }
+  }
+
+  function closeDocket() {
+    const drawer = document.getElementById('docketPane');
+    const scrim = document.getElementById('drawerScrim');
+    if (drawer) drawer.classList.remove('open');
+    if (scrim) scrim.classList.remove('open');
+    state.selectedSponsor = null;
+    syncUrlState();
+  }
+
+  // Salary Threshold Calculator Engine
+  function initSalaryCalc() {
+    const select = document.getElementById('calcSocSelect');
+    const jobInput = document.getElementById('calcJobSearch');
+    if (!select || !socData || !socData.occupations) return;
+
+    const renderOptions = (q) => {
+      const needle = (q || '').trim().toLowerCase();
+      let list = socData.occupations.map((o, idx) => ({ ...o, origIndex: idx }));
+      if (needle) {
+        list = list.filter(o => (o.title && o.title.toLowerCase().includes(needle)) || String(o.soc).includes(needle));
+      }
+      if (!list.length) {
+        select.innerHTML = '<option value="-1">No matching occupation</option>';
+        return;
+      }
+      select.innerHTML = list.map(o => `<option value="${o.origIndex}">SOC ${o.soc}: ${esc(o.title)} (£${o.going_rate.toLocaleString('en-GB')}/yr)</option>`).join('');
+      updateSalaryGauge();
+    };
+
+    renderOptions('');
+
+    if (jobInput) {
+      jobInput.addEventListener('input', () => renderOptions(jobInput.value));
+    }
+    select.addEventListener('change', updateSalaryGauge);
+
+    // Rule toggles
+    document.querySelectorAll('#salaryRuleToggle .view-tab-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('#salaryRuleToggle .view-tab-btn').forEach(btn => btn.classList.remove('active'));
+        b.classList.add('active');
+        state.salaryRule = b.dataset.rule;
+        updateSalaryGauge();
+      });
+    });
+  }
+
+  function updateSalaryGauge() {
+    const select = document.getElementById('calcSocSelect');
+    if (!select || !socData || !socData.occupations) return;
+
+    const occ = socData.occupations[parseInt(select.value, 10)] || socData.occupations[0];
+    if (!occ) return;
+
+    const rules = socData.rules || {};
+    const config = rules[state.salaryRule] || { floor: 41700, multiplier: 1.0 };
+
+    const baseline = config.floor;
+    const goingRate = Math.round((occ.going_rate || 41700) * (config.multiplier || 1.0));
+
+    // Gauge calculations
+    const maxVal = 90000;
+    const minVal = 25000;
+    const pct = Math.min(1, Math.max(0, (goingRate - minVal) / (maxVal - minVal)));
+    const angle = 180 + (pct * 180); // 180deg to 360deg
+
+    const needle = document.getElementById('gaugeNeedle');
+    if (needle) {
+      const rad = (angle * Math.PI) / 180;
+      const x2 = 100 + 76 * Math.cos(rad);
+      const y2 = 100 + 76 * Math.sin(rad);
+      needle.setAttribute('x2', x2.toFixed(1));
+      needle.setAttribute('y2', y2.toFixed(1));
+    }
+
+    const rateEl = document.getElementById('calcGoingRate');
+    if (rateEl) rateEl.textContent = `£${goingRate.toLocaleString('en-GB')}`;
+
+    const govMinEl = document.getElementById('calcGovMin');
+    if (govMinEl) govMinEl.textContent = `£${baseline.toLocaleString('en-GB')}`;
+
+    const goingRateBar = document.getElementById('calcGoingRateBar');
+    if (goingRateBar) goingRateBar.textContent = `£${goingRate.toLocaleString('en-GB')}`;
+
+    const barBase = document.getElementById('barBaselineFill');
+    const barGoing = document.getElementById('barGoingRateFill');
+    if (barBase) barBase.style.width = `${Math.min(100, (baseline / maxVal) * 100)}%`;
+    if (barGoing) barGoing.style.width = `${Math.min(100, (goingRate / maxVal) * 100)}%`;
+
+    const verdict = document.getElementById('calcVerdict');
+    if (verdict) {
+      if (goingRate >= baseline) {
+        verdict.innerHTML = `<strong>Meets Threshold:</strong> Sponsoring this occupation requires minimum <strong>£${goingRate.toLocaleString('en-GB')}/yr</strong> (50th percentile going rate exceeds statutory floor).`;
+      } else {
+        verdict.innerHTML = `<strong>Statutory Floor Applies:</strong> Occupation going rate is £${goingRate.toLocaleString('en-GB')}/yr, but Home Office rules enforce the legal minimum floor of <strong>£${baseline.toLocaleString('en-GB')}/yr</strong>.`;
+      }
+    }
+  }
+
+  // Trigger Query
+  function triggerQuery(append) {
+    if (append && state.isLoadingNext) return;
+    if (append && state.currentOffset >= state.totalMatches) return;
+    if (append) state.isLoadingNext = true;
+
+    const currentReq = ++requestId;
+    const offset = append ? state.currentOffset : 0;
+
+    if (searchWorker && workerHydrated) {
+      searchWorker.postMessage({
+        type: 'QUERY',
+        requestId: currentReq,
+        query: state.query,
+        city: state.city,
+        industry: state.industry,
+        route: state.route,
+        rating: state.rating,
+        view: state.view,
+        warn: state.warn,
+        savedKeys: [...savedSet],
+        offset: offset,
+        limit: state.PAGE_LIMIT
+      });
+    } else if (searchWorker && !workerHydrated) {
+      pendingQuery = { append, currentReq };
+    }
+  }
+
+  // High-Throughput CSV Export
+  function exportCSV() {
+    const isShortlist = state.view === 'saved';
+    showToast('Generating CSV export...');
+
+    if (searchWorker && workerHydrated) {
+      const exportReq = ++requestId;
+      const onExport = function(e) {
+        if (e.data.type === 'EXPORT_CSV_COMPLETE' && e.data.requestId === exportReq) {
+          searchWorker.removeEventListener('message', onExport);
+          const exportDate = new Date().toISOString().slice(0, 10);
+          const filename = isShortlist
+            ? `knowyoursponsor-shortlist-${exportDate}.csv`
+            : `knowyoursponsor-register-${exportDate}.csv`;
+          
+          const blob = new Blob([e.data.csv], { type: 'text/csv;charset=utf-8;' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+          showToast(`Exported ${e.data.count.toLocaleString()} sponsors successfully`);
+        }
+      };
+      searchWorker.addEventListener('message', onExport);
+      searchWorker.postMessage({
+        type: 'EXPORT_CSV',
+        requestId: exportReq,
+        query: state.query,
+        city: state.city,
+        industry: state.industry,
+        route: state.route,
+        rating: state.rating,
+        view: state.view,
+        warn: state.warn,
+        savedKeys: [...savedSet]
+      });
+    }
+  }
+
+  // Command Palette Controller with Autocomplete Search
+  function renderPaletteResults(query) {
+    const container = document.getElementById('paletteResults');
+    if (!container) return;
+
+    const q = (query || '').trim().toLowerCase();
+    if (!q) {
+      container.innerHTML = `
+        <div class="palette-group-title">Suggested Quick Actions</div>
+        <div class="palette-item" data-action="filter-added">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>View Newly Added Sponsors (+7D)</span>
+        </div>
+        <div class="palette-item" data-action="filter-flagged">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>View Filing Warnings &amp; Insolvencies</span>
+        </div>
+        <div class="palette-item" data-action="toggle-theme">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <span>Toggle Light / Dark Theme</span>
+        </div>
+        <div class="palette-item" data-action="export-csv">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span>Export Current Results as CSV</span>
+        </div>
+      `;
+      wirePaletteItems();
+      return;
+    }
+
+    // Match top sponsors
+    const matches = [];
+    for (let i = 0; i < allSponsors.length && matches.length < 6; i++) {
+      const s = allSponsors[i];
+      if (s[0].toLowerCase().includes(q) || (s[1] && s[1].toLowerCase().includes(q))) {
+        matches.push(s);
+      }
+    }
+
+    let html = `<div class="palette-group-title">Matching Sponsors (${matches.length})</div>`;
+    if (matches.length > 0) {
+      matches.forEach(s => {
+        const grad = getAvatarGradient(s[0]);
+        const init = getInitials(s[0]);
+        html += `
+          <div class="palette-item" data-sponsor="${esc(s[0])}">
+            <div style="width:20px; height:20px; border-radius:4px; background:${grad}; color:#fff; font-size:9px; font-weight:650; display:flex; align-items:center; justify-content:center; flex-shrink:0;">${init}</div>
+            <span style="font-weight:500; color:var(--text-primary);">${esc(s[0])}</span>
+            <span style="margin-left:auto; font-size:11px; color:var(--text-tertiary);">${esc(s[1] || '')}</span>
+          </div>
+        `;
+      });
+    } else {
+      html += `<div style="padding:12px; font-size:13px; color:var(--text-tertiary); text-align:center;">No sponsor names match "${esc(q)}". Press Enter to filter the full register.</div>`;
+    }
+
+    container.innerHTML = html;
+    wirePaletteItems();
+  }
+
+  function wirePaletteItems() {
+    document.querySelectorAll('#paletteResults .palette-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const action = item.dataset.action;
+        const sponsor = item.dataset.sponsor;
+        closePalette();
+
+        if (sponsor) {
+          openDocket(sponsor);
+        } else if (action === 'filter-added') {
+          state.view = 'added';
+          document.querySelectorAll('.view-tab-btn').forEach(b => b.classList.toggle('active', b.dataset.view === 'added'));
+          triggerQuery(false);
+          syncUrlState();
+        } else if (action === 'filter-flagged') {
+          state.view = 'flagged';
+          document.querySelectorAll('.view-tab-btn').forEach(b => b.classList.toggle('active', b.dataset.view === 'flagged'));
+          triggerQuery(false);
+          syncUrlState();
+        } else if (action === 'toggle-theme') {
+          toggleTheme();
+        } else if (action === 'export-csv') {
+          exportCSV();
+        }
+      });
+    });
+  }
+
+  function openPalette() {
+    const scrim = document.getElementById('paletteScrim');
+    const input = document.getElementById('paletteInput');
+    if (!scrim || !input) return;
+    scrim.classList.add('open');
+    input.value = state.query || '';
+    renderPaletteResults(input.value);
+    input.focus();
+    input.select();
+  }
+
+  function closePalette() {
+    const scrim = document.getElementById('paletteScrim');
+    if (scrim) scrim.classList.remove('open');
+  }
+
+  // Shortcuts Modal
+  function openShortcutsModal() {
+    const modal = document.getElementById('shortcutsModal');
+    if (modal) modal.classList.add('open');
+  }
+
+  function closeShortcutsModal() {
+    const modal = document.getElementById('shortcutsModal');
+    if (modal) modal.classList.remove('open');
+  }
+
+  // Theme Toggle
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme') || 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('kys-theme', next); } catch(e) {}
+    state.theme = next;
+    showToast(`Switched to ${next} theme`);
+  }
+
+  // Density Toggle
+  function toggleDensity() {
+    const container = document.getElementById('gridContainer');
+    const label = document.getElementById('densityLabel');
+    if (!container) return;
+    const isCompact = container.classList.toggle('compact');
+    state.density = isCompact ? 'compact' : 'comfortable';
+    if (label) label.textContent = isCompact ? 'Compact' : 'Comfortable';
+    try { localStorage.setItem('kys-density', state.density); } catch(e) {}
+    showToast(`Table density: ${state.density}`);
+  }
+
+  // Event Listeners Bootstrap
+  function setupEventListeners() {
+    // Topbar Search & Palette Triggers
+    const topSearch = document.getElementById('topbarSearchTrigger');
+    if (topSearch) topSearch.addEventListener('click', openPalette);
+
+    const scrim = document.getElementById('paletteScrim');
+    if (scrim) {
+      scrim.addEventListener('click', (e) => {
+        if (e.target === scrim) closePalette();
+      });
+    }
+
+    const paletteInput = document.getElementById('paletteInput');
+    if (paletteInput) {
+      paletteInput.addEventListener('input', () => {
+        renderPaletteResults(paletteInput.value);
+      });
+
+      paletteInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closePalette();
+        if (e.key === 'Enter') {
+          state.query = paletteInput.value.trim();
+          const qMain = document.getElementById('q');
+          if (qMain) qMain.value = state.query;
+          closePalette();
+          triggerQuery(false);
+          syncUrlState();
+        }
+      });
+    }
+
+    // Help modal buttons
+    const btnHelp = document.getElementById('btnShortcutsHelp');
+    if (btnHelp) btnHelp.addEventListener('click', openShortcutsModal);
+
+    const closeShortcuts = document.getElementById('closeShortcutsBtn');
+    if (closeShortcuts) closeShortcuts.addEventListener('click', closeShortcutsModal);
+
+    const scrimShortcuts = document.getElementById('shortcutsModal');
+    if (scrimShortcuts) {
+      scrimShortcuts.addEventListener('click', (e) => {
+        if (e.target === scrimShortcuts) closeShortcutsModal();
+      });
+    }
+
+    // Theme toggle button
+    const btnTheme = document.getElementById('btnThemeToggle');
+    if (btnTheme) btnTheme.addEventListener('click', toggleTheme);
+
+    // Density toggle button
+    const btnDensity = document.getElementById('btnDensityToggle');
+    if (btnDensity) btnDensity.addEventListener('click', toggleDensity);
+
+    // Omnibar input
+    const qInput = document.getElementById('q');
+    if (qInput) {
+      let debounceTimer = null;
+      qInput.addEventListener('input', () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          state.query = qInput.value.trim();
+          triggerQuery(false);
+          syncUrlState();
+        }, 25);
+      });
+    }
+
+    // Export buttons
+    const btnExport = document.getElementById('btnExport');
+    if (btnExport) btnExport.addEventListener('click', exportCSV);
+
+    const btnExportTop = document.getElementById('btnExportTop');
+    if (btnExportTop) btnExportTop.addEventListener('click', exportCSV);
+
+    // KPI Cards click to filter
+    document.querySelectorAll('.kpi-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const view = card.dataset.view;
+        const warn = card.dataset.warn;
+        
+        if (view !== undefined) {
+          state.view = state.view === view ? '' : view;
+          state.warn = '';
+        }
+        if (warn !== undefined) {
+          state.warn = state.warn === warn ? '' : warn;
+          state.view = '';
+        }
+
+        document.querySelectorAll('.kpi-card').forEach(c => c.classList.remove('selected'));
+        if (state.view || state.warn) card.classList.add('selected');
+
+        document.querySelectorAll('.view-tab-btn').forEach(b => b.classList.toggle('active', b.dataset.view === state.view));
+        triggerQuery(false);
+        syncUrlState();
+      });
+    });
+
+    // Solvency Meter segment & legend click to filter
+    document.querySelectorAll('.solvency-segment, .solvency-legend-item').forEach(el => {
+      el.addEventListener('click', () => {
+        const f = el.dataset.filter;
+        if (f === 'serious') {
+          state.warn = state.warn === 'serious' ? '' : 'serious';
+          state.view = '';
+        } else if (f === 'notable') {
+          state.warn = state.warn === 'notable' ? '' : 'notable';
+          state.view = '';
+        } else if (f === 'compliant') {
+          state.warn = '';
+          state.view = '';
+        }
+        triggerQuery(false);
+        syncUrlState();
+      });
+    });
+
+    // View tabs
+    document.querySelectorAll('.view-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.view-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.view = btn.dataset.view || '';
+        triggerQuery(false);
+        syncUrlState();
+      });
+    });
+
+    // Facet selects
+    ['citySelect', 'industrySelect', 'routeSelect', 'ratingSelect'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('change', () => {
+          if (id === 'citySelect') state.city = el.value;
+          if (id === 'industrySelect') state.industry = el.value;
+          if (id === 'routeSelect') state.route = el.value;
+          if (id === 'ratingSelect') state.rating = el.value;
+          triggerQuery(false);
+          syncUrlState();
+        });
+      }
+    });
+
+    // Preset chips
+    document.querySelectorAll('.preset-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const preset = chip.dataset.preset;
+        const isActive = chip.classList.toggle('active');
+
+        if (!isActive) {
+          state.view = '';
+          state.warn = '';
+          state.city = '';
+          state.industry = '';
+        } else {
+          document.querySelectorAll('.preset-chip').forEach(c => { if (c !== chip) c.classList.remove('active'); });
+          if (preset === 'added') state.view = 'added';
+          else if (preset === 'flagged') state.warn = 'serious';
+          else if (preset === 'nmw') state.view = 'nmw';
+          else if (preset === 'london-tech') { state.city = 'London'; state.industry = 'Tech & Software'; }
+          else if (preset === 'healthcare') { state.industry = 'Healthcare & Care'; }
+        }
+
+        triggerQuery(false);
+        syncUrlState();
+      });
+    });
+
+    // Clear filters empty button
+    const btnClearEmpty = document.getElementById('btnClearFiltersEmpty');
+    if (btnClearEmpty) {
+      btnClearEmpty.addEventListener('click', () => {
+        state.query = '';
+        state.city = '';
+        state.industry = '';
+        state.route = '';
+        state.rating = '';
+        state.view = '';
+        state.warn = '';
+        if (qInput) qInput.value = '';
+        ['citySelect', 'industrySelect', 'routeSelect', 'ratingSelect'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.value = '';
+        });
+        document.querySelectorAll('.view-tab-btn').forEach(b => b.classList.toggle('active', b.dataset.view === ''));
+        document.querySelectorAll('.preset-chip').forEach(c => c.classList.remove('active'));
+        triggerQuery(false);
+        syncUrlState();
+        showToast('Filters cleared');
+      });
+    }
+
+    // Clear all filters summary button
+    const btnClearAll = document.getElementById('btnClearAllFilters');
+    if (btnClearAll) {
+      btnClearAll.addEventListener('click', () => {
+        state.query = '';
+        state.city = '';
+        state.industry = '';
+        state.route = '';
+        state.rating = '';
+        state.view = '';
+        state.warn = '';
+        if (qInput) qInput.value = '';
+        ['citySelect', 'industrySelect', 'routeSelect', 'ratingSelect'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.value = '';
+        });
+        triggerQuery(false);
+        syncUrlState();
+      });
+    }
+
+    // Dismiss upgrade banner
+    const btnDismiss = document.getElementById('btnDismissBanner');
+    const banner = document.getElementById('upgradeBanner');
+    if (btnDismiss && banner) {
+      btnDismiss.addEventListener('click', () => {
+        banner.classList.add('dismissed');
+      });
+    }
+
+    // Table Row Click & Star Handling
+    const tbody = document.getElementById('tableBody');
+    if (tbody) {
+      tbody.addEventListener('click', (e) => {
+        const star = e.target.closest('.star-btn');
+        if (star) {
+          e.stopPropagation();
+          const key = star.dataset.key;
+          const isSaved = savedSet.has(key);
+          if (isSaved) {
+            savedSet.delete(key);
+            star.classList.remove('saved');
+            saveShortlist();
+            showToast('Removed from shortlist', () => {
+              savedSet.add(key);
+              star.classList.add('saved');
+              saveShortlist();
+            });
+          } else {
+            savedSet.add(key);
+            star.classList.add('saved');
+            saveShortlist();
+            showToast('Added to shortlist', () => {
+              savedSet.delete(key);
+              star.classList.remove('saved');
+              saveShortlist();
+            });
+          }
+          return;
+        }
+
+        const tr = e.target.closest('tr');
+        if (tr && tr.dataset.name) {
+          tbody.querySelectorAll('tr').forEach(r => r.classList.remove('selected'));
+          tr.classList.add('selected');
+          state.focusedRowIndex = parseInt(tr.dataset.idx, 10);
+          openDocket(tr.dataset.name);
+        }
+      });
+    }
+
+    // Drawer Scrim & Close
+    const scrimDrawer = document.getElementById('drawerScrim');
+    const closeBtn = document.getElementById('docketClose');
+    if (scrimDrawer) scrimDrawer.addEventListener('click', closeDocket);
+    if (closeBtn) closeBtn.addEventListener('click', closeDocket);
+
+    // Copy CRN Chip
+    const crnChip = document.getElementById('docketCrnChip');
+    if (crnChip) {
+      crnChip.addEventListener('click', () => {
+        const text = document.getElementById('docketCrnVal').textContent.replace('CRN ', '').trim();
+        if (text && text !== '—' && text !== 'Not Linked') {
+          navigator.clipboard.writeText(text);
+          showToast(`Copied CRN ${text} to clipboard`);
+        }
+      });
+    }
+
+    // Drawer Tabs
+    document.querySelectorAll('.drawer-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.drawer-tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.drawer-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const target = document.getElementById(btn.dataset.tab);
+        if (target) target.classList.add('active');
+      });
+    });
+
+    // Market pulse toggle
+    const btnMarketPulse = document.getElementById('btnMarketPulseToggle');
+    if (btnMarketPulse) {
+      btnMarketPulse.addEventListener('click', () => {
+        openDocket(allSponsors.length ? allSponsors[0][0] : 'Sample Sponsor');
+      });
+    }
+
+    // Keyboard Shortcuts Grammar (⌘K, J/K, Enter, S, E, T, ?, Esc)
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openPalette();
+        return;
+      }
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+        e.preventDefault();
+        const qMain = document.getElementById('q');
+        if (qMain) qMain.focus();
+        return;
+      }
+      if (e.key === 'Escape') {
+        const palette = document.getElementById('paletteScrim');
+        const drawer = document.getElementById('docketPane');
+        const shortcuts = document.getElementById('shortcutsModal');
+        if (palette && palette.classList.contains('open')) { closePalette(); return; }
+        if (drawer && drawer.classList.contains('open')) { closeDocket(); return; }
+        if (shortcuts && shortcuts.classList.contains('open')) { closeShortcutsModal(); return; }
+      }
+      if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'SELECT') {
+        return;
+      }
+      if (e.key === '?') {
+        e.preventDefault();
+        openShortcutsModal();
+        return;
+      }
+      if (e.key.toLowerCase() === 't') {
+        e.preventDefault();
+        toggleTheme();
+        return;
+      }
+      if (e.key.toLowerCase() === 'e') {
+        e.preventDefault();
+        exportCSV();
+        return;
+      }
+
+      // Roving table navigation (J/K, ↓/↑, Enter, S)
+      const rows = document.querySelectorAll('#tableBody tr');
+      if (rows.length === 0) return;
+
+      if (e.key.toLowerCase() === 'j' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        state.focusedRowIndex = Math.min(rows.length - 1, state.focusedRowIndex + 1);
+        rows.forEach((r, i) => r.classList.toggle('selected', i === state.focusedRowIndex));
+        if (rows[state.focusedRowIndex]) rows[state.focusedRowIndex].scrollIntoView({ block: 'nearest' });
+      } else if (e.key.toLowerCase() === 'k' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        state.focusedRowIndex = Math.max(0, state.focusedRowIndex - 1);
+        rows.forEach((r, i) => r.classList.toggle('selected', i === state.focusedRowIndex));
+        if (rows[state.focusedRowIndex]) rows[state.focusedRowIndex].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        if (state.focusedRowIndex >= 0 && rows[state.focusedRowIndex]) {
+          openDocket(rows[state.focusedRowIndex].dataset.name);
+        }
+      } else if (e.key.toLowerCase() === 's') {
+        if (state.focusedRowIndex >= 0 && rows[state.focusedRowIndex]) {
+          const starBtn = rows[state.focusedRowIndex].querySelector('.star-btn');
+          if (starBtn) starBtn.click();
+        }
+      }
+    });
+
+    // Progressive Pagination Sentinel (IntersectionObserver)
+    const sentinel = document.getElementById('sentinelLoader');
+    if (sentinel && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !state.isLoadingNext && state.currentOffset < state.totalMatches) {
+          triggerQuery(true);
+        }
+      }, { rootMargin: '600px' });
+      observer.observe(sentinel);
+    }
+  }
+
+  // Populate Select Dropdowns
+  function populateFacets(sponsors) {
+    const cities = new Set();
+    const industries = new Set();
+    const routes = new Set();
+
+    for (let i = 0; i < sponsors.length; i++) {
+      const s = sponsors[i];
+      if (s[1]) cities.add(s[1]);
+      if (s[3]) industries.add(s[3]);
+      if (s[4]) s[4].forEach(r => routes.add(r));
+    }
+
+    const citySelect = document.getElementById('citySelect');
+    if (citySelect) {
+      const sortedCities = Array.from(cities).sort();
+      citySelect.innerHTML = '<option value="">All Towns / Cities</option>' + 
+        sortedCities.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+      if (state.city) citySelect.value = state.city;
+    }
+
+    const indSelect = document.getElementById('industrySelect');
+    if (indSelect) {
+      const sortedInd = Array.from(industries).sort();
+      indSelect.innerHTML = '<option value="">All Industries</option>' + 
+        sortedInd.map(ind => `<option value="${esc(ind)}">${esc(ind)}</option>`).join('');
+      if (state.industry) indSelect.value = state.industry;
+    }
+
+    const routeSelect = document.getElementById('routeSelect');
+    if (routeSelect) {
+      const sortedRoutes = Array.from(routes).sort();
+      routeSelect.innerHTML = '<option value="">All Visa Routes</option>' + 
+        sortedRoutes.map(r => `<option value="${esc(r)}">${esc(r)}</option>`).join('');
+      if (state.route) routeSelect.value = state.route;
+    }
+  }
+
+  // Web Worker Initialization
+  function initWorker() {
+    if (window.Worker) {
+      searchWorker = new Worker('worker.js');
+      searchWorker.onmessage = function(e) {
+        const msg = e.data;
+        if (!msg) return;
+
+        if (msg.type === 'INIT_COMPLETE') {
+          workerHydrated = true;
+          state.totalMatches = msg.total;
+
+          // Update KPI values
+          document.getElementById('hudTotal').textContent = msg.total.toLocaleString('en-GB');
+          document.getElementById('hudAdded').textContent = `+${msg.addedCount.toLocaleString('en-GB')}`;
+          document.getElementById('hudSerious').textContent = msg.seriousCount.toLocaleString('en-GB');
+          document.getElementById('hudDeficient').textContent = msg.notableCount.toLocaleString('en-GB');
+          document.getElementById('telemetryCount').textContent = msg.total.toLocaleString('en-GB');
+
+          // Update tab counters
+          const nAdded = document.getElementById('nAdded');
+          const nRemoved = document.getElementById('nRemoved');
+          const nFlagged = document.getElementById('nFlagged');
+          const nNmw = document.getElementById('nNmw');
+
+          if (nAdded) nAdded.textContent = `(${msg.addedCount.toLocaleString()})`;
+          if (nRemoved) nRemoved.textContent = `(${msg.removedCount.toLocaleString()})`;
+          if (nFlagged) nFlagged.textContent = `(${msg.flaggedCount.toLocaleString()})`;
+          if (nNmw) nNmw.textContent = `(${msg.nmwCount.toLocaleString()})`;
+
+          if (pendingQuery) {
+            triggerQuery(pendingQuery.append);
+            pendingQuery = null;
+          } else {
+            triggerQuery(false);
+          }
+        } else if (msg.type === 'QUERY_RESULTS') {
+          state.totalMatches = msg.totalCount;
+          document.getElementById('matchCount').textContent = state.totalMatches.toLocaleString('en-GB');
+          renderTable(msg.results, msg.offset > 0);
+        }
+      };
+      searchWorker.postMessage({ type: 'INIT' });
+    }
+  }
+
+  // Main Boot Engine
+  async function boot() {
+    setupEventListeners();
+    renderSparklines();
+    updateShortlistCount();
+
+    if (state.density === 'compact') {
+      const grid = document.getElementById('gridContainer');
+      const label = document.getElementById('densityLabel');
+      if (grid) grid.classList.add('compact');
+      if (label) label.textContent = 'Compact';
+    }
+
+    const initialSponsor = initFromUrl();
+
+    try {
+      const [sponsorsRes, socRes, flagsRes, nmwRes] = await Promise.all([
+        fetch('data/sponsors.json').then(r => r.json()),
+        fetch('data/soc_thresholds.json').then(r => r.json()).catch(() => ({ occupations: [] })),
+        fetch('data/company_flags.json').then(r => r.json()).catch(() => ({ companies: {} })),
+        fetch('data/nmw.json').then(r => r.json()).catch(() => ({ employers: {} }))
+      ]);
+
+      allSponsors = sponsorsRes.sponsors || [];
+      socData = socRes || { occupations: [] };
+      companyFlags = flagsRes.companies || {};
+      nmwData = nmwRes.employers || {};
+
+      populateFacets(allSponsors);
+      initSalaryCalc();
+      initWorker();
+
+      if (initialSponsor) {
+        setTimeout(() => openDocket(initialSponsor), 300);
+      }
+    } catch(err) {
+      console.error('Failed to load initial dataset:', err);
+    }
+  }
+
+  // Run on DOM Ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>
+
+</body>
+</html>

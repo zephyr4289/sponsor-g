@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Public Data API &amp; Schema Reference | KnowYourSponsor</title>
+<meta name="description" content="Open public JSON endpoints of the UK Register of Licensed Sponsors, Companies House insolvency joins, and longitudinal changes. Free and unauthenticated.">
+<link rel="canonical" href="https://zephyr4289.github.io/sponsor-g/data-api/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://zephyr4289.github.io/sponsor-g/data-api/">
+<meta property="og:title" content="Public Data API &amp; Schema Reference — Archival Gazette">
+<meta property="og:description" content="Open public JSON endpoints of the UK Register of Licensed Sponsors, Companies House insolvency joins, and longitudinal changes. Free and unauthenticated.">
+<meta property="og:image" content="https://zephyr4289.github.io/sponsor-g/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.png" type="image/png">
+<link rel="alternate" type="application/rss+xml" title="Sponsor Changes RSS" href="../feed.xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --surface-ground: #F4F1EA;
+    --surface-panel: #EAE5DA;
+    --surface-recessed: #DFD9CC;
+    --surface-paper: #FAF8F5;
+    
+    --ink-carbon: #141311;
+    --ink-graphite: #5A564F;
+    --ink-faint: #8C867A;
+    
+    --rule-hairline: #D3CDC0;
+    --rule-prominent: #A8A193;
+    --rule-master: #141311;
+    
+    --status-critical-ink: #8B1E1E;
+    --status-critical-wash: #F5E1E1;
+    --status-critical-rule: #D8A4A4;
+    
+    --status-warning-ink: #7A5310;
+    --status-warning-wash: #F3EAD8;
+    --status-warning-rule: #D8C496;
+    
+    --status-regular-ink: #1D5837;
+    --status-regular-wash: #E2EDE6;
+    --status-regular-rule: #A2C7B2;
+    
+    --cobalt: #1F3888;
+    --cobalt-dark: #14255C;
+    --on-cobalt: #FFFFFF;
+    
+    --font-serif: 'EB Garamond', Georgia, serif;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --surface-ground: #121417;
+      --surface-panel: #1A1D22;
+      --surface-recessed: #23272E;
+      --surface-paper: #1E2229;
+      
+      --ink-carbon: #EDE9DF;
+      --ink-graphite: #A5A196;
+      --ink-faint: #767268;
+      
+      --rule-hairline: #2D323B;
+      --rule-prominent: #454B57;
+      --rule-master: #EDE9DF;
+      
+      --status-critical-ink: #F08A82;
+      --status-critical-wash: #2D1817;
+      --status-critical-rule: #6E2F2B;
+      
+      --status-warning-ink: #F0D28A;
+      --status-warning-wash: #2E2714;
+      --status-warning-rule: #6B5726;
+      
+      --status-regular-ink: #76D19E;
+      --status-regular-wash: #14281E;
+      --status-regular-rule: #285C40;
+      
+      --cobalt: #6B93F5;
+      --cobalt-dark: #8FADF8;
+      --on-cobalt: #121417;
+      
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --surface-ground: #121417;
+    --surface-panel: #1A1D22;
+    --surface-recessed: #23272E;
+    --surface-paper: #1E2229;
+    
+    --ink-carbon: #EDE9DF;
+    --ink-graphite: #A5A196;
+    --ink-faint: #767268;
+    
+    --rule-hairline: #2D323B;
+    --rule-prominent: #454B57;
+    --rule-master: #EDE9DF;
+    
+    --status-critical-ink: #F08A82;
+    --status-critical-wash: #2D1817;
+    --status-critical-rule: #6E2F2B;
+    
+    --status-warning-ink: #F0D28A;
+    --status-warning-wash: #2E2714;
+    --status-warning-rule: #6B5726;
+    
+    --status-regular-ink: #76D19E;
+    --status-regular-wash: #14281E;
+    --status-regular-rule: #285C40;
+    
+    --cobalt: #6B93F5;
+    --cobalt-dark: #8FADF8;
+    --on-cobalt: #121417;
+    
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    color: var(--ink-carbon);
+    background: var(--surface-ground);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+  a { color: var(--cobalt); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Telemetry Band */
+  .telemetry-band {
+    border-bottom: 1px solid var(--rule-hairline);
+    background: var(--surface-panel);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-graphite);
+    padding: 6px 0;
+  }
+  .telemetry-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .telemetry-tag { font-weight: 600; color: var(--ink-carbon); letter-spacing: 0.05em; text-transform: uppercase; }
+
+  header.masthead {
+    border-bottom: 2px solid var(--rule-master);
+    padding: 16px 0 14px;
+    background: var(--surface-ground);
+  }
+  .masthead-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .brand-block { display: flex; align-items: baseline; gap: 14px; }
+  .brand-title {
+    font-family: var(--font-serif);
+    font-size: 2.1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink-carbon);
+    text-transform: uppercase;
+  }
+  .brand-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .topnav { display: flex; align-items: center; gap: 20px; font-size: 0.88rem; font-weight: 500; }
+  .topnav a { color: var(--ink-graphite); }
+  .topnav a:hover, .topnav a[aria-current] { color: var(--ink-carbon); font-weight: 600; }
+  .themebtn {
+    font: inherit; font-size: 0.95rem; cursor: pointer;
+    background: transparent; border: 1px solid var(--rule-prominent);
+    border-radius: 4px; color: var(--ink-carbon); padding: 3px 8px;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 36px 0 10px;
+    line-height: 1.15;
+    color: var(--ink-carbon);
+  }
+  .lead {
+    color: var(--ink-graphite);
+    font-size: 1.1rem;
+    max-width: 68ch;
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 44px 0 12px;
+    color: var(--ink-carbon);
+    border-bottom: 1px solid var(--rule-hairline);
+    padding-bottom: 6px;
+  }
+  p { max-width: 68ch; margin-bottom: 12px; }
+  ul { margin: 12px 0 16px 22px; max-width: 68ch; }
+  li { margin-bottom: 8px; }
+  
+  .endpoint-card {
+    border: 1px solid var(--rule-prominent);
+    background: var(--surface-paper);
+    padding: 18px 20px;
+    margin: 16px 0;
+  }
+  .endpoint-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .endpoint-path {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .endpoint-badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 2px 6px;
+    border: 1px solid var(--rule-prominent);
+    background: var(--surface-panel);
+    text-transform: uppercase;
+  }
+  .endpoint-desc {
+    color: var(--ink-graphite);
+    font-size: 0.92rem;
+    margin-bottom: 8px;
+  }
+  pre {
+    background: var(--surface-panel);
+    border: 1px solid var(--rule-hairline);
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    overflow-x: auto;
+    color: var(--ink-carbon);
+    line-height: 1.45;
+  }
+  .endpoint-note {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-top: 6px;
+  }
+
+  .cta-box {
+    margin: 48px 0;
+    border: 1px solid var(--rule-prominent);
+    background: var(--surface-panel);
+    padding: 24px;
+  }
+  .cta-box h2 {
+    margin: 0 0 8px;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .btn {
+    display: inline-block;
+    background: var(--cobalt);
+    color: var(--on-cobalt);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 10px 18px;
+    margin-top: 14px;
+    margin-right: 10px;
+  }
+  .btn:hover { background: var(--cobalt-dark); text-decoration: none; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--cobalt);
+    border: 1px solid var(--rule-prominent);
+  }
+  .btn-ghost:hover { border-color: var(--cobalt); }
+
+  .updated {
+    margin-top: 40px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  :is(a, button):focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+  
+  footer {
+    margin-top: 60px;
+    border-top: 2px solid var(--rule-master);
+    padding: 28px 0 44px;
+    font-size: 0.84rem;
+    color: var(--ink-graphite);
+    background: var(--surface-ground);
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    margin-bottom: 16px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+  .footer-links a { color: var(--ink-carbon); }
+</style>
+<script>
+  (function(){
+    try {
+      var t = localStorage.getItem('theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    } catch(e) {}
+  })();
+</script>
+</head>
+<body>
+
+<div class="telemetry-band">
+  <div class="wrap telemetry-inner">
+    <span><span class="telemetry-tag">RECORD SYSTEM:</span> THE REGISTER OF LICENSED SPONSORS &middot; VOL. 2026 &middot; ISSUE W37</span>
+    <span>OFFICIAL GAZETTE &middot; HOME OFFICE &amp; COMPANIES HOUSE INTELLIGENCE</span>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <div class="brand-block">
+      <a href="../" class="brand-title">KnowYourSponsor<span style="color:var(--cobalt)">.</span></a>
+      <span class="brand-subtitle">Corporate Solvency &amp; Immigration Ledger</span>
+    </div>
+    <nav class="topnav" aria-label="Sections">
+      <a href="../changes/">Changes</a>
+      <a href="../insights/">Numbers</a>
+      <a href="../data-api/" aria-current="page">Data API</a>
+      <a href="../pricing/">For Business</a>
+      <button class="themebtn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span aria-hidden="true">&#9789;</span></button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>Public Data API &amp; Schema Reference</h1>
+  <p class="lead">KnowYourSponsor operates on open data principles. Every statutory dataset, insolvency flag join, and change diff published across this directory is accessible via static, unauthenticated JSON endpoints updated daily at 05:30 UTC.</p>
+
+  <h2>Primary Ingestion &amp; Change Endpoints</h2>
+
+  <div class="endpoint-card">
+    <div class="endpoint-header">
+      <span class="endpoint-path"><a href="../data/sponsors.json">data/sponsors.json</a></span>
+      <span class="endpoint-badge">Core Register &middot; 10MB</span>
+    </div>
+    <p class="endpoint-desc">Complete index of all 127,716 active licensed UK sponsors. Packed as an array of compact tuples for high performance.</p>
+    <pre><code>{
+  "updated": "2026-09-09T05:30:00Z",
+  "source": "UK Home Office Register of Licensed Sponsors",
+  "sponsors": [
+    ["Entity Name", "Town / City", "County", "Industry / SIC", ["Skilled Worker", "GBM"], "A rating"],
+    ...
+  ]
+}</code></pre>
+    <p class="endpoint-note">Served with gzip compression (~1.4MB over wire). Columnar tuple structure reduces memory footprint.</p>
+  </div>
+
+  <div class="endpoint-card">
+    <div class="endpoint-header">
+      <span class="endpoint-path"><a href="../data/company_flags.json">data/company_flags.json</a></span>
+      <span class="endpoint-badge">Insolvency &amp; Solvency Joins</span>
+    </div>
+    <p class="endpoint-desc">Verified Companies House insolvency filings, liquidation statuses, and statutory reporting delinquency joined by canonical entity name.</p>
+    <pre><code>{
+  "updated": "2026-09-09T05:30:00Z",
+  "snapshot": "2026-09-01",
+  "stats": { "active_matched": 106004, "signals_total": 482 },
+  "companies": {
+    "EXAMPLE SPONSOR LIMITED": {
+      "number": "12345678",
+      "status": "liquidation",
+      "flags": ["not_active", "accounts_overdue"]
+    }
+  }
+}</code></pre>
+    <p class="endpoint-note">Signals: <code>not_active</code>, <code>accounts_overdue</code>, <code>cs_overdue</code>, <code>recently_incorporated</code>.</p>
+  </div>
+
+  <div class="endpoint-card">
+    <div class="endpoint-header">
+      <span class="endpoint-path"><a href="../data/nmw.json">data/nmw.json</a></span>
+      <span class="endpoint-badge">DBT NMW Enforcement</span>
+    </div>
+    <p class="endpoint-desc">Statutory Department for Business and Trade (DBT) National Minimum Wage naming enforcement records under Section 19A.</p>
+    <pre><code>{
+  "updated": "2026-09-09T05:30:00Z",
+  "statutory_authority": "Department for Business and Trade",
+  "findings": {
+    "EXAMPLE HOSPITALITY LTD": {
+      "round": "Round 20",
+      "arrears": "£14,250",
+      "workers": 12,
+      "date": "February 2024"
+    }
+  }
+}</code></pre>
+  </div>
+
+  <div class="endpoint-card">
+    <div class="endpoint-header">
+      <span class="endpoint-path"><a href="../data/soc_thresholds.json">data/soc_thresholds.json</a></span>
+      <span class="endpoint-badge">ONS SOC 2020 Salary Floors</span>
+    </div>
+    <p class="endpoint-desc">Official Standard Occupational Classification going rates and Home Office April 2024 minimum salary thresholds.</p>
+    <pre><code>{
+  "updated": "2026-09-10T05:30:00Z",
+  "minimum_baseline": 41700,
+  "occupations": {
+    "2136": {
+      "title": "Programmers and software development professionals",
+      "going_rate_50th": 49400,
+      "lower_rate_eligible": 41700
+    }
+  }
+}</code></pre>
+  </div>
+
+  <div class="endpoint-card">
+    <div class="endpoint-header">
+      <span class="endpoint-path"><a href="../data/regional_changes.json">data/regional_changes.json</a></span>
+      <span class="endpoint-badge">Rolling 7-Day Net Diffs</span>
+    </div>
+    <p class="endpoint-desc">Licences granted and removed over the rolling 7-day observation window, aggregated by metropolitan authority and town.</p>
+    <pre><code>{
+  "updated": "2026-09-09T05:30:00Z",
+  "window_days": 7,
+  "totals": { "added": 302, "removed": 242 },
+  "regions": {
+    "London": {
+      "added": [["Firm Name", "London", "Greater London", "Tech & Software", ["Skilled Worker"], "A rating"]],
+      "removed": [["Departed Firm", "London", "Greater London", "Hospitality", ["Skilled Worker"], "A rating"]]
+    }
+  }
+}</code></pre>
+  </div>
+
+  <div class="endpoint-card">
+    <div class="endpoint-header">
+      <span class="endpoint-path"><a href="../data/meta.json">data/meta.json</a></span>
+      <span class="endpoint-badge">Lightweight Polling Metadata</span>
+    </div>
+    <p class="endpoint-desc">Lightweight (~200 byte) header file for automated consumers to poll and detect register movements without fetching heavy payloads.</p>
+    <pre><code>{
+  "updated": "2026-09-09T05:30:00Z",
+  "total": 127716,
+  "added_recently": 302,
+  "removed_recently": 242,
+  "window_days": 7
+}</code></pre>
+  </div>
+
+  <h2>Integration Best Practices &amp; Fair Use</h2>
+  <ul>
+    <li><strong>Poll <code>meta.json</code> first:</strong> Consumers should poll <code>meta.json</code> to check if the <code>updated</code> timestamp has incremented before requesting the full 10MB <code>sponsors.json</code> payload.</li>
+    <li><strong>Sync Schedule:</strong> Upstream Home Office registers refresh once per business day at 05:30 UTC. Polling more frequently than hourly consumes unnecessary network bandwidth.</li>
+    <li><strong>Licensing:</strong> Underlying Home Office and Companies House datasets are Crown Copyright / Open Government Licence (OGL v3.0). Entity matching algorithms, solvency joins, and diff indices are provided openly with attribution requested.</li>
+  </ul>
+
+  <div class="cta-box">
+    <h2>Enterprise Longitudinal Archives &amp; Custom Slices</h2>
+    <p>Need longitudinal historical diffs dating back to platform inception, custom CSV/Parquet pipelines for HR tech integration, or bespoke compliance monitoring feeds?</p>
+    <a class="btn" href="mailto:knowyoursponsor8@gmail.com?subject=Enterprise%20Data%20Licence%20Request">Contact Enterprise Data Desk</a>
+    <a class="btn btn-ghost" href="../pricing/">View B2B Pricing</a>
+  </div>
+
+  <p class="updated">Last updated 09 September 2026 &middot; Ledger Volume 2026.W37</p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="../about/">About &amp; Ethics</a>
+      <a href="../changes/">Weekly Register Changes</a>
+      <a href="../insights/">Statistical Numbers</a>
+      <a href="../methodology/">Data Methodology</a>
+      <a href="../data-api/">Public Data API</a>
+      <a href="../pricing/">Compliance Monitoring (B2B)</a>
+      <a href="../privacy/">Privacy Statement</a>
+    </div>
+    <p>KnowYourSponsor is an independent public register directory and corporate search tool built on statutory public records (UK Home Office, Companies House, and DBT NMW Naming Rounds). Not immigration advice.</p>
+    <p style="margin-top:6px;">Contact: <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a></p>
+  </div>
+</footer>
+
+<script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+(function(){
+  var b=document.querySelector('[data-theme-toggle]');
+  if(!b)return;
+  var r=document.documentElement;
+  function dark(){return r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);}
+  function sync(){b.setAttribute('aria-pressed',String(dark()));}
+  b.addEventListener('click',function(){
+    var next=dark()?'light':'dark';
+    r.setAttribute('data-theme',next);
+    try{localStorage.setItem('theme',next);}catch(e){}
+    sync();
+  });
+  sync();
+})();
+</script>
+</body>
+</html>

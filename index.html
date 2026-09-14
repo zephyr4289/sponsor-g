@@ -1,0 +1,3792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
+<title>KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Tracker</title>
+<meta name="description" content="Every UK employer licensed to sponsor a work visa, cross-referenced against Companies House insolvency filings and National Minimum Wage enforcement. Search 127,000+ sponsors, check salary thresholds, and identify corporate distress.">
+<link rel="canonical" href="https://zephyr4289.github.io/sponsor-g/">
+<meta name="google-site-verification" content="ZNbGBoW8FlnVr5MM5wrTNaQqzvFz_Pgcde_K1t5RHF8">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="alternate" type="application/rss+xml" title="UK visa sponsors added and removed" href="feed.xml">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F4F1EA">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141311">
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="KnowYourSponsor">
+<meta property="og:url" content="https://zephyr4289.github.io/sponsor-g/">
+<meta property="og:title" content="KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Tracker">
+<meta property="og:description" content="Searchable UK Home Office sponsor register cross-referenced against Companies House corporate insolvency filings and minimum wage enforcement. Rebuilt daily.">
+<meta property="og:image" content="https://zephyr4289.github.io/sponsor-g/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="KnowYourSponsor — UK Visa Sponsor Register &amp; Corporate Solvency Tracker">
+<meta name="twitter:description" content="Searchable UK Home Office sponsor register cross-referenced against Companies House corporate insolvency filings.">
+<meta name="twitter:image" content="https://zephyr4289.github.io/sponsor-g/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://zephyr4289.github.io/sponsor-g/#website",
+      "url": "https://zephyr4289.github.io/sponsor-g/",
+      "name": "KnowYourSponsor",
+      "description": "Searchable copy of the official UK Home Office register of licensed sponsors with Companies House cross-referencing.",
+      "inLanguage": "en-GB",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://zephyr4289.github.io/sponsor-g/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Dataset",
+      "@id": "https://zephyr4289.github.io/sponsor-g/#dataset",
+      "name": "UK Register of Licensed Sponsors (Workers) — Searchable Register with Solvency Tracker",
+      "description": "Every organisation holding a UK Home Office worker sponsor licence cross-referenced with Companies House corporate filing and insolvency status. Rebuilt daily.",
+      "url": "https://zephyr4289.github.io/sponsor-g/",
+      "inLanguage": "en-GB",
+      "isAccessibleForFree": true,
+      "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "creator": {
+        "@type": "Person",
+        "name": "Roshan Yadav",
+        "url": "https://zephyr4289.github.io/sponsor-g/about/"
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root {
+    --surface-ground: #F4F1EA;
+    --surface-panel: #EAE5DA;
+    --surface-recessed: #DFD9CC;
+    --surface-paper: #FAF8F5;
+    
+    --ink-carbon: #141311;
+    --ink-graphite: #5A564F;
+    --ink-faint: #8C867A;
+    
+    --rule-hairline: #D3CDC0;
+    --rule-prominent: #A8A193;
+    --rule-master: #141311;
+    
+    --status-critical-ink: #8B1E1E;
+    --status-critical-wash: #F5E1E1;
+    --status-critical-rule: #D8A4A4;
+    
+    --status-warning-ink: #7A5310;
+    --status-warning-wash: #F3EAD8;
+    --status-warning-rule: #D8C496;
+    
+    --status-regular-ink: #1D5837;
+    --status-regular-wash: #E2EDE6;
+    --status-regular-rule: #A2C7B2;
+    
+    --cobalt: #1F3888;
+    --cobalt-dark: #14255C;
+    --on-cobalt: #FFFFFF;
+    
+    --font-serif: 'EB Garamond', Georgia, serif;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    
+    --ambient-gradient: radial-gradient(circle at 72% 16%, rgba(250, 248, 245, 0.94) 0%, rgba(244, 241, 234, 0.45) 42%, rgba(223, 217, 204, 0.28) 75%),
+                        radial-gradient(circle at 18% 82%, rgba(223, 217, 204, 0.35) 0%, transparent 60%),
+                        radial-gradient(circle at 85% 85%, rgba(31, 56, 136, 0.035) 0%, transparent 50%);
+    --grain-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E");
+    
+    --tap: 44px;            /* minimum interactive touch target */
+    --rail-fade: 28px;      /* scroll-rail edge fade */
+    --bp: 720px;            /* stacked-layout breakpoint */
+    --sheet-radius: 14px;
+    
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --surface-ground: #121417;
+      --surface-panel: #1A1D22;
+      --surface-recessed: #23272E;
+      --surface-paper: #1E2229;
+      
+      --ink-carbon: #EDE9DF;
+      --ink-graphite: #A5A196;
+      --ink-faint: #767268;
+      
+      --rule-hairline: #2D323B;
+      --rule-prominent: #454B57;
+      --rule-master: #EDE9DF;
+      
+      --status-critical-ink: #F08A82;
+      --status-critical-wash: #2D1817;
+      --status-critical-rule: #6E2F2B;
+      
+      --status-warning-ink: #F0D28A;
+      --status-warning-wash: #2E2714;
+      --status-warning-rule: #6B5726;
+      
+      --status-regular-ink: #76D19E;
+      --status-regular-wash: #14281E;
+      --status-regular-rule: #285C40;
+      
+      --cobalt: #6B93F5;
+      --cobalt-dark: #8FADF8;
+      --on-cobalt: #121417;
+      
+      --ambient-gradient: radial-gradient(circle at 72% 16%, rgba(30, 34, 41, 0.75) 0%, rgba(18, 20, 23, 0.50) 42%, transparent 75%),
+                          radial-gradient(circle at 18% 82%, rgba(35, 39, 46, 0.45) 0%, transparent 60%),
+                          radial-gradient(circle at 85% 85%, rgba(107, 147, 245, 0.04) 0%, transparent 50%);
+      --grain-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.10'/%3E%3C/svg%3E");
+      
+      --tap: 44px;
+      --rail-fade: 28px;
+      --bp: 720px;
+      --sheet-radius: 14px;
+      
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --surface-ground: #121417;
+    --surface-panel: #1A1D22;
+    --surface-recessed: #23272E;
+    --surface-paper: #1E2229;
+    
+    --ink-carbon: #EDE9DF;
+    --ink-graphite: #A5A196;
+    --ink-faint: #767268;
+    
+    --rule-hairline: #2D323B;
+    --rule-prominent: #454B57;
+    --rule-master: #EDE9DF;
+    
+    --status-critical-ink: #F08A82;
+    --status-critical-wash: #2D1817;
+    --status-critical-rule: #6E2F2B;
+    
+    --status-warning-ink: #F0D28A;
+    --status-warning-wash: #2E2714;
+    --status-warning-rule: #6B5726;
+    
+    --status-regular-ink: #76D19E;
+    --status-regular-wash: #14281E;
+    --status-regular-rule: #285C40;
+    
+    --cobalt: #6B93F5;
+    --cobalt-dark: #8FADF8;
+    --on-cobalt: #121417;
+    
+    --ambient-gradient: radial-gradient(circle at 72% 16%, rgba(30, 34, 41, 0.75) 0%, rgba(18, 20, 23, 0.50) 42%, transparent 75%),
+                        radial-gradient(circle at 18% 82%, rgba(35, 39, 46, 0.45) 0%, transparent 60%),
+                        radial-gradient(circle at 85% 85%, rgba(107, 147, 245, 0.04) 0%, transparent 50%);
+    --grain-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.10'/%3E%3C/svg%3E");
+    
+    --tap: 44px;
+    --rail-fade: 28px;
+    --bp: 720px;
+    --sheet-radius: 14px;
+    
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html {
+    scroll-behavior: smooth;
+    font-size: 15px;
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    overflow-x: clip;
+    font-family: var(--font-sans);
+    color: var(--ink-carbon);
+    background-color: var(--surface-ground);
+    background-image: var(--grain-tile), var(--ambient-gradient);
+    background-size: 120px 120px, 100% 100%;
+    background-attachment: fixed, fixed;
+    background-blend-mode: overlay, normal;
+    background-repeat: repeat, no-repeat;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Flex/grid children min-width guard — eliminates flex clipping bugs across all viewports */
+  .docket-quick-actions, .docket-synthesis, .views-group, .quick-chips-row,
+  .omnibar-row, .facet-selects, .salary-rule-toggle, .hud-stat, .solvency-seg,
+  .macro-card, .synthesis-chips, .macro-list-item, .search-cavity {
+    min-width: 0;
+  }
+
+  /* Long titles wrap gracefully */
+  .docket-title, .synthesis-summary, .synthesis-header, .brand-title, .docket-crn {
+    overflow-wrap: anywhere;
+  }
+
+  /* Momentum Scroll-Rail with Adaptive Edge Fade */
+  .rail {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+    mask-image: linear-gradient(to right, #000 0, #000 calc(100% - var(--rail-fade)), transparent);
+    -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - var(--rail-fade)), transparent);
+  }
+  .rail::-webkit-scrollbar { display: none; }
+  .rail.is-end {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+  .rail > * {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    min-height: var(--tap);
+  }
+  a { color: var(--cobalt); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 0 20px; }
+
+  /* Masthead & Telemetry Band */
+  .telemetry-band {
+    border-bottom: 1px solid var(--rule-hairline);
+    background: var(--surface-panel);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-graphite);
+    padding: 4px 0;
+  }
+  .telemetry-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .telemetry-tag { font-weight: 600; color: var(--ink-carbon); letter-spacing: 0.05em; text-transform: uppercase; }
+
+  header.masthead {
+    border-bottom: 2px solid var(--rule-master);
+    padding: 10px 0 8px;
+    background: transparent;
+  }
+  .masthead-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .masthead-brand-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .brand-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .brand-primary {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+  .brand-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--ink-carbon);
+    line-height: 1;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: baseline;
+  }
+  .dot {
+    display: inline-block;
+    width: 0.16em;
+    height: 0.16em;
+    margin-left: 0.05em;
+    border-radius: 50%;
+    background: var(--status-regular-ink);
+    flex-shrink: 0;
+    vertical-align: baseline;
+    align-self: baseline;
+    transition: box-shadow 0.3s ease;
+  }
+  .dot.pulse {
+    animation: dotPulse 0.9s ease-out 2;
+  }
+  @keyframes dotPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(29, 88, 55, 0.65); }
+    70%  { box-shadow: 0 0 0 9px rgba(29, 88, 55, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(29, 88, 55, 0); }
+  }
+  .brand-handwriting {
+    display: inline-flex;
+    align-items: baseline;
+    color: var(--status-regular-ink);
+    font-size: 1.65rem;
+    line-height: 1;
+    vertical-align: baseline;
+    font-weight: normal;
+    width: 145px;
+    min-width: 145px;
+    max-width: 145px;
+    overflow: visible;
+    white-space: nowrap;
+  }
+  .brand-handwriting svg {
+    display: inline-block;
+    vertical-align: baseline;
+  }
+  .seal {
+    width: clamp(32px, 8vw, 42px);
+    height: clamp(32px, 8vw, 42px);
+    color: var(--ink-carbon);
+    transform: rotate(-8deg);
+    opacity: 0.92;
+    flex-shrink: 0;
+    animation: stamp 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) 0.35s both;
+    cursor: default;
+  }
+  @keyframes stamp {
+    0%   { transform: rotate(-8deg) scale(1.6); opacity: 0; }
+    65%  { transform: rotate(-8deg) scale(0.95); opacity: 1; }
+    100% { transform: rotate(-8deg) scale(1); opacity: 0.92; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .seal { animation: none; opacity: 0.92; }
+  }
+
+  /* Ledger Rule (Hand-Drawn Inked Hairline) */
+  .rule {
+    display: block;
+    width: min(100%, 380px);
+    height: 6px;
+    margin-top: 2px;
+    margin-bottom: 3px;
+    opacity: 0.85;
+  }
+  .rule path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: drawRule 0.7s ease-out 0.5s forwards;
+  }
+  @keyframes drawRule {
+    to { stroke-dashoffset: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rule path { stroke-dashoffset: 0; animation: none; }
+  }
+
+  .brand-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .topnav { display: flex; align-items: center; gap: 20px; font-size: 0.88rem; font-weight: 500; }
+  .topnav a { color: var(--ink-graphite); }
+  .topnav a:hover { color: var(--ink-carbon); }
+  .themebtn {
+    font: inherit; font-size: 0.95rem; cursor: pointer;
+    background: transparent; border: 1px solid var(--rule-prominent);
+    border-radius: 4px; color: var(--ink-carbon); padding: 3px 8px;
+  }
+
+  /* Condensing Masthead Scroll-Bar */
+  .condensed-masthead {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: var(--surface-panel);
+    border-bottom: 1px solid var(--rule-master);
+    z-index: 95;
+    display: flex;
+    align-items: center;
+    transform: translateY(-100%);
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    pointer-events: none;
+  }
+  .condensed-masthead.is-visible {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .condensed-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-family: var(--font-mono);
+  }
+  .condensed-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--ink-carbon);
+  }
+  .condensed-brand:hover {
+    text-decoration: none;
+  }
+  .condensed-seal {
+    width: 20px;
+    height: 20px;
+    color: var(--ink-carbon);
+    flex-shrink: 0;
+  }
+  .condensed-title {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    display: inline-flex;
+    align-items: baseline;
+  }
+  .condensed-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.72rem;
+    color: var(--ink-graphite);
+  }
+  .condensed-stat strong {
+    color: var(--ink-carbon);
+    font-weight: 600;
+  }
+  .condensed-search-btn {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 3px 8px;
+    background: var(--surface-paper);
+    border: 1px solid var(--rule-prominent);
+    border-radius: 3px;
+    color: var(--ink-carbon);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 26px;
+  }
+  .condensed-search-btn:hover {
+    background: var(--surface-card);
+  }
+
+  /* HUD Ledger Grid */
+  .ledger-hud {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--rule-master);
+    background: var(--surface-panel);
+  }
+  .hud-stat {
+    padding: 14px 18px;
+    border-right: 1px solid var(--rule-hairline);
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .hud-stat:last-child { border-right: none; }
+  .hud-stat:hover { background: var(--surface-recessed); }
+  .hud-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-graphite);
+  }
+  .hud-value {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 1.65rem;
+    font-weight: 600;
+    color: var(--ink-carbon);
+    margin: 3px 0 1px;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .hud-note {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+  }
+
+  /* Solvency Macro Ratio Rule */
+  .solvency-meter-wrap {
+    border-bottom: 1px solid var(--rule-hairline);
+    background: transparent;
+    padding: 10px 0;
+  }
+  .solvency-meter-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--ink-graphite);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .solvency-bar {
+    height: 8px;
+    display: flex;
+    background: var(--rule-hairline);
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .solvency-seg { height: 100%; transition: opacity 0.15s ease; }
+  .solvency-seg:hover { opacity: 0.8; }
+  .seg-solvent { background: var(--status-regular-ink); width: 74.2%; }
+  .seg-warning { background: var(--status-warning-ink); width: 5.2%; }
+  .seg-critical { background: var(--status-critical-ink); width: 2.2%; }
+  .seg-unresolved { background: var(--rule-prominent); width: 18.4%; }
+  .solvency-legend {
+    display: flex;
+    gap: 18px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    margin-top: 6px;
+    color: var(--ink-graphite);
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 1px; }
+
+  /* Omnibar & Facet Ledger */
+  .omnibar-section {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule-hairline);
+    background: transparent;
+  }
+  .omnibar-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .search-cavity {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: var(--surface-paper);
+    border: 1px solid var(--rule-prominent);
+    border-radius: 3px;
+    padding: 0 12px;
+  }
+  .search-cavity:focus-within {
+    border-color: var(--rule-master);
+    outline: 2px solid var(--cobalt);
+  }
+  .search-cavity input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 11px 8px;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: var(--ink-carbon);
+    outline: none;
+  }
+  .search-cavity input::placeholder { color: var(--ink-faint); }
+  .search-keyhint {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    background: var(--surface-recessed);
+    padding: 2px 6px;
+    border-radius: 2px;
+    border: 1px solid var(--rule-hairline);
+  }
+  .btn-export {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 11px 16px;
+    background: var(--surface-panel);
+    border: 1px solid var(--rule-prominent);
+    border-radius: 3px;
+    color: var(--ink-carbon);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-export:hover { background: var(--surface-recessed); }
+
+  .facets-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .views-group {
+    display: inline-flex;
+    border: 1px solid var(--rule-prominent);
+    border-radius: 3px;
+    overflow-x: auto;
+    background: var(--surface-panel);
+    align-self: flex-start;
+    max-width: 100%;
+  }
+  .view-btn {
+    border: none;
+    background: transparent;
+    padding: 7px 12px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+    cursor: pointer;
+    border-right: 1px solid var(--rule-hairline);
+    white-space: nowrap;
+    transition: background 0.1s ease;
+  }
+  .view-btn:last-child { border-right: none; }
+  .view-btn:hover { background: var(--surface-recessed); }
+  .view-btn.active {
+    background: var(--rule-master);
+    color: var(--surface-ground);
+    font-weight: 600;
+  }
+  .facet-selects {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 100%;
+  }
+  .facet-selects select {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    padding: 7px 10px;
+    border: 1px solid var(--rule-hairline);
+    border-radius: 3px;
+    background: var(--surface-paper);
+    color: var(--ink-carbon);
+    outline: none;
+  }
+  .facet-selects select:focus { border-color: var(--rule-prominent); }
+
+  .quick-chips-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .quick-chip-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    margin-right: 2px;
+  }
+  .quick-chip {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    padding: 3px 8px;
+    background: var(--surface-panel);
+    border: 1px solid var(--rule-hairline);
+    border-radius: 2px;
+    color: var(--ink-graphite);
+    cursor: pointer;
+    transition: all 0.1s ease;
+    white-space: nowrap;
+  }
+  .quick-chip:hover {
+    background: var(--surface-recessed);
+    border-color: var(--rule-prominent);
+    color: var(--ink-carbon);
+  }
+  .quick-chip.active {
+    background: var(--rule-master);
+    color: var(--surface-ground);
+    border-color: var(--rule-master);
+    font-weight: 600;
+  }
+
+  /* Workspace Layout (Split-Plane) */
+  .workspace {
+    display: grid;
+    grid-template-columns: 1fr 440px;
+    min-height: calc(100vh - 350px);
+    border-bottom: 1px solid var(--rule-master);
+  }
+  
+  .ledger-pane {
+    border-right: 1px solid var(--rule-master);
+    background: var(--surface-ground);
+    overflow-y: auto;
+    max-height: 85vh;
+    position: relative;
+  }
+
+  /* Sticky Header & Control Stacking */
+  #tableStatus {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--surface-panel);
+    padding: 0 12px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-graphite);
+    border-bottom: 1px solid var(--rule-prominent);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Virtualized Data Table */
+  table.gazette-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    text-align: left;
+  }
+  table.gazette-table th {
+    position: sticky;
+    top: 34px;
+    z-index: 18;
+    background: var(--surface-recessed);
+    padding: 8px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-graphite);
+    border-top: none;
+    border-bottom: 2px solid var(--rule-master);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  }
+  table.gazette-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--rule-hairline);
+    vertical-align: middle;
+  }
+  table.gazette-table tr {
+    cursor: pointer;
+    transition: background 0.1s ease;
+  }
+  table.gazette-table tr:hover { background: var(--surface-panel); }
+  table.gazette-table tr.selected {
+    background: var(--surface-paper);
+    outline: 1px solid var(--rule-prominent);
+  }
+
+  .col-company { font-weight: 600; color: var(--ink-carbon); }
+  .col-meta {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--ink-faint);
+    display: block;
+    margin-top: 1px;
+  }
+  .col-meta-mobile { display: none; }
+  .col-routes { display: flex; flex-wrap: wrap; gap: 3px; }
+
+  /* Tabular Numbers & Monospace Precision Alignment */
+  .hud-value,
+  .hud-stat,
+  .col-meta,
+  .docket-crn,
+  .docket-dl dd,
+  .status-badge,
+  .tag-route,
+  table.churn-table td,
+  table.gazette-table td,
+  .calc-summary strong,
+  .gauge-pin-label,
+  #tableStatus strong,
+  .macro-stat-val,
+  .macro-item-stat,
+  .macro-std-row strong,
+  .view-btn span,
+  .solvency-meter-header span {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+  }
+
+  /* Forensic Status Badges */
+  .status-badge {
+    display: inline-block;
+    padding: 2px 7px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    border-radius: 2px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+  .status-badge.critical {
+    color: var(--status-critical-ink);
+    background: var(--status-critical-wash);
+    border-color: var(--status-critical-rule);
+  }
+  .status-badge.warning {
+    color: var(--status-warning-ink);
+    background: var(--status-warning-wash);
+    border-color: var(--status-warning-rule);
+  }
+  .status-badge.regular {
+    color: var(--status-regular-ink);
+    background: var(--status-regular-wash);
+    border-color: var(--status-regular-rule);
+  }
+  .status-badge.nmw {
+    color: #92400E;
+    background: #FEF3C7;
+    border-color: #FCD34D;
+  }
+
+  .tag-route {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 1px 5px;
+    background: var(--surface-panel);
+    border: 1px solid var(--rule-hairline);
+    border-radius: 2px;
+    color: var(--ink-graphite);
+  }
+
+  .star-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--ink-faint);
+    padding: 2px 6px;
+  }
+  .star-btn.saved { color: #D48806; font-weight: bold; }
+
+  /* Forensic Inspection Docket (Right Pane) */
+  .docket-pane {
+    background: var(--surface-paper);
+    padding: 20px 22px;
+    overflow-y: auto;
+    max-height: 85vh;
+    position: sticky;
+    top: 0;
+  }
+
+  /* Macro Solvency & Churn Dossier (Empty Docket State) */
+  .docket-empty-macro {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .macro-header {
+    border-bottom: 1px solid var(--rule-hairline);
+    padding-bottom: 12px;
+  }
+  .macro-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cobalt);
+    background: var(--surface-ground);
+    border: 1px solid var(--rule-hairline);
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+  .macro-title {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--ink-carbon);
+    margin-bottom: 4px;
+  }
+  .macro-desc {
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+    line-height: 1.35;
+  }
+  .macro-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .macro-card {
+    background: var(--surface-ground);
+    border: 1px solid var(--rule-hairline);
+    border-radius: 3px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .macro-card:hover {
+    background: var(--surface-panel);
+    border-color: var(--rule-prominent);
+  }
+  .macro-card-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-graphite);
+    margin-bottom: 3px;
+  }
+  .macro-stat-val {
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ink-carbon);
+  }
+  .macro-stat-sub {
+    font-size: 0.72rem;
+    font-weight: normal;
+    color: var(--ink-faint);
+  }
+  .macro-stat-note {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+  .macro-section {
+    border-top: 1px solid var(--rule-hairline);
+    padding-top: 12px;
+  }
+  .macro-section-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-graphite);
+    margin-bottom: 8px;
+  }
+  .macro-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .macro-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    padding: 4px 6px;
+    background: var(--surface-ground);
+    border-radius: 2px;
+    border: 1px solid var(--rule-hairline);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .macro-list-item:hover {
+    background: var(--surface-panel);
+    border-color: var(--rule-prominent);
+  }
+  .macro-item-name {
+    color: var(--ink-carbon);
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 8px;
+  }
+  .macro-item-stat {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--ink-graphite);
+    white-space: nowrap;
+  }
+  .macro-standards-box {
+    background: var(--surface-ground);
+    border: 1px solid var(--rule-hairline);
+    border-radius: 3px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .macro-std-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+  }
+  .macro-std-row strong {
+    font-family: var(--font-mono);
+    color: var(--ink-carbon);
+    font-weight: 600;
+  }
+  .macro-inspection-prompt {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: var(--surface-panel);
+    border: 1px dashed var(--rule-prominent);
+    border-radius: 3px;
+    padding: 12px;
+    margin-top: 4px;
+  }
+  .prompt-icon {
+    font-size: 1.5rem;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+  .prompt-text {
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+    line-height: 1.4;
+  }
+  .prompt-text strong {
+    color: var(--ink-carbon);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .prompt-text kbd {
+    background: var(--surface-paper);
+    border: 1px solid var(--rule-hairline);
+    border-radius: 2px;
+    padding: 1px 4px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-carbon);
+  }
+  .docket-section {
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rule-hairline);
+  }
+  .docket-section:last-child { border-bottom: none; margin-bottom: 0; }
+  .docket-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--ink-carbon);
+    margin-bottom: 6px;
+  }
+  .docket-crn {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-graphite);
+  }
+  .docket-heading {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-graphite);
+    margin-bottom: 8px;
+  }
+  .docket-dl {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 6px 12px;
+    font-size: 0.84rem;
+  }
+  .docket-dl dt { color: var(--ink-faint); font-family: var(--font-mono); font-size: 0.75rem; }
+  .docket-dl dd { color: var(--ink-carbon); }
+
+  .docket-advisory {
+    padding: 12px 14px;
+    border-radius: 3px;
+    border: 1px solid;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    margin-top: 8px;
+  }
+  .docket-advisory.critical {
+    background: var(--status-critical-wash);
+    border-color: var(--status-critical-rule);
+    color: var(--status-critical-ink);
+  }
+  .docket-advisory.warning {
+    background: var(--status-warning-wash);
+    border-color: var(--status-warning-rule);
+    color: var(--status-warning-ink);
+  }
+  .docket-advisory.nmw-box {
+    background: #FFFBEB;
+    border-color: #FCD34D;
+    color: #92400E;
+  }
+
+  .row-status-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 7px;
+    vertical-align: 1px;
+    flex-shrink: 0;
+  }
+  .row-status-dot.active { background: var(--status-regular-ink); }
+  .row-status-dot.warning { background: var(--status-warning-ink); }
+  .row-status-dot.critical { background: var(--status-critical-ink); }
+  .row-status-dot.unresolved { background: var(--rule-prominent); }
+
+  /* 2-Second Docket Synthesis Strip */
+  .docket-synthesis {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 12px;
+    border-radius: 3px;
+    margin-bottom: 16px;
+    border: 1px solid;
+    font-family: var(--font-mono);
+  }
+  .docket-synthesis.status-active {
+    background: var(--status-regular-wash);
+    border-color: var(--status-regular-rule);
+    color: var(--status-regular-ink);
+  }
+  .docket-synthesis.status-warning {
+    background: var(--status-warning-wash);
+    border-color: var(--status-warning-rule);
+    color: var(--status-warning-ink);
+  }
+  .docket-synthesis.status-critical {
+    background: var(--status-critical-wash);
+    border-color: var(--status-critical-rule);
+    color: var(--status-critical-ink);
+  }
+  .synthesis-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+  }
+  .synthesis-stamp {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .synthesis-stamp-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .synthesis-summary {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: var(--ink-carbon);
+  }
+  .synthesis-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 2px;
+  }
+  .synthesis-chip {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    padding: 1px 5px;
+    border-radius: 2px;
+    border: 1px solid currentColor;
+    opacity: 0.92;
+    text-transform: uppercase;
+  }
+
+  /* Docket Quick Action Pathways (Efficacy / Protection Motivation) */
+  .docket-quick-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .docket-act-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 7px 4px;
+    font-family: var(--font-mono);
+    font-size: 0.70rem;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 2px;
+    border: 1px solid var(--rule-prominent);
+    background: var(--surface-paper);
+    color: var(--ink-carbon);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.12s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .docket-act-btn:hover {
+    background: var(--surface-panel);
+    border-color: var(--rule-master);
+    text-decoration: none;
+  }
+  .docket-act-btn.primary {
+    background: var(--cobalt);
+    color: #FFFFFF;
+    border-color: var(--cobalt);
+  }
+  .docket-act-btn.primary:hover {
+    filter: brightness(1.1);
+  }
+  .docket-act-btn.saved {
+    background: var(--surface-panel);
+    border-color: var(--status-regular-ink);
+    color: var(--status-regular-ink);
+  }
+
+  /* Salary Calculator Component */
+  .calc-box {
+    background: var(--surface-panel);
+    border: 1px solid var(--rule-hairline);
+    padding: 12px 14px;
+    border-radius: 3px;
+    margin-top: 8px;
+  }
+  .calc-delta-row {
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--rule-hairline);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+  .calc-delta-badge {
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+  .calc-delta-badge.positive {
+    background: var(--status-regular-wash);
+    color: var(--status-regular-ink);
+    border: 1px solid var(--status-regular-rule);
+  }
+  .calc-delta-badge.floor {
+    background: var(--status-warning-wash);
+    color: var(--status-warning-ink);
+    border: 1px solid var(--status-warning-rule);
+  }
+  .calc-job-input {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    padding: 7px 9px;
+    margin-bottom: 8px;
+    border: 1px solid var(--rule-prominent);
+    border-radius: 3px;
+    background: var(--surface-paper);
+    color: var(--ink-carbon);
+    outline: none;
+  }
+  .calc-job-input:focus {
+    border-color: var(--rule-master);
+    outline: 2px solid var(--cobalt);
+  }
+  .salary-rule-toggle {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 4px;
+    margin-bottom: 12px;
+    background: var(--surface-recessed);
+    padding: 3px;
+    border-radius: 3px;
+    border: 1px solid var(--rule-hairline);
+  }
+  .salary-rule-btn {
+    border: none;
+    background: transparent;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    padding: 5px 4px;
+    color: var(--ink-graphite);
+    cursor: pointer;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 1.25;
+    transition: all 0.1s ease;
+  }
+  .salary-rule-btn.active {
+    background: var(--surface-paper);
+    color: var(--ink-carbon);
+    font-weight: 600;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  }
+  .calc-select {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    padding: 6px 8px;
+    margin-bottom: 10px;
+    border: 1px solid var(--rule-prominent);
+    background: var(--surface-paper);
+    color: var(--ink-carbon);
+  }
+  .gauge-wrap { margin-top: 8px; }
+  .gauge-track {
+    height: 8px;
+    background: var(--rule-hairline);
+    border-radius: 2px;
+    position: relative;
+    margin: 16px 0 10px;
+  }
+  .gauge-bar {
+    height: 100%;
+    background: var(--status-regular-ink);
+    border-radius: 2px;
+  }
+  .gauge-pin {
+    position: absolute;
+    top: -6px;
+    width: 2px;
+    height: 20px;
+    background: var(--rule-master);
+  }
+  .gauge-pin-label {
+    position: absolute;
+    top: 16px;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    white-space: nowrap;
+    color: var(--ink-graphite);
+  }
+  .calc-summary {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--ink-graphite);
+    margin-top: 18px;
+  }
+
+  /* Action links */
+  .docket-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+  .docket-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: var(--surface-ground);
+    border: 1px solid var(--rule-hairline);
+    border-radius: 2px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink-carbon);
+  }
+  .docket-link:hover {
+    background: var(--surface-recessed);
+    border-color: var(--rule-prominent);
+    text-decoration: none;
+  }
+
+  /* Churn Matrix Module */
+  .churn-module {
+    margin: 32px 0;
+    border: 1px solid var(--rule-prominent);
+    background: var(--surface-panel);
+    padding: 16px 20px;
+  }
+  .churn-title {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-graphite);
+    margin-bottom: 12px;
+  }
+  table.churn-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+  table.churn-table th {
+    text-align: left;
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--rule-master);
+    color: var(--ink-graphite);
+    font-size: 0.72rem;
+  }
+  table.churn-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--rule-hairline);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Alerts Section */
+  .alerts-band {
+    margin: 40px 0;
+    border: 2px solid var(--rule-master);
+    padding: 24px;
+    background: var(--surface-panel);
+  }
+  .alerts-band h2 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+  }
+  .alerts-band p { color: var(--ink-graphite); font-size: 0.9rem; max-width: 600px; }
+  .alerts-form { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+  .alerts-form input[type=email] {
+    flex: 1;
+    min-width: 240px;
+    padding: 10px 14px;
+    border: 1px solid var(--rule-master);
+    background: var(--surface-paper);
+    font-family: var(--font-sans);
+    color: var(--ink-carbon);
+  }
+  .alerts-form button {
+    padding: 10px 22px;
+    background: var(--rule-master);
+    color: var(--surface-ground);
+    border: none;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  footer {
+    border-top: 2px solid var(--rule-master);
+    padding: 30px 0 50px;
+    background: var(--surface-panel);
+    font-size: 0.82rem;
+    color: var(--ink-graphite);
+  }
+  footer .footer-links { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+  footer .footer-links a { color: var(--ink-carbon); font-weight: 500; }
+
+  /* ==========================================================================
+     RESPONSIVE ARCHITECTURE: DESKTOP (≥1024px) · TABLET (721-1023px) · MOBILE (<720px)
+     ========================================================================== */
+
+  /* Touch ergonomics & desktop keyboard hints removal */
+  @media (pointer: coarse) {
+    .search-keyhint { display: none !important; }
+    #tableStatus span:last-child { display: none !important; }
+  }
+
+  /* Mid-viewports / Tablets (max-width: 960px) */
+  @media (max-width: 960px) {
+    .ledger-hud { grid-template-columns: repeat(2, 1fr); }
+    .workspace { grid-template-columns: 1fr; }
+    .facet-selects { grid-template-columns: repeat(2, 1fr); }
+    .docket-pane {
+      position: fixed;
+      inset: auto 0 0 0;
+      height: 94dvh;
+      max-height: 94dvh;
+      border-radius: var(--sheet-radius) var(--sheet-radius) 0 0;
+      border-top: 2px solid var(--rule-master);
+      box-shadow: 0 -12px 36px rgba(0,0,0,0.30);
+      z-index: 100;
+      transform: translateY(100dvh);
+      transition: transform 0.34s cubic-bezier(0.32, 0.72, 0.24, 1);
+      display: flex !important;
+      flex-direction: column;
+      visibility: hidden;
+      overscroll-behavior: contain;
+      background: var(--surface-panel);
+    }
+    .docket-pane.open {
+      transform: translateY(0);
+      visibility: visible;
+    }
+    .docket-pane.open.peek {
+      transform: translateY(58dvh);
+    }
+    .docket-sheet-handle {
+      width: 44px;
+      height: 5px;
+      background: var(--rule-prominent);
+      border-radius: 3px;
+      margin: 10px auto 8px;
+      display: block;
+      cursor: grab;
+      touch-action: none;
+      flex-shrink: 0;
+    }
+    .docket-quick-actions {
+      position: sticky;
+      bottom: 0;
+      margin: 12px -16px -16px -16px;
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 12px));
+      background: linear-gradient(to top, var(--surface-panel) 88%, transparent);
+      z-index: 10;
+      border-top: 1px solid var(--rule-hairline);
+    }
+  }
+
+  @media (min-width: 961px) {
+    .docket-sheet-handle { display: none; }
+  }
+
+  /* Mobile Dossier Card Layout & Screen Composition (< 720px) */
+  @media (max-width: 720px) {
+    /* 1. Micro-grid telemetry & masthead */
+    .telemetry-band {
+      font-size: 0.65rem;
+      padding: 4px 0;
+      white-space: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .telemetry-band::-webkit-scrollbar { display: none; }
+    .telemetry-inner {
+      gap: 2px 8px;
+      flex-wrap: nowrap;
+    }
+    header.masthead {
+      padding: 8px 0 6px;
+    }
+    .masthead-inner {
+      gap: 6px;
+    }
+    .brand-block {
+      gap: 2px;
+    }
+    .brand-primary {
+      gap: 6px;
+    }
+    .brand-title {
+      font-size: clamp(1.45rem, 6.5vw, 1.95rem);
+    }
+    .brand-handwriting {
+      font-size: 1.25rem;
+      width: 115px;
+      min-width: 115px;
+      max-width: 115px;
+    }
+    .brand-subtitle {
+      width: 100%;
+      font-size: 0.68rem;
+    }
+    .masthead-brand-group {
+      gap: 10px;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .seal {
+      width: 28px;
+      height: 28px;
+      margin-top: 2px;
+    }
+    .topnav {
+      gap: 10px;
+      font-size: 0.78rem;
+      width: 100%;
+      justify-content: space-between;
+      padding-top: 5px;
+      border-top: 1px solid var(--rule-hairline);
+    }
+    .themebtn {
+      padding: 2px 7px;
+      font-size: 0.85rem;
+    }
+    .condensed-masthead {
+      height: 36px;
+    }
+    .condensed-title {
+      font-size: 0.95rem;
+    }
+    .condensed-stat {
+      display: none;
+    }
+
+    /* 2. Compact 2x2 HUD Micro-Grid (< 70px height) */
+    .ledger-hud {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 0 !important;
+    }
+    .hud-stat {
+      padding: 8px 12px !important;
+      border-right: 1px solid var(--rule-hairline) !important;
+      border-bottom: 1px solid var(--rule-hairline) !important;
+      min-height: var(--tap);
+    }
+    .hud-stat:nth-child(2n) {
+      border-right: none !important;
+    }
+    .hud-stat:nth-child(3),
+    .hud-stat:nth-child(4) {
+      border-bottom: none !important;
+    }
+    .hud-label {
+      font-size: 0.65rem !important;
+      margin-bottom: 1px !important;
+    }
+    .hud-value {
+      font-size: 1.18rem !important;
+      margin: 1px 0 !important;
+      line-height: 1.15 !important;
+    }
+    .hud-note {
+      display: none !important;
+    }
+
+    /* 3. Solvency Macro Ratio Bar & 2x2 Legend */
+    .solvency-meter-wrap {
+      padding: 6px 0 !important;
+    }
+    .solvency-meter-header {
+      font-size: 0.68rem !important;
+      margin-bottom: 3px !important;
+    }
+    .solvency-bar {
+      height: 6px !important;
+    }
+    .solvency-legend {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 6px 12px !important;
+      font-size: 0.68rem !important;
+      margin-top: 6px !important;
+    }
+
+    /* 4. Full-Width Omnibar & Input Standards */
+    .omnibar-section {
+      padding: 8px 0 !important;
+    }
+    .omnibar-row {
+      gap: 8px !important;
+    }
+    .search-cavity {
+      padding: 0 10px !important;
+      min-height: var(--tap);
+    }
+    .search-cavity input {
+      font-size: 16px !important; /* Prevents iOS Safari viewport auto-zoom on focus */
+      padding: 8px 4px !important;
+    }
+    .btn-export {
+      padding: 8px 12px !important;
+      font-size: 0.74rem !important;
+      min-height: var(--tap);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 5. Horizontal Momentum Rail Filter Tabs & Quick Chips */
+    .facets-row {
+      margin-top: 8px !important;
+      gap: 8px !important;
+    }
+    .facet-selects {
+      grid-template-columns: 1fr 1fr !important;
+      gap: 6px !important;
+    }
+    .facet-selects select {
+      font-size: 0.76rem !important;
+      padding: 6px 8px !important;
+      min-height: var(--tap);
+    }
+    .quick-chip {
+      font-size: 0.72rem !important;
+      padding: 4px 10px !important;
+    }
+
+    /* 6. Classified Dossier Cards (Replaces horizontal table scrolling) */
+    .ledger-pane {
+      padding: 0 4px 60px !important;
+    }
+    table.gazette-table thead {
+      display: none !important; /* Cards are self-labelling */
+    }
+    table.gazette-table,
+    table.gazette-table tbody {
+      display: block !important;
+      width: 100% !important;
+    }
+    table.gazette-table tr {
+      display: grid !important;
+      grid-template-columns: 36px minmax(0, 1fr) auto !important;
+      grid-template-areas:
+        "star name   status"
+        ".... meta   meta"
+        ".... routes routes" !important;
+      gap: 3px 8px !important;
+      padding: 10px 12px !important;
+      margin-bottom: 8px !important;
+      background: var(--surface-paper) !important;
+      border: 1px solid var(--rule-prominent) !important;
+      border-radius: 4px !important;
+      touch-action: manipulation !important;
+    }
+    table.gazette-table tr.selected {
+      outline: 2px solid var(--cobalt) !important;
+      background: var(--surface-panel) !important;
+    }
+    table.gazette-table td {
+      display: block !important;
+      padding: 0 !important;
+      border-bottom: none !important;
+    }
+    table.gazette-table td:nth-child(1) {
+      grid-area: star !important;
+      align-self: start !important;
+    }
+    table.gazette-table td:nth-child(2) {
+      grid-area: name !important;
+      min-width: 0 !important;
+    }
+    table.gazette-table td:nth-child(3),
+    table.gazette-table td:nth-child(4) {
+      display: none !important; /* Merged into self-labelling meta line */
+    }
+    table.gazette-table td:nth-child(5) {
+      grid-area: routes !important;
+      margin-top: 3px !important;
+    }
+    table.gazette-table td:nth-child(6) {
+      grid-area: status !important;
+      justify-self: end !important;
+      align-self: start !important;
+    }
+    .col-company {
+      font-size: 0.88rem !important;
+      line-height: 1.3 !important;
+      display: block !important;
+    }
+    .col-meta {
+      font-size: 0.72rem !important;
+      color: var(--ink-faint) !important;
+      margin-top: 1px !important;
+      line-height: 1.35 !important;
+    }
+    .col-meta-desktop { display: none !important; }
+    .col-meta-mobile { display: block !important; }
+    .status-badge {
+      font-size: 0.68rem !important;
+      padding: 2px 6px !important;
+    }
+    .tag-route {
+      font-size: 0.65rem !important;
+      padding: 1px 5px !important;
+    }
+  }
+</style>
+<script>
+  (function(){
+    try {
+      var t = localStorage.getItem('theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    } catch(e) {}
+  })();
+</script>
+</head>
+<body>
+
+<!-- Telemetry Top Band -->
+<div class="telemetry-band">
+  <div class="wrap telemetry-inner">
+    <div><span class="telemetry-tag">UK REGISTER OF LICENSED SPONSORS</span> · 2026 ISSUE W37</div>
+    <div>SOURCE: UK HOME OFFICE &amp; COMPANIES HOUSE · SNAPSHOT: <span id="telemetryDate">2026-09-09 18:14 UTC</span></div>
+  </div>
+</div>
+
+<!-- Archival Masthead -->
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <div class="masthead-brand-group">
+      <div class="brand-block">
+        <div class="brand-primary">
+          <a href="./" class="brand-title">KnowYourSponsor<span class="dot" aria-hidden="true"></span></a>
+          <span class="brand-handwriting" id="brandHandwriting">Verified.</span>
+        </div>
+        <svg class="rule" viewBox="0 0 300 8" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M2 6 C 80 3.5, 220 3.5, 296 5" pathLength="1" fill="none" stroke="var(--status-regular-ink)" stroke-width="1.5"/>
+        </svg>
+        <span class="brand-subtitle">UK Visa Sponsor Register &amp; Solvency Tracker</span>
+      </div>
+      <svg class="seal" viewBox="0 0 48 48" aria-hidden="true" focusable="false" title="Official Register Ledger Seal">
+        <defs>
+          <filter id="ink" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/>
+            <feDisplacementMap in="SourceGraphic" scale="1.8"/>
+          </filter>
+        </defs>
+        <g filter="url(#ink)">
+          <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <circle cx="24" cy="24" r="7.5" fill="var(--status-regular-ink)"/>
+        </g>
+      </svg>
+    </div>
+    <nav class="topnav">
+      <a href="changes/">Changes</a>
+      <a href="insights/">Numbers</a>
+      <a href="data-api/">Data API</a>
+      <a href="pricing/">For Business</a>
+      <button class="themebtn" type="button" data-theme-toggle aria-label="Toggle theme"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle;display:inline-block;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+    </nav>
+  </div>
+</header>
+
+<!-- Condensing Masthead Bar (Scroll Brand Presence) -->
+<div class="condensed-masthead" id="condensedMasthead" aria-hidden="true">
+  <div class="wrap condensed-inner">
+    <a href="./" class="condensed-brand" title="KnowYourSponsor">
+      <svg class="condensed-seal" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="3"/>
+        <circle cx="24" cy="24" r="7.5" fill="var(--status-regular-ink)"/>
+      </svg>
+      <span class="condensed-title">KnowYourSponsor<span class="dot" aria-hidden="true"></span></span>
+    </a>
+    <div class="condensed-meta">
+      <span class="condensed-stat"><strong id="condensedCount">127,716</strong> verified organisations</span>
+      <button class="condensed-search-btn" id="btnFocusSearch" title="Focus search (Press /)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span>Search</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Continuous Ledger HUD -->
+<section class="ledger-hud">
+  <div class="hud-stat" data-filter="all">
+    <span class="hud-label">Total Licensed Entities</span>
+    <span class="hud-value" id="hudTotal">127,716</span>
+    <span class="hud-note">Home Office worker tier</span>
+  </div>
+  <div class="hud-stat" data-filter="added">
+    <span class="hud-label">Weekly Additions (+7D)</span>
+    <span class="hud-value" style="color:var(--status-regular-ink)" id="hudAdded">+302</span>
+    <span class="hud-note">First registered within last 7 days</span>
+  </div>
+  <div class="hud-stat" data-filter="serious">
+    <span class="hud-label">Statutory Insolvency Filings</span>
+    <span class="hud-value" style="color:var(--status-critical-ink)" id="hudSerious">2,793</span>
+    <span class="hud-note">Liquidation, strike-off, or administration</span>
+  </div>
+  <div class="hud-stat" data-filter="warning">
+    <span class="hud-label">Accounts / Filings Overdue</span>
+    <span class="hud-value" style="color:var(--status-warning-ink)" id="hudDeficient">6,697</span>
+    <span class="hud-note">Statutory accounts overdue or dormant</span>
+  </div>
+</section>
+
+<!-- Solvency Macro Ratio Rule -->
+<div class="solvency-meter-wrap">
+  <div class="wrap">
+    <div class="solvency-meter-header">
+      <span>Corporate Filing Status Distribution</span>
+      <span id="solvencyMetricSummary">74.2% Compliant · 5.2% Overdue · 2.2% Insolvency · 18.4% Unlinked</span>
+    </div>
+    <div class="solvency-bar" id="solvencyBar" title="Click to filter by solvency category">
+      <div class="solvency-seg seg-solvent" id="barSolvent" title="Active & Compliant Standing (74.2%)"></div>
+      <div class="solvency-seg seg-warning" id="barWarning" title="Accounts Overdue / Dormant (5.2%)"></div>
+      <div class="solvency-seg seg-critical" id="barCritical" title="Formal Insolvency Proceedings (2.2%)"></div>
+      <div class="solvency-seg seg-unresolved" id="barUnresolved" title="Unlinked / Unverified against Companies House (18.4%)"></div>
+    </div>
+    <div class="solvency-legend">
+      <div class="legend-item" id="legSolvent"><span class="legend-dot" style="background:var(--status-regular-ink)"></span> Compliant Standing (74.2%)</div>
+      <div class="legend-item" id="legWarning"><span class="legend-dot" style="background:var(--status-warning-ink)"></span> Accounts Overdue (5.2%)</div>
+      <div class="legend-item" id="legCritical"><span class="legend-dot" style="background:var(--status-critical-ink)"></span> Insolvency Filings (2.2%)</div>
+      <div class="legend-item" id="legUnresolved"><span class="legend-dot" style="background:var(--rule-prominent)"></span> Unverified Linkage (18.4%)</div>
+    </div>
+  </div>
+</div>
+
+<!-- Omnibar & Facet Ledger -->
+<section class="omnibar-section">
+  <div class="wrap">
+    <div class="omnibar-row">
+      <div class="search-cavity">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--ink-graphite); margin-right:8px; flex-shrink:0;">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input id="q" type="search" placeholder="Search by employer name, CRN, town, or industry (Press '/' to focus)..." aria-label="Search sponsors">
+        <span class="search-keyhint">/</span>
+      </div>
+      <button class="btn-export" id="btnExport" title="Export current results as CSV (Shortcut: E)">Export CSV</button>
+    </div>
+
+    <div class="facets-row">
+      <div class="views-group rail">
+        <button class="view-btn active" id="viewAll" data-view="">All Sponsors</button>
+        <button class="view-btn" id="viewAdded" data-view="added">Additions <span id="nAdded"></span></button>
+        <button class="view-btn" id="viewRemoved" data-view="removed">Revoked <span id="nRemoved"></span></button>
+        <button class="view-btn" id="viewDowngraded" data-view="downgraded" style="display:none">Downgraded</button>
+        <button class="view-btn" id="viewFlagged" data-view="flagged">Flagged <span id="nFlagged"></span></button>
+        <button class="view-btn" id="viewNmw" data-view="nmw">NMW Underpaid <span id="nNmw"></span></button>
+        <button class="view-btn" id="viewSaved" data-view="saved"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px; margin-right:3px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>Shortlist <span id="nSaved"></span></button>
+      </div>
+
+      <div class="facet-selects">
+        <select id="citySelect" aria-label="Filter by city"><option value="">All Towns / Cities</option></select>
+        <select id="industrySelect" aria-label="Filter by industry"><option value="">All Industries</option></select>
+        <select id="routeSelect" aria-label="Filter by route"><option value="">All Visa Routes</option></select>
+        <select id="ratingSelect" aria-label="Filter by rating">
+          <option value="">Rating: All</option>
+          <option value="A">A-Rating</option>
+          <option value="B">B-Rating</option>
+        </select>
+      </div>
+
+      <div class="quick-chips-row rail">
+        <span class="quick-chip-label">Presets:</span>
+        <button type="button" class="quick-chip" id="chipAdded" data-preset="added">Newly Added (7D)</button>
+        <button type="button" class="quick-chip" id="chipLondonTech" data-preset="london-tech">London Tech</button>
+        <button type="button" class="quick-chip" id="chipHealthcare" data-preset="healthcare">Healthcare &amp; Care</button>
+        <button type="button" class="quick-chip" id="chipFlagged" data-preset="flagged">Filing Warnings</button>
+        <button type="button" class="quick-chip" id="chipNmw" data-preset="nmw">NMW Underpaid</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Split-Plane Workspace -->
+<main class="wrap workspace" id="workspace">
+  <!-- Left Pane: Virtualized Table Ledger -->
+  <div class="ledger-pane" id="ledgerPane">
+    <div id="tableStatus">
+      <span>Showing <strong id="matchCount">127,716</strong> verified organisations</span>
+      <span style="font-size:0.7rem; color:var(--ink-faint);"><kbd>J</kbd>/<kbd>K</kbd> Navigate · <kbd>Enter</kbd> Details · <kbd>Esc</kbd> Overview</span>
+    </div>
+    
+    <table class="gazette-table" id="ledgerTable">
+      <thead>
+        <tr>
+          <th style="width:36px;" title="Shortlist"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></th>
+          <th>Employer Name</th>
+          <th>Town / City</th>
+          <th>Industry</th>
+          <th>Approved Visa Routes</th>
+          <th>Status / Rating</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <!-- Recycled virtual rows -->
+      </tbody>
+    </table>
+    <div id="tableEmpty" style="display:none; padding:40px; text-align:center; color:var(--ink-graphite); font-family:var(--font-mono); font-size:0.85rem;">
+      No employers match the active search filters.
+    </div>
+    <div id="loadMoreTrigger" style="display:none; padding:16px; text-align:center;">
+      <button id="btnLoadMore" style="font-family:var(--font-mono); font-size:0.8rem; padding:8px 16px; background:var(--surface-panel); border:1px solid var(--rule-prominent); cursor:pointer;">Load More Records</button>
+    </div>
+  </div>
+
+  <!-- Right Pane: Employer Details & Overview -->
+  <aside class="docket-pane" id="docketPane" role="dialog" aria-modal="true" aria-label="Employer compliance docket">
+    <div class="docket-sheet-handle"></div>
+    <div class="docket-empty-macro" id="docketEmpty">
+      <div class="macro-header">
+        <div class="macro-badge">REGISTER SUMMARY</div>
+        <h2 class="macro-title">National Register &amp; Weekly Movement Summary</h2>
+        <p class="macro-desc">Official UKVI Worker Sponsor Register &amp; Companies House Filings · Past 7 Days</p>
+      </div>
+
+      <div class="macro-card-grid">
+        <div class="macro-card" id="macroCardMovement" title="Click to view weekly licence additions">
+          <div class="macro-card-label">Net Licence Movement</div>
+          <div class="macro-stat-val" style="color:var(--status-regular-ink);" id="macroNetMove">—</div>
+          <div class="macro-stat-note" id="macroNetNote">Calculating weekly delta...</div>
+        </div>
+        <div class="macro-card" id="macroCardRisk" title="Click to view statutory insolvency warnings">
+          <div class="macro-card-label">Corporate Solvency Watch</div>
+          <div class="macro-stat-val" style="color:var(--status-critical-ink);" id="macroRiskRate">—</div>
+          <div class="macro-stat-note" id="macroRiskNote">Calculating filing risk rate...</div>
+        </div>
+      </div>
+
+      <div class="macro-section">
+        <div class="macro-section-title">Licence Changes by Sector (Past 7 Days)</div>
+        <ul class="macro-list" id="macroSectorList">
+          <li class="macro-list-item"><span class="macro-item-name">Loading register movements...</span></li>
+        </ul>
+      </div>
+
+      <div class="macro-section">
+        <div class="macro-section-title">Filing Warnings by Region</div>
+        <ul class="macro-list" id="macroRegionList">
+          <li class="macro-list-item"><span class="macro-item-name">Loading regional analysis...</span></li>
+        </ul>
+      </div>
+
+      <div class="macro-section">
+        <div class="macro-section-title">Salary &amp; Minimum Wage Thresholds</div>
+        <div class="macro-standards-box">
+          <div class="macro-std-row">
+            <span>Skilled Worker Baseline Floor</span>
+            <strong id="macroThresholdStandard">£38,700 / yr</strong>
+          </div>
+          <div class="macro-std-row">
+            <span>Minimum Statutory Hourly Floor</span>
+            <strong id="macroHourlyStandard">£15.88 / hr</strong>
+          </div>
+          <div class="macro-std-row">
+            <span>New Entrant Statutory Floor</span>
+            <strong id="macroThresholdNewEntrant">£30,960 / yr</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="macro-inspection-prompt">
+        <div class="prompt-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle;"><path d="M12 3v18"></path><path d="M4 7h16"></path><path d="M4 7l4 8H0z"></path><path d="M20 7l4 8h-8z"></path><circle cx="12" cy="21" r="2"></circle></svg>
+        </div>
+        <div class="prompt-text">
+          <strong>Employer Details &amp; Licence History</strong><br>
+          Select an employer from the table or press <kbd>J</kbd> / <kbd>K</kbd> + <kbd>Enter</kbd> to view licence rating, Companies House filing status, National Minimum Wage findings, and salary going rates.
+        </div>
+      </div>
+    </div>
+
+    <div id="docketContent" style="display:none;">
+      <div class="docket-section">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+          <h2 class="docket-title" id="docketName">—</h2>
+          <button id="docketClose" style="background:none; border:none; font-size:1.4rem; cursor:pointer; color:var(--ink-faint);">&times;</button>
+        </div>
+        <div class="docket-crn" id="docketSubtitle">—</div>
+      </div>
+
+      <!-- 2-Second Synthesis Verdict Strip (Zero Emojis, Bespoke Archival Typography) -->
+      <div id="docketSynthesisStrip" class="docket-synthesis status-active">
+        <div class="synthesis-header">
+          <div class="synthesis-stamp" id="synthesisStamp">
+            <span class="synthesis-stamp-dot"></span>
+            <span id="synthesisTitle">ON REGISTER — NO ADVERSE RECORDS LOCATED</span>
+          </div>
+          <span id="synthesisRatingBadge" class="synthesis-chip">A-RATING</span>
+        </div>
+        <div class="synthesis-summary" id="synthesisSummary">
+          Active UK Home Office sponsor licence with regular Companies House filing standing.
+        </div>
+        <div class="synthesis-chips" id="synthesisChips">
+          <span class="synthesis-chip">LICENCE: A-RATING</span>
+          <span class="synthesis-chip">STATUS: ACTIVE</span>
+          <span class="synthesis-chip">NMW: NO SANCTIONS</span>
+        </div>
+      </div>
+
+      <!-- Action Path: Verify on GOV.UK, Companies House, Shortlist -->
+      <div class="docket-quick-actions" id="docketQuickActions">
+        <a class="docket-act-btn primary" id="actVerifyGov" href="https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers" target="_blank" rel="noopener">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          <span>Verify on GOV.UK</span>
+        </a>
+        <a class="docket-act-btn" id="actViewCH" href="#" target="_blank" rel="noopener">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span>Companies House</span>
+        </a>
+        <button type="button" class="docket-act-btn" id="actSaveShortlist">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <span id="actSaveLabel">Shortlist</span>
+        </button>
+      </div>
+
+      <!-- Section 1: Home Office Immigration Profile -->
+      <div class="docket-section">
+        <div class="docket-heading">1. Home Office Licence Details</div>
+        <dl class="docket-dl">
+          <dt>Licence Rating</dt>
+          <dd id="docketRating">—</dd>
+          <dt>Licence Age</dt>
+          <dd id="docketSince">—</dd>
+          <dt>Worker Tier</dt>
+          <dd id="docketRoutes">—</dd>
+        </dl>
+      </div>
+
+      <!-- Section 2: Companies House Solvency Status -->
+      <div class="docket-section">
+        <div class="docket-heading">2. Companies House Corporate Status</div>
+        <dl class="docket-dl">
+          <dt>Corporate Status</dt>
+          <dd id="docketStatus">—</dd>
+          <dt>Incorporation</dt>
+          <dd id="docketIncorp">—</dd>
+          <dt>Accounts Standard</dt>
+          <dd id="docketAccounts">—</dd>
+        </dl>
+        <div id="docketAdvisoryBox" class="docket-advisory" style="display:none;"></div>
+      </div>
+
+      <!-- Section 2.5: National Minimum Wage Underpayment Enforcement -->
+      <div class="docket-section" id="docketNmwSection" style="display:none;">
+        <div class="docket-heading" style="color:#92400E;">2.5. National Minimum Wage Enforcement</div>
+        <div id="docketNmwBox" class="docket-advisory nmw-box"></div>
+      </div>
+
+      <!-- Section 3: Skilled Worker Salary Threshold Calculator -->
+      <div class="docket-section">
+        <div class="docket-heading">3. Skilled Worker Salary Threshold</div>
+        <div class="calc-box">
+          <div class="salary-rule-toggle rail" id="salaryRuleToggle">
+            <button type="button" class="salary-rule-btn active" data-rule="standard">Standard (A)<br><span style="font-size:0.62rem; opacity:0.85;">£41.7k / 100%</span></button>
+            <button type="button" class="salary-rule-btn" data-rule="stem_phd">STEM PhD (B)<br><span style="font-size:0.62rem; opacity:0.85;">£37.5k / 80%</span></button>
+            <button type="button" class="salary-rule-btn" data-rule="non_stem_phd">Non-STEM (C)<br><span style="font-size:0.62rem; opacity:0.85;">£37.5k / 90%</span></button>
+            <button type="button" class="salary-rule-btn" data-rule="isl_shortage">ISL List (D)<br><span style="font-size:0.62rem; opacity:0.85;">£31.0k / 100%</span></button>
+            <button type="button" class="salary-rule-btn" data-rule="new_entrant">New Entrant (E)<br><span style="font-size:0.62rem; opacity:0.85;">£31.0k / 70%</span></button>
+          </div>
+          <label style="font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-graphite); display:block; margin-bottom:4px;">
+            Search Job Title / Standard Occupation (SOC 2020):
+          </label>
+          <input type="text" id="calcJobSearch" class="calc-job-input" placeholder="Type job title (e.g. Software, Nurse, Accountant, Chef)..." aria-label="Search job title for salary going rate">
+          <select class="calc-select" id="calcSocSelect"></select>
+          <div class="gauge-wrap">
+            <div class="gauge-track">
+              <div class="gauge-bar" id="gaugeBar" style="width:60%;"></div>
+              <div class="gauge-pin" id="gaugeBaselinePin" style="left:49%;" title="Minimum Threshold">
+                <span class="gauge-pin-label" id="gaugePinLabel">£41.7k Min</span>
+              </div>
+            </div>
+          </div>
+          <div class="calc-summary">
+            <div>Baseline Floor: <strong id="calcGovMin">£41,700</strong></div>
+            <div>Going Rate: <strong id="calcGoingRate">£49,400</strong></div>
+          </div>
+          <div class="calc-delta-row" id="calcDeltaRow">
+            <span style="color:var(--ink-graphite);">Statutory Spread:</span>
+            <span id="calcDeltaBadge" class="calc-delta-badge positive">+£7,700 above baseline</span>
+          </div>
+          <div style="margin-top:8px; font-size:0.75rem; color:var(--ink-graphite); line-height:1.35;" id="calcVerdict">
+            Sponsorship requires minimum £49,400/yr (50th percentile going rate for this role).
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4: Actionable External Verifications -->
+      <div class="docket-section">
+        <div class="docket-heading">4. Public Register &amp; Vacancy Links</div>
+        <div class="docket-actions">
+          <a class="docket-link" id="linkGoogleJobs" href="#" target="_blank" rel="noopener">
+            <span>Search Jobs &amp; Visa Careers on Google</span>
+            <span>&rarr;</span>
+          </a>
+          <a class="docket-link" id="linkIndeed" href="#" target="_blank" rel="noopener">
+            <span>Search Vacancies on Indeed UK</span>
+            <span>&rarr;</span>
+          </a>
+          <a class="docket-link" id="linkLinkedIn" href="#" target="_blank" rel="noopener">
+            <span>Search Jobs on LinkedIn</span>
+            <span>&rarr;</span>
+          </a>
+          <a class="docket-link" id="linkCH" href="#" target="_blank" rel="noopener">
+            <span>View on Companies House</span>
+            <span>&rarr;</span>
+          </a>
+          <a class="docket-link" id="linkGazette" href="#" target="_blank" rel="noopener">
+            <span>Search notices in The Gazette</span>
+            <span>&rarr;</span>
+          </a>
+          <a class="docket-link" id="linkGOV" href="https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers" target="_blank" rel="noopener">
+            <span>View official Home Office register</span>
+            <span>&rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Section 5: Statutory Provenance & Dispute Rectification -->
+      <div class="docket-section" style="border-bottom:none; margin-bottom:0; padding-bottom:0;">
+        <div class="docket-heading">5. Evidentiary Audit &amp; Rectification</div>
+        <div class="provenance-box" style="font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-graphite); background:var(--surface-paper); border:1px solid var(--rule-hairline); border-radius:3px; padding:10px 12px; line-height:1.45;">
+          <div style="font-weight:600; color:var(--ink-carbon); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.04em;">Statutory Provenance Notice</div>
+          <div>Linkage State: <span id="docketMatchState" style="color:var(--status-regular-ink); font-weight:600;">CONFIRMED_CRN</span></div>
+          <div>Sources: UK Home Office (09 Sep 2026) &middot; Companies House (01 Sep 2026)</div>
+          <div style="margin-top:4px; color:var(--ink-faint);">Record ID: <span id="docketRecordId">01470151:2026W37:v2.0</span></div>
+          <div style="margin-top:8px; border-top:1px dashed var(--rule-hairline); padding-top:6px;">
+            <a id="docketDisputeLink" href="mailto:knowyoursponsor8@gmail.com?subject=Data%20Rectification%20Request" style="color:var(--cobalt); font-weight:500;">Notice a data discrepancy or corporate update? Submit formal rectification notice &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<!-- Longitudinal Churn Matrix -->
+<section class="wrap">
+  <div class="churn-module">
+    <div class="churn-title">Weekly Register Movements</div>
+    <table class="churn-table">
+      <thead>
+        <tr>
+          <th>Period</th>
+          <th>New Licences (+)</th>
+          <th>Revoked Licences (-)</th>
+          <th>Net Change</th>
+          <th>Rating Downgrades (A &rarr; B)</th>
+        </tr>
+      </thead>
+      <tbody id="churnTableBody">
+        <tr>
+          <td><strong>Current Rolling 7-Day Window</strong></td>
+          <td id="churnAdded" style="color:var(--status-regular-ink)">—</td>
+          <td id="churnRemoved" style="color:var(--status-critical-ink)">—</td>
+          <td id="churnNet">—</td>
+          <td id="churnDowngrades">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Email Alert Subscription -->
+<section class="wrap">
+  <div class="alerts-band">
+    <h2>Receive weekly sponsor deltas in your inbox</h2>
+    <p>We analyze the register every day. Subscribe to receive newly licensed employers and insolvency alerts for your jurisdiction.</p>
+    <form class="alerts-form" id="alertForm">
+      <input type="email" name="email" required placeholder="name@domain.co.uk" aria-label="Email address">
+      <button type="submit">Subscribe</button>
+    </form>
+    <p id="alertSuccess" style="display:none; color:var(--status-regular-ink); font-weight:600; margin-top:10px;">
+      Subscription registered. Please verify the confirmation link in your inbox.
+    </p>
+  </div>
+</section>
+
+<!-- Archival Footer -->
+<footer>
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="about/">About &amp; Ethics</a>
+      <a href="changes/">Weekly Register Changes</a>
+      <a href="insights/">Statistical Numbers</a>
+      <a href="methodology/">Data Methodology</a>
+      <a href="data-api/">Public Data API</a>
+      <a href="pricing/">Compliance Monitoring (B2B)</a>
+      <a href="privacy/">Privacy Statement</a>
+    </div>
+    <p>KnowYourSponsor is an independent public register directory and corporate search tool built on statutory public records (UK Home Office, Companies House, and DBT NMW Naming Rounds). Not immigration advice.</p>
+    <p style="margin-top:6px;">Contact: <a href="mailto:knowyoursponsor8@gmail.com">knowyoursponsor8@gmail.com</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  let allSponsors = [];
+  let companyFlags = {};
+  let licensedSince = {};
+  let ratingChanges = [];
+  let nmwData = {};
+  let addedRows = [];
+  let removedRows = [];
+  let socData = [];
+  
+  let currentView = '';
+  let currentWarn = '';
+  let currentSalaryRule = 'standard';
+  let currentSponsorInDocket = null;
+  let selectedRowIndex = -1;
+  let activeSlice = [];
+  let totalMatches = 0;
+  let currentOffset = 0;
+  let isLoadingNext = false;
+  const PAGE_LIMIT = 150;
+  
+  let searchWorker = null;
+  let requestId = 0;
+
+  // Default SOC selector lookup driven by socData.sector_to_soc
+  function getDefaultSocForSector(sector) {
+    if (socData && socData.sector_to_soc && socData.sector_to_soc[sector]) {
+      return socData.sector_to_soc[sector];
+    }
+    return '2136';
+  }
+
+  // URL Deep-Linking State Synchronization
+  function syncUrlState(sponsorName) {
+    if (sponsorName !== undefined) {
+      currentSponsorInDocket = sponsorName;
+    }
+    const params = new URLSearchParams();
+    const q = (document.getElementById('q').value || '').trim();
+    const city = document.getElementById('citySelect').value;
+    const industry = document.getElementById('industrySelect').value;
+    const route = document.getElementById('routeSelect').value;
+    const rating = document.getElementById('ratingSelect').value;
+
+    if (q) params.set('q', q);
+    if (city) params.set('city', city);
+    if (industry) params.set('industry', industry);
+    if (route) params.set('route', route);
+    if (rating) params.set('rating', rating);
+    if (currentView) params.set('view', currentView);
+    if (currentWarn) params.set('warn', currentWarn);
+    if (currentSponsorInDocket) params.set('sponsor', currentSponsorInDocket);
+
+    const qs = params.toString();
+    const targetSearch = qs ? '?' + qs : '';
+    if (window.location.search !== targetSearch) {
+      window.history.replaceState(null, '', window.location.pathname + targetSearch);
+    }
+  }
+
+  function initFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q');
+    const city = params.get('city');
+    const industry = params.get('industry');
+    const route = params.get('route');
+    const rating = params.get('rating');
+    const view = params.get('view');
+    const warn = params.get('warn');
+    const sponsor = params.get('sponsor');
+
+    if (q) document.getElementById('q').value = q;
+    if (city) document.getElementById('citySelect').value = city;
+    if (industry) document.getElementById('industrySelect').value = industry;
+    if (route) document.getElementById('routeSelect').value = route;
+    if (rating) document.getElementById('ratingSelect').value = rating;
+
+    if (view) {
+      currentView = view;
+      document.querySelectorAll('.view-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.view === view);
+      });
+    }
+    if (warn) {
+      currentWarn = warn;
+    }
+
+    return sponsor;
+  }
+
+  // Shortlist in LocalStorage
+  const SAVED_KEY = 'kys.shortlist';
+  let savedSet = new Set();
+  try {
+    const raw = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]');
+    if (Array.isArray(raw)) savedSet = new Set(raw);
+  } catch(e) {}
+
+  function saveShortlist() {
+    try { localStorage.setItem(SAVED_KEY, JSON.stringify([...savedSet])); } catch(e) {}
+    updateShortlistCount();
+  }
+
+  function updateShortlistCount() {
+    const el = document.getElementById('nSaved');
+    if (el) el.textContent = savedSet.size ? `(${savedSet.size})` : '';
+  }
+
+  function esc(s) {
+    if (!s) return '';
+    const d = document.createElement('span');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function downloadBlob(content, filename) {
+    const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  const WARNINGS = [
+    ['not_active', null, 'serious', 'Companies House records this company as no longer active (Liquidation, Strike-off, Dissolved).'],
+    ['dormant', 'Dormant', 'notable', 'This company files accounts as dormant, reporting no significant trading.'],
+    ['accounts_overdue', 'Accounts overdue', 'notable', 'This company has not filed its statutory accounts by the due date.'],
+    ['confirmation_statement_overdue', 'Filing overdue', 'context', 'This company has not filed its confirmation statement by the due date.'],
+    ['incorporated_recently', 'New company', 'context', 'This company was incorporated within the last year.']
+  ];
+
+  function warningFor(name) {
+    const record = companyFlags[name];
+    if (!record || !record.flags || !record.flags.length) return null;
+    for (const [flag, label, severity, explanation] of WARNINGS) {
+      if (record.flags.includes(flag)) {
+        return {
+          label: label || (record.status ? record.status.replace(/^Active\s*-\s*/i, '') : 'Flagged'),
+          severity: severity,
+          status: record.status || '',
+          crn: record.number || '',
+          incorporated: record.incorporated || '',
+          accounts: record.accounts || '',
+          flags: record.flags,
+          explanation: explanation
+        };
+      }
+    }
+    return null;
+  }
+
+  // Fast Table Rendering (Supports both raw array tuples and enriched worker objects)
+  function renderTable(rows, append) {
+    isLoadingNext = false;
+    if (!append) {
+      activeSlice = rows;
+      currentOffset = rows.length;
+      selectedRowIndex = rows.length ? 0 : -1;
+    } else {
+      activeSlice = activeSlice.concat(rows);
+      currentOffset += rows.length;
+    }
+
+    const tbody = document.getElementById('tableBody');
+    const emptyEl = document.getElementById('tableEmpty');
+    const loadMoreEl = document.getElementById('loadMoreTrigger');
+    
+    if (!activeSlice || activeSlice.length === 0) {
+      tbody.innerHTML = '';
+      emptyEl.style.display = 'block';
+      loadMoreEl.style.display = 'none';
+      return;
+    }
+    emptyEl.style.display = 'none';
+    loadMoreEl.style.display = currentOffset < totalMatches ? 'block' : 'none';
+
+    const html = activeSlice.map((item, idx) => {
+      const s = item && item.sponsor ? item.sponsor : item;
+      const [name, town, county, industry, routes, rating] = s;
+      const key = (name + '|' + town).toLowerCase();
+      const isSaved = savedSet.has(key);
+      const warn = (item && item.warn !== undefined) ? item.warn : warningFor(name);
+      const hasNmw = (item && item.nmw !== undefined) ? item.nmw : !!(nmwData[name] && nmwData[name].length);
+      
+      let dotClass = 'active';
+      let dotTitle = 'Verified Active Sponsor (A-Rating)';
+      if (warn && warn.severity === 'serious') {
+        dotClass = 'critical';
+        dotTitle = 'Statutory Solvency Advisory: ' + (warn.label || 'Flagged');
+      } else if (warn && (warn.severity === 'notable' || warn.severity === 'context')) {
+        dotClass = 'warning';
+        dotTitle = 'Statutory Filing Advisory: ' + (warn.label || 'Accounts Overdue / Dormant');
+      } else if (hasNmw) {
+        dotClass = 'warning';
+        dotTitle = 'DBT National Minimum Wage Enforcement Finding';
+      } else if (rating === 'B') {
+        dotClass = 'critical';
+        dotTitle = 'Home Office B-Rating (Action Plan Required)';
+      }
+
+      const loc = [town, county].filter(Boolean)
+        .filter((v,i,a) => a.findIndex(x=>x.toLowerCase()===v.toLowerCase())===i)
+        .join(', ');
+
+      let statusBadge = '';
+      if (warn) {
+        statusBadge = `<span class="status-badge ${warn.severity === 'serious' ? 'critical' : 'warning'}">${esc(warn.label)}</span>`;
+      } else if (rating === 'A') {
+        statusBadge = `<span class="status-badge regular">A-Rating</span>`;
+      } else if (rating === 'B') {
+        statusBadge = `<span class="status-badge critical">B-Action Plan</span>`;
+      } else {
+        statusBadge = `<span class="status-badge regular">${esc(rating || 'Active')}</span>`;
+      }
+
+      if (hasNmw) {
+        statusBadge += ` <span class="status-badge nmw" title="Named by government for NMW underpayment">NMW Underpaid</span>`;
+      }
+
+      const crnInfo = warn && warn.crn ? `CRN: ${warn.crn}${warn.incorporated ? ' · ' + warn.incorporated.slice(0,4) : ''}` : '';
+      const metaMobile = [loc, industry, crnInfo].filter(Boolean).join(' · ');
+      const cleanName = (name || '').replace(/^[.\s·-]+/, '').trim() || name;
+
+      return `<tr data-idx="${idx}" class="${idx === selectedRowIndex ? 'selected' : ''}">
+        <td>
+          <button class="star-btn ${isSaved ? 'saved' : ''}" data-key="${esc(key)}" aria-label="Shortlist">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </button>
+        </td>
+        <td>
+          <span class="col-company"><span class="row-status-dot ${dotClass}" title="${esc(dotTitle)}"></span>${esc(cleanName)}</span>
+          ${crnInfo ? `<span class="col-meta col-meta-desktop">${esc(crnInfo)}</span>` : ''}
+          ${metaMobile ? `<span class="col-meta col-meta-mobile">${esc(metaMobile)}</span>` : ''}
+        </td>
+        <td>${esc(loc)}</td>
+        <td>${esc(industry)}</td>
+        <td>
+          <div class="col-routes">
+            ${(routes || []).map(rt => `<span class="tag-route">${esc(rt.replace('Global Business Mobility:', 'GBM:'))}</span>`).join('')}
+          </div>
+        </td>
+        <td>${statusBadge}</td>
+      </tr>`;
+    }).join('');
+
+    tbody.innerHTML = html;
+  }
+
+  // Dynamic Macro Summary & Churn Table Renderer (O(1) from meta.json)
+  function renderMacroSummary(meta) {
+    if (!meta) return;
+    const totalSponsors = meta.total || 127716;
+    const nAdded = meta.added_recently || 0;
+    const nRemoved = meta.removed_recently || 0;
+    const netDelta = meta.net_drift !== undefined ? meta.net_drift : (nAdded - nRemoved);
+    const nDowngrades = meta.downgraded_recently || 0;
+
+    // 1. Net Movement Card
+    const netEl = document.getElementById('macroNetMove');
+    const netNote = document.getElementById('macroNetNote');
+    if (netEl) {
+      const sign = netDelta >= 0 ? '+' : '';
+      netEl.innerHTML = `${sign}${netDelta} <span class="macro-stat-sub">(+${nAdded} / -${nRemoved})</span>`;
+      netEl.style.color = netDelta >= 0 ? 'var(--status-regular-ink)' : 'var(--status-critical-ink)';
+    }
+    if (netNote) {
+      netNote.textContent = `${nAdded} new licences granted, ${nRemoved} revoked (past 7 days)`;
+    }
+
+    // 2. Churn Table
+    const churnAdded = document.getElementById('churnAdded');
+    const churnRemoved = document.getElementById('churnRemoved');
+    const churnNet = document.getElementById('churnNet');
+    const churnDowngrades = document.getElementById('churnDowngrades');
+    if (churnAdded) churnAdded.textContent = `+${nAdded.toLocaleString()} organisations`;
+    if (churnRemoved) churnRemoved.textContent = `-${nRemoved.toLocaleString()} organisations`;
+    if (churnNet) {
+      const sign = netDelta >= 0 ? '+' : '';
+      churnNet.textContent = `${sign}${netDelta.toLocaleString()} net change`;
+    }
+    if (churnDowngrades) churnDowngrades.textContent = `${nDowngrades.toLocaleString()} organisations`;
+
+    // 3. Solvency Risk Rate Card
+    const flaggedCount = meta.total_flagged || 0;
+    const riskPct = meta.risk_pct !== undefined ? meta.risk_pct : (totalSponsors > 0 ? ((flaggedCount / totalSponsors) * 100).toFixed(2) : '0.00');
+    const riskEl = document.getElementById('macroRiskRate');
+    const riskNote = document.getElementById('macroRiskNote');
+    if (riskEl) {
+      riskEl.innerHTML = `${riskPct}% <span class="macro-stat-sub">(${flaggedCount.toLocaleString()} orgs)</span>`;
+    }
+    if (riskNote) {
+      riskNote.textContent = `${flaggedCount.toLocaleString()} sponsors with active filing or accounts advisories`;
+    }
+
+    // 4. Sector breakdown from pre-aggregated meta data
+    const topSectors = meta.top_revoked_sectors || [];
+    const sectorListEl = document.getElementById('macroSectorList');
+    if (sectorListEl && topSectors.length > 0) {
+      const denom = nRemoved > 0 ? nRemoved : 10;
+      sectorListEl.innerHTML = topSectors.map(([sec, count]) => {
+        const pct = ((count / denom) * 100).toFixed(1);
+        return `<li class="macro-list-item">
+          <span class="macro-item-name">${esc(sec)}</span>
+          <span class="macro-item-stat" style="color:var(--status-critical-ink);">${nRemoved > 0 ? '-' : ''}${count} licences <small>(${pct}%)</small></span>
+        </li>`;
+      }).join('');
+    }
+
+    // 5. Regional Flagged Breakdown from pre-aggregated meta data
+    const topLocations = meta.top_flagged_locations || [];
+    const regionListEl = document.getElementById('macroRegionList');
+    if (regionListEl && topLocations.length > 0) {
+      regionListEl.innerHTML = topLocations.map(([loc, count]) => 
+        `<li class="macro-list-item">
+          <span class="macro-item-name">${esc(loc)}</span>
+          <span class="macro-item-stat">${count.toLocaleString()} flagged entities</span>
+        </li>`
+      ).join('');
+    }
+
+    // 6. Threshold standards from socData
+    if (socData) {
+      const stdFloor = socData.general_threshold || 38700;
+      const stdHourly = socData.hourly_minimum || 15.88;
+      const newFloor = socData.new_entrant_threshold || 30960;
+      const elStd = document.getElementById('macroThresholdStandard');
+      const elHr = document.getElementById('macroHourlyStandard');
+      const elNew = document.getElementById('macroThresholdNewEntrant');
+      if (elStd) elStd.textContent = `£${stdFloor.toLocaleString('en-GB')} / yr`;
+      if (elHr) elHr.textContent = `£${stdHourly.toFixed(2)} / hr`;
+      if (elNew) elNew.textContent = `£${newFloor.toLocaleString('en-GB')} / yr`;
+    }
+  }
+
+  // Forensic Inspection Docket
+  function openDocket(rowOrItem) {
+    if (!rowOrItem) return;
+    const row = rowOrItem && rowOrItem.sponsor ? rowOrItem.sponsor : rowOrItem;
+    const [name, town, county, industry, routes, rating] = row;
+    const warn = (rowOrItem && rowOrItem.warn !== undefined) ? rowOrItem.warn : warningFor(name);
+    const nmw = (rowOrItem && rowOrItem.nmwList !== undefined) ? rowOrItem.nmwList : (nmwData[name] || null);
+    const key = (name + '|' + town).toLowerCase();
+    const sinceDate = (rowOrItem && rowOrItem.licensedSince) || licensedSince[key] || 'Historical register record';
+    const cleanName = (name || '').replace(/^[.\s·-]+/, '').trim() || name;
+
+    document.getElementById('docketEmpty').style.display = 'none';
+    document.getElementById('docketContent').style.display = 'block';
+
+    document.getElementById('docketName').textContent = cleanName;
+    document.getElementById('docketSubtitle').textContent = 
+      (warn && warn.crn ? `CRN: ${warn.crn} · ` : '') + [town, county].filter(Boolean).join(', ');
+
+    document.getElementById('docketRating').innerHTML = rating === 'B' 
+      ? '<span class="status-badge critical">B-Rating (Action Plan Required)</span>' 
+      : '<span class="status-badge regular">A-Rating (Approved Standard)</span>';
+      
+    document.getElementById('docketSince').textContent = sinceDate;
+    document.getElementById('docketRoutes').textContent = (routes || []).join(', ');
+
+    document.getElementById('docketStatus').textContent = warn && warn.status ? warn.status : 'Active (No filing warnings)';
+    document.getElementById('docketIncorp').textContent = warn && warn.incorporated ? warn.incorporated : 'Not specified in registry';
+    document.getElementById('docketAccounts').textContent = warn && warn.accounts ? warn.accounts : 'Standard Private Company';
+
+    // 2-Second Docket Synthesis Verdict Computation
+    const synthStrip = document.getElementById('docketSynthesisStrip');
+    const synthTitle = document.getElementById('synthesisTitle');
+    const synthBadge = document.getElementById('synthesisRatingBadge');
+    const synthSummary = document.getElementById('synthesisSummary');
+    const synthChips = document.getElementById('synthesisChips');
+
+    if (synthStrip && synthTitle && synthSummary && synthChips) {
+      let synthClass = 'status-active';
+      let titleText = 'ON REGISTER — NO ADVERSE RECORDS LOCATED';
+      let summaryText = 'Active UK Home Office sponsor licence with regular Companies House filing standing. No statutory insolvency or NMW sanctions recorded.';
+      let chipList = [];
+
+      const ratingText = rating === 'B' ? 'B-ACTION PLAN' : (rating ? `${rating}-RATING` : 'A-RATING');
+      chipList.push(`LICENCE: ${ratingText}`);
+
+      if (warn && warn.severity === 'serious') {
+        synthClass = 'status-critical';
+        titleText = 'STATUTORY SOLVENCY ADVISORY';
+        summaryText = `Companies House records indicate ${warn.label || 'formal insolvency or liquidation proceedings'}. Home Office sponsor licence eligibility may be critically impaired.`;
+        chipList.push(`STATUS: ${warn.label.toUpperCase()}`);
+      } else if (rating === 'B') {
+        synthClass = 'status-critical';
+        titleText = 'HOME OFFICE COMPLIANCE ACTION PLAN';
+        summaryText = 'Employer has been downgraded by UK Visas and Immigration to B-rating and must complete a time-limited compliance action plan to retain sponsor eligibility.';
+        chipList.push('STATUS: COMPLIANCE PLAN');
+      } else if (warn && (warn.severity === 'notable' || warn.severity === 'context')) {
+        synthClass = 'status-warning';
+        titleText = 'STATUTORY FILING ADVISORY';
+        summaryText = `Companies House filings note ${warn.label.toLowerCase()} (${warn.explanation || 'statutory reporting overdue'}). Sponsor licence remains active.`;
+        chipList.push(`STATUS: ${warn.label.toUpperCase()}`);
+      } else if (nmw && nmw.length) {
+        synthClass = 'status-warning';
+        titleText = 'DBT NMW ENFORCEMENT RECORD';
+        summaryText = `Employer has historical DBT National Minimum Wage underpayment findings (${nmw.length} enforcement notice${nmw.length > 1 ? 's' : ''}). Sponsor licence is currently active.`;
+        chipList.push('STATUS: ACTIVE');
+      } else {
+        synthClass = 'status-active';
+        titleText = 'ON REGISTER — NO ADVERSE RECORDS LOCATED';
+        summaryText = 'Active UK Home Office sponsor licence with regular Companies House filing standing. No statutory insolvency or NMW sanctions recorded.';
+        chipList.push('STATUS: ACTIVE');
+      }
+
+      if (nmw && nmw.length) {
+        chipList.push(`NMW: ${nmw.length} ENFORCEMENT NOTICE${nmw.length > 1 ? 'S' : ''}`);
+      } else {
+        chipList.push('NMW: NO SANCTIONS');
+      }
+
+      const sinceYear = sinceDate && String(sinceDate).match(/\d{4}/) ? String(sinceDate).match(/\d{4}/)[0] : '';
+      if (sinceYear) {
+        chipList.push(`SINCE: ${sinceYear}`);
+      }
+
+      synthStrip.className = `docket-synthesis ${synthClass}`;
+      synthTitle.textContent = titleText;
+      if (synthBadge) synthBadge.textContent = ratingText;
+      synthSummary.textContent = summaryText;
+      synthChips.innerHTML = chipList.map(c => `<span class="synthesis-chip">${esc(c)}</span>`).join('');
+    }
+
+    // Quick Action Pathways (Efficacy / Protection Motivation)
+    const actCH = document.getElementById('actViewCH');
+    if (actCH) {
+      if (warn && warn.crn) {
+        actCH.href = 'https://find-and-update.company-information.service.gov.uk/company/' + encodeURIComponent(warn.crn);
+      } else {
+        actCH.href = 'https://find-and-update.company-information.service.gov.uk/search?q=' + encodeURIComponent(name);
+      }
+    }
+
+    const actSave = document.getElementById('actSaveShortlist');
+    const actSaveLabel = document.getElementById('actSaveLabel');
+    if (actSave && actSaveLabel) {
+      const isSaved = savedSet.has(key);
+      actSave.classList.toggle('saved', isSaved);
+      actSaveLabel.textContent = isSaved ? 'Saved' : 'Shortlist';
+      actSave.onclick = function() {
+        const nextSaved = !savedSet.has(key);
+        if (nextSaved) savedSet.add(key);
+        else savedSet.delete(key);
+        saveShortlist();
+        actSave.classList.toggle('saved', nextSaved);
+        actSaveLabel.textContent = nextSaved ? 'Saved' : 'Shortlist';
+        renderTable(activeSlice, false);
+      };
+    }
+
+    // Solvency warning box
+    const advBox = document.getElementById('docketAdvisoryBox');
+    if (warn && (warn.severity === 'serious' || warn.severity === 'notable')) {
+      advBox.style.display = 'block';
+      advBox.className = 'docket-advisory ' + (warn.severity === 'serious' ? 'critical' : 'warning');
+      advBox.innerHTML = `<strong>Statutory Filing Advisory:</strong> ${esc(warn.explanation)} Under Home Office sponsor duties, corporate insolvency or strike-off proceedings directly impact visa sponsorship eligibility.`;
+    } else {
+      advBox.style.display = 'none';
+    }
+
+    // NMW enforcement box
+    const nmwSection = document.getElementById('docketNmwSection');
+    const nmwBox = document.getElementById('docketNmwBox');
+    if (nmw && nmw.length) {
+      nmwSection.style.display = 'block';
+      const latest = nmw[0];
+      const year = String(latest.round || '').slice(0, 4);
+      const money = typeof latest.arrears === 'number' ? '£' + latest.arrears.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : '';
+      const workers = latest.workers ? latest.workers.toLocaleString() + (latest.workers === 1 ? ' worker' : ' workers') : '';
+      
+      let nmwHtml = `<strong>Named in DBT Enforcement Round ${esc(latest.round || '')} (Historical).</strong> `;
+      if (money && workers) nmwHtml += `${money} in arrears was owed to ${workers}. `;
+      if (nmw.length > 1) nmwHtml += `Named across ${nmw.length} separate enforcement rounds. `;
+      if (latest.source && latest.source.startsWith('https://www.gov.uk/')) {
+        nmwHtml += `<br><a href="${esc(latest.source)}" target="_blank" rel="noopener">Official Government Record &rarr;</a>`;
+      }
+      nmwHtml += `<br><small style="opacity:0.85; margin-top:4px; display:block;">Published statutory Department for Business &amp; Trade enforcement notice. All named arrears must be repaid.</small>`;
+      nmwBox.innerHTML = nmwHtml;
+    } else {
+      nmwSection.style.display = 'none';
+    }
+
+    // Provenance State Machine & Rectification notice
+    const matchStateEl = document.getElementById('docketMatchState');
+    const recordIdEl = document.getElementById('docketRecordId');
+    const disputeLinkEl = document.getElementById('docketDisputeLink');
+    
+    let matchState = 'UNVERIFIED_LINKAGE';
+    let matchColor = 'var(--ink-faint)';
+    if (warn && warn.crn) {
+      matchState = 'CONFIRMED_CRN';
+      matchColor = 'var(--status-regular-ink)';
+    } else if (warn && warn.status) {
+      matchState = 'HIGH_CONFIDENCE_GEO';
+      matchColor = 'var(--status-regular-ink)';
+    }
+    
+    if (matchStateEl) {
+      matchStateEl.textContent = matchState;
+      matchStateEl.style.color = matchColor;
+    }
+    
+    const crnId = (warn && warn.crn) ? warn.crn : 'UNRESOLVED';
+    if (recordIdEl) {
+      recordIdEl.textContent = `${crnId}:2026W37:v2.0`;
+    }
+    
+    if (disputeLinkEl) {
+      const subject = encodeURIComponent(`Data Rectification Notice: ${name} (CRN: ${crnId})`);
+      const body = encodeURIComponent(`Statutory Data Rectification Request\n------------------------------------\nCompany Name: ${name}\nCompanies House CRN: ${crnId}\nTown/City: ${town || ''}\n\nNature of Correction:\n[ ] Legal Name Change\n[ ] Incorrect Entity Linkage\n[ ] Updated Accounts / Status Filing\n\nStatutory Evidence Link:\n`);
+      disputeLinkEl.href = `mailto:knowyoursponsor8@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    // Contextual SOC preselection for salary calculator
+    if (socData && socData.occupations && socData.occupations.length) {
+      const defaultSoc = getDefaultSocForSector(industry);
+      const jobInput = document.getElementById('calcJobSearch');
+      if (jobInput && jobInput.value) {
+        jobInput.value = '';
+        renderSocOptions('');
+      }
+      const occIdx = socData.occupations.findIndex(o => o.soc === defaultSoc);
+      const select = document.getElementById('calcSocSelect');
+      if (select && occIdx >= 0) {
+        select.value = occIdx;
+        updateSalaryGauge();
+      }
+    }
+
+    // External Verification & Vacancy Links
+    const linkGoogle = document.getElementById('linkGoogleJobs');
+    if (linkGoogle) {
+      linkGoogle.href = 'https://www.google.com/search?q=' + encodeURIComponent('"' + name + '" ("careers" OR "jobs" OR "visa sponsorship" OR "skilled worker")');
+    }
+
+    const linkIndeed = document.getElementById('linkIndeed');
+    if (linkIndeed) {
+      linkIndeed.href = 'https://uk.indeed.com/jobs?q=' + encodeURIComponent('"' + name + '"');
+    }
+
+    const linkLinkedIn = document.getElementById('linkLinkedIn');
+    if (linkLinkedIn) {
+      linkLinkedIn.href = 'https://www.linkedin.com/jobs/search/?keywords=' + encodeURIComponent(name);
+    }
+
+    const chLink = document.getElementById('linkCH');
+    if (chLink) {
+      if (warn && warn.crn) {
+        chLink.href = 'https://find-and-update.company-information.service.gov.uk/company/' + encodeURIComponent(warn.crn);
+      } else {
+        chLink.href = 'https://find-and-update.company-information.service.gov.uk/search?q=' + encodeURIComponent(name);
+      }
+    }
+
+    const linkGazette = document.getElementById('linkGazette');
+    if (linkGazette) {
+      linkGazette.href = 'https://www.thegazette.co.uk/all-notices/notice?text=' + encodeURIComponent('"' + name + '"');
+    }
+
+    syncUrlState(name);
+
+    if (window.innerWidth <= 960) {
+      const pane = document.getElementById('docketPane');
+      pane.classList.add('open');
+      pane.classList.remove('peek');
+      pane.style.transform = '';
+      pane.style.transition = '';
+    }
+
+    // If worker is running, request full enriched detail to update license date / NMW details if not yet loaded
+    if (searchWorker && (!rowOrItem || !rowOrItem.licensedSince)) {
+      const reqId = ++requestId;
+      const onDetail = function(e) {
+        if (e.data.type === 'SPONSOR_DETAIL' && e.data.requestId === reqId) {
+          searchWorker.removeEventListener('message', onDetail);
+          if (currentSponsorInDocket === name) {
+            if (e.data.licensedSince) {
+              document.getElementById('docketSince').textContent = e.data.licensedSince;
+              if (synthChips && e.data.licensedSince) {
+                const yr = String(e.data.licensedSince).match(/\d{4}/);
+                if (yr && !synthChips.textContent.includes('SINCE:')) {
+                  const sChip = document.createElement('span');
+                  sChip.className = 'synthesis-chip';
+                  sChip.textContent = `SINCE: ${yr[0]}`;
+                  synthChips.appendChild(sChip);
+                }
+              }
+            }
+            if (e.data.nmw && e.data.nmw.length && (!nmw || !nmw.length)) {
+              const latest = e.data.nmw[0];
+              const year = String(latest.round || '').slice(0, 4);
+              const money = typeof latest.arrears === 'number' ? '£' + latest.arrears.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : '';
+              const workers = latest.workers ? latest.workers.toLocaleString() + (latest.workers === 1 ? ' worker' : ' workers') : '';
+              let nmwHtml = `<strong>Named in DBT Enforcement Round ${esc(latest.round || '')} (Historical).</strong> `;
+              if (money && workers) nmwHtml += `${money} was owed to ${workers}. `;
+              if (e.data.nmw.length > 1) nmwHtml += `Named across ${e.data.nmw.length} separate enforcement rounds. `;
+              if (latest.source && latest.source.startsWith('https://www.gov.uk/')) {
+                nmwHtml += `<br><a href="${esc(latest.source)}" target="_blank" rel="noopener">Official Government Finding &rarr;</a>`;
+              }
+              nmwHtml += `<br><small style="opacity:0.85; margin-top:4px; display:block;">Published statutory Department for Business &amp; Trade enforcement notice.</small>`;
+              nmwSection.style.display = 'block';
+              nmwBox.innerHTML = nmwHtml;
+            }
+          }
+        }
+      };
+      searchWorker.addEventListener('message', onDetail);
+      searchWorker.postMessage({ type: 'GET_SPONSOR', requestId: reqId, name: name });
+    }
+  }
+
+  // Salary Threshold Calculator with Job Title Search / Typeahead
+  let filteredOccupations = [];
+
+  function renderSocOptions(query) {
+    const select = document.getElementById('calcSocSelect');
+    if (!select || !socData || !socData.occupations) return;
+    
+    const q = (query || '').trim().toLowerCase();
+    filteredOccupations = socData.occupations.map((o, idx) => ({ ...o, origIndex: idx }));
+
+    if (q) {
+      filteredOccupations = filteredOccupations.filter(o => {
+        return (o.title && o.title.toLowerCase().includes(q)) ||
+               (o.soc && String(o.soc).toLowerCase().includes(q)) ||
+               (o.description && o.description.toLowerCase().includes(q));
+      });
+    }
+
+    if (filteredOccupations.length === 0) {
+      select.innerHTML = '<option value="-1">No matching occupation found</option>';
+      const verdictEl = document.getElementById('calcVerdict');
+      if (verdictEl) verdictEl.innerHTML = 'No occupation matches the search query. Try searching "Software", "Nurse", "Chef", "Accountant", or a 4-digit SOC code.';
+      return;
+    }
+
+    select.innerHTML = filteredOccupations.map(o => 
+      `<option value="${o.origIndex}">SOC ${o.soc}: ${esc(o.title)} (£${o.going_rate.toLocaleString('en-GB')}/yr)</option>`
+    ).join('');
+
+    updateSalaryGauge();
+  }
+
+  function initSalaryCalc() {
+    const select = document.getElementById('calcSocSelect');
+    const jobInput = document.getElementById('calcJobSearch');
+    if (!select || !socData || !socData.occupations) return;
+
+    renderSocOptions('');
+
+    if (jobInput) {
+      jobInput.addEventListener('input', () => {
+        renderSocOptions(jobInput.value);
+      });
+    }
+
+    select.addEventListener('change', updateSalaryGauge);
+
+    const toggleContainer = document.getElementById('salaryRuleToggle');
+    if (toggleContainer && socData.rules) {
+      const ruleKeys = Object.keys(socData.rules);
+      toggleContainer.innerHTML = ruleKeys.map(k => {
+        const r = socData.rules[k];
+        const activeClass = k === currentSalaryRule ? ' active' : '';
+        return `<button type="button" class="salary-rule-btn${activeClass}" data-rule="${k}">${esc(r.button_text || r.name)}<br><span style="font-size:0.62rem; opacity:0.85;">${esc(r.button_sub || '£' + (r.floor/1000).toFixed(1) + 'k')}</span></button>`;
+      }).join('');
+    }
+
+    const ruleBtns = document.querySelectorAll('#salaryRuleToggle .salary-rule-btn');
+    ruleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        ruleBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentSalaryRule = btn.dataset.rule;
+        updateSalaryGauge();
+      });
+    });
+
+    updateSalaryGauge();
+  }
+
+  function updateSalaryGauge() {
+    const select = document.getElementById('calcSocSelect');
+    if (!select || !socData || !socData.occupations) return;
+    
+    const occ = socData.occupations[parseInt(select.value, 10)];
+    if (!occ) return;
+
+    const maxScale = 90000;
+    const ruleConfig = (socData.rules && socData.rules[currentSalaryRule]) || {
+      floor: socData.general_threshold || 41700,
+      multiplier: 1.0,
+      label: 'Standard Skilled Worker (Option A)',
+      hourly: socData.hourly_minimum || 17.11
+    };
+
+    const baselineRate = ruleConfig.floor;
+    const multiplier = ruleConfig.multiplier !== undefined ? ruleConfig.multiplier : 1.0;
+    const goingRate = Math.round((occ.going_rate || 41700) * multiplier);
+    const pinText = '£' + (baselineRate / 1000).toFixed(1) + 'k Min';
+
+    const effectiveRequired = Math.max(baselineRate, goingRate);
+    const basePct = Math.min(95, Math.max(10, (baselineRate / maxScale) * 100));
+    const reqPct = Math.min(98, Math.max(10, (effectiveRequired / maxScale) * 100));
+
+    const pin = document.getElementById('gaugeBaselinePin');
+    const pinLabel = document.getElementById('gaugePinLabel');
+    const bar = document.getElementById('gaugeBar');
+
+    if (pin) pin.style.left = `${basePct}%`;
+    if (pinLabel) pinLabel.textContent = pinText;
+    if (bar) {
+      bar.style.width = `${reqPct}%`;
+      bar.style.background = goingRate >= baselineRate ? 'var(--status-regular-ink)' : 'var(--status-warning-ink)';
+    }
+
+    document.getElementById('calcGovMin').textContent = '£' + baselineRate.toLocaleString('en-GB');
+    document.getElementById('calcGoingRate').textContent = '£' + goingRate.toLocaleString('en-GB');
+
+    // Delta Framing: Surplus / Floor spread anchor
+    const delta = goingRate - baselineRate;
+    const deltaBadge = document.getElementById('calcDeltaBadge');
+    if (deltaBadge) {
+      if (delta > 0) {
+        deltaBadge.className = 'calc-delta-badge positive';
+        deltaBadge.textContent = `+£${delta.toLocaleString('en-GB')} above baseline floor`;
+      } else if (delta < 0) {
+        deltaBadge.className = 'calc-delta-badge floor';
+        deltaBadge.textContent = `Statutory £${(baselineRate/1000).toFixed(1)}k floor applies (+£${Math.abs(delta).toLocaleString('en-GB')} over going rate)`;
+      } else {
+        deltaBadge.className = 'calc-delta-badge positive';
+        deltaBadge.textContent = `Matches statutory £${(baselineRate/1000).toFixed(1)}k floor exactly`;
+      }
+    }
+    
+    const verdictEl = document.getElementById('calcVerdict');
+    const hourlyRate = (effectiveRequired / (37.5 * 52)).toFixed(2);
+    
+    let verdictText = '';
+    if (currentSalaryRule === 'new_entrant') {
+      verdictText = `<strong>New Entrant (Option E):</strong> Sponsoring under 26 / Graduate switcher requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr), calculated as max(£${baselineRate.toLocaleString('en-GB')} statutory floor, 70% of £${occ.going_rate.toLocaleString('en-GB')}).`;
+    } else if (currentSalaryRule === 'stem_phd') {
+      verdictText = `<strong>STEM PhD (Option B):</strong> Relevant STEM doctorate requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr), calculated as max(£${baselineRate.toLocaleString('en-GB')} statutory floor, 80% of £${occ.going_rate.toLocaleString('en-GB')}).`;
+    } else if (currentSalaryRule === 'non_stem_phd') {
+      verdictText = `<strong>Non-STEM PhD (Option C):</strong> Relevant doctorate requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr), calculated as max(£${baselineRate.toLocaleString('en-GB')} statutory floor, 90% of £${occ.going_rate.toLocaleString('en-GB')}).`;
+    } else if (currentSalaryRule === 'isl_shortage') {
+      verdictText = `<strong>ISL Shortage (Option D):</strong> Immigration Salary List occupation requires minimum <strong>£${effectiveRequired.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr) (statutory £30,960 floor or going rate).`;
+    } else {
+      if (goingRate >= baselineRate) {
+        verdictText = `<strong>Standard (Option A):</strong> Role requires minimum <strong>£${goingRate.toLocaleString('en-GB')}/yr</strong> (~£${hourlyRate}/hr) (50th percentile statutory going rate for SOC ${occ.soc}).`;
+      } else {
+        verdictText = `<strong>General Statutory Floor (Option A):</strong> Occupation going rate is £${goingRate.toLocaleString('en-GB')}/yr, but Home Office rules enforce the statutory <strong>£${baselineRate.toLocaleString('en-GB')}/yr</strong> floor (~£${hourlyRate}/hr).`;
+      }
+    }
+    verdictEl.innerHTML = verdictText + `<div style="margin-top:6px; font-size:0.68rem; color:var(--ink-faint); font-family:var(--font-mono);">Meets statutory minimum salary condition under Immigration Rules HC 590. Assesses salary feasibility only.</div>`;
+  }
+
+  // Trigger Query & Search Dispatcher
+  let workerHydrated = false;
+  let pendingQuery = null;
+
+  function triggerQuery(append) {
+    if (append && isLoadingNext) return;
+    if (append && currentOffset >= totalMatches) return;
+    if (append) isLoadingNext = true;
+
+    const q = document.getElementById('q').value;
+    const city = document.getElementById('citySelect').value;
+    const industry = document.getElementById('industrySelect').value;
+    const route = document.getElementById('routeSelect').value;
+    const rating = document.getElementById('ratingSelect').value;
+
+    const currentReq = ++requestId;
+    const offset = append ? currentOffset : 0;
+
+    if (searchWorker && workerHydrated) {
+      searchWorker.postMessage({
+        type: 'QUERY',
+        requestId: currentReq,
+        query: q,
+        city: city,
+        industry: industry,
+        route: route,
+        rating: rating,
+        view: currentView,
+        warn: currentWarn,
+        savedKeys: [...savedSet],
+        offset: offset,
+        limit: PAGE_LIMIT
+      });
+    } else if (searchWorker && !workerHydrated) {
+      pendingQuery = { append, currentReq };
+    } else {
+      // Main thread fallback
+      let source = allSponsors;
+      if (currentView === 'added') source = addedRows;
+      else if (currentView === 'removed') source = removedRows;
+      else if (currentView === 'saved') source = allSponsors.filter(s => savedSet.has((s[0]+'|'+s[1]).toLowerCase()));
+      else if (currentView === 'nmw') source = allSponsors.filter(s => !!nmwData[s[0]]);
+      else if (currentView === 'flagged') source = allSponsors.filter(s => !!warningFor(s[0]));
+
+      const qWords = q ? q.trim().toLowerCase().split(/\s+/) : [];
+      let filtered = source.filter(s => {
+        if (currentWarn) {
+          const w = warningFor(s[0]);
+          if (!w) return false;
+          if (currentWarn === 'serious' && w.severity !== 'serious') return false;
+          if (currentWarn === 'notable' && w.severity !== 'notable' && w.severity !== 'serious') return false;
+        }
+        if (city && s[1] !== city) return false;
+        if (industry && s[3] !== industry) return false;
+        if (route && !s[4].includes(route)) return false;
+        if (rating && String(s[5]||'').toUpperCase() !== rating.toUpperCase()) return false;
+        if (qWords.length) {
+          const hay = (s[0] + ' ' + s[1] + ' ' + s[2] + ' ' + s[3]).toLowerCase();
+          for (let w of qWords) { if (!hay.includes(w)) return false; }
+        }
+        return true;
+      });
+
+      totalMatches = filtered.length;
+      document.getElementById('matchCount').textContent = totalMatches.toLocaleString();
+      renderTable(filtered.slice(offset, offset + PAGE_LIMIT), append);
+    }
+  }
+
+  // High-Throughput CSV Export
+  function exportCSV() {
+    const exportBtn = document.getElementById('btnExport');
+    const originalText = exportBtn.textContent;
+    exportBtn.textContent = 'Generating CSV...';
+    exportBtn.disabled = true;
+
+    const q = document.getElementById('q').value;
+    const city = document.getElementById('citySelect').value;
+    const industry = document.getElementById('industrySelect').value;
+    const route = document.getElementById('routeSelect').value;
+    const rating = document.getElementById('ratingSelect').value;
+    const exportDate = new Date().toISOString().slice(0, 10);
+    const isShortlist = currentView === 'saved';
+
+    if (searchWorker && workerHydrated) {
+      const exportReq = ++requestId;
+      const onExportComplete = function(e) {
+        if (e.data.type === 'EXPORT_CSV_COMPLETE' && e.data.requestId === exportReq) {
+          searchWorker.removeEventListener('message', onExportComplete);
+          const filename = isShortlist
+            ? `knowyoursponsor-shortlist-tracker-${exportDate}.csv`
+            : `knowyoursponsor-export-${exportDate}.csv`;
+          downloadBlob(e.data.csv, filename);
+          exportBtn.textContent = originalText;
+          exportBtn.disabled = false;
+        }
+      };
+      searchWorker.addEventListener('message', onExportComplete);
+      searchWorker.postMessage({
+        type: 'EXPORT_CSV',
+        requestId: exportReq,
+        query: q,
+        city: city,
+        industry: industry,
+        route: route,
+        rating: rating,
+        view: currentView,
+        warn: currentWarn,
+        savedKeys: [...savedSet]
+      });
+    } else {
+      const headers = isShortlist
+        ? ['Employer Name', 'Town / City', 'County', 'Industry', 'Approved Visa Routes', 'Rating', 'CRN', 'Status', 'Filing Warning', 'NMW Underpaid', 'Application Status', 'Date Applied', 'Target Role', 'Interview Notes']
+        : ['Employer Name', 'Town / City', 'County', 'Industry', 'Approved Visa Routes', 'Rating', 'CRN', 'Status', 'Filing Warning', 'NMW Underpaid'];
+      const rows = activeSlice.map(item => {
+        const r = item && item.sponsor ? item.sponsor : item;
+        const warn = (item && item.warn !== undefined) ? item.warn : warningFor(r[0]);
+        const nmw = (item && item.nmw !== undefined) ? item.nmw : !!(nmwData[r[0]] && nmwData[r[0]].length);
+        const baseRow = [
+          r[0], r[1], r[2], r[3],
+          (r[4] || []).join('; '),
+          r[5],
+          warn ? warn.crn : '',
+          warn ? warn.status : 'Active',
+          warn ? warn.label : '',
+          nmw ? 'Yes' : 'No'
+        ];
+        if (isShortlist) {
+          baseRow.push('Shortlisted', '', '', '');
+        }
+        return baseRow.map(v => '"' + String(v || '').replace(/"/g, '""') + '"').join(',');
+      });
+      const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\r\n');
+      const filename = isShortlist
+        ? `knowyoursponsor-shortlist-tracker-${exportDate}.csv`
+        : `knowyoursponsor-export-${exportDate}.csv`;
+      downloadBlob(csvContent, filename);
+      exportBtn.textContent = originalText;
+      exportBtn.disabled = false;
+    }
+  }
+
+  function closeDocket() {
+    document.getElementById('docketContent').style.display = 'none';
+    document.getElementById('docketEmpty').style.display = 'flex';
+    const pane = document.getElementById('docketPane');
+    pane.classList.remove('open');
+    pane.classList.remove('peek');
+    pane.style.transform = '';
+    pane.style.transition = '';
+    document.querySelectorAll('#tableBody tr').forEach(r => r.classList.remove('selected'));
+    selectedRowIndex = -1;
+    syncUrlState(null);
+  }
+
+  // Event Listeners
+  document.getElementById('btnExport').addEventListener('click', exportCSV);
+  document.getElementById('btnLoadMore').addEventListener('click', () => triggerQuery(true));
+  document.getElementById('docketClose').addEventListener('click', closeDocket);
+
+  document.getElementById('q').addEventListener('input', () => { triggerQuery(false); syncUrlState(); });
+  document.getElementById('citySelect').addEventListener('change', () => { triggerQuery(false); syncUrlState(); });
+  document.getElementById('industrySelect').addEventListener('change', () => { triggerQuery(false); syncUrlState(); });
+  document.getElementById('routeSelect').addEventListener('change', () => { triggerQuery(false); syncUrlState(); });
+  document.getElementById('ratingSelect').addEventListener('change', () => { triggerQuery(false); syncUrlState(); });
+
+  document.getElementById('barCritical').addEventListener('click', () => { currentWarn = 'serious'; triggerQuery(false); syncUrlState(); });
+  document.getElementById('barWarning').addEventListener('click', () => { currentWarn = 'notable'; triggerQuery(false); syncUrlState(); });
+  document.getElementById('barSolvent').addEventListener('click', () => { currentWarn = ''; triggerQuery(false); syncUrlState(); });
+  document.getElementById('legCritical').addEventListener('click', () => { currentWarn = 'serious'; triggerQuery(false); syncUrlState(); });
+  document.getElementById('legWarning').addEventListener('click', () => { currentWarn = 'notable'; triggerQuery(false); syncUrlState(); });
+  document.getElementById('legSolvent').addEventListener('click', () => { currentWarn = ''; triggerQuery(false); syncUrlState(); });
+
+  // Interactive HUD Doors & Macro Filter Jumpers
+  document.querySelectorAll('.hud-stat').forEach(card => {
+    card.addEventListener('click', () => {
+      const filter = card.dataset.filter;
+      if (filter === 'all') {
+        currentView = '';
+        currentWarn = '';
+      } else if (filter === 'added') {
+        currentView = 'added';
+        currentWarn = '';
+      } else if (filter === 'serious') {
+        currentView = '';
+        currentWarn = 'serious';
+      } else if (filter === 'warning') {
+        currentView = '';
+        currentWarn = 'notable';
+      }
+      viewBtns.forEach(b => b.classList.toggle('active', b.dataset.view === currentView));
+      triggerQuery(false);
+      syncUrlState();
+    });
+  });
+
+  const cardMove = document.getElementById('macroCardMovement');
+  if (cardMove) {
+    cardMove.addEventListener('click', () => {
+      currentView = 'added';
+      currentWarn = '';
+      viewBtns.forEach(b => b.classList.toggle('active', b.dataset.view === 'added'));
+      triggerQuery(false);
+      syncUrlState();
+    });
+  }
+
+  const cardRisk = document.getElementById('macroCardRisk');
+  if (cardRisk) {
+    cardRisk.addEventListener('click', () => {
+      currentView = '';
+      currentWarn = 'serious';
+      viewBtns.forEach(b => b.classList.toggle('active', b.dataset.view === ''));
+      triggerQuery(false);
+      syncUrlState();
+    });
+  }
+
+  // Delegated clicks for macro lists (sectors & regions)
+  const sectorListEl = document.getElementById('macroSectorList');
+  if (sectorListEl) {
+    sectorListEl.addEventListener('click', e => {
+      const item = e.target.closest('.macro-list-item');
+      if (!item) return;
+      const nameEl = item.querySelector('.macro-item-name');
+      if (!nameEl) return;
+      const sectorName = nameEl.textContent.trim();
+      const indSel = document.getElementById('industrySelect');
+      if (indSel) {
+        for (let opt of indSel.options) {
+          if (opt.value && (opt.value.toLowerCase() === sectorName.toLowerCase() || opt.value.includes(sectorName) || sectorName.includes(opt.value))) {
+            indSel.value = opt.value;
+            triggerQuery(false);
+            syncUrlState();
+            break;
+          }
+        }
+      }
+    });
+  }
+
+  const regionListEl = document.getElementById('macroRegionList');
+  if (regionListEl) {
+    regionListEl.addEventListener('click', e => {
+      const item = e.target.closest('.macro-list-item');
+      if (!item) return;
+      const nameEl = item.querySelector('.macro-item-name');
+      if (!nameEl) return;
+      const locName = nameEl.textContent.trim();
+      const citySel = document.getElementById('citySelect');
+      if (citySel) {
+        for (let opt of citySel.options) {
+          if (opt.value && (opt.value.toLowerCase() === locName.toLowerCase() || opt.value.includes(locName) || locName.includes(opt.value))) {
+            citySel.value = opt.value;
+            triggerQuery(false);
+            syncUrlState();
+            break;
+          }
+        }
+      }
+    });
+  }
+
+  const viewBtns = document.querySelectorAll('.view-btn');
+  viewBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      viewBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentView = btn.dataset.view;
+      triggerQuery(false);
+      syncUrlState();
+    });
+  });
+
+  const quickChips = document.querySelectorAll('.quick-chip');
+  quickChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const preset = chip.dataset.preset;
+      document.getElementById('q').value = '';
+      document.getElementById('citySelect').value = '';
+      document.getElementById('industrySelect').value = '';
+      document.getElementById('routeSelect').value = '';
+      document.getElementById('ratingSelect').value = '';
+      currentWarn = '';
+
+      if (preset === 'added') {
+        currentView = 'added';
+      } else if (preset === 'london-tech') {
+        currentView = '';
+        document.getElementById('citySelect').value = 'London';
+        document.getElementById('industrySelect').value = 'Tech & Software';
+      } else if (preset === 'healthcare') {
+        currentView = '';
+        document.getElementById('industrySelect').value = 'Healthcare & Nursing';
+      } else if (preset === 'flagged') {
+        currentView = 'flagged';
+      } else if (preset === 'nmw') {
+        currentView = 'nmw';
+      }
+
+      viewBtns.forEach(b => b.classList.toggle('active', b.dataset.view === currentView));
+      triggerQuery(false);
+      syncUrlState();
+    });
+  });
+
+  document.getElementById('tableBody').addEventListener('click', e => {
+    const star = e.target.closest('.star-btn');
+    if (star) {
+      const key = star.dataset.key;
+      const isSaved = savedSet.has(key);
+      if (isSaved) savedSet.delete(key);
+      else savedSet.add(key);
+      saveShortlist();
+      const nextSaved = !isSaved;
+      star.classList.toggle('saved', nextSaved);
+      star.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="${nextSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
+      return;
+    }
+    const tr = e.target.closest('tr');
+    if (tr) {
+      const idx = parseInt(tr.dataset.idx, 10);
+      selectedRowIndex = idx;
+      document.querySelectorAll('#tableBody tr').forEach(r => r.classList.remove('selected'));
+      tr.classList.add('selected');
+      openDocket(activeSlice[idx]);
+    }
+  });
+
+  // Global Keyboard Grammar
+  document.addEventListener('keydown', e => {
+    const isInput = /^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement.tagName);
+    
+    if ((e.key === '/' || ((e.ctrlKey || e.metaKey) && e.key === 'k')) && !isInput) {
+      e.preventDefault();
+      const qInput = document.getElementById('q');
+      qInput.focus();
+      qInput.select();
+    } else if (e.key === 'Escape') {
+      if (document.getElementById('docketPane').classList.contains('open')) {
+        closeDocket();
+      } else if (document.getElementById('docketContent').style.display === 'block') {
+        closeDocket();
+      } else if (document.activeElement === document.getElementById('q')) {
+        document.getElementById('q').value = '';
+        triggerQuery(false);
+        syncUrlState();
+      }
+    } else if (['1', '2', '3', '4', '5', '6'].includes(e.key) && !isInput) {
+      const viewMap = { '1': '', '2': 'added', '3': 'removed', '4': 'flagged', '5': 'nmw', '6': 'saved' };
+      const targetView = viewMap[e.key];
+      if (targetView !== undefined) {
+        e.preventDefault();
+        viewBtns.forEach(b => {
+          if (b.dataset.view === targetView) b.click();
+        });
+      }
+    } else if ((e.key === 'j' || e.key === 'ArrowDown') && !isInput) {
+      e.preventDefault();
+      if (selectedRowIndex < activeSlice.length - 1) {
+        selectedRowIndex++;
+        const trs = document.querySelectorAll('#tableBody tr');
+        trs.forEach(r => r.classList.remove('selected'));
+        if (trs[selectedRowIndex]) {
+          trs[selectedRowIndex].classList.add('selected');
+          trs[selectedRowIndex].scrollIntoView({ block: 'nearest' });
+        }
+        openDocket(activeSlice[selectedRowIndex]);
+        if (selectedRowIndex >= activeSlice.length - 5 && currentOffset < totalMatches) {
+          triggerQuery(true);
+        }
+      }
+    } else if ((e.key === 'k' || e.key === 'ArrowUp') && !isInput) {
+      e.preventDefault();
+      if (selectedRowIndex > 0) {
+        selectedRowIndex--;
+        const trs = document.querySelectorAll('#tableBody tr');
+        trs.forEach(r => r.classList.remove('selected'));
+        if (trs[selectedRowIndex]) {
+          trs[selectedRowIndex].classList.add('selected');
+          trs[selectedRowIndex].scrollIntoView({ block: 'nearest' });
+        }
+        openDocket(activeSlice[selectedRowIndex]);
+      }
+    } else if (e.key === 'Enter' && !isInput && selectedRowIndex >= 0 && activeSlice[selectedRowIndex]) {
+      e.preventDefault();
+      openDocket(activeSlice[selectedRowIndex]);
+    } else if (e.key === 'e' && !isInput) {
+      e.preventDefault();
+      exportCSV();
+    } else if (e.key === 's' && !isInput && selectedRowIndex >= 0 && activeSlice[selectedRowIndex]) {
+      e.preventDefault();
+      const item = activeSlice[selectedRowIndex];
+      const s = item && item.sponsor ? item.sponsor : item;
+      const key = (s[0] + '|' + s[1]).toLowerCase();
+      if (savedSet.has(key)) savedSet.delete(key);
+      else savedSet.add(key);
+      saveShortlist();
+      renderTable(activeSlice, false);
+    }
+  });
+
+  const toggleBtn = document.querySelector('[data-theme-toggle]');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark' || 
+        (!document.documentElement.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      const next = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch(e) {}
+    });
+  }
+
+  // IntersectionObserver for continuous virtualization
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0] && entries[0].isIntersecting && !isLoadingNext) {
+        if (currentOffset < totalMatches) {
+          triggerQuery(true);
+        }
+      }
+    }, { root: document.getElementById('ledgerPane'), rootMargin: '350px' });
+
+    const triggerEl = document.getElementById('loadMoreTrigger');
+    if (triggerEl) observer.observe(triggerEl);
+  }
+
+  // Momentum Scroll-Rail Indicator Engine
+  function initRails() {
+    const rails = document.querySelectorAll('.rail');
+    rails.forEach(rail => {
+      const update = () => {
+        const atEnd = (rail.scrollWidth - rail.scrollLeft - rail.clientWidth) <= 8;
+        rail.classList.toggle('is-end', atEnd);
+      };
+      rail.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+      setTimeout(update, 50);
+    });
+  }
+
+  // Forensic Docket Dual-Snap Bottom Sheet Gestures (Mobile/Tablet <= 960px)
+  function initBottomSheetGestures() {
+    const pane = document.getElementById('docketPane');
+    if (!pane) return;
+    const handle = pane.querySelector('.docket-sheet-handle');
+    if (!handle) return;
+
+    let isDragging = false;
+    let startY = 0;
+    let startTime = 0;
+    let startTransformY = 0;
+
+    function getSnapPoints() {
+      const h = window.innerHeight;
+      return {
+        full: 0,
+        peek: Math.round(h * 0.52),
+        close: h
+      };
+    }
+
+    function onPointerDown(e) {
+      if (window.innerWidth > 960) return;
+      isDragging = true;
+      startY = e.clientY;
+      startTime = performance.now();
+      
+      const snaps = getSnapPoints();
+      startTransformY = pane.classList.contains('peek') ? snaps.peek : snaps.full;
+      
+      pane.style.transition = 'none';
+      if (handle.setPointerCapture) {
+        try { handle.setPointerCapture(e.pointerId); } catch(err) {}
+      }
+    }
+
+    function onPointerMove(e) {
+      if (!isDragging) return;
+      const deltaY = e.clientY - startY;
+      let targetY = startTransformY + deltaY;
+      if (targetY < 0) {
+        targetY = targetY * 0.2; // Top pull resistance
+      }
+      pane.style.transform = `translateY(${targetY}px)`;
+    }
+
+    function onPointerUp(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      if (handle.releasePointerCapture && handle.hasPointerCapture && handle.hasPointerCapture(e.pointerId)) {
+        try { handle.releasePointerCapture(e.pointerId); } catch(err) {}
+      }
+
+      const deltaY = e.clientY - startY;
+      const dt = Math.max(1, performance.now() - startTime);
+      const vy = deltaY / dt; // px/ms
+      const snaps = getSnapPoints();
+      const currentY = startTransformY + deltaY;
+
+      pane.style.transition = 'transform 0.3s cubic-bezier(0.32, 0.72, 0.24, 1)';
+
+      // Handle gentle tap on handle (toggle peek / full)
+      if (Math.abs(deltaY) < 6 && dt < 300) {
+        if (pane.classList.contains('peek')) {
+          pane.classList.remove('peek');
+          pane.style.transform = '';
+        } else {
+          pane.classList.add('peek');
+          pane.style.transform = '';
+        }
+        return;
+      }
+
+      // High velocity gesture
+      if (vy > 0.5) {
+        if (startTransformY === snaps.full && currentY < snaps.peek) {
+          pane.classList.add('peek');
+          pane.style.transform = '';
+        } else {
+          closeDocket();
+        }
+      } else if (vy < -0.5) {
+        pane.classList.remove('peek');
+        pane.style.transform = '';
+      } else {
+        // Position threshold snapping
+        const midPeek = snaps.peek / 2;
+        const midClose = (snaps.peek + snaps.close) / 2;
+        if (currentY < midPeek) {
+          pane.classList.remove('peek');
+          pane.style.transform = '';
+        } else if (currentY < midClose) {
+          pane.classList.add('peek');
+          pane.style.transform = '';
+        } else {
+          closeDocket();
+        }
+      }
+    }
+
+    handle.addEventListener('pointerdown', onPointerDown);
+    handle.addEventListener('pointermove', onPointerMove);
+    handle.addEventListener('pointerup', onPointerUp);
+    handle.addEventListener('pointercancel', onPointerUp);
+  }
+
+  // Condensed Masthead Bar Continuous Brand Presence on Scroll (FT/Bloomberg pattern)
+  function initCondensedMasthead() {
+    const masthead = document.querySelector('header.masthead');
+    const condensed = document.getElementById('condensedMasthead');
+    const searchInput = document.getElementById('q');
+    const btnFocus = document.getElementById('btnFocusSearch');
+    
+    if (btnFocus && searchInput) {
+      btnFocus.addEventListener('click', () => {
+        searchInput.focus();
+        searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    }
+
+    if ('IntersectionObserver' in window && masthead && condensed) {
+      const obs = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        condensed.classList.toggle('is-visible', !entry.isIntersecting);
+      }, { threshold: 0.05 });
+      obs.observe(masthead);
+    }
+  }
+
+  // Living Dot Pulse Indicator (Brand freshness & sync telemetry)
+  function triggerDotPulse() {
+    const dots = document.querySelectorAll('.masthead .dot, .condensed-masthead .dot');
+    dots.forEach(dot => {
+      dot.classList.remove('pulse');
+      void dot.offsetWidth;
+      dot.classList.add('pulse');
+      dot.addEventListener('animationend', () => dot.classList.remove('pulse'), { once: true });
+    });
+  }
+
+  // Fast Progressive Hydration (< 20KB transfer, < 30ms First Paint)
+  Promise.all([
+    fetch('data/meta.json').then(r => r.json()),
+    fetch('data/initial_slice.json').then(r => r.json()),
+    fetch('data/soc_thresholds.json').then(r => r.json()).catch(() => ({ occupations: [], rules: {} }))
+  ]).then(([meta, initialSlice, socs]) => {
+    socData = socs;
+    totalMatches = meta.total || (initialSlice.slice ? initialSlice.slice.length : 0);
+
+    // Populate HUD telemetry instantly
+    document.getElementById('hudTotal').textContent = (meta.total || 0).toLocaleString();
+    document.getElementById('hudAdded').textContent = '+' + (meta.added_recently || 0).toLocaleString();
+    document.getElementById('hudSerious').textContent = (meta.total_serious || 0).toLocaleString();
+    document.getElementById('hudDeficient').textContent = ((meta.total_flagged || 0) - (meta.total_serious || 0)).toLocaleString();
+
+    // Populate View Filter Badge counts instantly
+    document.getElementById('nAdded').textContent = `(${meta.added_recently || 0})`;
+    document.getElementById('nRemoved').textContent = `(${meta.removed_recently || 0})`;
+    document.getElementById('nFlagged').textContent = `(${meta.total_flagged || 0})`;
+    document.getElementById('nNmw').textContent = `(${meta.total_nmw || 0})`;
+    document.getElementById('matchCount').textContent = totalMatches.toLocaleString();
+    const condensedCountEl = document.getElementById('condensedCount');
+    if (condensedCountEl) condensedCountEl.textContent = totalMatches.toLocaleString();
+
+    // Populate filter dropdowns instantly from pre-aggregated lookup lists
+    const towns = meta.top_towns || [];
+    const citySel = document.getElementById('citySelect');
+    citySel.innerHTML = '<option value="">All Towns / Cities</option>' + 
+      towns.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join('');
+
+    const industries = meta.top_industries || [];
+    const indSel = document.getElementById('industrySelect');
+    indSel.innerHTML = '<option value="">All Industries</option>' + 
+      industries.map(i => `<option value="${esc(i)}">${esc(i)}</option>`).join('');
+
+    const routes = meta.top_routes || [];
+    const routeSel = document.getElementById('routeSelect');
+    routeSel.innerHTML = '<option value="">All Visa Routes</option>' + 
+      routes.map(r => `<option value="${esc(r)}">${esc(r)}</option>`).join('');
+
+    const initialSponsor = initFromUrl();
+    updateShortlistCount();
+    initSalaryCalc();
+    initRails();
+    initBottomSheetGestures();
+    initCondensedMasthead();
+    renderMacroSummary(meta);
+    triggerDotPulse();
+
+    // Instant initial table paint (< 30ms)
+    const seedRows = (initialSlice && initialSlice.slice) || [];
+    renderTable(seedRows, false);
+
+    function handleInitialSponsor() {
+      if (initialSponsor) {
+        const targetInSeed = seedRows.find(s => {
+          const name = s && s.sponsor ? s.sponsor[0] : s[0];
+          return name.toLowerCase() === initialSponsor.toLowerCase();
+        });
+        if (targetInSeed) {
+          openDocket(targetInSeed);
+        } else if (searchWorker) {
+          searchWorker.postMessage({ type: 'GET_SPONSOR', requestId: ++requestId, name: initialSponsor });
+        }
+      }
+    }
+
+    // Launch Dedicated Web Worker for Off-Thread Master Register Hydration
+    try {
+      searchWorker = new Worker('worker.js');
+      searchWorker.onmessage = function(e) {
+        if (e.data.type === 'INIT_COMPLETE') {
+          workerHydrated = true;
+          document.getElementById('hudSerious').textContent = e.data.seriousCount.toLocaleString();
+          document.getElementById('hudDeficient').textContent = (e.data.flaggedCount - e.data.seriousCount).toLocaleString();
+          document.getElementById('nFlagged').textContent = `(${e.data.flaggedCount.toLocaleString()})`;
+          triggerDotPulse();
+
+          if (pendingQuery) {
+            const req = pendingQuery;
+            pendingQuery = null;
+            triggerQuery(req.append);
+          }
+          handleInitialSponsor();
+        } else if (e.data.type === 'QUERY_RESULTS') {
+          if (e.data.requestId === requestId) {
+            totalMatches = e.data.totalCount;
+            document.getElementById('matchCount').textContent = totalMatches.toLocaleString();
+            const cCount = document.getElementById('condensedCount');
+            if (cCount) cCount.textContent = totalMatches.toLocaleString();
+            renderTable(e.data.results, e.data.offset > 0);
+          }
+        } else if (e.data.type === 'SPONSOR_DETAIL') {
+          if (e.data.sponsor && currentSponsorInDocket === e.data.sponsor[0]) {
+            openDocket({
+              sponsor: e.data.sponsor,
+              warn: e.data.warning,
+              nmwList: e.data.nmw,
+              licensedSince: e.data.licensedSince
+            });
+          }
+        }
+      };
+
+      // Instruct worker to fetch & index 127k sponsors in background
+      searchWorker.postMessage({ type: 'INIT' });
+    } catch(err) {
+      console.warn('Worker initialization fallback to main thread:', err);
+      // Fallback: fetch datasets on main thread if worker unsupported
+      Promise.all([
+        fetch('data/sponsors.json').then(r => r.json()),
+        fetch('data/company_flags.json').then(r => r.json()).catch(() => ({companies:{}})),
+        fetch('data/licensed_since.json').then(r => r.json()).catch(() => ({since:{}})),
+        fetch('data/new_sponsors.json').then(r => r.json()).catch(() => ({new:[]})),
+        fetch('data/removed_sponsors.json').then(r => r.json()).catch(() => ({removed:[]})),
+        fetch('data/rating_changes.json').then(r => r.json()).catch(() => ({changes:[]})),
+        fetch('data/nmw.json').then(r => r.json()).catch(() => ({employers:{}}))
+      ]).then(([sponsorsData, flagsData, sinceData, newData, removedData, ratingData, nmw]) => {
+        allSponsors = sponsorsData.sponsors || [];
+        companyFlags = flagsData.companies || {};
+        licensedSince = sinceData.since || {};
+        ratingChanges = ratingData.changes || [];
+        nmwData = nmw.employers || {};
+        addedRows = newData.new || [];
+        removedRows = removedData.removed || [];
+        triggerQuery(false);
+        handleInitialSponsor();
+      });
+    }
+  });
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch(() => {});
+    });
+  }
+})();
+</script>
+<script src="assets/js/handwriting.js" defer></script>
+<script data-goatcounter="https://sponsorsignal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
