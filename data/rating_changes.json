@@ -1,9 +1,34 @@
 {
-  "updated": "2026-09-14 12:25 UTC",
+  "updated": "2026-09-16 11:16 UTC",
   "changes": [
     [
-      "PACT Accountancy Ltd",
-      "Manchester",
+      "HUDSON (HARBOUR RESIDENTIAL) LIMITED",
+      "Portishead",
+      "A -> B"
+    ],
+    [
+      "Manage Care Homes Limited",
+      "Baldock",
+      "A -> B"
+    ],
+    [
+      "Samzi Ltd T/A Visiting Angels",
+      "Middlesex",
+      "A -> B"
+    ],
+    [
+      "SASU LIMITED T/A WOLVERTON STATION BARBER",
+      "MILTON KEYNES",
+      "A -> B"
+    ],
+    [
+      "Greenwich Care Ltd T/A Home Instead Greenwich & Bexley",
+      "Welling",
+      "A -> B"
+    ],
+    [
+      "LISTER HOUSE SURGERY",
+      "HERTFORDSHIRE",
       "A -> B"
     ]
   ]

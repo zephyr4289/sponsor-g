@@ -1,21 +1,21 @@
 {
-  "updated": "2026-09-14 12:25 UTC",
-  "total": 127718,
-  "added_since_last_run": 86,
-  "removed_since_last_run": 69,
-  "added_recently": 86,
-  "removed_recently": 69,
-  "net_drift": 17,
-  "downgraded_recently": 1,
+  "updated": "2026-09-16 11:16 UTC",
+  "total": 127728,
+  "added_since_last_run": 132,
+  "removed_since_last_run": 122,
+  "added_recently": 132,
+  "removed_recently": 122,
+  "net_drift": 10,
+  "downgraded_recently": 6,
   "total_flagged": 9490,
-  "total_serious": 2782,
-  "total_notable": 1781,
+  "total_serious": 2778,
+  "total_notable": 1779,
   "total_nmw": 389,
   "risk_pct": 7.43,
   "top_flagged_locations": [
     [
       "London",
-      2905
+      2902
     ],
     [
       "Manchester",
@@ -37,27 +37,28 @@
   "top_revoked_sectors": [
     [
       "Healthcare & Care",
-      11
+      17
     ],
     [
       "Hospitality & Food",
-      6
-    ],
-    [
-      "Finance & Professional",
-      5
-    ],
-    [
-      "Property & Real Estate",
-      3
+      13
     ],
     [
       "Construction & Engineering",
-      3
+      8
+    ],
+    [
+      "Finance & Professional",
+      6
+    ],
+    [
+      "Recruitment & Staffing",
+      4
     ]
   ],
   "top_towns": [
     "Aberdeen",
+    "Aylesbury",
     "Barking",
     "Bedford",
     "Belfast",
@@ -134,7 +135,6 @@
     "Warrington",
     "Watford",
     "Wembley",
-    "Woking",
     "Wolverhampton",
     "York"
   ],
