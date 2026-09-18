@@ -1,14 +1,14 @@
 {
-  "updated": "2026-09-17 11:24 UTC",
-  "total": 127735,
-  "added_since_last_run": 58,
-  "removed_since_last_run": 51,
-  "added_recently": 58,
-  "removed_recently": 51,
-  "net_drift": 7,
-  "downgraded_recently": 3,
+  "updated": "2026-09-18 10:58 UTC",
+  "total": 127733,
+  "added_since_last_run": 55,
+  "removed_since_last_run": 57,
+  "added_recently": 55,
+  "removed_recently": 57,
+  "net_drift": -2,
+  "downgraded_recently": 2,
   "total_flagged": 9490,
-  "total_serious": 2778,
+  "total_serious": 2775,
   "total_notable": 1776,
   "total_nmw": 389,
   "risk_pct": 7.43,
@@ -37,22 +37,22 @@
   "top_revoked_sectors": [
     [
       "Healthcare & Care",
-      12
+      17
     ],
     [
       "Tech & Software",
-      4
-    ],
-    [
-      "Hospitality & Food",
-      4
-    ],
-    [
-      "Finance & Professional",
       3
     ],
     [
-      "Education & Research",
+      "Logistics & Transport",
+      2
+    ],
+    [
+      "Recruitment & Staffing",
+      2
+    ],
+    [
+      "Hospitality & Food",
       2
     ]
   ],
@@ -60,6 +60,7 @@
     "Aberdeen",
     "Aylesbury",
     "Barking",
+    "Basingstoke",
     "Bedford",
     "Belfast",
     "Birmingham",
@@ -113,7 +114,6 @@
     "Oldham",
     "Oxford",
     "Peterborough",
-    "Plymouth",
     "Portsmouth",
     "Preston",
     "Reading",
