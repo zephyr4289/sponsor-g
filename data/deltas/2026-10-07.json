@@ -1,0 +1,1254 @@
+{
+  "date": "2026-10-07",
+  "updated": "2026-10-07 13:04 UTC",
+  "sha256": "56ff9906fe14a4840c19ac46a5d9e7f58898a71832f042b00e77970788a5ab13",
+  "total": 127758,
+  "net_drift": 16,
+  "added_count": 69,
+  "removed_count": 53,
+  "downgrades_count": 1,
+  "added": [
+    [
+      "Active Adult Limited",
+      "London",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Aecoz Bioware Ltd",
+      "Kent",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "ALOHA",
+      "London",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Alpine Care UK Ltd",
+      "Birmingham",
+      "",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "AM Surveying & Block Management",
+      "Maidstone",
+      "Kent",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Anand Nand Ltd. T/A Mister Singh's India",
+      "Glasgow",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Anmut Consulting LTD",
+      "London",
+      "",
+      "Finance & Professional",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Argenta Projects Limited",
+      "London",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Assist Digital EU Limited",
+      "IPSWICH",
+      "SUFFOLK",
+      "Tech & Software",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Attentive Housing Ltd",
+      "Birmingham",
+      "West Midlands",
+      "Property & Real Estate",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "AXISCADES UK LIMITED",
+      "FILTON",
+      "BRISTOL",
+      "Other",
+      [
+        "Global Business Mobility: Senior or Specialist Worker",
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "B OWNER GROUP LTD",
+      "Manchester",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "BAM BAM AGENCY",
+      "London",
+      "",
+      "Other",
+      [
+        "Creative Worker"
+      ],
+      "A"
+    ],
+    [
+      "Bixely Independent Living Services Ltd T/A Mountview Care Home",
+      "Kent",
+      "",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Briarwood medical centre",
+      "Preston",
+      "Lancashire",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Charles & Associates Consulting Engineers Ltd",
+      "Aylesford",
+      "Kent",
+      "Finance & Professional",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "COSMIC CODE CONSULTING LIMITED",
+      "Harrow",
+      "",
+      "Finance & Professional",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "CUTMASTER BARBER SHOP",
+      "London",
+      "",
+      "Beauty & Wellbeing",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "DAIFUKU AIRPORT UK LTD.",
+      "Kingston Upon Hull",
+      "East Yorkshire",
+      "Other",
+      [
+        "Global Business Mobility: Senior or Specialist Worker",
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "DBR TOOLS LIMITED",
+      "London",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Dentistry on Gipsy Hill",
+      "London",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Devono Property Ltd",
+      "London",
+      "",
+      "Property & Real Estate",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "DIAMOND EXPORT INDUSTRIES LTD",
+      "Manchester",
+      "England",
+      "Other",
+      [
+        "Global Business Mobility: UK Expansion Worker"
+      ],
+      "A"
+    ],
+    [
+      "Drybrook Care Limited",
+      "Drybrook,",
+      "",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "DXB PERFUME RETAIL LIMITED",
+      "Bradford",
+      "England",
+      "Retail & Commerce",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "European Waterways Ltd",
+      "Berkshire",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "GenetiQ Software (UK) Limited",
+      "Hemel Hempstead",
+      "Herts",
+      "Tech & Software",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "GLOBAL CARE CONNECTIONS LTD",
+      "London",
+      "",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Headlong Theatre",
+      "Oxford",
+      "",
+      "Media & Creative",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Hubexo UK Limited",
+      "Newcastle Upon Tyne",
+      "",
+      "Other",
+      [
+        "Global Business Mobility: Senior or Specialist Worker"
+      ],
+      "A"
+    ],
+    [
+      "Hygge Children's Social Care Limited",
+      "Northamptonshire",
+      "",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "IBBI FOODS LTD t/a Pepe's Piri Piri",
+      "Cardiff",
+      "",
+      "Hospitality & Food",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "JSR CONTRACTS LIMITED",
+      "Wolverhampton",
+      "West Midlands",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Karma Tech US UK Limited",
+      "London",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Little Emperors & Co. Ltd",
+      "London",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "LMS Sheridans Ltd",
+      "Uxbridge",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Longbrook UK ServCo Limited",
+      "London",
+      "",
+      "Other",
+      [
+        "Global Business Mobility: Senior or Specialist Worker",
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "MAGNUS NORQUAY SHELLFISH LIMITED",
+      "KIRKWALL",
+      "ORKNEY",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Majestic Skin Care Ltd",
+      "Walsall",
+      "",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Maz and Co Ltd",
+      "Ilford",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "MEIVITA LTD",
+      "London",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "MICHAEL ELLIOTT LLP",
+      "London",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "MINE ORIENTAL LIMITED",
+      "LONDON",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "OPJ SERVICES LTD",
+      "Plymouth",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "RapidEyeMovers Ltd",
+      "Oxford",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Raycare limited",
+      "Liverpool",
+      "",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "RICHY HAIR BOUTIQUE LTD",
+      "LONDON",
+      "",
+      "Beauty & Wellbeing",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Savtax Accountants Ltd",
+      "London",
+      "",
+      "Finance & Professional",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Schawk UK Limited",
+      "Salford",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Scitech Engineering Limited",
+      "Godalming",
+      "Surrey",
+      "Construction & Engineering",
+      [
+        "Global Business Mobility: Senior or Specialist Worker",
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Seraphus Limited",
+      "London",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "SF COLLECTION LTD",
+      "Crawley",
+      "England",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "SIGNET HEALTHCARE LIMITED",
+      "Eastcote",
+      "Middlesex",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Smart Logistical Solutions Ltd",
+      "Stafford",
+      "Staffordshire",
+      "Tech & Software",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "SNS PROPERTIES & INVESTMENTS (UK) LTD",
+      "Stanmore",
+      "",
+      "Finance & Professional",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Stelia Ltd",
+      "London",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Stonehaven Advisors Limited",
+      "Leatherhead",
+      "Surrey",
+      "Finance & Professional",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Stratford upon Avon School",
+      "Stratford upon Avon",
+      "Warwickshire",
+      "Education & Research",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "SYCAMORE CHURCH RCCG",
+      "Ancoats",
+      "",
+      "Charity & Faith",
+      [
+        "Charity Worker",
+        "Tier 2 Ministers of Religion"
+      ],
+      "A"
+    ],
+    [
+      "The Changing Workplace Ltd",
+      "Lewes",
+      "East Sussex",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "TIR Services Ltd",
+      "Ascot",
+      "Berkshire",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "UNIT TECHNOLOGY LIMITED",
+      "LONDON",
+      "",
+      "Tech & Software",
+      [
+        "Global Business Mobility: UK Expansion Worker"
+      ],
+      "A"
+    ],
+    [
+      "Videndum Plc",
+      "Bury St Edmunds",
+      "",
+      "Other",
+      [
+        "Global Business Mobility: Senior or Specialist Worker",
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "VIVO SPORTS GYM LTD",
+      "United Kingdom",
+      "",
+      "Sport & Leisure",
+      [
+        "International Sportsperson"
+      ],
+      "A"
+    ],
+    [
+      "VPG Systems UK Ltd",
+      "Bradford",
+      "West Yorkshire",
+      "Tech & Software",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "We Vape Limited",
+      "Slough",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Wrekin Products Ltd",
+      "Lichfield",
+      "Staffordshire",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "XRC Robotics Ltd",
+      "Manor House Lane, Datchet",
+      "",
+      "Tech & Software",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "ZUF DENTAL CARE LIMITED",
+      "862-864 Washwood Heath Road",
+      "",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ]
+  ],
+  "removed": [
+    [
+      "1st Care Limited t/as The Hawthorne Nursing Home",
+      "Nottinghamshire",
+      "",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Advanced Fabrications (London) Ltd",
+      "Hanwell",
+      "London",
+      "Manufacturing & Industry",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Aecoz Bioware Ltd",
+      "Bournemouth",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "AM Surveying & Block Management",
+      "Ditton",
+      "Kent",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Anmut Consulting LTD",
+      "Walton-on-Thames",
+      "Hersham",
+      "Finance & Professional",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "APOLLOGRID LIMITED",
+      "New Malden",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Assist Digital EU Limited",
+      "LONDON",
+      "",
+      "Tech & Software",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "AXISCADES UK LIMITED",
+      "Enderby",
+      "Leicestershire",
+      "Other",
+      [
+        "Global Business Mobility: Senior or Specialist Worker",
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Byggfakta Group UK Limited",
+      "Newcastle Upon Tyne",
+      "",
+      "Other",
+      [
+        "Global Business Mobility: Senior or Specialist Worker"
+      ],
+      "A"
+    ],
+    [
+      "Daifuku Logan Ltd",
+      "Kingston Upon Hull",
+      "East Yorkshire",
+      "Other",
+      [
+        "Global Business Mobility: Senior or Specialist Worker",
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "DIAMOND EXPORT INDUSTRIES LTD",
+      "Hyde",
+      "England",
+      "Manufacturing & Industry",
+      [
+        "Global Business Mobility: UK Expansion Worker"
+      ],
+      "A"
+    ],
+    [
+      "Eastwood Investment (UK) Ltd T/A JRC Global Buffet",
+      "Ilford",
+      "",
+      "Hospitality & Food",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Electiva Hospitals Manchester Ltd",
+      "Manchester",
+      "",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "FARNEK SERVICES LTD",
+      "Croydon",
+      "Surrey",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Graviss UK Pvt Ltd.",
+      "Ashton-under-lyne",
+      "Greater Manchester",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Headlong Theatre",
+      "London",
+      "",
+      "Media & Creative",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "HEAVENLY DELIGHTS BB LIMITED",
+      "Blackburn",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Hygge Children's Social Care Limited",
+      "Milton Keynes",
+      "",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Intact Software (UK) Limited",
+      "Hemel Hempstead",
+      "Herts",
+      "Tech & Software",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Interface Polymers Ltd",
+      "Loughborough",
+      "Leicestershire",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "James Chase Solutions Limited",
+      "Eastbourne",
+      "East Sussex",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Jassal Flavours Limited",
+      "Birmingham",
+      "West Midlands",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "JRM Advanced Engineering Ltd",
+      "Daventry",
+      "Northamptonshire",
+      "Construction & Engineering",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Kabanas Bar Ltd",
+      "Luton",
+      "Bedfordshire",
+      "Other",
+      [
+        "Creative Worker"
+      ],
+      "A"
+    ],
+    [
+      "Lancashire Light Services Ltd",
+      "Oldham",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Lemonade Lemonica UK Limited",
+      "London",
+      "",
+      "Other",
+      [
+        "Global Business Mobility: Senior or Specialist Worker",
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "LMS Sheridans Ltd",
+      "High Wycombe",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "LUXATTI HOMES LTD",
+      "Hayes",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "MAGNUS NORQUAY SHELLFISH LIMITED",
+      "St Margarets Hope",
+      "ORKNEY",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Mana Search Limited",
+      "London",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Maz and Co Ltd",
+      "London",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Mega Global Group Ltd t/a Doctor Scooter",
+      "Wembley",
+      "Middlesex",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "NATCOVER CONSULTANCY LIMITED",
+      "Perivale",
+      "London",
+      "Finance & Professional",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Oasis Retail Ltd",
+      "Rugby",
+      "",
+      "Retail & Commerce",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "PARK24 INTERNATIONAL LIMITED",
+      "London",
+      "",
+      "Other",
+      [
+        "Global Business Mobility: Senior or Specialist Worker",
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Pensal Healthcare Ltd",
+      "Sheerness",
+      "Kent",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Plas Gwyn Nursing Home",
+      "Ruthin",
+      "Denbighshire",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Property Information Exchange Ltd",
+      "Reading",
+      "",
+      "Property & Real Estate",
+      [
+        "Global Business Mobility: Senior or Specialist Worker",
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "PULSE LIGHT CLINIC (UK) LTD",
+      "London",
+      "",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "RapidEyeMovers Ltd",
+      "London",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "ROYZA LONDON LIMITED",
+      "London",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "SAI'S BARGAINS LTD",
+      "Bristol",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "SharpCloud Software Limited",
+      "London",
+      "",
+      "Tech & Software",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Stonehaven Advisors Limited",
+      "London",
+      "",
+      "Finance & Professional",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "SUDA SECURITY LTD T/A SUDA SECURITY",
+      "Newcastle upon Tyne",
+      "Tyne and Wear",
+      "Security & Facilities",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "SYCAMORE CHURCH RCCG",
+      "Manchester",
+      "",
+      "Charity & Faith",
+      [
+        "Charity Worker",
+        "Tier 2 Ministers of Religion"
+      ],
+      "A"
+    ],
+    [
+      "The Changing Workplace Ltd",
+      "Haywards Heath",
+      "West Sussex",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Thomas Miller & Co Ltd",
+      "London",
+      "",
+      "Other",
+      [
+        "Global Business Mobility: Senior or Specialist Worker",
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "VND Group UK Limited",
+      "Haverfordwest",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "We Vape Limited",
+      "Woking",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "Yenaa Ltd t/a Yenaa Care Services",
+      "Birmingham",
+      "",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "ZAKCO LIMITED",
+      "ilford",
+      "",
+      "Other",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ],
+    [
+      "ZUF DENTAL CARE LIMITED",
+      "Dorridge",
+      "West Midlands",
+      "Healthcare & Care",
+      [
+        "Skilled Worker"
+      ],
+      "A"
+    ]
+  ],
+  "downgrades": [
+    [
+      "Regal Care Trading Ltd",
+      "Orpington",
+      "A -> B"
+    ]
+  ]
+}
