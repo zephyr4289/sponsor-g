@@ -1,10 +1,30 @@
 {
-  "updated": "2026-10-07 13:04 UTC",
+  "updated": "2026-10-08 13:11 UTC",
   "changes": [
     [
-      "Regal Care Trading Ltd",
-      "Orpington",
+      "Nisacraftcare Limited",
+      "Stanmore",
       "A -> B"
+    ],
+    [
+      "RADCLIFFE CARE HOME LTD",
+      "Mirfield",
+      "A -> B"
+    ],
+    [
+      "Liberty Frozen Foods Limited",
+      "Leicester",
+      "A -> B"
+    ],
+    [
+      "NM Software Solutions Ltd",
+      "Newcastle Upon Tyne",
+      "A -> B"
+    ],
+    [
+      "Delhi Brothers Limited",
+      "Basingstoke",
+      "B -> A"
     ]
   ]
 }
